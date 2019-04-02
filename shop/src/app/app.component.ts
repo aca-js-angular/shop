@@ -23,10 +23,19 @@ export class AppComponent implements OnInit {
 
   })
 
-  
+  options: object[];
 
   ngOnInit(){
-
+    this.options = [
+      {name: 'firstName', control: this.profileForm.get('firstName'), type: 'input'},
+      {name: 'lastName', control: this.profileForm.get('lastName'), type: 'input'},
+      {name: 'country', control: this.profileForm.get('country'), type: 'select'},
+      {name: 'city', control: this.profileForm.get('city'), type: 'select'},
+      {name: 'phone', control: this.profileForm.get('phone'), type: 'input'},
+      {name: 'login', control: this.profileForm.get('login'), type: 'input'},
+      {name: 'password', control: this.profileForm.get('password'), type: 'input'},
+      {name: 'passwordConfirm', control: this.profileForm.get('passwordConfirm'), type: 'input'},
+    ]
   }
 
 }
