@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { SignInService } from '../Services/SignIn/sign-in.service'
 import { takeUntil, distinctUntilChanged, switchMap, debounceTime, map, debounce } from 'rxjs/operators';
-import { Subject, of, Observable, timer } from 'rxjs';
+import { Subject, of, Observable, timer, from } from 'rxjs';
 import { ProfileUsersService } from '../Services/UsersControl/profile-users.service'
 import { AsyncValidator } from '../Validators/async-validator'
 
@@ -29,9 +29,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         Validators.email,
         Validators.minLength(7),
         Validators.maxLength(18)
-      ],
-        [this.myAsyncValidator.bind(this)]
-      ],
+      ]],
 
       password: ['', [
         Validators.required,
@@ -40,7 +38,7 @@ export class SignInComponent implements OnInit, OnDestroy {
       ]],
     })
     //--------Logined status---------------------
- 
+
     this.signInService.isLogined.pipe(takeUntil(this.destroyStream))
       .subscribe(isLoginedStatus => {
 
@@ -60,7 +58,7 @@ export class SignInComponent implements OnInit, OnDestroy {
       });
 
   }
-//-----------
+  //-----------
 
   get email(): AbstractControl { return this.logInForm.get('email'); }
   get pass(): AbstractControl { return this.logInForm.get('password'); }
@@ -73,97 +71,6 @@ export class SignInComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroyStream.next();
   }
-//---------------------------------------------------------------------------------------------------------------------------------------------
+}//---------------------------------------------------------------------------------------------------------------------------------------------
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//--------Et validacyayi ktor@--------------------------------------------------------
-
-  bizziEmail: boolean = false
-
-  myAsyncValidator(formControl: FormControl) {
-
-    of(formControl.value).pipe(
-
-        distinctUntilChanged(),
-
-        switchMap(email => {
-          this.usersService.getSpecificUser('email', email)
-            .subscribe(result => {
-
-              console.log(result)
-              if (result[0]) {
-                this.bizziEmail = true   // style
-                //......
-                //......
-                return { myValidetor: { message: 'Tis Email Already Registered' } }
-            
-            
-            
-              }
-              this.bizziEmail = false // style
-            })
-          return of() // mekel es pah chem jogum xi
-        })
-      ).subscribe() //  ban chi hasnum es subscribin returnneri pahne mejeric ci lnum anel vor asinxron ban veradardznem
-
-    return of(null);
-  }
-
-  //------------------------------------------------------
-
-
-
-}
-
-
-
-
-  // // sinhron walidator
-  // myValidator(num: number = 4) {
-  //   return function (formBulder: FormControl) {
-  //     if (formBulder.value.length < num) {
-  //       return { myValidetor: { message: 'Value Length < 3' } }
-  //     }
-  //     return null;
-  //   }
-  // }
-
-
-  // https://habr.com/ru/post/337512/ 
-
-
-
-  // this.http.get('email', email)
-    // if (formControl.value.length < 10) {
-    //   console.log('if')
-
-    //   return of({ myAsyncValidator: { message: 'Value Length < 3' } })
-    // } else {
-    //   console.log('else')
-    //   return of(null);
-    // }
