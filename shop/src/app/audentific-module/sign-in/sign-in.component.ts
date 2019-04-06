@@ -1,34 +1,37 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormValidators } from '../Validators/Form-validator'
 import { SignInService } from '../Services/SignIn/sign-in.service'
-import { takeUntil, distinctUntilChanged, switchMap, debounceTime, map, debounce } from 'rxjs/operators';
-import { Subject, of, Observable, timer, from } from 'rxjs';
-import { ProfileUsersService } from '../Services/UsersControl/profile-users.service'
-import { AsyncValidator } from '../Validators/async-validator'
-
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
+  
 })
 export class SignInComponent implements OnInit, OnDestroy {
 
-  constructor(private usersService: ProfileUsersService, private formBuilder: FormBuilder, private signInService: SignInService) { }
+  constructor(private formBuilder: FormBuilder, private signInService: SignInService) { }
 
   logInForm: AbstractControl;
   destroyStream = new Subject<void>();
   infoHide: boolean = false;
   info: string;
+  // comfirmEmail: FormControl
+  falseCount: number = 0;
+
 
   ngOnInit() {
 
     this.logInForm = this.formBuilder.group({
       email: ['', [
         Validators.required,
-        Validators.email,
-        Validators.minLength(7),
-        Validators.maxLength(18)
+        Validators.minLength(8),
+        Validators.maxLength(28),
+
+        FormValidators.email,
       ]],
 
       password: ['', [
@@ -37,6 +40,8 @@ export class SignInComponent implements OnInit, OnDestroy {
         Validators.maxLength(25)
       ]],
     })
+
+
     //--------Logined status---------------------
 
     this.signInService.isLogined.pipe(takeUntil(this.destroyStream))
@@ -52,11 +57,11 @@ export class SignInComponent implements OnInit, OnDestroy {
         } else if (isLoginedStatus === false) {
           this.info = "Invalid Login or Password";
           this.infoHide = true;
-
+          this.falseCount < 6 ? this.falseCount++ : this.info = "You to spend all input attempts",this.infoHide = true
         }
         console.log(isLoginedStatus);
       });
-
+// setTimeout(() => this.wait = true, 4000);
   }
   //-----------
 

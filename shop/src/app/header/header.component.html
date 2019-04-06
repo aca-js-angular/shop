@@ -1,0 +1,22 @@
+
+<header>
+  <div class="shop-name">Shop</div>
+  <!-- <span class="head-phone">Phone: 374-65-87-01</span><br><br> -->
+  <br>
+  <menu class="rout-menu">
+    <menuitem routerLink="/home" routerLinkActive="rout-active"> Home</menuitem>
+    <menuitem routerLink="/products" routerLinkActive="rout-active">Products</menuitem>
+    <menuitem routerLink="about" routerLinkActive="rout-active">About</menuitem>
+    
+    <menuitem  class="signUp" routerLink="/SignUp" routerLinkActive="rout-active">Sign-Up</menuitem>
+    <!-- *ngIf="!audentific.isLogined.getValue()" -->
+    <menuitem  class="sigunIn" routerLink="/SignIn" routerLinkActive="rout-active">Sign-In</menuitem>
+   <!-- *ngIf="!audentific.isLogined.getValue()" -->
+   
+   <!-- <menuitem  (click)="logOut()" class="logOut" routerLink="/home">Log-out</menuitem> -->
+   
+    <!-- *ngIf=" audentific.isLogined.getValue()" -->
+    <!-- <span class="time">{{date | async}}</span> -->
+  </menu>
+  <hr>  
+</header>

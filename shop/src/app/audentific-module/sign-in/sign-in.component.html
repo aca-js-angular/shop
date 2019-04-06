@@ -1,0 +1,36 @@
+<div class="sigun-in" >
+  {{ logInForm?.valid }}
+
+  <h3>Log-In Accaunt</h3>
+  <form [formGroup]=logInForm> 
+
+      <div class="form-row align-items-center" [ngClass]="{ 'requiredLogin': !logInForm.pristine }">
+
+        <div class="col-auto">
+          <span class="span" *ngIf="bizziEmail">Email is Bizzi</span>
+
+          <input formControlName="email" required minlength="7" maxlength="28" type="email" class="form-control mb-2"
+            placeholder="Email" [ngClass]="{ 'email': email.invalid }">
+
+          <input formControlName="password" required minlength="8" maxlength="25" type="password"
+            class="form-control mb-2" placeholder="Password" [ngClass]="{ 'pass': pass.invalid }">
+
+        </div>
+      </div>
+      <button class="btn btn-outline-primary" [disabled]="logInForm.invalid" (click)="logIn()">Sigun In</button>
+
+  </form>
+
+  <br>
+  <h5 *ngIf="infoHide">{{ info }}</h5>
+  <hr>
+
+</div>
+
+
+<!-- <div *ngIf="comfirmMail" class="form-group comfirm-email">
+  <h3>Comfirm Your Email address</h3>
+  <p>You used all the attempts:</p>
+  <input required  type="email" class="form-control comfirm-email-inp" id="email" placeholder="@">
+  <button class="btn btn-outline-dark">Send Message In email address</button>
+</div> -->

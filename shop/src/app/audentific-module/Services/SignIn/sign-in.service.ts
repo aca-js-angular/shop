@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 

@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+   // background:  url("./assets/back.jpg") no-repeat fixed center; 
+    margin: 0;
+    // background: rgb(100, 99, 99)
+} 
+.rout-active {
+    border-bottom: 2px outset;
+    font-size: 140%;
+    color: rgb(255, 255, 255)
+}
+button { cursor: pointer;}
+body { min-width: 500px;}

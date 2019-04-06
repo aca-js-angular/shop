@@ -12,9 +12,11 @@ input { border-left: 3.45px solid rgb(139, 139, 241) }
 // .pass:not(.ng-untouched) { border-left: 3.45px solid rgb(235, 96, 96);  }
 
 
-.sigun-in input {margin-top: 7%; width: 160%;  transition: border-color .3s ease-out; } 
+.sigun-in input { margin-top: 7%; width: 160%;  transition: border-color 3s ease-out; } 
 
 .span {
     color: red;
     display: list-item;
 }
+.comfirm-email { width: 30%; margin: 6% 7%}
+.btn-outline-dark {margin: 5% 0%;}

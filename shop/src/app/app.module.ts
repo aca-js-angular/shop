@@ -1,25 +1,32 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms'
-import { ProfileUsersService } from './Services/UsersControl/profile-users.service'
-import { SignInService } from './Services/SignIn/sign-in.service'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { HttpClientModule } from '@angular/common/http';
+
+import { ProductsModule } from './products-module/products.module';
+import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { AboutComponent } from './about/about.component';
+// import { AudentificModule } from './audentific-module/audentific.module'; // leazy load
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent
-  ],
+    HomeComponent,
+    HeaderComponent,
+    NotFoundComponent,
+    AboutComponent,
+    
+  ], 
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    ProductsModule,
   ],
-  providers: [ ProfileUsersService, SignInService ],
+
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
