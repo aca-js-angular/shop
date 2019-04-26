@@ -1,0 +1,70 @@
+#slider{
+    position: relative;
+    transition: all 1s;
+}
+h4{
+    display: inline-block;
+    color: rgb(59, 59, 121);
+    font-style: italic;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-bottom: 2px;
+}
+hr{
+    margin: 15px;
+}
+.arrow{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    padding: 10px;
+    background: white;
+    cursor: pointer;
+}
+.disabled{
+    opacity: 0.2
+}
+.childarrow{
+    border-bottom: solid 1px rgb(153, 153, 153);
+    border-left: solid 1px rgb(153, 153, 153);
+    height: 100%;
+    width: 100%;
+    transform: rotate(45deg);
+    transition: all 0.3s;
+}
+.arrow:hover .childarrow{
+    border-color: blue;
+}
+.arrow:hover{
+    background: white;
+}
+.right{
+    transform: rotate(-135deg)
+}
+a{
+    float: right;
+    font-size: 14px;
+    margin-top: 10px;
+}
+.container{
+    position: relative;
+    padding: 0;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.leftArrow{
+    z-index: 5;
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%)
+}
+.rightArrow{
+    z-index: 5;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%)
+}

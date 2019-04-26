@@ -1,0 +1,61 @@
+#slider{
+    position: relative;
+    transition: all 1s;
+}
+
+.arrow{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    padding: 10px;
+    background: transparent;
+    cursor: pointer;
+}
+.disabled{
+    opacity: 0.2
+}
+.childarrow{
+    border-bottom: solid 1px rgb(153, 153, 153);
+    border-left: solid 1px rgb(153, 153, 153);
+    height: 100%;
+    width: 100%;
+    transform: rotate(45deg);
+    transition: all 0.3s;
+}
+.arrow:hover .childarrow{
+    border-color: blue;
+}
+.right{
+    transform: rotate(-135deg)
+}
+.container{
+    position: relative;
+    padding: 0;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+img{
+    width: 40%;
+    margin: 5%;
+    outline: none;
+    &:active{
+        opacity: 0.7;
+    }
+}
+.leftArrow{
+    z-index: 5;
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%)
+}
+.rightArrow{
+    z-index: 5;
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%)
+}

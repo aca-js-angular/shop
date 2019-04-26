@@ -1,0 +1,28 @@
+
+<div class="flexBox">
+    <div class="flexLeft">
+      <img [src]="thisOrder.product.images[0]">
+    </div>
+    <div class="flexRight">
+      <div>
+        <span class="pr-name">{{thisOrder.product.name}}</span>
+        <span class="pr-price"><b>{{thisOrder.product.price | currency}}</b></span>
+        <span class="pr-quantity">
+          <input min="1" type="number" [formControl]="quantity">
+        </span>
+      </div>
+      <div>
+        <span  class="pr-brand" >from 
+          <a [routerLink]="['/','products','brands',thisOrder.product.brand]">
+            {{thisOrder.product.brand}}
+          </a>
+        </span>
+      </div>
+      <div>
+        <span (click)="removeProduct.emit()" class="remove-btn"><u>Remove</u></span>
+        <span class="pr-total">
+          <b>Total: </b>{{(thisOrder.product.price * thisOrder.quantity) | currency}}
+        </span>
+      </div>
+    </div>
+  </div>

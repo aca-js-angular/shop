@@ -1,0 +1,40 @@
+hr{
+    margin: 7px;  
+}
+.applyBtn{
+    height: 30px;
+    background: #446E8E;
+    border: solid 1px #446E8E;
+    font-size: 13px;
+    color: white;
+    width: 20%;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    outline: none;
+    &:active{
+        background: rgb(89, 139, 177);
+    }
+}
+input{
+    border: solid 1px #446E8E;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding: 1px 5px;
+    font-size: 13px;
+    outline: none;
+    width: 80%;
+    height: 30px;
+}
+.checkout{
+    border: none;
+    background: #446E8E;
+    color: white;
+    font-size: 11px;
+    padding: 7px;
+    width: 200px;
+    border-radius: 5px;
+    outline: none;
+    &:active{
+        background: rgb(94, 142, 179);
+    }
+}

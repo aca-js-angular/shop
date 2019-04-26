@@ -1,0 +1,58 @@
+  <mat-dialog-actions align="end">
+  <button style="outline: none ; background: rgb(197, 197, 197)" mat-raised-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
+
+<div class="sign-up">
+  <mat-dialog-content >
+
+
+    <h3 mat-dialog-title >{{info}}</h3>
+    <form [formGroup]="profileForm">
+      <div class="form-row align-items-center">
+        <div class="col-auto" [ngClass]="{'requiredStyle': !profileForm.pristine }">
+        
+    
+          <input [_format]="'capital'" required minlength="4" (blur)="invMess = true" (focus)="invMess = false" maxlength="20" formControlName="firstName" type="text" class="form-control mb-2"
+          placeholder="First Name"  [_feedback]="firstName" name="nameInp">
+          <span class="invalid-message" *ngIf="firstName.errors?.minlength && invMess"> Required Length {{ firstName.errors.minlength.requiredLength }} </span>
+
+          <input [_format]="'capital'"  required minlength="4"  maxlength="20" (blur)="invMess = true" (focus)="invMess = false" #surnInp formControlName="lastName" type="text" class="form-control mb-2"
+          placeholder="Last Name" [_feedback]="lastName">
+          <span class="invalid-message" *ngIf="lastName.errors?.minlength && invMess"> Required Length {{ lastName.errors.minlength.requiredLength }} </span>
+          
+ 
+          <input #emailInpElem required type="email" (blur)="invMess = true" [_format]="'lowercase'" (focus)="invMess = false" maxlength="28" formControlName="email" class="form-control mb-2" placeholder="E-mail"
+          [_feedback]="email">
+          <span class="invalid-message" *ngIf="autoService.invalidMessage && invMess"> {{ mailInvMessage }}... </span>
+
+
+          <input (blur)="passComfirm(comf.value)" required minlength="8"  maxlength="18" formControlName="password"  type="password" class="form-control mb-2" 
+          placeholder="Password" [_feedback]="pass">
+          <span class="pass-info">At least 8 characters, one uppercase, one lowercase letter, one special symbol.</span>
+
+          <input (keyup)="passComfirm($event.target.value)" #comf (blur)="passComfirm($event.target.value)" maxlength="18" type="password" class="form-control mb-2 confirm-pass" 
+          placeholder="Comfirm Password" [ngClass]="{ 'passComf':  comfirmPass }">
+         
+          <span class="invalid-message" *ngIf="comfirmPass">Passwords do not match </span>
+                  
+        </div>
+      </div>
+
+
+      <button (click)="onSubmit()"  class="btn btn-outline-dark" [_inactive]="profileForm.invalid">Registration</button>
+    </form>
+    <br>
+    <!-- {{test}} -->
+    <hr>
+    <span class="privacy-info">By creating an account, you agree to <b>ModeConcept’s</b> conditions of use and privacy policy.</span>
+</mat-dialog-content>
+
+
+  </div>
+
+
+
+
+
+
+

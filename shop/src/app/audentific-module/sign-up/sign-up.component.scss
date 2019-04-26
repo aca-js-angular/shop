@@ -1,0 +1,40 @@
+.sign-up {
+    margin: 0% 6% 1%;
+    display: block;
+    padding: 1%;
+    width: 95%;
+    .mdb-select{
+        width: 50%
+    }
+    ::placeholder { 
+        opacity: 0.85;
+    }
+}
+.form-control  { width: 100%; }
+
+.sel-city > .form-control {width: 100%; min-width: 50%;}
+.btn-outline-dark, .radio { margin-top: 4%}
+
+select,select:focus {color: #1a1a1a;  background-color: rgb(255, 255, 255)}
+option { color: #000000;background-color: rgb(230, 230, 230)}
+.col-auto input { border-top-color: rgb(170, 169, 169); border-bottom-color: rgb(170, 169, 169); transition: border-color .0.5s ease-out; margin-top: 4%; transition: 0.5s} 
+.col-auto { width: 80%; }
+input {  border-left: 3.45px solid rgb(120, 167, 168); }
+.firstN:not(.ng-pristine) { border-left: 3.45px solid rgb(235, 96, 96);  }
+.lastN:not(.ng-pristine) { border-left: 3.45px solid rgb(235, 96, 96);  }
+.email:not(.ng-pristine) { border-left: 3.45px solid rgb(235, 96, 96);  }
+.pass:not(.ng-pristine) { border-left: 3.45px solid rgb(235, 96, 96);  }
+.passComf:not(.ng-pristine) { border-left: 3.45px solid rgb(235, 96, 96);  }
+.invalid-message {margin-bottom: 4%;display: inline-block; color: brown}
+
+.pass-info {font-size: 84%;font-style: italic;}
+.privacy-info {     
+    font-size: 98%;
+    font-style: italic;
+    text-align: center;
+    display: inline-block;
+}
+.mat-dialog-actions {
+    margin: -22px -15px -19px 0px;
+}
+mat-form-field {margin: 2% 1px -5%;}

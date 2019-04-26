@@ -1,0 +1,48 @@
+
+<div class="header">
+    <div class="headerToolBar">
+      <div [routerLink]="['home']" id="logo"><b>Mode</b>-Concept</div>
+  
+  
+  
+  
+      <div class="searchBox">
+        <input #searchInput placeholder="Search by brand, name..." type="text" (blur)="hide()" (focus)="searchBoxHid = true" >
+        <app-search [searchResult]="searchResult$ | async" [animation]="searchAwaitAnimation" [hidden]="!searchBoxHid"></app-search >
+        <img id="loupe" src="assets/loupe.png" class="loupe">
+      </div>
+  
+  
+      <div id="actionButtons">
+        <div class="actionButton" *ngIf="currentUser"><span style="font-variant: small-caps; font-size: 11px; font-weight: bold; color: #446E8E;">{{currentUser.displayName}}</span> <img matTooltip="Go to profile" src="assets/user.png"></div>
+        <div class="actionButton" *ngIf="!currentUser" matTooltip="Registrate now"><button (click)="signUp()"
+            id="register">Register</button></div>
+        <div class="actionButton" *ngIf="!currentUser" matTooltip="Sign-in with E-mail">
+          <button (click)="signIn()" id="signIn">Sign-in</button>
+        </div>
+        <div class="actionButton" *ngIf="currentUser">
+          <button matTooltip="Sign-out from account" id="signOut" (click)="logout()">Logout</button>
+        </div>
+        <div class="actionButton" matTooltip="Go to basket">
+          <img [_persistance]="goToBasket" id="basket" src="assets/basket.png">
+        </div>
+        
+      </div>
+    </div>
+    <div id="headerCategories">
+      <div routerLinkActive="activeRoute" [routerLink]="['products','category','All']"
+        [routerLinkActiveOptions]="{exact: true}" class="category">All categories</div>
+      <div routerLinkActive="activeRoute" [routerLink]="['products','category','Watches']" class="category">Watches</div>
+      <div routerLinkActive="activeRoute" [routerLink]="['products','category','Sunglasses']" class="category">Sunglasses
+      </div>
+      <div routerLinkActive="activeRoute" [routerLink]="['products','category','Bracelets']" class="category">Bracelets
+      </div>
+      <div routerLinkActive="activeRoute" [routerLink]="['products','category','Necklaces']" class="category">Necklaces
+      </div>
+      <div routerLinkActive="activeRoute" [routerLink]="['products','category','Combo-Box']" class="category">Combo-Boxes
+      </div>
+    </div>
+  
+  
+  
+  </div>

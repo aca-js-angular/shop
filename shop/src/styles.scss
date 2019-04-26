@@ -1,13 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
-* {
-   // background:  url("./assets/back.jpg") no-repeat fixed center; 
-    margin: 0;
-    // background: rgb(100, 99, 99)
-} 
-.rout-active {
-    border-bottom: 2px outset;
-    font-size: 140%;
-    color: rgb(255, 255, 255)
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body{
+    font-family: sans-serif
 }
-button { cursor: pointer;}
-body { min-width: 500px;}
+.section{
+    padding: 0 18%;
+}
+
+.inactive{
+    opacity: 0.3;
+}

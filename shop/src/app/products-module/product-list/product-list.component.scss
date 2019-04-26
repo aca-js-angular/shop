@@ -1,0 +1,17 @@
+.active{
+    color: white;
+    background: rgb(59, 103, 156);
+}
+button{
+    border: none;
+    background: transparent;
+    outline: none; 
+    color: gray;
+    margin: 3px;
+    border-radius: 20%;
+
+    &:hover:not(.active){
+        background: rgb(228, 228, 228);
+        color: white;
+    }
+}

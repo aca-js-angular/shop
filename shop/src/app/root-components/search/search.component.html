@@ -1,0 +1,7 @@
+
+<div class="search-box">
+  <div>
+  <mat-spinner [diameter]="20" *ngIf="animation"></mat-spinner>
+  </div>
+  <app-single-result *ngFor="let result of results" [singleResult]="result"></app-single-result>
+</div>

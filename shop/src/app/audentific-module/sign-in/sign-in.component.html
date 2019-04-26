@@ -1,31 +1,52 @@
-<div class="sigun-in" >
-  {{ logInForm?.valid }}
+      <mat-dialog-actions align="end">
+      <button style="outline: none ; background: rgb(197, 197, 197)" mat-raised-button mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+    
+    <div class="sigun-in">
 
-  <h3>Log-In Accaunt</h3>
-  <form [formGroup]=logInForm> 
+  <h3 class="messageHead"> {{loginOrReset}} </h3>
+  <form [formGroup]=logInForm>
+    <div class="form-row align-items-center" [ngClass]="{ 'requiredLogin': !logInForm.pristine }">
+      <div class="col-auto">
 
-      <div class="form-row align-items-center" [ngClass]="{ 'requiredLogin': !logInForm.pristine }">
-
-        <div class="col-auto">
-          <span class="span" *ngIf="bizziEmail">Email is Bizzi</span>
-
-          <input formControlName="email" required minlength="7" maxlength="28" type="email" class="form-control mb-2"
-            placeholder="Email" [ngClass]="{ 'email': email.invalid }">
+        <input formControlName="email" [_format]="'lowercase'" required minlength="7" maxlength="28" type="email" class="form-control mb-2"
+          placeholder="Email" [_feedback]="email">
+       
+          <div *ngIf="showResetPanel" class="hid-panel">
 
           <input formControlName="password" required minlength="8" maxlength="25" type="password"
-            class="form-control mb-2" placeholder="Password" [ngClass]="{ 'pass': pass.invalid }">
+            class="form-control mb-2" placeholder="Password" [_feedback]="pass">
 
+          <button class="btn btn-outline-dark sign-in-btn"  [_inactive]="logInForm.invalid" (click)="signIn(rememberState.checked)">Sign In</button>
+          
+          <span (click)="resetPass()" class="forget-pass">Forgot password?</span>
+          <mat-checkbox class="remember" #rememberState>Remember me!</mat-checkbox> 
+        </div> 
+
+        <div *ngIf="!showResetPanel">
+          <button  class="btn btn-outline-dark reset-pass"  [_inactive]="email.invalid"
+          (click)="sendLinkResetPass()">Send Email Meaasge</button><br>
+          <span class="reset-pass-message">{{resetEmailMessage}}</span>
         </div>
+
+
       </div>
-      <button class="btn btn-outline-primary" [disabled]="logInForm.invalid" (click)="logIn()">Sigun In</button>
-
+    </div>
   </form>
-
   <br>
-  <h5 *ngIf="infoHide">{{ info }}</h5>
+  <h5 *ngIf="infoHide">{{ info }}</h5>    
+  <span class="invalid-message" *ngIf="invavidPassOrMail === false"> Invalid Email Or Password </span>
   <hr>
+  
+  <div class="navigate" *ngIf="showResetPanel">
+    <span class="navigate-span">Don’t have an account? </span>
+    <span class="navigate-signup">Sign Up</span>
+  </div>
+  
+ </div>
 
-</div>
+
+
 
 
 <!-- <div *ngIf="comfirmMail" class="form-group comfirm-email">
@@ -34,3 +55,5 @@
   <input required  type="email" class="form-control comfirm-email-inp" id="email" placeholder="@">
   <button class="btn btn-outline-dark">Send Message In email address</button>
 </div> -->
+
+

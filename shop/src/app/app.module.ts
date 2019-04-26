@@ -1,32 +1,72 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTooltipModule, MatProgressSpinnerModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { ReactiveFormsModule } from '@angular/forms'
 
-import { ProductsModule } from './products-module/products.module';
-import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { AboutComponent } from './about/about.component';
-// import { AudentificModule } from './audentific-module/audentific.module'; // leazy load
+import { HomeModule } from './home-module/home.module';
+import { ProductsModule } from './products-module/products.module'
+import { BasketModule } from './basket-module/basket.module'
+
+import { AppComponent } from './root-components/root/app.component';
+import { HeaderComponent } from './root-components/header/header.component';
+import { FooterComponent } from './root-components/footer/footer.component';
+
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth'
+import { AudentificModule } from './audentific-module/audentific.module';
+
+import { MatButtonModule, MatIconModule, MatRippleModule } from "@angular/material";
+import { ConfirmModule } from './comfirm-module/confirm.module';
+import { WorkingWithDbComponent } from './root-components/working-with-db/working-with-db.component';
+import { SearchComponent } from './root-components/search/search.component';
+import { SingleResultComponent } from './root-components/single-result/single-result.component';
+import { SharedModule } from './shared-module/shared.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     HeaderComponent,
-    NotFoundComponent,
-    AboutComponent,
-    
-  ], 
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ProductsModule,
+    FooterComponent,
+    WorkingWithDbComponent,
+    SearchComponent,
+    SingleResultComponent
   ],
 
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+
+    ReactiveFormsModule,
+    MatTooltipModule,
+    AppRoutingModule,
+
+    HomeModule,
+    ProductsModule,
+    BasketModule,
+    SharedModule,
+
+    AudentificModule,
+    ConfirmModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+    MatButtonModule,
+    MatIconModule,
+    MatRippleModule,
+    MatProgressSpinnerModule,
+
+  ],
+
+  providers: [],
   bootstrap: [AppComponent]
 })
-
 export class AppModule { }

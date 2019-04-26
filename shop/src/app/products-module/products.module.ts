@@ -1,31 +1,39 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductsComponent } from './products/products.component';
-import { ProductItemComponent } from './product-item/product-item.component'
-import { HttpClientModule } from '@angular/common/http';
-import { SearchPipe } from './Pipes/optional.pipe'
-import { NameFormatPipe } from './Pipes/optional.pipe';
-import { AboutProductComponent } from './about-product/about-product.component'
-import { ProductsControlService } from './Services/products-control.service'
-import { RouterModule } from '@angular/router';
 
+import { ProductsRoutingModule } from './products-routing.module';
+import { ProductsRootComponent } from './products-root/products-root.component';
+import { SingleProductComponent } from './single-product/single-product.component';
+import { ProductSliderComponent } from './product-slider/product-slider.component';
+import { ImageSliderComponent } from './image-slider/image-slider.component'
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductListPageComponent } from './product-list-page/product-list-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { RatingPipe } from './rating.pipe';
+import { ZipperPipe } from './zipper.pipe';
+import { SharedModule } from '../shared-module/shared.module';
 
 @NgModule({
   declarations: [
-    ProductsComponent,
-    ProductItemComponent,
-
-    NameFormatPipe,
-    SearchPipe,
-    AboutProductComponent,
-
+    ProductsRootComponent,
+    SingleProductComponent,
+    ProductSliderComponent,
+    ImageSliderComponent,
+    ProductListComponent,
+    ProductListPageComponent,
+    ProductDetailComponent,
+    RatingPipe,
+    ZipperPipe,
   ],
+
   imports: [
     CommonModule,
-    HttpClientModule,
-    RouterModule,
+    ProductsRoutingModule,
+    ReactiveFormsModule,
+    SharedModule,
   ],
-  providers: [ProductsControlService],
-  exports: [ ProductsComponent, ProductItemComponent ]
+
+  exports: [ProductSliderComponent,ZipperPipe]
 })
 export class ProductsModule { }

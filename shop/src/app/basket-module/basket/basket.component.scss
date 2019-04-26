@@ -1,0 +1,60 @@
+.flexBox{
+    display: flex;
+    margin: 20px 0;
+}
+.flexLeft{
+    flex: 66%;
+    margin-right: 10px;
+}
+.flexRight{
+    flex: 34%;
+    border: solid #446E8E 1px;
+    border-radius: 5px;
+    height: 100%;
+    padding: 20px 10px;
+}
+.action-btn{
+
+    border: none;
+    margin: 0 5px;
+    color: white;
+    font-size: 11px;
+    padding: 7px;
+    width: 200px;
+    border-radius: 5px;
+    outline: none;
+}
+
+.clear-basket{
+    background: rgb(153, 88, 88);
+    &:active{
+        background: rgb(190, 110, 110);
+    }
+}
+
+.keep-shopping{
+    background: #446E8E;
+    &:active{
+        background: rgb(94, 142, 179);
+    }
+}
+
+.fields{
+    margin-top: 30px;
+    span{
+        float: right
+    }
+}
+
+.basket-content {
+    margin-bottom: 10px
+}
+
+#empty-basket{
+    text-align: center;
+    img{
+        margin-top: 100px;
+        height: 300px;
+        width: 300px;
+    }
+}

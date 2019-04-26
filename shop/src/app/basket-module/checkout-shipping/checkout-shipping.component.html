@@ -1,0 +1,73 @@
+<!-- <div class="section">
+  <h3 style="margin: 20px 0"><b>Your Shipping Adress</b></h3>
+  <div class="gridRow">
+    <div class="gridLeft">
+      <div><b>Country</b></div>
+      <div>
+        <select>
+          <option>Armenia</option>
+          <option>Russia</option>
+          <option>France</option>
+          <option>USA</option>
+          <option>England</option>
+        </select>
+      </div>
+      <div><b>Full name</b></div>
+      <div><input type="text"></div>
+      <div><b>Street adress</b></div>
+      <div><input type="text"></div>
+      <div><b>Postal code</b></div>
+      <div id="postalCode"><input type="number"></div>
+      <div><b>City</b></div>
+      <div><input type="text"></div>
+    </div>
+    <div class="gridRight">
+      <app-order-summary action="CONTINUE TO PAYMENT"></app-order-summary>
+    </div>
+  </div>
+</div> -->
+
+<div class="section">
+  <h3 style="margin: 20px 0"><b>Your Shipping Adress</b></h3>
+  <div *ngIf="checkoutForm" class="gridRow">
+
+
+
+    <div class="gridLeft">
+
+
+      <form [formGroup]="checkoutForm">
+
+        <div><b>Country</b></div>
+
+        <select formControlName="country">
+          <option *ngFor="let country of countries; index as i"  [value]="i">{{country[0]}}</option>
+        </select>
+
+        <div><b>City</b></div>
+
+        <select formControlName="city" >
+        
+          <option *ngFor="let c of countries[country1?.value][1]">{{c}}</option>
+       
+        </select>
+        
+        <div><b>Full name</b></div>
+        <div><input type="text" formControlName="fullName"></div>
+
+        <div><b>Street adress</b></div>
+        <div><input type="text" formControlName="streetAdress"></div>
+
+        <div><b>Postal code</b></div>
+        <div id="postalCode"><input type="number" formControlName="postalCode"></div>
+      
+      </form>
+
+    </div>
+
+    <div class="gridRight">
+      <app-order-summary action="CONTINUE TO PAYMENT"></app-order-summary>
+    </div>
+
+  </div>
+</div>
