@@ -27,6 +27,7 @@ import { WorkingWithDbComponent } from './root-components/working-with-db/workin
 import { SearchComponent } from './root-components/search/search.component';
 import { SingleResultComponent } from './root-components/single-result/single-result.component';
 import { SharedModule } from './shared-module/shared.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { SharedModule } from './shared-module/shared.module';
     ReactiveFormsModule,
     MatTooltipModule,
     AppRoutingModule,
+    HttpClientModule,
 
     HomeModule,
     ProductsModule,

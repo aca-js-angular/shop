@@ -3,6 +3,7 @@ import { AngularFirestore, DocumentReference, DocumentData } from '@angular/fire
 import { Observable, Subscription, zip, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators'
 import { Product } from './products-module/product-interface';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class DatabaseFireService {
 
   constructor(
     private fire: AngularFirestore,
+    private http: HttpClient,
   ) { 
     // this.fire.firestore.disableNetwork()
   }
@@ -325,6 +327,11 @@ export class DatabaseFireService {
   // OBSERVABLE
   getCollectionByQuantity<T>(collectionName: string, quantity: number): Observable<T[]> {
     return this.fire.collection<T>(collectionName, ref => ref.limit(quantity)).valueChanges()
+  }
+
+
+  httpGet<T>(url: string): Observable<T>{
+    return this.http.get<T>(url)
   }
 
 }
