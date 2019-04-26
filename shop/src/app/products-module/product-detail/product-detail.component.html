@@ -1,11 +1,11 @@
 <div *ngIf="thisProduct" class="section">
-  <div class="gridRow">
-    <div class="gridLeft">
+  <div class="flexBox">
+    <div class="flexLeft">
       <img [src]="currentSrc">
     </div>
-    <div class="gridMiddle">
+    <div class="flexMiddle">
       <div class="smallCaps"><b>{{thisProduct.name}}</b></div>
-      <div style="font-size: 13px">from <a [routerLink]="['/','products','brands',thisProduct.brand]">{{thisProduct.brand}}</a></div>
+      <div class="pr-brand">from <a [routerLink]="['/','products','brands',thisProduct.brand]">{{thisProduct.brand}}</a></div>
       <hr>
       <p style="font-size: 14px">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic officiis rerum architecto cum dolores vel, recusandae quis culpa, nostrum iure debitis ad illum nesciunt esse ipsam. Impedit labore quo ab?
@@ -14,7 +14,7 @@
         <app-image-slider (setSrc)="currentSrc = $event" [imageCollection]="thisProduct.images"></app-image-slider>
       </div>
     </div>
-    <div class="gridRight">
+    <div class="flexRight">
       <h4 style="font-weight: bold">{{thisProduct.price | currency}}</h4>
       <span style="font-size: 12px">Quantity</span><br>
       <div>
