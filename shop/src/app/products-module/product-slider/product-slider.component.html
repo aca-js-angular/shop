@@ -1,6 +1,6 @@
 <ng-container *ngIf="productCollection">
   <div class="container" [style.width]="config.full ? '100%' : '64%'" [style.margin-top]="config.noMargins ? '5px' : '50px'" [style.margin-bottom]="config.noMargins ? '5px' : '50px'">
-    <div *ngIf="title"><h4>{{title}}</h4><a [routerLink]="href" style="float: right">view more</a></div>
+    <div *ngIf="title"><h4>{{title}}</h4><a [routerLink]="href" class="items-right" >view more</a></div>
     <hr *ngIf="title">
     <div class="leftArrow arrow" (click)="previous()">
       <div class="childarrow"></div>

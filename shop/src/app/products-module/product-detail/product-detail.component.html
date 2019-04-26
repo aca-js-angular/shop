@@ -5,9 +5,9 @@
     </div>
     <div class="flexMiddle">
       <div class="smallCaps"><b>{{thisProduct.name}}</b></div>
-      <div class="pr-brand">from <a [routerLink]="['/','products','brands',thisProduct.brand]">{{thisProduct.brand}}</a></div>
+      <div class="font-13px">from <a [routerLink]="['/','products','brands',thisProduct.brand]">{{thisProduct.brand}}</a></div>
       <hr>
-      <p style="font-size: 14px">
+      <p class="font-13px">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic officiis rerum architecto cum dolores vel, recusandae quis culpa, nostrum iure debitis ad illum nesciunt esse ipsam. Impedit labore quo ab?
       </p>
       <div class="slide">
@@ -15,8 +15,7 @@
       </div>
     </div>
     <div class="flexRight">
-      <h4 style="font-weight: bold">{{thisProduct.price | currency}}</h4>
-      <span style="font-size: 12px">Quantity</span><br>
+      <h4 class="text-bold">{{thisProduct.price | currency}}</h4>
       <div>
 
         <button 
@@ -27,24 +26,24 @@
         ></button>
       </div>
       <hr>
-      <h6 style="font-weight: bold">Product details</h6>
-      <div style="font-size: 11px">
-          <div><span><b>Weight</b></span><span style="float: right">{{thisProduct.details.weight}}g</span></div>
-          <div><span><b>Origin Country</b></span><span style="float: right">{{thisProduct.details.originCountry}}</span></div>
-          <div><span><b>Post Date</b></span><span style="float: right">{{toDate(thisProduct.postDate) | date}}</span></div>
-          <div><span><b>Materials</b></span><span style="float: right" *ngFor="let material of thisProduct.details.material, first as first"> {{material[0].toUpperCase() + material.slice(1)}}<span *ngIf="!first"> ,</span></span></div>
-          <div ><span><b>Colors</b></span><div style="float: right; margin: 3px 1px; border-radius: 50%; height: 10px; width: 10px; box-shadow: 1px 1px 1px black" *ngFor="let color of thisProduct.details.colors" [style.background]="color"></div></div>
+      <h6 class="text-bold">Product details</h6>
+      <div  class="font-11px">
+          <div><span><b>Weight</b></span><span class="items-right">{{thisProduct.details.weight}}g</span></div>
+          <div><span><b>Origin Country</b></span><span class="items-right">{{thisProduct.details.originCountry}}</span></div>
+          <div><span><b>Post Date</b></span><span class="items-right">{{toDate(thisProduct.postDate) | date}}</span></div>
+          <div><span><b>Materials</b></span><span class="items-right" *ngFor="let material of thisProduct.details.material, first as first"> {{material[0].toUpperCase() + material.slice(1)}}<span *ngIf="!first"> ,</span></span></div>
+          <div ><span><b>Colors</b></span><div class="items-right details-color" *ngFor="let color of thisProduct.details.colors" [style.background]="color"></div></div>
       </div>
       <hr>
-      <h6 style="font-weight: bold">Vendor Profile</h6>
+      <h6 class="text-bold">Vendor Profile</h6>
       <table>
         <tr>
           <td><img class="vendorImg" [src]="thisProduct.vendor.img"></td>
-          <td style="padding-left: 10px">
-            <div style="display: inline-block; font-size: 12px">
-              <span><b>{{thisProduct.vendor.fullName}}</b></span><br>
-              <span>{{thisProduct.vendor.country}}, <i>{{thisProduct.vendor.city}}</i></span><br>
-              <span>{{thisProduct.vendor.rating | rating}}</span><br>
+          <td class="vendor-tab">
+            <div class="font-12px vendor-details">
+              <span><b>{{thisProduct.vendor.fullName}}</b></span>
+              <span>{{thisProduct.vendor.country}}, <i>{{thisProduct.vendor.city}}</i></span>
+              <span>{{thisProduct.vendor.rating | rating}}</span>
               <span><a href="">{{thisProduct.vendor.email}}</a></span>
             </div>
           </td>

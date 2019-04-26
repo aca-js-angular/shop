@@ -11,7 +11,9 @@ export class DatabaseFireService {
 
   constructor(
     private fire: AngularFirestore,
-  ) { }
+  ) { 
+    // this.fire.firestore.disableNetwork()
+  }
 
 
 

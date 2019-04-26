@@ -1,10 +1,10 @@
 
-<div id="productListContainer">
-  <ng-container  *ngFor="let package of packages, index as i" >
+
+  <ng-container *ngFor="let package of packages, index as i" >
       <app-product-list-page *ngIf="currentPage === i" [productsPackage]="package" [config]="config"></app-product-list-page>
   </ng-container>
-  <div style="height: 20px; margin: 10px">
-    <span style="float: right">
+  <div class="pages-nav-btn">
+    <span class="items-right">
       <ng-container *ngIf="packages.length > 1">
         <ng-container *ngFor="let package of packages, index as i">
           <button (click)="currentPage = i; toTop()" [class.active]="currentPage === i">{{i + 1}}</button>
@@ -12,4 +12,3 @@
       </ng-container>
     </span>
   </div>
-</div>
