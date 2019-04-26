@@ -1,29 +1,46 @@
+
 <div class="section">
-    <h3 style="margin: 20px 0"><b>Enter your payment information</b></h3>
-    <div class="gridRow">
-      <div class="gridLeft">
-        <div><b>Card number</b></div>
-        <div><input type="number"></div>
-        <div><b>Name on card</b></div>
-        <div><input type="text"></div>
-        <div style="display: inline-block; margin-right: 50px">
-          <div><b>Expiration date</b></div>
-          <div>
-            <select id="month">
-              <option *ngFor="let month of dates.getMonths()">{{month}}</option>
-            </select>
-            <select id="year">
-              <option *ngFor="let year of dates.getNearestYears(31)">{{year}}</option>
-            </select>
-          </div>
+  <h3  class="payment-info">
+    <b>Enter your payment information</b>
+  </h3>
+  <div class="flexBox">
+    <div class="flexLeft">
+      <div>
+        <b>Card number</b>
+      </div>
+      <div>
+        <input _onlyDigits>
+      </div>
+      <div>
+        <b>Name on card</b>
+      </div>
+      <div>
+        <input type="text">
+      </div>
+      <div class="exp-date">
+        <div>
+          <b>Expiration date</b>
         </div>
-        <div style="display: inline-block">
-          <div><b>CVV</b></div>
-          <div><input id="cvv" type="number"></div>
+        <div>
+          <select id="month">
+            <option *ngFor="let month of months">{{month}}</option>
+          </select>
+          <select id="year">
+            <option *ngFor="let year of nearestYears">{{year}}</option>
+          </select>
         </div>
       </div>
-      <div class="gridRight">
-        <app-order-summary action="PLACE ORDER"></app-order-summary>
+      <div class="cvv">
+        <div>
+          <b>CVV</b>
+        </div>
+        <div>
+          <input id="cvv" type="number">
+        </div>
       </div>
     </div>
+    <div class="flexRight">
+      <app-order-summary action="PLACE ORDER"></app-order-summary>
+    </div>
   </div>
+</div>

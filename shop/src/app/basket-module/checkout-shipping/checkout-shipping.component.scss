@@ -34,15 +34,67 @@
 //     width: 50%;
 // }
 
-.gridRow{
+// .gridRow{
+//     display: flex;
+//     margin: 20px 0;
+// }
+// .gridLeft{
+//     flex: 62%;
+//     margin-right: 70px;
+// }
+// .gridRight{
+//     flex: 38%;
+//     border: solid #446E8E 1px;
+//     border-radius: 5px;
+//     height: 100%;
+//     padding: 20px 10px;
+//     margin-top: 23px;
+// }
+// input{
+//     width: 100%;
+//     margin-bottom: 15px;
+//     padding: 5px 5px;
+//     border: solid #446E8E 1px;
+//     border-radius: 3px;
+//     outline: none;
+// }
+// select{
+//     width: 100%;
+//     margin-bottom: 15px;
+//     padding: 8px 5px;
+//     border: solid #446E8E 1px;
+//     border-radius: 5px;
+//     outline: none;
+// }
+// #postalCode{
+//     width: 50%;
+// }
+
+// .gridLeft input {  transition: 1s ease-out;}
+///--------------------
+// input {
+//     border-left: 5px solid rgb(216, 216, 216)
+// }
+
+// .ng-valid:not(form):not(select){
+//     border-left-color: rgb(57, 126, 91)
+// }
+
+// .ng-invalid.ng-touched:not(form):not(select){
+//     border-left-color: rgb(163, 78, 75);
+// }
+
+// .invalid-message {margin-bottom: 4%;display: inline-block; color: brown}
+
+.flexBox{
     display: flex;
     margin: 20px 0;
 }
-.gridLeft{
+.flexLeft{
     flex: 62%;
     margin-right: 70px;
 }
-.gridRight{
+.flexRight{
     flex: 38%;
     border: solid #446E8E 1px;
     border-radius: 5px;
@@ -70,18 +122,6 @@ select{
     width: 50%;
 }
 
-.gridLeft input {  transition: 1s ease-out;}
-///--------------------
-// input {
-//     border-left: 5px solid rgb(216, 216, 216)
-// }
-
-// .ng-valid:not(form):not(select){
-//     border-left-color: rgb(57, 126, 91)
-// }
-
-// .ng-invalid.ng-touched:not(form):not(select){
-//     border-left-color: rgb(163, 78, 75);
-// }
-
-// .invalid-message {margin-bottom: 4%;display: inline-block; color: brown}
+.address-h3 {
+    margin: 20px 0
+}

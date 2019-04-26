@@ -8,7 +8,7 @@ function isThereError(){
 
 const anyDigit = new RegExp(/\d/)
 const otherThanDigit = new RegExp(/\D/)
-const otherThanAlphabet = new RegExp(/[^A-Za-z]/)
+const otherThanAlphabet = new RegExp(/[^A-Za-z\s]/)
 
 @Directive({
   selector: '[_noDigits]'

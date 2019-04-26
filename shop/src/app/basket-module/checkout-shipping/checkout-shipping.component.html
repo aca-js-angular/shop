@@ -1,73 +1,49 @@
-<!-- <div class="section">
-  <h3 style="margin: 20px 0"><b>Your Shipping Adress</b></h3>
-  <div class="gridRow">
-    <div class="gridLeft">
-      <div><b>Country</b></div>
-      <div>
-        <select>
-          <option>Armenia</option>
-          <option>Russia</option>
-          <option>France</option>
-          <option>USA</option>
-          <option>England</option>
-        </select>
-      </div>
-      <div><b>Full name</b></div>
-      <div><input type="text"></div>
-      <div><b>Street adress</b></div>
-      <div><input type="text"></div>
-      <div><b>Postal code</b></div>
-      <div id="postalCode"><input type="number"></div>
-      <div><b>City</b></div>
-      <div><input type="text"></div>
-    </div>
-    <div class="gridRight">
-      <app-order-summary action="CONTINUE TO PAYMENT"></app-order-summary>
-    </div>
-  </div>
-</div> -->
-
 <div class="section">
-  <h3 style="margin: 20px 0"><b>Your Shipping Adress</b></h3>
-  <div *ngIf="checkoutForm" class="gridRow">
+    <h3 class="address-h3"><b>Your Shipping Adress</b></h3>
+    <div class="flexBox">
 
-
-
-    <div class="gridLeft">
-
-
-      <form [formGroup]="checkoutForm">
-
-        <div><b>Country</b></div>
-
-        <select formControlName="country">
-          <option *ngFor="let country of countries; index as i"  [value]="i">{{country[0]}}</option>
-        </select>
-
-        <div><b>City</b></div>
-
-        <select formControlName="city" >
+      <div class="flexLeft">
+  
+  
+        <form [formGroup]="checkoutForm">
+  
+          <div><b>Country</b></div>
+          <select #selectedCountry formControlName="country">
+            <ng-container *ngIf="countries">
+              <option *ngFor="let country of countries; index as i"  [value]="i">{{country[0]}}</option>
+            </ng-container>
+          </select>
+  
+          <div><b>City</b></div>
+          <select formControlName="city" >
+            <ng-container *ngIf="countries">
+              <option *ngFor="let city of countries[selectedCountry.value][1]">{{city}}</option>
+            </ng-container>
+          </select>
+          
+          <div><b>Full name</b></div>
+          <div>
+            <input formControlName="fullName" [_feedback]="fullName" _onlyAlphabet>
+          </div>
+  
+          <div><b>Street adress</b></div>
+          <div>
+            <input formControlName="streetAdress" [_feedback]="streetAdress" type="text">
+          </div>
+  
+          <div><b>Postal code</b></div>
+          <div id="postalCode">
+            <input type="number" formControlName="postalCode" [_feedback]="postalCode">
+          </div>
         
-          <option *ngFor="let c of countries[country1?.value][1]">{{c}}</option>
-       
-        </select>
-        
-        <div><b>Full name</b></div>
-        <div><input type="text" formControlName="fullName"></div>
-
-        <div><b>Street adress</b></div>
-        <div><input type="text" formControlName="streetAdress"></div>
-
-        <div><b>Postal code</b></div>
-        <div id="postalCode"><input type="number" formControlName="postalCode"></div>
+        </form>
+  
+      </div>
+  
+      <div class="flexRight">
+        <app-order-summary action="CONTINUE TO PAYMENT"></app-order-summary>
+        <!-- <button [_console]="this.streetAdress.errors.required">TEST</button> -->
+      </div>
       
-      </form>
-
     </div>
-
-    <div class="gridRight">
-      <app-order-summary action="CONTINUE TO PAYMENT"></app-order-summary>
-    </div>
-
   </div>
-</div>

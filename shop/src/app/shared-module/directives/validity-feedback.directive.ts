@@ -13,6 +13,7 @@ export class ValidityFeedbackDirective {
   constructor(private ref: ElementRef) {
     this.native = this.ref.nativeElement
     this.native.style.borderLeftWidth = '5px'
+    this.native.style.transition = 'border-left-color 1s'
   }
   
   @HostListener('blur')onblur(){
@@ -22,7 +23,7 @@ export class ValidityFeedbackDirective {
   }
 
   @HostListener('input')onInput(){
-    if(this.control.valid){
+    if(this.control.valid && this.control.value){
       this.native.style.borderLeftColor = 'rgb(112, 184, 185)'
     }
   }

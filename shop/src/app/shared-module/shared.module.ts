@@ -5,6 +5,7 @@ import { ForcedFormatDirective } from './directives/forced-format.directive';
 import { SingleClickDirective } from './directives/single-click.directive';
 import { PersistanceDirective } from './directives/persistance.directive';
 import { OnlyDigitsDirective, NoDigitsDirective, OnlyAlphabetDirective } from './directives/restrictions.directive';
+import { ConsoleDirective } from './directives/console.directive';
 
 @NgModule({
   
@@ -16,6 +17,7 @@ import { OnlyDigitsDirective, NoDigitsDirective, OnlyAlphabetDirective } from '.
     OnlyDigitsDirective,
     NoDigitsDirective,
     OnlyAlphabetDirective,
+    ConsoleDirective,
   ],
 
   imports: [
@@ -30,6 +32,7 @@ import { OnlyDigitsDirective, NoDigitsDirective, OnlyAlphabetDirective } from '.
     OnlyDigitsDirective,
     NoDigitsDirective,
     OnlyAlphabetDirective,
+    ConsoleDirective,
   ]
 
 })

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { DatabaseFireService } from 'src/app/databaseFire.service';
 
 @Component({
   selector: 'app-checkout-shipping',
@@ -11,36 +12,29 @@ export class CheckoutShippingComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private formBuilder: FormBuilder
-  ) { }
+    private formBuilder: FormBuilder,
+  ) {}
 
-  countries: object;
+  countries: Array<string[]>;
 
-  checkoutForm: FormGroup;
-
-  get fullName():AbstractControl { return this.checkoutForm.get('fullName')}
-  get streetAdress():AbstractControl { return this.checkoutForm.get('streetAdress')}
-  get postalCode():AbstractControl { return this.checkoutForm.get('postalCode')}
-  get country1():AbstractControl { return this.checkoutForm.get('country')}
-
-  x: any;
+  checkoutForm: FormGroup = this.formBuilder.group({
+    country: [],
+    city: [],
+    fullName: ['',[Validators.required,Validators.pattern(/^[a-z,',-]+(\s)[a-z,',-]+$/i)]],
+    streetAdress: ['',[Validators.required]],
+    postalCode: ['',[Validators.required,Validators.minLength(4)],]
+  })
 
   ngOnInit() {
 
-    this.http.get('https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/6ee538beca8914133259b401ba47a550313e8984/countries.min.json').subscribe(data => {
-      this.countries = Object.entries(data)
-      this.checkoutForm = this.formBuilder.group({
-        country: [7,[]],
-        city: ['',[]],
-        fullName: ['',[Validators.required,Validators.pattern(/^[a-z,',-]+(\s)[a-z,',-]+$/i)]],
-        streetAdress: ['',[Validators.required,Validators.pattern(/[a-z]\d+/g)],],
-        postalCode: ['',[Validators.required,Validators.minLength(10)],]
+
+    this.http.get('https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/6ee538beca8914133259b401ba47a550313e8984/countries.min.json')
+      .subscribe(data => {
+        this.countries = Object.entries(data)
+        this.checkoutForm.patchValue({
+          country: [7],
+          city: []
+        })
       })
-      
-      console.log(this.countries)
-    })
   }
 }
-
-
-        // Validators.pattern('^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14})$')]],

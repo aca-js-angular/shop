@@ -1,19 +1,59 @@
-.gridRow{
-    display: flex;
-    margin: 20px 0;
-}
-.gridLeft{
-    flex: 62%;
-    margin-right: 70px;
-}
-.gridRight{
-    flex: 38%;
+// .gridRow{
+//     display: flex;
+//     margin: 20px 0;
+// }
+// .gridLeft{
+//     flex: 62%;
+//     margin-right: 70px;
+// }
+// .gridRight{
+//     flex: 38%;
+//     border: solid #446E8E 1px;
+//     border-radius: 5px;
+//     height: 100%;
+//     padding: 20px 10px;
+//     margin-top: 23px;
+// }
+// input{
+//     width: 100%;
+//     margin-bottom: 15px;
+//     padding: 5px 5px;
+//     border: solid #446E8E 1px;
+//     border-radius: 5px;
+//     outline: none;
+// }
+
+// #postalCode{
+//     width: 50%;
+// }
+// #cvv{
+//     width: 100px;
+// }
+// select{
+//     margin-bottom: 15px;
+//     padding: 8px 5px;
+//     border: solid #446E8E 1px;
+//     outline: none;
+// }
+// #year{
+//     width: 100px;
+//     border-top-right-radius: 5px;
+//     border-bottom-right-radius: 5px;
+// }
+// #month{
+//     border-right: transparent;
+//     width: 70px;
+//     border-top-left-radius: 5px;
+//     border-bottom-left-radius: 5px;
+// }
+
+select{
+    margin-bottom: 15px;
+    padding: 8px 5px;
     border: solid #446E8E 1px;
-    border-radius: 5px;
-    height: 100%;
-    padding: 20px 10px;
-    margin-top: 23px;
+    outline: none;
 }
+
 input{
     width: 100%;
     margin-bottom: 15px;
@@ -23,18 +63,42 @@ input{
     outline: none;
 }
 
+.flexBox{
+    display: flex;
+    margin: 20px 0;
+}
+.flexLeft{
+    flex: 62%;
+    margin-right: 70px;
+}
+.flexRight{
+    flex: 38%;
+    border: solid #446E8E 1px;
+    border-radius: 5px;
+    height: 100%;
+    padding: 20px 10px;
+    margin-top: 23px;
+}
+
+.payment-info{
+    margin: 20px 0
+}
+.exp-date {
+    display: inline-block;
+    margin-right: 50px
+}
+.cvv { 
+    display: inline-block
+}
+
+
 #postalCode{
     width: 50%;
 }
 #cvv{
     width: 100px;
 }
-select{
-    margin-bottom: 15px;
-    padding: 8px 5px;
-    border: solid #446E8E 1px;
-    outline: none;
-}
+
 #year{
     width: 100px;
     border-top-right-radius: 5px;
