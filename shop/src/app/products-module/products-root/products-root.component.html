@@ -68,11 +68,25 @@
         </ng-container>
         <span *ngIf="allProducts" class="quantity"><u>{{allProducts.length}} products found</u></span>
         <span *ngIf="allProducts" id="sortSelector">
-          <select [formControl]="sortControl">
-            <option value="postDate">By Date</option>
+         
+
+            <mat-form-field>
+                <!-- <mat-label>By Date</mat-label> -->
+                <mat-select [formControl]="sortControl">
+                      <mat-option value="postDate">By Date</mat-option>
+                      <mat-option value="price">By Price</mat-option>
+                      <mat-option value="rating">By Rating</mat-option>
+                </mat-select>
+              </mat-form-field>
+              
+
+          <!-- <select >
+            <option By Date</option>
             <option value="price">By Price</option>
             <option value="rating">By Rating</option>
-          </select>
+         
+          </select> -->
+       
         </span>
       </div>
 

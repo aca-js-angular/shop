@@ -13,6 +13,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { RatingPipe } from './rating.pipe';
 import { ZipperPipe } from './zipper.pipe';
 import { SharedModule } from '../shared-module/shared.module';
+import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,8 @@ import { SharedModule } from '../shared-module/shared.module';
     ProductsRoutingModule,
     ReactiveFormsModule,
     SharedModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
 
   exports: [ProductSliderComponent,ZipperPipe]
