@@ -1,6 +1,9 @@
 
-#stickyHeader{
+.stickyHeader{
     position: sticky;
     top: 0;
     z-index: 10;
+} 
+.main {
+    position: relative
 }

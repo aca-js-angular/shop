@@ -58,10 +58,10 @@
         <button (click)="resetFilters()" title="Reset all filters" class="reset resetall">Reset All</button>
         <label title="Remember filters while navigating to other pages" id="rememberLabel" #rememberLabel [style.opacity]="fs.remember ? 1 : 0.3" (click)="fs.remember = !fs.remember; toggleOpacity(rememberLabel,'remember')">Remember Filters</label>
       </div>
-    </div>
+    </div> 
 
     <div class="flex-right">
-      <div class="pathDiv" class="sort-section" *ngIf="path">
+      <div class="bread-crumbs sort-section" *ngIf="path">   <!--special for MARIAM (bread crumbs)-->
         <ng-container *ngFor="let segment of path, last as last">
           <span class="path">{{segment}}</span>
           <span class="pathArrow" *ngIf="!last">&#xbb;</span>
