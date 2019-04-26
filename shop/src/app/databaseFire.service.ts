@@ -330,8 +330,10 @@ export class DatabaseFireService {
   }
 
 
-  httpGet<T>(url: string): Observable<T>{
-    return this.http.get<T>(url)
+  httpGet(callback: Function,url: string): void{
+    this.http.get(url).subscribe(data => {
+      callback(data);
+    });
   }
 
 }
