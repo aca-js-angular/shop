@@ -5,9 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { Routes, RouterModule } from '@angular/router';
-import { AutoService } from './Services/audentific.service';
 import { MatDialogModule, MatButtonModule, MatCheckboxModule, MatSelectModule } from '@angular/material';
-import { DialogService } from './Services/dialog.service';
 import { SharedModule } from '../shared-module/shared.module';
 
 

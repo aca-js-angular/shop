@@ -19,7 +19,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth'
-import { AudentificModule } from './audentific-module/audentific.module';
+import { AudentificModule } from './fa-module/fa.module';
 
 import { MatButtonModule, MatIconModule, MatRippleModule } from "@angular/material";
 import { ConfirmModule } from './comfirm-module/confirm.module';

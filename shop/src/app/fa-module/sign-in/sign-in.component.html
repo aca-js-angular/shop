@@ -1,7 +1,8 @@
-      <mat-dialog-actions align="end">
-      <button style="outline: none ; background: rgb(197, 197, 197)" mat-raised-button mat-dialog-close>Cancel</button>
-    </mat-dialog-actions>
-    
+      <mat-dialog-actions align="end">  
+          <span aria-hidden="true" class="close" (click)="closeDialog()">&times;</span>
+      </mat-dialog-actions>
+
+
     <div class="sigun-in">
 
   <h3 class="messageHead"> {{loginOrReset}} </h3>
@@ -29,7 +30,7 @@
           <span class="reset-pass-message">{{resetEmailMessage}}</span>
         </div>
 
-
+ 
       </div>
     </div>
   </form>
@@ -39,21 +40,9 @@
   <hr>
   
   <div class="navigate" *ngIf="showResetPanel">
-    <span class="navigate-span">Don’t have an account? </span>
+    <span class="navigate-span" (click)="closeDialog()">Don’t have an account? </span>
     <span class="navigate-signup">Sign Up</span>
   </div>
   
  </div>
-
-
-
-
-
-<!-- <div *ngIf="comfirmMail" class="form-group comfirm-email">
-  <h3>Comfirm Your Email address</h3>
-  <p>You used all the attempts:</p>
-  <input required  type="email" class="form-control comfirm-email-inp" id="email" placeholder="@">
-  <button class="btn btn-outline-dark">Send Message In email address</button>
-</div> -->
-
 
