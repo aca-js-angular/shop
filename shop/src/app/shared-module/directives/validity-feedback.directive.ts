@@ -12,7 +12,7 @@ export class ValidityFeedbackDirective {
 
   constructor(private ref: ElementRef) {
     this.native = this.ref.nativeElement
-    this.native.style.borderLeftWidth = '5px'
+    this.native.style.borderLeftWidth = '3.5px'
     this.native.style.transition = 'border-left-color 1s'
   }
   

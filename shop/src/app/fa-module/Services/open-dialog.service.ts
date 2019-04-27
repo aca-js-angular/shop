@@ -13,7 +13,7 @@ export class DialogService {
 
   openSignUp(): void {
     this.firebaseAuth.auth.onAuthStateChanged((res) => {
-      if(res){ this.clouseDialog() }
+      if(res){ this.closeDialog() }
     })
 
     const dialogRef = this.dialog.open(SignUpComponent, {
@@ -22,23 +22,22 @@ export class DialogService {
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe();
-    
   }
 
   openSignIn(): void {
     this.firebaseAuth.auth.onAuthStateChanged((res) => {
-      if(res){ this.clouseDialog() }
+      if(res){ this.closeDialog() }
     })
 
     const dialogRef = this.dialog.open(SignInComponent, {
-      height: '480px',
+      height: '431px',
       autoFocus: true,
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe();
   }
  
-  clouseDialog(): void {
+  closeDialog(): void {
     this.dialog.closeAll()
   }
 

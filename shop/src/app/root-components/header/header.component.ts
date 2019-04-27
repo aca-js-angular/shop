@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { DialogService } from '../../audentific-module/Services/dialog.service'
+import { DialogService } from '../../fa-module/Services/open-dialog.service'
 import { AngularFireAuth } from '@angular/fire/auth';
 import { BasketService } from 'src/app/basket-module/basket.service';
 import { Router } from '@angular/router';

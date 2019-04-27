@@ -1,12 +1,12 @@
 
-.sigun-in {width: 390px; height: 380px; margin: 0 auto; padding: 2% 9%; border-radius: 4%;}
+.sigun-in {width: 341px; height: 380px; margin: 0 auto; padding: 2% 9%; border-radius: 4%;}
 
 .col-auto {width: 100%;}
 .col-auto input {width: 100%; }
 //  input {}
-.sigun-in input { margin-top: 5%;   transition: border-color 1s ease-out; } 
+.sigun-in input { margin-top: 6%;   transition: border-color 1s ease-out; } 
 
-.messageHead {    margin-bottom: 2rem;}
+.messageHead {  margin-bottom: 12%;}
 
 
 
@@ -19,11 +19,11 @@ input {
     display: block;
     width: 100%;
     background: transparent;
-    height: 45px;
+    height: 43px;
     padding: 0 25px 0 25px;
 }
 
-.sign-in-btn  { margin: 4% 3.1% 0%;float: left; transition: 0.5s;width: 92%}
+.sign-in-btn  { margin: 11% 3.1% 0%;float: left; transition: 0.5s;width: 92%}
 // .sign-in-btn:hover {margin: 9% % 0%; }
 
 .invalid-message { color: brown;display: inline-block;margin: 1% 20%;}
@@ -41,12 +41,13 @@ input {
 // .remember:hover{ }
 
 .forget-pass {
-    margin-top: 5%;
+
     cursor: pointer;
     transition: 0.5s;
     display: inline-block;
-    margin: 5% 1% 2% 53%;
-    &:hover {  margin-left: 54%; color: rgb(7, 75, 102);font-size: 100%}
+    margin: 11% 0% 1% 54%;
+    font-size: 95%;
+    &:hover { color: rgb(7, 75, 102);}
 }
 
 .reset-pass-message {  text-align: center; color: rebeccapurple;margin: 5% 23%; display: inline-block;font-size: 130%;}
@@ -56,9 +57,22 @@ input {
     margin: -6% -4% 0%;
     float: right;
 }
-
+mat-dialog-container {
+    height: 95%;
+}
 hr { margin: 0 0 4%}
 .navigate {    margin: 2% 0% 1%; transition: 1s; text-align: center;}
 .navigate-span{ display: inline-block; margin: 2% 4%;}
 .navigate-signup { color: rgb(58, 58, 124); cursor: pointer;}
 .navigate-signup:hover {color: rgb(67, 67, 180);font-size: 102%}
+
+
+
+
+//-----------
+
+.close{
+    font-size: 160%;
+    margin: -101% 11% 0%;
+    cursor: pointer;
+};

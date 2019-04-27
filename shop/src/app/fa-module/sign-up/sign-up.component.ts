@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Router } from '@angular/router';
 import { Subject, fromEvent, of } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AutoService } from '../Services/audentific.service';
+import { AutoService } from '../Services/fa.service';
 import { takeUntil, debounceTime, map } from 'rxjs/operators';
-import { FormValidators } from '../Validators/Form-validator';
+import { CloseDialogService } from '../Services/close-dialog.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,6 +14,7 @@ import { FormValidators } from '../Validators/Form-validator';
 })
 export class SignUpComponent implements OnInit {
   constructor(
+    private dialog: CloseDialogService,
     public formBuilder: FormBuilder,
     public router: Router,
     private autoService: AutoService,
@@ -35,16 +36,14 @@ export class SignUpComponent implements OnInit {
   ngOnInit() {
 
     this.profileForm = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.pattern("[A-Za-z]{4,20}")]],
-      lastName: ['', [Validators.required,Validators.pattern("[A-Za-z]{4,20}")]],
+      firstName: ['', [Validators.required, Validators.pattern("[A-Za-z]{2,20}")]],
+      lastName: ['', [Validators.required,Validators.pattern("[A-Za-z]{2,20}")]],
 
       email: ['', [
         Validators.required,
         Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"),
       ]],
       password: ['', [Validators.required, Validators.minLength(8),]],
-      // creditCard: ['', [
-      //   Validators.required,
       //   Validators.pattern('^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14})$')]],
     })
     
@@ -57,12 +56,14 @@ export class SignUpComponent implements OnInit {
   get card(): AbstractControl { return this.profileForm.get("creditCard") }
   get pass(): AbstractControl { return this.profileForm.get("password") }
 
-
+  closeDialog() { this.dialog.closeDialog() } 
   //------------------------------------------ 
-  passComfirm(value): void {
-    if (this.pass.value === value) { this.comfirmPass = false }
-    else { this.comfirmPass = true }
+  passComfirm(value1:string,value2?:string): void {
+    if (value1 && this.pass.value === value1) { this.comfirmPass = false }
+    else if(value2 && this.pass.value === value2) { this.comfirmPass = false }
+    else if(value2 || value1) { this.comfirmPass = true }
   }
+
 
   onSubmit() {
     this.autoService.signUp(this.profileForm.value).then(() => {
@@ -91,16 +92,3 @@ export class SignUpComponent implements OnInit {
   get test(): string { return JSON.stringify(this.profileForm.value) }
 }
 
-
-
-
-  // function isbusyEmail(formControl: FormControl) {
-  //   return this.fbAuth.auth.fetchProvidersForEmail(formControl.value).then(res => {
-  //     return of(res).pipe(
-  //       debounceTime(400),
-  //       map(result => {
-  //         console.log(result)
-  //         return result[0] ? { myValidetor: { message: 'Tis Email Already Registered' } } : null
-  //       })
-  //     )
-  //   })

@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { AutoService } from '../Services/audentific.service'
+import { AutoService } from '../Services/fa.service'
 import { AdditionalService } from '../Services/additional.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { CloseDialogService } from '../Services/close-dialog.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,7 +14,11 @@ import { Subject } from 'rxjs';
 })
 export class SignInComponent implements OnInit, OnDestroy {
 
-  constructor( private formBuilder: FormBuilder, private autoService: AutoService, private additionalAuth: AdditionalService) { }
+  constructor( 
+    private dialog: CloseDialogService,
+    private formBuilder: FormBuilder,
+    private autoService: AutoService,
+    private additionalAuth: AdditionalService) { }
 
   logInForm: AbstractControl;
   infoHide: boolean = false; 
@@ -51,6 +56,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   get email(): AbstractControl { return this.logInForm.get('email'); }
   get pass(): AbstractControl { return this.logInForm.get('password'); }
+  closeDialog() { this.dialog.closeDialog() } 
 
   resetPass(): void {
     this.showResetPanel = false;
@@ -84,7 +90,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
 
   openSignUp(): void {
-    // this.dialog.clouseDialog();
+  //  this.additionalDialog.openSignUp()
     // this.dialog.openSignUp();
   }
 }//---------------------------------------------------------------------------------------------------------------------------------------------

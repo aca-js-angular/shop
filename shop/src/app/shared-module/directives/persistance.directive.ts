@@ -1,6 +1,6 @@
 import { Directive, Input, HostListener, ViewContainerRef } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { DialogService } from 'src/app/audentific-module/Services/dialog.service';
+import { DialogService } from 'src/app/fa-module/Services/open-dialog.service';
 
 @Directive({
   selector: '[_persistance]'

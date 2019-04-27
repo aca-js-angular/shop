@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Product } from './product-interface';
 import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { DialogService } from '../audentific-module/Services/dialog.service';
+import { DialogService } from '../fa-module/Services/open-dialog.service';
 
 @Injectable({
   providedIn: 'root'
