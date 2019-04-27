@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference, DocumentData } from '@angular/fire/firestore';
-import { Observable, Subscription, zip, of } from 'rxjs';
+import { Observable, zip, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators'
-import { Product } from './products-module/product-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -88,8 +87,6 @@ export class DatabaseFireService {
 
   dynamicQueryFilter<T>(collectionName: string, options: object, callbackFn: Function): void {
 
-    const bindedCallback: Function = callbackFn.bind(this)
-
     const targetCollection = this.fire.collection(collectionName).ref
     const optionPairs = Object.entries(options)
 
@@ -103,7 +100,7 @@ export class DatabaseFireService {
       .then(resolve2 => {
         const documents = []
         resolve2.forEach(doc => documents.push(doc.data() as T))
-        bindedCallback(documents)
+        callbackFn.call(this,documents)
 
       })
   }
@@ -322,11 +319,10 @@ export class DatabaseFireService {
   // Get Sorted Array By Property 
   // orderType -3-argument = 'asc' (min-nax)  ||  'desc' (max-min) 
 
-  getSortedCollectionByPrice<T>(collectionName: string, orderByType: boolean = false, sortProperty: string = 'price'): Observable<T[]> {
-    let sortType: any;
-    orderByType ? sortType = 'desc' : sortType = 'asc';
-    return this.fire.collection<T>(collectionName, ref => ref.limit(15).orderBy(sortProperty, sortType)).valueChanges()
-  }
+  // getSortedCollectionByProperty<T>(collectionName: string, sortProperty: string, limit: number = Infinity, orderType: boolean = false): Observable<T[]> {
+  //   let direction = orderType ? 'asc' : 'desc'
+  //   return this.fire.collection<T>(collectionName, ref => ref.orderBy(sortProperty, direction).limit(limit)).valueChanges()
+  // }
 
 
   // GetCollectionByQuantity []

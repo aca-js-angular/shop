@@ -4,6 +4,7 @@
       <img [src]="currentSrc">
     </div>
     <div class="flexMiddle">
+      <button (click)="f()">TEST</button>
       <div class="smallCaps"><b>{{thisProduct.name}}</b></div>
       <div class="font-13px">from <a [routerLink]="['/','products','brands',thisProduct.brand]">{{thisProduct.brand}}</a></div>
       <hr>

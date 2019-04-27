@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { Product } from './product-interface';
 import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { DialogService } from '../audentific-module/Services/dialog.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +13,7 @@ export class ProductService {
   constructor(
     private db: DatabaseFireService,
     private auth: AngularFireAuth,
-    private dialog: DialogService,
-  ) { }
+  ) {}
 
   generatePackages(sourceArray: any[], fraction: number): any[]{
     const packages = []
@@ -33,7 +31,7 @@ export class ProductService {
 
   getLatestProducts(): Observable<Product[]>{
     return this.db.getCollection<Product>('products').pipe(map(products => {
-      return products.filter(product => product.postDate > new Date('2019-01-01').getTime())
+      return products.filter(product => product.postDate >= new Date('2019-01-01').getTime())
     }))
   }
 
@@ -63,7 +61,6 @@ export class ProductService {
   }
 
   pushToCard(productId: string, currentUser: any){
-
         this.db.pushData<string>('users',currentUser,'creditCard',productId)
         .then(console.log)
   }

@@ -31,9 +31,6 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
   currentId: string;
   isInBasket: boolean;
 
-  f(){
-    this.ps.pushToCard('0Pf28eEATyqv370FlAR8','Qn6SXUCpZAcfBmwR47zmmDm3Vy73')
-  }
   addToBasket(currentUser: any){
     this.ps.pushToCard(this.currentId,currentUser.uid)
     this.isInBasket = true
