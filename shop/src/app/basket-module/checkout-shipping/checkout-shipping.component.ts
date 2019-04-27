@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { DatabaseFireService } from 'src/app/databaseFire.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-checkout-shipping',
@@ -25,16 +24,13 @@ export class CheckoutShippingComponent implements OnInit {
     postalCode: ['',[Validators.required,Validators.minLength(4)],]
   })
 
-  ngOnInit() {
 
+  ngOnInit() {
 
     this.http.get('https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/6ee538beca8914133259b401ba47a550313e8984/countries.min.json')
       .subscribe(data => {
         this.countries = Object.entries(data)
-        this.checkoutForm.patchValue({
-          country: [7],
-          city: []
-        })
+        this.checkoutForm.get('country').setValue(7) // Armenia by default
       })
   }
 }

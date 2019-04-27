@@ -7,6 +7,7 @@ import { Order } from './order.constructor';
 @Injectable({
   providedIn: 'root'
 })
+
 export class BasketService {
 
   basket: Order[] = [];
@@ -15,8 +16,8 @@ export class BasketService {
   constructor(
     private fireAuth: AngularFireAuth,
     private db: DatabaseFireService,
-  ) {
-
+  ) 
+  {
     this.fireAuth.authState.subscribe(() => {
       const currentUser = this.fireAuth.auth.currentUser
       if(currentUser){
@@ -28,6 +29,7 @@ export class BasketService {
           const basketContent = []
           products.forEach(product => basketContent.push(new Order(product,1)))
           this.basket = basketContent
+
         })
       })
       }
@@ -35,11 +37,6 @@ export class BasketService {
     
   }
 
-  
-
-  removeFromBasket(index: number){
-    this.basket.splice(index,1)
-  }
 
   getTotalQuantity(): number{
     return this.basket.reduce((sum,order) => sum + order.quantity,0)
@@ -63,6 +60,10 @@ export class BasketService {
 
   clearBasket(): void {
     this.db.clearDocumentArray('users',this.currentUid,'creditCard').then(_ => this.basket = [])
+  }
+
+  removeOrderFromBasket(index: number): void {
+    this.db.removeElementFromArray<Order>('users',this.currentUid,'creditCard',index)
   }
 
 }

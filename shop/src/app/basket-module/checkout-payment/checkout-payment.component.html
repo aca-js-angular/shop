@@ -5,42 +5,44 @@
   </h3>
   <div class="flexBox">
     <div class="flexLeft">
-      <div>
-        <b>Card number</b>
-      </div>
-      <div>
-        <input _onlyDigits>
-      </div>
-      <div>
-        <b>Name on card</b>
-      </div>
-      <div>
-        <input type="text">
-      </div>
-      <div class="exp-date">
+      <form [formGroup]="paymentForm">
         <div>
-          <b>Expiration date</b>
+          <b>Card number</b>
         </div>
         <div>
-          <select id="month">
-            <option *ngFor="let month of months">{{month}}</option>
-          </select>
-          <select id="year">
-            <option *ngFor="let year of nearestYears">{{year}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="cvv">
-        <div>
-          <b>CVV</b>
+          <input _onlyDigits [_feedback]="cardNumber" formControlName="cardNumber">
         </div>
         <div>
-          <input id="cvv" type="number">
+          <b>Name on card</b>
         </div>
-      </div>
+        <div>
+          <input _onlyAlphabet [_feedback]="nameOnCard" formControlName="nameOnCard" _format="uppercase">
+        </div>
+        <div class="exp-date">
+          <div>
+            <b>Expiration date</b>
+          </div>
+          <div>
+            <select id="month">
+              <option *ngFor="let month of months">{{month}}</option>
+            </select>
+            <select id="year">
+              <option *ngFor="let year of nearestYears">{{year}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="cvv">
+          <div>
+            <b>CVV</b>
+          </div>
+          <div>
+            <input [_feedback]="cvv" formControlName="cvv" _onlyDigits id="cvv">
+          </div>
+        </div>
+      </form>
     </div>
     <div class="flexRight">
-      <app-order-summary action="PLACE ORDER"></app-order-summary>
+      <app-order-summary [currentForm]="paymentForm" action="PLACE ORDER"></app-order-summary>
     </div>
   </div>
 </div>

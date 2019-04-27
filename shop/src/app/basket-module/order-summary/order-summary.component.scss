@@ -1,7 +1,17 @@
 hr{
     margin: 7px;  
 }
-.applyBtn{
+input{
+    border: solid 1px #446E8E;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding: 1px 5px;
+    font-size: 13px;
+    outline: none;
+    width: 80%;
+    height: 30px;
+}
+.apply-btn{
     height: 30px;
     background: #446E8E;
     border: solid 1px #446E8E;
@@ -15,24 +25,23 @@ hr{
         background: rgb(89, 139, 177);
     }
 }
-input{
-    border: solid 1px #446E8E;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-    padding: 1px 5px;
-    font-size: 13px;
-    outline: none;
-    width: 80%;
-    height: 30px;
+
+.order-sum {
+    font-size: 18px;
+    font-weight: bold; 
+    color: #446E8E
 }
-.checkout{
+.promo-code {
+    margin: 10px 0
+}
+.action-btn {
     border: none;
+    border-radius: 5px;
     background: #446E8E;
     color: white;
-    font-size: 11px;
     padding: 7px;
-    width: 200px;
-    border-radius: 5px;
+    width: 100%;
+    font-size: 14px;
     outline: none;
     &:active{
         background: rgb(94, 142, 179);

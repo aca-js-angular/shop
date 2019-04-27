@@ -14,7 +14,7 @@ export class BasketItemComponent implements OnInit {
   constructor(private bs: BasketService) { }
 
   @Input() thisOrder: Order;
-  @Output() removeProduct = new EventEmitter<void>()
+  @Output() removeOrder = new EventEmitter<void>()
 
   quantity: FormControl;
 

@@ -25,7 +25,8 @@ import { SharedModule } from '../shared-module/shared.module';
     BasketRoutingModule,
     ProductsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
   ]
 })
+
 export class BasketModule { }

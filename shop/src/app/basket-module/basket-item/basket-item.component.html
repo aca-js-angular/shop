@@ -19,7 +19,7 @@
         </span>
       </div>
       <div>
-        <span (click)="removeProduct.emit()" class="remove-btn"><u>Remove</u></span>
+        <span (click)="removeOrder.emit()" class="remove-btn"><u>Remove</u></span>
         <span class="pr-total">
           <b>Total: </b>{{(thisOrder.product.price * thisOrder.quantity) | currency}}
         </span>

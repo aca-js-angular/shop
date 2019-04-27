@@ -281,7 +281,17 @@ export class DatabaseFireService {
 
 
 
-
+  removeElementFromArray<T>(collectionName: string, docid: string, targetArrayName: string, index: number): Promise<void>{
+    return new Promise(resolve => {
+      let subscr = this.getExtractedProperty<T[]>(collectionName,docid,[targetArrayName]).subscribe(array => {
+        array.splice(index,1)
+        this.updateData(collectionName,docid,{[targetArrayName]: array}).then(_void => {
+          resolve()
+        })
+        subscr.unsubscribe()
+      })
+    })
+  }
 
 
 

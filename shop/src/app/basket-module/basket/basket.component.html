@@ -11,11 +11,11 @@
   <div class="flexBox" *ngIf="basketSize; else emptyBasket">
     <div class="flexLeft">
       <div  class="basket-content" *ngFor="let order of basket, index as i">
-        <app-basket-item [thisOrder]="order"></app-basket-item>
+        <app-basket-item (removeOrder)="remove(i)" [thisOrder]="order"></app-basket-item>
       </div>
     </div>
     <div class="flexRight">
-      <app-order-summary (click)="checkout()" action="CHECKOUT"></app-order-summary>
+      <app-order-summary (click)="nextRoute()" action="CHECKOUT"></app-order-summary>
     </div>
   </div>
   <ng-template #emptyBasket>

@@ -6,27 +6,23 @@ body{
 .section{
     padding: 0 18%;
 }
-
 .inactive{
     opacity: 0.3;
 }
-
-
-//------------------------------
 .text-bold {
     font-weight: bold
-}    
-.font-13px {
-        font-size: 13px
-    }
-.font-12px {
-    font-size: 12px
+}
+.font-10px {
+    font-size: 10px
 }
 .font-11px {
     font-size: 11px
 }
-.font-10px {
-    font-size: 10px
+.font-12px {
+    font-size: 12px
+}
+.font-13px {
+    font-size: 13px
 }
 .font-14px {
     font-size: 14px
@@ -41,6 +37,6 @@ body{
 .items-right{
     float: right;
 }
-.items-right{
+.items-left{
     float: left;
 }

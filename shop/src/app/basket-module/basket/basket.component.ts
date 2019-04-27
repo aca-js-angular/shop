@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common'
 import { BasketService } from '../basket.service';
-import { Product } from 'src/app/products-module/product-interface';
 import { Order } from '../order.constructor';
 
 @Component({
@@ -30,6 +29,10 @@ export class BasketComponent {
 
   back(){
     this.location.back()
+  }
+
+  remove(index: number){
+    this.bs.removeOrderFromBasket(index)
   }
 
 }

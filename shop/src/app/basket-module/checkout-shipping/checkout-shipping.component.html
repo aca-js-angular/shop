@@ -23,17 +23,17 @@
           
           <div><b>Full name</b></div>
           <div>
-            <input formControlName="fullName" [_feedback]="fullName" _onlyAlphabet>
+            <input formControlName="fullName" [_feedback]="checkoutForm.get('fullName')" _onlyAlphabet>
           </div>
   
           <div><b>Street adress</b></div>
           <div>
-            <input formControlName="streetAdress" [_feedback]="streetAdress" type="text">
+            <input formControlName="streetAdress" [_feedback]="checkoutForm.get('streetAdress')" type="text">
           </div>
   
           <div><b>Postal code</b></div>
           <div id="postalCode">
-            <input type="number" formControlName="postalCode" [_feedback]="postalCode">
+            <input type="number" formControlName="postalCode" [_feedback]="checkoutForm.get('postalCode')">
           </div>
         
         </form>
@@ -41,8 +41,7 @@
       </div>
   
       <div class="flexRight">
-        <app-order-summary action="CONTINUE TO PAYMENT"></app-order-summary>
-        <!-- <button [_console]="this.streetAdress.errors.required">TEST</button> -->
+        <app-order-summary [currentForm]="checkoutForm" action="CONTINUE TO PAYMENT"></app-order-summary>
       </div>
       
     </div>
