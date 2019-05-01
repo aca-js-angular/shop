@@ -28,6 +28,7 @@ import { SearchComponent } from './root-components/search/search.component';
 import { SingleResultComponent } from './root-components/search/single-result/single-result.component';
 import { SharedModule } from './shared-module/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { NotFoundComponent } from './root-components/not-found/not-found.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     WorkingWithDbComponent,
     SearchComponent,
-    SingleResultComponent
+    SingleResultComponent,
+    NotFoundComponent
   ],
 
   imports: [

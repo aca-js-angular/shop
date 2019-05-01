@@ -1,7 +1,8 @@
 
 <div class="search-box">
-  <div>
       <mat-progress-bar mode="indeterminate" *ngIf="animation"></mat-progress-bar>
-  </div>
   <app-single-result *ngFor="let result of results" [singleResult]="result"></app-single-result>
+
+  <div *ngIf="results && results.length === 0" class="not-found">Not Found Result</div>
+
 </div>
