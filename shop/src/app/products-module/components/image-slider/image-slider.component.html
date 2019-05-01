@@ -7,7 +7,7 @@
       <div class="arrow rightArrow"></div>
     </div>
     <div #sliderRef id="slider">
-      <img *ngFor="let img of imageCollection" [src]="img" (click)="setSrc.emit(img)">
+      <img *ngFor="let img of imageCollection" [src]="img" (click)="setSrc.emit(img)"  onerror="this.src = 'assets/emptycart.png'">
     </div>
   </div>
 </ng-container>

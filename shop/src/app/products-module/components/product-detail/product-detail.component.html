@@ -2,8 +2,8 @@
 <div *ngIf="thisProduct" class="section">
     <div class="flexBox">
       <div class="flexLeft">
-        <img [src]="currentSrc">
-        <img [src]="currentSrc" class="ghost" [class.animation-element]="startAnimation">
+        <img [src]="currentSrc" onerror="this.src = 'assets/emptycart.png'">
+        <img [src]="currentSrc" onerror="this.hidden = true" class="ghost" [class.animation-element]="startAnimation">
       </div>
       <div class="flexMiddle">
   
@@ -80,7 +80,7 @@
         <h6 class="text-bold">Vendor Profile</h6>
         <table>
           <tr>
-            <td><img class="vendorImg" [src]="thisProduct.vendor.img" onerror="this.src = 'assets/empty.png'"></td>
+            <td><img class="vendorImg" [src]="thisProduct.vendor.img" onerror="this.src = 'assets/empty_user.png'"></td>
             <td class="vendor-tab">
               <div class="font-12px vendor-details">
                 <span><b>{{thisProduct.vendor.fullName}}</b></span>

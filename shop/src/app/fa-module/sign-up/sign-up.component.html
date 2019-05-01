@@ -48,14 +48,14 @@
 
         </div>
       </div>
-
-      <mat-spinner class="load-spinner" *ngIf="awaitAnimation"></mat-spinner>
-
-
       <button (click)="onSubmit()" class="btn btn-outline-dark" [_inactive]="profileForm.invalid">Registration</button>
     </form>
     <br>
-    <hr>
+
+    <hr *ngIf="!awaitAnimation">
+    <mat-progress-bar mode="indeterminate" *ngIf="awaitAnimation"></mat-progress-bar>
+
+
     <span class="privacy-info">By creating an account, you agree to <b>ModeConcept’s</b> conditions of use and privacy
       policy.</span>
 

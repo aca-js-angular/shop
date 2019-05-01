@@ -22,9 +22,9 @@ option { color: #000000;background-color: rgb(230, 230, 230)}
 .col-auto { width: 80%; }
 .invalid-message { 
     color: brown;
-    font-size: 10px;
-    position: absolute;
-    right: 0;
+    font-size: 72%;
+    margin: 3% 4.5%;
+    display: list-item;
 }
 .passComf:not(.ng-pristine) { border-left: 3.45px solid rgb(235, 96, 96);  }
 
@@ -56,11 +56,11 @@ mat-form-field {margin: 2% 1px -5%;}
 }
 
 .await-async-validator-spinner {
-    position: fixed;
+    position: absolute;
     z-index: 1;
-    margin: -36.5px 301px;
+    margin: -36.5px 293px;
 }
-
+.mat-progress-bar{ margin-bottom: 4%; }
 
 .invalid-email { border-left-width: 3.5px; transition: 1s  }
 .invalid-email:not(.ng-invalid) { border-left-color: rgb(112, 184, 185)  }

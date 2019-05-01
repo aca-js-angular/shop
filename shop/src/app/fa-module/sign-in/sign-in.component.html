@@ -3,8 +3,7 @@
   <mat-dialog-actions align="end">
     <span aria-hidden="true" class="close" (click)="closeDialog()">&times;</span>
   </mat-dialog-actions>
-  <mat-spinner [diameter]="40" *ngIf="awaitAnimation"></mat-spinner>
-
+  <!-- awaitAnimation -->
   <div class="sign-in">
 
     <h3 class="messageHead"> {{loginOrReset}} </h3>
@@ -40,7 +39,8 @@
     <br>
     <h5 *ngIf="infoHide">{{ info }}</h5>
     <span class="invalid-message" *ngIf="awaitSec && !invalidPassOrMail"> Invalid Email Or Password </span>
-    <hr>
+    <hr *ngIf="!awaitAnimation">
+    <mat-progress-bar mode="indeterminate" *ngIf="awaitAnimation"></mat-progress-bar>
 
     <div class="navigate" *ngIf="showResetPanel">
       <span class="navigate-span" (click)="closeDialog()">Don’t have an account? </span>

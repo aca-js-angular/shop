@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterContentInit, AfterViewInit } from '@angular/core';
 import { DialogService } from '../../fa-module/Services/open-dialog.service'
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { ConfirmDialogService } from 'src/app/comfirm-module/services/confirm-di
   styleUrls: ['./header.component.scss'],
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
 
   constructor(
     private dialog: DialogService,
@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
   /* --- Variables --- */
 
   @ViewChild('searchInput') input: ElementRef;
+
   searchAwaitAnimation: boolean;
   searchResult$: Subscribable<object[]>
   searchBoxHid: boolean;
@@ -81,12 +82,12 @@ export class HeaderComponent implements OnInit {
     })
   }
 
-  ngAterViewInit(){
+ ngAfterViewInit(){
     this.searchResult$ = fromEvent(this.input.nativeElement, 'input').pipe(
       map(_ => event.target['value'].toLowerCase()),
       distinctUntilChanged(),
       tap(() => this.searchAwaitAnimation = true),
-      debounceTime(500),
+      debounceTime(400),
       switchMap(inpValue => this.db.getDocumentsBySearchValue<Product>('products', inpValue)),
       tap(() => this.searchAwaitAnimation = false),
     )
