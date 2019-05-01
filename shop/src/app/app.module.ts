@@ -48,13 +48,13 @@ import { NotFoundComponent } from './root-components/not-found/not-found.compone
 
     ReactiveFormsModule,
     MatTooltipModule,
-    AppRoutingModule,
     HttpClientModule,
-
     HomeModule,
     ProductsModule,
     BasketModule,
     SharedModule,
+
+    
 
     AudentificModule,
     ConfirmModule,
@@ -67,7 +67,11 @@ import { NotFoundComponent } from './root-components/not-found/not-found.compone
     MatIconModule,
     MatRippleModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+
+    AppRoutingModule,
+
+    
 
   ],
 

@@ -24,6 +24,7 @@ import { LatestProductsComponent } from './components/latest-products/latest-pro
     CommonModule,
     HomeRoutingModule,
     ProductsModule,
-  ]
+  ],
+  exports: [HomeRootComponent]
 })
 export class HomeModule { }

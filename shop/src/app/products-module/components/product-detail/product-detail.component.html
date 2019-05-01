@@ -3,9 +3,7 @@
     <div class="flexLeft">
       <img [src]="currentSrc" onerror="this.src = 'assets/emptycart.png'">
       <img [src]="currentSrc" onerror="this.hidden = true" class="ghost" [class.animation-element]="startAnimation">
-   
 
-  
    
    
     </div>
@@ -95,7 +93,7 @@
   
 </div>
 
-<img style="width:411px" id="img_01" src="assets/products/Hustle/1.jpg"/>
+
 
 <!---------- More From This Brand ---------->
 <app-product-slider *ngIf="moreFromThisBrand" [href]="['/','products','brands',thisProduct.brand]"
@@ -120,6 +118,6 @@
 <!-- <dir *ngIf=> -->
 
   <!-- <img style="width:411px" id="img_01" src="https://cdn.jsdelivr.net/gh/igorlino/elevatezoom-plus@1.1.6/demo/images/large/image3.jpg"/> -->
-  {{currentSrc}}
+  <!-- {{currentSrc}} -->
   
  <!-- data-zoom-image="https://cdn.jsdelivr.net/gh/igorlino/elevatezoom-plus@1.1.6/demo/images/large/image3.jpg" -->

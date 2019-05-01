@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 declare var $:any;
 
 @Component({
@@ -6,9 +6,15 @@ declare var $:any;
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.scss']
 })
-export class NotFoundComponent implements OnInit, AfterViewInit {
+export class NotFoundComponent implements AfterViewInit {
 
-  constructor() { }
+  constructor(){}
+
+  help(){
+    window.alert('click on island to go home')
+  }
+
+  /* --- LC hooks --- */
 
   ngAfterViewInit() {
     var parallax = function (e) {
@@ -43,14 +49,5 @@ export class NotFoundComponent implements OnInit, AfterViewInit {
       $(".not-found").on("mouseleave", stopParallax);
     });
   }
-   
-  
-  
-  
-
-
-
-ngOnInit() {
-}
 
 }

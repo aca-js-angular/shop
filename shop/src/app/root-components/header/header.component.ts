@@ -33,6 +33,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   searchResult$: Subscribable<object[]>
   searchBoxHid: boolean;
   currentUser: any;
+
+
+  /* --- Getters --- */
+
+  get is404(): boolean {
+    return document.location.href.includes('not-found')
+  }
   
 
   /* --- Methods --- */

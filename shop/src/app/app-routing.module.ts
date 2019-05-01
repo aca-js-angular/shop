@@ -6,7 +6,8 @@ import { NotFoundComponent } from './root-components/not-found/not-found.compone
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'db', component: WorkingWithDbComponent},
-  {path: 'aa', component: NotFoundComponent},
+  {path: 'not-found', component: NotFoundComponent},
+  {path: '**', redirectTo: 'not-found', pathMatch: 'full'},
 ];
 
 @NgModule({
