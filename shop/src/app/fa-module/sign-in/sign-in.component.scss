@@ -1,12 +1,12 @@
 
-.sigun-in {width: 341px; height: 380px; margin: 0 auto; padding: 2% 9%; border-radius: 4%;}
+.sign-in {width: 341px; height: 380px; margin: 0 auto; padding: 4% 9%; border-radius: 4%; overflow: hidden;}
 
 .col-auto {width: 100%;}
 .col-auto input {width: 100%; }
 //  input {}
 .sigun-in input { margin-top: 6%;   transition: border-color 1s ease-out; } 
 
-.messageHead {  margin-bottom: 12%;}
+.messageHead {  margin-bottom: 12%; text-align: center}
 
 
 
@@ -23,11 +23,16 @@ input {
     padding: 0 25px 0 25px;
 }
 
-.sign-in-btn  { margin: 11% 3.1% 0%;float: left; transition: 0.5s;width: 92%}
+.sign-in-btn  {    
+    margin: 11% 1% 0%;
+    float: left;
+    transition: 0.5s;
+    width: 98%; 
+}
 // .sign-in-btn:hover {margin: 9% % 0%; }
 
-.invalid-message { color: brown;display: inline-block;margin: 1% 20%;}
-.reset-pass { width: 96%; margin-top: 4%;margin: 4% 1.9%;}
+.invalid-message { color: brown;display: inline-block;margin: 1% 14%;}
+.reset-pass {  width: 100%;margin: 7% 0% 18%;}
 .comfirm-email { width: 30%; margin: 6% 7%}
 
 
@@ -50,15 +55,23 @@ input {
     &:hover { color: rgb(7, 75, 102);}
 }
 
-.reset-pass-message {  text-align: center; color: rebeccapurple;margin: 5% 23%; display: inline-block;font-size: 130%;}
+.reset-pass-message { 
+    text-align: center;
+    color: rebeccapurple;
+    margin: 0 auto;
+    display: block;
+    font-size: 130%;}
 
 .mat-dialog-actions {    
     padding: 0;
     margin: -6% -4% 0%;
     float: right;
 }
+
+
+
 mat-dialog-container {
-    height: 95%;
+    height: 100%;
 }
 hr { margin: 0 0 4%}
 .navigate {    margin: 2% 0% 1%; transition: 1s; text-align: center;}
@@ -76,3 +89,25 @@ hr { margin: 0 0 4%}
     margin: -101% 11% 0%;
     cursor: pointer;
 };
+mat-spinner {
+    position: fixed;
+    margin: 297px 122px;
+    z-index: 1;
+}
+
+
+
+
+// mat-spinner {
+//     // position: absolute;
+//     // left: 50%;
+//     // transform: translateX(-50%);
+//     // top: 78%;   
+//     position: fixed;
+//     margin: 309px 152px;
+//     z-index: 1;
+
+// }
+// .container{
+//     position: relative;
+// }

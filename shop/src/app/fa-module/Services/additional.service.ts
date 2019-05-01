@@ -9,22 +9,21 @@ export class AdditionalService {
   constructor(private firebaseAuth: AngularFireAuth) { }
 
   deleteCurrentUser() {
-    this.firebaseAuth.auth.currentUser.delete()
+    this.firebaseAuth.auth.currentUser.delete().catch()
   }
 
   sendEmailVerifResetPass(email: string): Promise<void> {
-    return this.firebaseAuth.auth.sendPasswordResetEmail(email)
+    return this.firebaseAuth.auth.sendPasswordResetEmail(email).catch()
   }
 
   rememberMy(): Promise<void>{
-   return this.firebaseAuth.auth.setPersistence('session');
+   return this.firebaseAuth.auth.setPersistence('session').catch(); 
   }
 
   autoState(): Promise<{uid: string} | null> {
     return new Promise(resolve => {
        this.firebaseAuth.auth.onAuthStateChanged((user)=> {
-         const uid = user.uid
-        user ? resolve({uid}) : resolve(null);
+         user ? resolve({ uid: user.uid }) : resolve(null);
        })
     })
   }
@@ -36,15 +35,4 @@ export class AdditionalService {
 
 
 
-}
-
-export interface User {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  email: string;
-  creditCard: string;
-  password?: string;
-  img?: string;
-  optional: { city: string, gender: string }
 }

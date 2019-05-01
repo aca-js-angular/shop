@@ -6,12 +6,15 @@ import { Directive, Input, ElementRef, HostListener } from '@angular/core';
 export class ForcedFormatDirective {
 
   @Input('_format') formatType: string;
-
   native: HTMLInputElement;
+
   constructor(private ref: ElementRef) {
     this.native = this.ref.nativeElement
     if(this.native.tagName !== 'INPUT'){
-      throw new Error(`\n "_format" directive binded on ${this.native.tagName} \n "_format" directive bindable only on INPUT Elements `)
+      throw new Error(`
+      "_format" directive binded on ${this.native.tagName} 
+      "_format" directive bindable only on INPUT Elements `
+      )
     }
   }
 
@@ -54,7 +57,10 @@ export class ForcedFormatDirective {
       
       default:
         console.warn
-        (`unexpected input "${this.formatType}" of "_format" directive. \n Data won't be formatted in any way.`)
+        (`
+        unexpected input "${this.formatType}" of "_format" directive.
+        Data won't be formatted in any way.
+        `)
     }
 
     this.native.value = value

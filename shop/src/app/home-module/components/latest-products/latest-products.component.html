@@ -1,0 +1,7 @@
+<app-product-slider
+*ngIf="latestCollection"
+[href]="['/','products','latestCollection']"
+[title]="'Latest Collection'"
+[productCollection]="latestCollection"
+[config]="{ratio: 4, likeable: true, info: true}"
+></app-product-slider>

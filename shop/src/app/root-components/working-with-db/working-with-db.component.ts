@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatabaseFireService } from 'src/app/databaseFire.service';
+import { DatabaseFireService } from 'src/app/database-fire.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { P } from './product-constructor';
 
@@ -213,13 +213,13 @@ export class WorkingWithDbComponent implements OnInit {
   ], name: 'Stone Rouge'}
 
   updateDoc(name: string){
-    this.db.getDocumentIdByUnqieProperty('products','name',name).then(res => {
+    this.db.getDocumentIdByUniqueProperty('products','name',name).then(res => {
       this.db.updateData('products',res,this.updateValue)
     })
   }
 
   getId(arg: string){
-    this.db.getDocumentIdByUnqieProperty('products','name',arg).then(console.log)
+    this.db.getDocumentIdByUniqueProperty('products','name',arg).then(console.log)
   }
 
 

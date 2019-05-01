@@ -1,9 +1,11 @@
+
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { User } from './additional.service'
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import { DatabaseFireService } from 'src/app/database-fire.service';
+import { User } from '../../interfaces and constructors/user.interface'
+import { Order } from 'src/app/interfaces and constructors/order.interface';
+
 
 
 @Injectable({
@@ -13,24 +15,17 @@ export class AutoService {
 
   constructor(
     private firebaseAuth: AngularFireAuth,
-    private db: AngularFirestore,
-    private rout: Router) {
-    }
+    private db: DatabaseFireService,
+  ) {}
 
-  isBusyEmail = this.firebaseAuth.auth.fetchProvidersForEmail
+  isLogined = new Subject<boolean>();
+  invalidMessage: string;
 
-  isLogined = new BehaviorSubject<boolean>(null);
-  invalidMessage: string
 
   signIn(formValue: { email: string, password: string }): void {
-
+    
     this.firebaseAuth.auth.signInWithEmailAndPassword(formValue.email, formValue.password)
-      .then(value => {
-        console.log("Succses", value)
-        this.rout.navigate(['products'])
-
-      }).catch(err => {
-        console.log("rejected", err)
+    .catch(_void => {
         this.isLogined.next(false)
       })
 
@@ -43,20 +38,20 @@ export class AutoService {
     return this.firebaseAuth.auth.createUserWithEmailAndPassword(formValue.email, formValue.password)
       .then(result => {
 
-        result.user.updateProfile({ displayName: formValue.firstName, photoURL: '' })
-          .then(() => {
-            this.db.collection('users').doc(result.user.uid).set({
+        result.user.updateProfile({ displayName: formValue.firstName})
+          .then(_void => {
+            this.db.postDataWithId('users',result.user.uid,{
               firstName: formValue.firstName,
               lastName: formValue.lastName,
               email: formValue.email,
-              creditCard: [],
+              credit: [] as Order[],
             }).then(_ => {
-              this.firebaseAuth.auth.currentUser.sendEmailVerification().then(console.log).catch(console.log)   // .languageCode = 'fr';
-              this.firebaseAuth.auth.signOut().then(res => console.log("sign outed")).catch(console.log)
+              this.firebaseAuth.auth.currentUser.sendEmailVerification().catch(console.log)
+              this.firebaseAuth.auth.signOut().catch()
             })
-          }).catch(console.log);
+          }).catch();
 
-      }, (err => { console.log(err); this.invalidMessage = 'AR'; })).catch(console.log)
+      }, (err => { console.log(err)})).catch(console.log)
 
   }
 

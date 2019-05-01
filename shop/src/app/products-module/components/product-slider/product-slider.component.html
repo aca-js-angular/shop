@@ -1,0 +1,24 @@
+<ng-container *ngIf="productCollection">
+  <div class="container">
+
+    <div *ngIf="title">
+      <h4>{{title}}</h4>
+      <a [routerLink]="href" class="items-right" >view more</a>
+    </div>
+    <hr *ngIf="title">
+
+    <div class="arrowContainer leftContainer" (click)="previous()">
+      <div class="arrow"></div>
+    </div>
+    <div class="arrowContainer rightContainer" (click)="next()">
+      <div class="arrow rightArrow"></div>
+    </div>
+    <div #sliderRef id="slider">
+      <app-single-product
+      *ngFor="let product of productCollection"
+      [thisProduct]="product"
+      [config]="config"
+      ></app-single-product>
+    </div>
+  </div>
+</ng-container>

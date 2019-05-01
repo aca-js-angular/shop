@@ -25,7 +25,7 @@ import { MatButtonModule, MatIconModule, MatRippleModule } from "@angular/materi
 import { ConfirmModule } from './comfirm-module/confirm.module';
 import { WorkingWithDbComponent } from './root-components/working-with-db/working-with-db.component';
 import { SearchComponent } from './root-components/search/search.component';
-import { SingleResultComponent } from './root-components/single-result/single-result.component';
+import { SingleResultComponent } from './root-components/search/single-result/single-result.component';
 import { SharedModule } from './shared-module/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 

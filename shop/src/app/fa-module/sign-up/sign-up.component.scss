@@ -1,3 +1,4 @@
+
 .sign-up {
     margin: 0% 6% 1%;
     display: block;
@@ -17,9 +18,14 @@
 
 select,select:focus {color: #1a1a1a;  background-color: rgb(255, 255, 255)}
 option { color: #000000;background-color: rgb(230, 230, 230)}
-.col-auto input { border-top-color: rgb(170, 169, 169); border-bottom-color: rgb(170, 169, 169); transition: border-color .0.5s ease-out; margin-top: 4%; transition: 0.5s} 
+.col-auto input { border-top-color: rgb(170, 169, 169); border-bottom-color: rgb(170, 169, 169); transition: border-color .0.5s ease-out; margin-top: 6%; transition: 0.5s} 
 .col-auto { width: 80%; }
-
+.invalid-message { 
+    color: brown;
+    font-size: 10px;
+    position: absolute;
+    right: 0;
+}
 .passComf:not(.ng-pristine) { border-left: 3.45px solid rgb(235, 96, 96);  }
 
 .pass-info {font-size: 84%;font-style: italic;}
@@ -34,9 +40,28 @@ option { color: #000000;background-color: rgb(230, 230, 230)}
 }
 mat-form-field {margin: 2% 1px -5%;}
 
-
+.mb-2, .my-2 {
+    margin-bottom: .5rem!important;
+}
 .close {
     font-size: 160%;
      margin: 0% 1% 2%;
     cursor: pointer;
 }
+
+.load-spinner {
+    position: fixed;
+    z-index: 1;
+    margin: 19px 148px;
+}
+
+.await-async-validator-spinner {
+    position: fixed;
+    z-index: 1;
+    margin: -36.5px 301px;
+}
+
+
+.invalid-email { border-left-width: 3.5px; transition: 1s  }
+.invalid-email:not(.ng-invalid) { border-left-color: rgb(112, 184, 185)  }
+.invalid-email:not(.ng-valid):not(.ng-untouched):not(.ng-pending) { border-left-color: rgb(167, 107, 107); }

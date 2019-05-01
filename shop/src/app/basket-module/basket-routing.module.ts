@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BasketComponent } from './basket/basket.component';
-import { CheckoutShippingComponent } from './checkout-shipping/checkout-shipping.component';
-import { CheckoutPaymentComponent } from './checkout-payment/checkout-payment.component';
+import { BasketComponent } from './components/basket/basket.component';
+import { CheckoutShippingComponent } from './components/checkout-shipping/checkout-shipping.component';
+import { CheckoutPaymentComponent } from './components/checkout-payment/checkout-payment.component';
 
 const routes: Routes = [
   {path: 'basket', component: BasketComponent},

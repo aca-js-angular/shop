@@ -1,48 +1,50 @@
-      <mat-dialog-actions align="end">  
-          <span aria-hidden="true" class="close" (click)="closeDialog()">&times;</span>
-      </mat-dialog-actions>
 
 
-    <div class="sigun-in">
+  <mat-dialog-actions align="end">
+    <span aria-hidden="true" class="close" (click)="closeDialog()">&times;</span>
+  </mat-dialog-actions>
+  <mat-spinner [diameter]="40" *ngIf="awaitAnimation"></mat-spinner>
 
-  <h3 class="messageHead"> {{loginOrReset}} </h3>
-  <form [formGroup]=logInForm>
-    <div class="form-row align-items-center" [ngClass]="{ 'requiredLogin': !logInForm.pristine }">
-      <div class="col-auto">
+  <div class="sign-in">
 
-        <input formControlName="email" [_format]="'lowercase'" required minlength="7" maxlength="28" type="email" class="form-control mb-2"
-          placeholder="Email" [_feedback]="email">
-       
+    <h3 class="messageHead"> {{loginOrReset}} </h3>
+    <form [formGroup]=logInForm>
+      <div class="form-row align-items-center" [ngClass]="{ 'requiredLogin': !logInForm.pristine }">
+        <div class="col-auto">
+
+          <input formControlName="email" [_format]="'lowercase'" required minlength="7" maxlength="28" type="email"
+            class="form-control mb-2" placeholder="Email" [_feedback]="email">
+
           <div *ngIf="showResetPanel" class="hid-panel">
 
-          <input formControlName="password" required minlength="8" maxlength="25" type="password"
-            class="form-control mb-2" placeholder="Password" [_feedback]="pass">
+            <input formControlName="password" required minlength="8" maxlength="25" type="password"
+              class="form-control mb-2" placeholder="Password" [_feedback]="pass">
 
-          <button class="btn btn-outline-dark sign-in-btn"  [_inactive]="logInForm.invalid" (click)="signIn(rememberState.checked)">Sign In</button>
-          
-          <span (click)="resetPass()" class="forget-pass">Forgot password?</span>
-          <mat-checkbox class="remember" #rememberState>Remember me!</mat-checkbox> 
-        </div> 
+            <button class="btn btn-outline-dark sign-in-btn" [_inactive]="logInForm.invalid"
+              (click)="signIn(rememberState.checked)">Sign In</button>
 
-        <div *ngIf="!showResetPanel">
-          <button  class="btn btn-outline-dark reset-pass"  [_inactive]="email.invalid"
-          (click)="sendLinkResetPass()">Send Email Meaasge</button><br>
-          <span class="reset-pass-message">{{resetEmailMessage}}</span>
+            <span (click)="resetPass()" class="forget-pass">Forgot password?</span>
+            <mat-checkbox class="remember" #rememberState>Remember me!</mat-checkbox>
+          </div>
+
+          <div *ngIf="!showResetPanel">
+            <button class="btn btn-outline-dark reset-pass" [_inactive]="email.invalid"
+              (click)="sendLinkResetPass()">Send Email Meaasge</button><br>
+            <span class="reset-pass-message">{{resetEmailMessage}}</span>
+          </div>
+
+
         </div>
-
- 
       </div>
-    </div>
-  </form>
-  <br>
-  <h5 *ngIf="infoHide">{{ info }}</h5>    
-  <span class="invalid-message" *ngIf="invavidPassOrMail === false"> Invalid Email Or Password </span>
-  <hr>
-  
-  <div class="navigate" *ngIf="showResetPanel">
-    <span class="navigate-span" (click)="closeDialog()">Don’t have an account? </span>
-    <span class="navigate-signup">Sign Up</span>
-  </div>
-  
- </div>
+    </form>
+    <br>
+    <h5 *ngIf="infoHide">{{ info }}</h5>
+    <span class="invalid-message" *ngIf="awaitSec && !invalidPassOrMail"> Invalid Email Or Password </span>
+    <hr>
 
+    <div class="navigate" *ngIf="showResetPanel">
+      <span class="navigate-span" (click)="closeDialog()">Don’t have an account? </span>
+      <span class="navigate-signup">Sign Up</span>
+    </div>
+
+  </div>

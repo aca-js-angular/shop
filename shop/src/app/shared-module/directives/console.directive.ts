@@ -7,8 +7,8 @@ import { Component } from '@angular/compiler/src/core';
 export class ConsoleDirective {
 
   @Input('_console') variable: any;
+  hostComponent: Component;
 
-  hostComponent: Component
   constructor(private viewRef: ViewContainerRef) {
     this.hostComponent = this.viewRef['_view'].component
   }

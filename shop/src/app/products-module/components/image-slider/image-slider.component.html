@@ -1,0 +1,13 @@
+<ng-container *ngIf="imageCollection">
+  <div class="container">
+    <div class="arrowContainer leftContainer" (click)="previous()">
+      <div class="arrow"></div>
+    </div>
+    <div class="arrowContainer rightContainer" (click)="next()">
+      <div class="arrow rightArrow"></div>
+    </div>
+    <div #sliderRef id="slider">
+      <img *ngFor="let img of imageCollection" [src]="img" (click)="setSrc.emit(img)">
+    </div>
+  </div>
+</ng-container>

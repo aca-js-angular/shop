@@ -6,7 +6,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
-})
+}) 
 export class DialogService {
 
   constructor(private dialog: MatDialog, private firebaseAuth: AngularFireAuth) { }
@@ -30,7 +30,7 @@ export class DialogService {
     })
 
     const dialogRef = this.dialog.open(SignInComponent, {
-      height: '431px',
+      height: '442px',
       autoFocus: true,
       disableClose: true,
     });

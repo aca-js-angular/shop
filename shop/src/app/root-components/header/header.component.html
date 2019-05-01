@@ -8,7 +8,7 @@
   
       <div class="searchBox">
         <input #searchInput placeholder="Search by brand, name..." type="text" (blur)="hide()" (focus)="searchBoxHid = true" >
-        <app-search [searchResult]="searchResult$ | async" [animation]="searchAwaitAnimation" [hidden]="!searchBoxHid"></app-search >
+        <app-search [results]="searchResult$ | async" [animation]="searchAwaitAnimation" [hidden]="!searchBoxHid"></app-search >
         <img id="loupe" src="assets/loupe.png" class="loupe">
       </div>
   
