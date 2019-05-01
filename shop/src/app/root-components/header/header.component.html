@@ -3,9 +3,6 @@
     <div class="headerToolBar">
       <div [routerLink]="['home']" id="logo"><b>Mode</b>-Concept</div>
   
-  
-  
-  
       <div class="searchBox">
         <input #searchInput placeholder="Search by brand, name..." type="text" (blur)="hide()" (focus)="searchBoxHid = true" >
         <app-search [results]="searchResult$ | async" [animation]="searchAwaitAnimation" [hidden]="!searchBoxHid"></app-search >

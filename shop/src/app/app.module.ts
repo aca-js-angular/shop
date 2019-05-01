@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTooltipModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatTooltipModule, MatProgressSpinnerModule, MatProgressBarModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms'
 
@@ -65,6 +65,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     MatRippleModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule
 
   ],
 
