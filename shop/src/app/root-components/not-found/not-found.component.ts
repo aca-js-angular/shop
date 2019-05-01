@@ -10,8 +10,11 @@ export class NotFoundComponent implements AfterViewInit {
 
   constructor(){}
 
-  help(){
-    window.alert('click on island to go home')
+  help = false;
+
+  getHelp(){
+    this.help = true
+    setTimeout(() => this.help = false,1000)
   }
 
   /* --- LC hooks --- */

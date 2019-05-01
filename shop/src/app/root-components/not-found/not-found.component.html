@@ -3,8 +3,8 @@
     <div class="wave-7"></div>
     <div class="wave-6"></div>
     <a class="wave-island" href="#">
-            <img src="http://res.cloudinary.com/andrewhani/image/upload/v1524501929/404/island.svg" alt="Island">
-        </a>
+        <img class="island-img" [class.highlight]="help" src="http://res.cloudinary.com/andrewhani/image/upload/v1524501929/404/island.svg" alt="Island">
+    </a>
     <div class="wave-5"></div>
     <div class="wave-lost wrp">
         <span>4</span>
@@ -20,7 +20,7 @@
     <div class="wave-1"></div>
     <div class="wave-message">
         <p>Your're lost</p>
-        <button class="btn btn-primary" (click)="help()">HELP</button>
+        <button class="btn btn-primary" (click)="getHelp()">HELP</button>
         <p>Click on the island to return</p>
     </div>
 </div>
