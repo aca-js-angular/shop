@@ -37,7 +37,7 @@
 
 #materialFilter{
 
-    span:not(.color-name){
+    span:not(.name){
         display: block;
         height: 20px;
         opacity: 0.3;
@@ -117,6 +117,37 @@
     background: #446E8E;
     color: white;
     float: right;
+    border: solid 1px transparent;
+    outline: none;
+    &:active{
+        background: rgb(103, 152, 190);
+    }
+}
+.switcher{
+    border: none;
+    font-size: 12px;
+    border: transparent 1px solid;
+    color: #446E8E;
+    background: transparent;
+    outline: none;
+    opacity: 0.9;
+    float: right;
+    text-decoration: underline;
+    transition: all 0.2s;
+}
+#strict-mode{
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+#remember-filters{
+    margin-top: 5px;
+    float: left;
+}
+.activate{
+    border-color: rgb(0, 115, 255);
+    color: rgb(0, 115, 255);
+    opacity: 1;
+    text-decoration: none;
 }
 .resetall{
     width: 100%;

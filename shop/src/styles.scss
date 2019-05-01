@@ -13,6 +13,8 @@
  button { cursor: pointer;}
  body { min-width: 500px;}
  
+ $active: rgb(0, 115, 255);
+
  @import '~@angular/material/theming';
  
  // Include the common styles for Angular Material. We include this here so that you only

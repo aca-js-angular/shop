@@ -122,7 +122,6 @@ export class ProductsRootComponent implements OnInit, OnDestroy {
   }
 
   toggleOpacity(arg: HTMLElement,prop: string){
-    arg.style.opacity = this.fs[prop] ? '1' : '0.3'
     this.update()
   }
  

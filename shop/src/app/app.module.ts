@@ -57,7 +57,7 @@ import { HttpClientModule } from '@angular/common/http';
     AudentificModule,
     ConfirmModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,

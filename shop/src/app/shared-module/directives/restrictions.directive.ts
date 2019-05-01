@@ -24,7 +24,7 @@ export class NoDigitsDirective {
 export class OnlyDigitsDirective {
 
   @HostListener('keydown',['$event'])whileTyping(e){
-    if(e.key.match(otherThanDigit) && e.key !== 'Backspace'){
+    if(e.code < 48 || e.key !== 'Backspace'){
       return false
     } 
   }

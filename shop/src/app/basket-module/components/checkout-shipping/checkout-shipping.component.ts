@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormControlService } from 'src/app/form-control.service';
+import { _fullName, _adress } from '../../../validators/root/custom-validators'
 
 @Component({
   selector: 'app-checkout-shipping',
@@ -12,6 +14,7 @@ export class CheckoutShippingComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private formBuilder: FormBuilder,
+    private control: FormControlService,
   ) {}
 
   /* --- Variables --- */
@@ -21,10 +24,16 @@ export class CheckoutShippingComponent implements OnInit {
   checkoutForm: FormGroup = this.formBuilder.group({
     country: [],
     city: [],
-    fullName: ['',[Validators.required,Validators.pattern(/^[a-z,',-]+(\s)[a-z,',-]+$/i)]],
-    streetAdress: ['',[Validators.required]],
-    postalCode: ['',[Validators.required,Validators.minLength(4)],]
+    fullName: ['',[Validators.required,_fullName]],
+    streetAdress: ['',[Validators.required,_adress]],
+    postalCode: ['',[Validators.required,Validators.minLength(3)]],
   })
+
+  /* --- Methods --- */
+
+  getErrors(form: FormControl): string | null{
+    return this.control.getErrorMessage(form)
+  }
 
   /* --- LC hooks --- */
 

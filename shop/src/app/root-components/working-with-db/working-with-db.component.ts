@@ -15,7 +15,9 @@ let dg = 'darkGoldenRod';
 })
 export class WorkingWithDbComponent implements OnInit {
 
-  constructor(private db: DatabaseFireService, private dbf: AngularFirestore) {}
+  constructor(private db: DatabaseFireService, private dbf: AngularFirestore) {
+    this.dbf.firestore.disableNetwork()
+  }
 
   copy(arg: object): object{
     let x = new Object;

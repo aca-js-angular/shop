@@ -8,9 +8,9 @@
         <div><span class="name">Price</span><button (click)="resetRanges()" title="Reset price ranges" class="reset">Reset</button></div>
         <hr>
         <form [formGroup]="rangeControl">
-        <input formControlName="min" placeholder="from" type="number">
+        <input _onlyDigits formControlName="min" placeholder="from" type="number">
         <span>-</span>
-        <input formControlName="max" placeholder="to" type="number">
+        <input _onlyDigits formControlName="max" placeholder="to" type="number">
         <button id="activate" [class.deactivated]="rangeControl.invalid" [disabled]="rangeControl.invalid" [title]="rangeControl.invalid ? 'invalid ranges' : ''" (click)="setRanges()">&#9654;</button>
         </form>
       </div>
@@ -19,9 +19,9 @@
       <div class="filterSection" id="colorFilter">
         <div>
           <span class="color-name">Color</span>
-          <button (click)="resetColors()" title="Reset color filters" class="reset">Reset</button>
-          <div class="items-right reset-color-filter">
-            <label title="Filter colors in strict mode" #strictLabel [style.opacity]="fs.strict ? 1 : 0.3" (click)="fs.strict = !fs.strict; toggleOpacity(strictLabel,'strict')">strict</label>
+          <div class="items-right">
+            <button (click)="resetColors()" title="Reset color filters" class="reset">Reset</button>
+            <button class="switcher" id="strict-mode" #strictLabel title="Filter colors in strict mode" [class.activate]="fs.strict" (click)="fs.strict = !fs.strict; toggleOpacity(strictLabel,'strict')">strict</button>
           </div>
         </div>
 
@@ -39,7 +39,7 @@
 
       <!-- Material Filter -->
       <div class="filterSection" id="materialFilter">
-        <div><span class="name">Material</span><button (click)="resetMaterials()" title="Reset material filters" class="reset">Reset</button></div>
+        <div><span class="name">Material</span><button class="reset" (click)="resetMaterials()" title="Reset material filters">Reset</button></div>
         <hr>
         <div [formGroup]="materials">
           <div class="mat-first-box">
@@ -56,7 +56,7 @@
       <div class="filterSection">
         <hr>
         <button (click)="resetFilters()" title="Reset all filters" class="reset resetall">Reset All</button>
-        <label title="Remember filters while navigating to other pages" id="rememberLabel" #rememberLabel [style.opacity]="fs.remember ? 1 : 0.3" (click)="fs.remember = !fs.remember; toggleOpacity(rememberLabel,'remember')">Remember Filters</label>
+        <button title="Remember filters while navigating to other pages" class="switcher" id="remember-filters" #rememberLabel [class.activate]="fs.remember" (click)="fs.remember = !fs.remember; toggleOpacity(rememberLabel,'remember')">Remember Filters</button>
       </div>
     </div> 
 
