@@ -1,118 +1,125 @@
-
 <div *ngIf="thisProduct" class="section">
-    <div class="flexBox">
-      <div class="flexLeft">
-        <img [src]="currentSrc" onerror="this.src = 'assets/emptycart.png'">
-        <img [src]="currentSrc" onerror="this.hidden = true" class="ghost" [class.animation-element]="startAnimation">
+  <div class="flexBox">
+    <div class="flexLeft">
+      <img [src]="currentSrc" onerror="this.src = 'assets/emptycart.png'">
+      <img [src]="currentSrc" onerror="this.hidden = true" class="ghost" [class.animation-element]="startAnimation">
+   
+
+  
+   
+   
+    </div>
+    <div class="flexMiddle">
+
+      <!---------- Main Description ---------->
+      <div class="smallCaps"><b>{{thisProduct.name}}</b></div>
+      <div class="font-13px">
+        from <a [routerLink]="['/','products','brands',thisProduct.brand]">{{thisProduct.brand}}</a>
       </div>
-      <div class="flexMiddle">
-  
-        <!---------- Main Description ---------->
-        <div class="smallCaps"><b>{{thisProduct.name}}</b></div>
-        <div class="font-13px">
-          from <a [routerLink]="['/','products','brands',thisProduct.brand]">{{thisProduct.brand}}</a>
-        </div>
-        <hr>
-        <p class="font-13px">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic officiis rerum architecto cum dolores vel, recusandae quis culpa, nostrum iure debitis ad illum nesciunt esse ipsam. Impedit labore quo ab?
-        </p>
-        <div class="slide">
-          <app-image-slider (setSrc)="currentSrc = $event" [imageCollection]="thisProduct.images"></app-image-slider>
-        </div>
-      </div>
-  
-      <div class="flexRight">
-        <h4 class="text-bold">{{thisProduct.price | currency}}</h4>
-        <div>
-  
-          <!---------- Add to Basket Button ---------->
-          
-          <div class="font-11px text-bold">Quantity</div>
-          <div>
-          <input min="1" type="number" [(ngModel)]="quantity" _onlyDigits>
-          </div>
-          <button
-          [_persistance]="addToBasket"
-          [_inactive]="isInBasket"
-          [innerHTML]="isInBasket ? 'IN BASKET' : 'ADD TO BASKET'"
-          id="addToBasket"
-          ></button>
-  
-        </div>
-        <hr>
-  
-        <!---------- Product Details ---------->
-        <h6 class="text-bold">Product details</h6>
-        <div  class="font-11px">
-            <div>
-              <span><b>Weight</b></span>
-              <span class="items-right">{{thisProduct.details.weight}}g</span>
-            </div>
-            <div>
-              <span><b>Origin Country</b></span>
-              <span class="items-right">{{thisProduct.details.originCountry}}</span>
-            </div>
-            <div>
-              <span><b>Post Date</b></span>
-              <span class="items-right">{{toDate(thisProduct.postDate) | date}}</span>
-            </div>
-            <div>
-              <span><b>Materials</b></span>
-              <span 
-              class="items-right" 
-              *ngFor="let material of thisProduct.details.material, first as first"> 
-              {{material[0].toUpperCase() + material.slice(1)}}
-              <span *ngIf="!first"> ,</span>
-              </span>
-            </div>
-            <div >
-              <span><b>Colors</b></span>
-              <div 
-              class="items-right details-color" 
-              *ngFor="let color of thisProduct.details.colors" 
-              [style.background]="color"
-              ></div>
-            </div>
-        </div>
-        <hr>
-  
-        <!---------- Vendor Details ---------->
-        <h6 class="text-bold">Vendor Profile</h6>
-        <table>
-          <tr>
-            <td><img class="vendorImg" [src]="thisProduct.vendor.img" onerror="this.src = 'assets/empty_user.png'"></td>
-            <td class="vendor-tab">
-              <div class="font-12px vendor-details">
-                <span><b>{{thisProduct.vendor.fullName}}</b></span>
-                <span>{{thisProduct.vendor.country}}, <i>{{thisProduct.vendor.city}}</i></span>
-                <span>{{thisProduct.vendor.rating | rating}}</span>
-                <span><a href="">{{thisProduct.vendor.email}}</a></span>
-              </div>
-            </td>
-          </tr>
-        </table>
-  
-  
+      <hr>
+      <p class="font-13px">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic officiis rerum architecto cum dolores vel,
+        recusandae quis culpa, nostrum iure debitis ad illum nesciunt esse ipsam. Impedit labore quo ab?
+      </p>
+      <div class="slide">
+        <app-image-slider (setSrc)="currentSrc = $event" [imageCollection]="thisProduct.images"></app-image-slider>
       </div>
     </div>
+
+    <div class="flexRight">
+      <h4 class="text-bold">{{thisProduct.price | currency}}</h4>
+      <div>
+
+        <!---------- Add to Basket Button ---------->
+
+        <div class="font-11px text-bold">Quantity</div>
+        <div>
+          <input min="1" type="number" [(ngModel)]="quantity" _onlyDigits>
+        </div>
+        <button [_persistance]="addToBasket" [_inactive]="isInBasket"
+          [innerHTML]="isInBasket ? 'IN BASKET' : 'ADD TO BASKET'" id="addToBasket"></button>
+
+      </div>
+      <hr>
+
+      <!---------- Product Details ---------->
+      <h6 class="text-bold">Product details</h6>
+      <div class="font-11px">
+        <div>
+          <span><b>Weight</b></span>
+          <span class="items-right">{{thisProduct.details.weight}}g</span>
+        </div>
+        <div>
+          <span><b>Origin Country</b></span>
+          <span class="items-right">{{thisProduct.details.originCountry}}</span>
+        </div>
+        <div>
+          <span><b>Post Date</b></span>
+          <span class="items-right">{{toDate(thisProduct.postDate) | date}}</span>
+        </div>
+        <div>
+          <span><b>Materials</b></span>
+          <span class="items-right" *ngFor="let material of thisProduct.details.material, first as first">
+            {{material[0].toUpperCase() + material.slice(1)}}
+            <span *ngIf="!first"> ,</span>
+          </span>
+        </div>
+        <div>
+          <span><b>Colors</b></span>
+          <div class="items-right details-color" *ngFor="let color of thisProduct.details.colors"
+            [style.background]="color"></div>
+        </div>
+      </div>
+      <hr>
+
+      <!---------- Vendor Details ---------->
+      <h6 class="text-bold">Vendor Profile</h6>
+      <table>
+        <tr>
+          <td><img class="vendorImg" [src]="thisProduct.vendor.img" onerror="this.src = 'assets/empty_user.png'"></td>
+          <td class="vendor-tab">
+            <div class="font-12px vendor-details">
+              <span><b>{{thisProduct.vendor.fullName}}</b></span>
+              <span>{{thisProduct.vendor.country}}, <i>{{thisProduct.vendor.city}}</i></span>
+              <span>{{thisProduct.vendor.rating | rating}}</span>
+              <span><a href="">{{thisProduct.vendor.email}}</a></span>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+
+    </div>
   </div>
+
   
-  <!---------- More From This Brand ---------->
-  <app-product-slider 
-  *ngIf="moreFromThisBrand" 
-  [href]="['/','products','brands',thisProduct.brand]" 
-  [title]="'More from ' + thisProduct.brand" 
-  [productCollection]="moreFromThisBrand" 
+</div>
+
+<img style="width:411px" id="img_01" src="assets/products/Hustle/1.jpg"/>
+
+<!---------- More From This Brand ---------->
+<app-product-slider *ngIf="moreFromThisBrand" [href]="['/','products','brands',thisProduct.brand]"
+  [title]="'More from ' + thisProduct.brand" [productCollection]="moreFromThisBrand"
   [config]="{ratio: 4, likeable: true, info: true}">
-  </app-product-slider>
-  
-  
-  <!---------- Similar Products ---------->
-  <div *ngIf="similarProducts?.length" class="section">
-    <div><h3 class="similarProducts">Similar products</h3></div>
-    <hr>
-    <app-product-list
-    [productCollection]="similarProducts"
-    [config]="{ratio: 4, likeable: true, info: true}">
-    </app-product-list>
+</app-product-slider>
+
+
+<!---------- Similar Products ---------->
+<div *ngIf="similarProducts?.length" class="section">
+  <div>
+    <h3 class="similarProducts">Similar products</h3>
   </div>
+  <hr>
+  <app-product-list [productCollection]="similarProducts" [config]="{ratio: 4, likeable: true, info: true}">
+  </app-product-list>
+</div>
+
+
+
+
+<!-- <dir *ngIf=> -->
+
+  <!-- <img style="width:411px" id="img_01" src="https://cdn.jsdelivr.net/gh/igorlino/elevatezoom-plus@1.1.6/demo/images/large/image3.jpg"/> -->
+  {{currentSrc}}
+  
+ <!-- data-zoom-image="https://cdn.jsdelivr.net/gh/igorlino/elevatezoom-plus@1.1.6/demo/images/large/image3.jpg" -->
