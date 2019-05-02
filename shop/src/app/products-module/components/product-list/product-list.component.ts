@@ -23,7 +23,10 @@ export class ProductListComponent implements OnChanges {
   /* --- Methods --- */
 
   toTop(): void{
-    window.scrollTo(0,0)
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
   }
 
   /* --- LC hooks --- */
@@ -31,7 +34,7 @@ export class ProductListComponent implements OnChanges {
   ngOnChanges(){
     
     if(this.productCollection){
-      this.packages = this.ps.generatePackages(this.productCollection,15);
+      this.packages = this.ps.generatePackages(this.productCollection,16);
       this.currentPage = 0;
     }
   }

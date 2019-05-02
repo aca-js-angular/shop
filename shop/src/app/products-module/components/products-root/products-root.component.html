@@ -1,4 +1,4 @@
-<div class="section">
+<!-- <div id="xx" class="section"> -->
   <div class="flex-box">
 
     <div class="flex-left">
@@ -8,9 +8,9 @@
         <div><span class="name">Price</span><button (click)="resetRanges()" title="Reset price ranges" class="reset">Reset</button></div>
         <hr>
         <form [formGroup]="rangeControl">
-        <input _onlyDigits formControlName="min" placeholder="from" type="number">
+        <input _naturalNumbers formControlName="min" placeholder="from" type="number">
         <span>-</span>
-        <input _onlyDigits formControlName="max" placeholder="to" type="number">
+        <input _naturalNumbers formControlName="max" placeholder="to" type="number">
         <button id="activate" [class.deactivated]="rangeControl.invalid" [disabled]="rangeControl.invalid" [title]="rangeControl.invalid ? 'invalid ranges' : ''" (click)="setRanges()">&#9654;</button>
         </form>
       </div>
@@ -18,7 +18,7 @@
       <!-- Color Filter -->
       <div class="filterSection" id="colorFilter">
         <div>
-          <span class="color-name">Color</span>
+          <span class="name">Color</span>
           <div class="items-right">
             <button (click)="resetColors()" title="Reset color filters" class="reset">Reset</button>
             <button class="switcher" id="strict-mode" #strictLabel title="Filter colors in strict mode" [class.activate]="fs.strict" (click)="fs.strict = !fs.strict; toggleOpacity(strictLabel,'strict')">strict</button>
@@ -28,8 +28,9 @@
         <hr>
           <button *ngFor="let color of initColorArr"
           [title]="decodeColorName(color)"
-          [style.background]="color"
+          [style.borderColor]="color"
           [class.selectedColor]="fs.colorArray.includes(color)"
+          [style.background]="fs.colorArray.includes(color) ? color : 'transparent'"
           class="colorSelector"
           (click)="fs.toggleColors(color);update()"
           ></button>
@@ -43,13 +44,13 @@
         <hr>
         <div [formGroup]="materials">
           <div class="mat-first-box">
-            <span [class.active]="materials.get('iron').value"><input formControlName="iron" type="checkbox" id="iron"><label for="iron">Iron</label></span>
-            <span [class.active]="materials.get('leather').value"><input formControlName="leather" type="checkbox" id="leather"><label for="leather">Leather</label></span>
-            <span [class.active]="materials.get('plastic').value"><input formControlName="plastic" type="checkbox" id="plastic"><label for="plastic">Plastic</label></span>
+            <span><input formControlName="iron" type="checkbox" id="iron"><label for="iron">Iron</label></span>
+            <span><input formControlName="leather" type="checkbox" id="leather"><label for="leather">Leather</label></span>
+            <span><input formControlName="plastic" type="checkbox" id="plastic"><label for="plastic">Plastic</label></span>
           </div><div class="mat-last-box">
-            <span [class.active]="materials.get('gold').value"><input formControlName="gold" type="checkbox" id="gold"><label for="gold">Gold</label></span>
-            <span [class.active]="materials.get('silver').value"><input formControlName="silver" type="checkbox" id="silver"><label for="silver">Silver</label></span>
-            <span [class.active]="materials.get('bronze').value"><input formControlName="bronze" type="checkbox" id="bronze"><label for="bronze">Bronze</label></span>
+            <span><input formControlName="gold" type="checkbox" id="gold"><label for="gold">Gold</label></span>
+            <span><input formControlName="silver" type="checkbox" id="silver"><label for="silver">Silver</label></span>
+            <span><input formControlName="bronze" type="checkbox" id="bronze"><label for="bronze">Bronze</label></span>
           </div>
         </div>
       </div>
@@ -83,10 +84,10 @@
       <app-product-list
       *ngIf="allProducts"
       [productCollection]="allProducts"
-      [config]="{ratio: 3, info: true, likeable: true}"
+      [config]="{ratio: 4, info: true, likeable: true}"
       ></app-product-list>
 
     </div>
 
   </div>
-</div>
+<!-- </div> -->

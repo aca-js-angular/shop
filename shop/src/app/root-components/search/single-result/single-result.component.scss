@@ -1,50 +1,52 @@
 
 .product-item {
     display: flex;
-    border-bottom: solid #446E8E 1px;
-    background-image: linear-gradient(to right, rgb(194, 194, 219), rgb(228, 228, 238));
+    border-bottom: solid white 1px;
+    background: rgb(243, 243, 243);
     cursor: pointer;
-    height: 80px;
+    height: 65px;
     transition: all 0.3s;
+    outline: none;
     &:hover span{
-        margin-left: 25px;
+        margin-left: 12px;
         color: white;
     }
     &:hover{
-        height: 90px;
-        background-image: linear-gradient(to right, rgb(204, 204, 223), rgb(119, 119, 158));
+        height: 75px;
+        background:rgb(201, 201, 201);
     }
     &:hover .gridLeft{
-        flex: 30%;
+        flex: 25%;
+    }
+    &:active{
+        opacity: 0.7;
+        transition: opacity 0.15s;
     }
 }
 
 .gridLeft{
-    flex: 25%;
+    flex: 20%;
     height: 100%;
     transition: all 0.3s;
 }
 
 
 .gridRight{
-    flex: 75%;
+    flex: 80%;
     span{
-        margin-left: 10px;
+        display: block;
+        margin-left: 5px;
+        font-size: 10px;
+        color: #446E8E;
     }
     .name {
-        font-size: 12px;
-        color: #446E8E;
         font-weight: bold;
-        transition: all 0.3s;
+        transition: all 0.2s;
     }
     .brand {
-        color: #446E8E; 
-        font-size: 12px;
-        transition: all 0.6s;
+        transition: all 0.4s;
     }
     .price {
-        font-size: 12px;
-        color:#446E8E; 
-        transition: all 0.9s;
+        transition: all 0.6s;
     }
 }

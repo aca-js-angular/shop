@@ -40,7 +40,7 @@ export class DatabaseFireService {
     private fire: AngularFirestore,
     private auth: AngularFireAuth,
   ) {
-    // this.fire.firestore.disableNetwork()
+    this.fire.firestore.disableNetwork()
   }
 
 

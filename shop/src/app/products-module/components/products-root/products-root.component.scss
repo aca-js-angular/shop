@@ -4,14 +4,21 @@
 }
 
 .flex-left{
-    position: sticky;
-    top: 0px;
-    flex: 27%;
+    border-top: solid 1px rgb(231, 231, 238);
+    border-right: solid 1px rgb(231, 231, 238);
+    border-bottom: solid 1px rgb(231, 231, 238);
+    flex: 30%;
     padding: 30px 0 50px 0;
+    padding-left: 13%;
+    background: rgb(240, 240, 245);
 }
 .flex-right{
-    flex: 73%;
+
+    
+    flex: 70%;
     padding: 20px 0 50px 0;
+    padding-right: 13%;
+    padding-left: 1%;
 
     .sort-section {
         margin: 0 0;
@@ -23,7 +30,6 @@
     width: 80%;
 }
 .selectedColor{
-    opacity: 1 !important;
     box-shadow: 2px 2px 3px rgb(99, 99, 99) !important;
 }
 
@@ -40,10 +46,6 @@
     span:not(.name){
         display: block;
         height: 20px;
-        opacity: 0.3;
-    }
-    .active{
-        opacity: 1 !important;
     }
 }
 .deactivated{
@@ -54,16 +56,13 @@
     .colorSelector{
         height: 25px;
         width: 16%;
-        border: none;
+        border: solid 1px transparent;
         outline: none;
         margin: 2%;
-        box-shadow: 2px 2px 2px rgb(131, 131, 131);
+        box-shadow: 1px 1px 1px rgb(131, 131, 131);
+        background: transparent;
         border-radius: 50%;
-        opacity: 0.2;
         transition: all 0.2s;
-        &:active{
-            opacity: 0.3;
-        }
     }
 }
 #priceFilter{
