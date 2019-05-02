@@ -73,6 +73,10 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.invalidPassOrMail = null;
   }
 
+  backToSignIn(){
+    this.showResetPanel = true;
+  }
+
   sendLinkResetPass(): void {
     this.additionalAuth.sendEmailVerifResetPass(this.email.value).then(() => {
       this.loginOrReset = RESET_PASS_CONF_MESSAGE;
