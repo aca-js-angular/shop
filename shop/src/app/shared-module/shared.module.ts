@@ -4,7 +4,7 @@ import { ValidityFeedbackDirective } from './directives/validity-feedback.direct
 import { ForcedFormatDirective } from './directives/forced-format.directive';
 import { SingleClickDirective } from './directives/single-click.directive';
 import { PersistanceDirective } from './directives/persistance.directive';
-import { OnlyDigitsDirective, NoDigitsDirective, OnlyAlphabetDirective } from './directives/restrictions.directive';
+import { OnlyDigitsDirective, NoDigitsDirective, OnlyAlphabetDirective, NaturalNumbersDirective } from './directives/restrictions.directive';
 import { ConsoleDirective } from './directives/console.directive';
 
 @NgModule({
@@ -17,6 +17,7 @@ import { ConsoleDirective } from './directives/console.directive';
     OnlyDigitsDirective,
     NoDigitsDirective,
     OnlyAlphabetDirective,
+    NaturalNumbersDirective,
     ConsoleDirective,
   ],
 
@@ -32,6 +33,7 @@ import { ConsoleDirective } from './directives/console.directive';
     OnlyDigitsDirective,
     NoDigitsDirective,
     OnlyAlphabetDirective,
+    NaturalNumbersDirective,
     ConsoleDirective,
   ]
 

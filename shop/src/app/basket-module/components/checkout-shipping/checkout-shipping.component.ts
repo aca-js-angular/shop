@@ -19,7 +19,8 @@ export class CheckoutShippingComponent implements OnInit {
 
   /* --- Variables --- */
 
-  countries: string[][];
+  countries: [string, string[]][];
+  cities: string[];
 
   checkoutForm: FormGroup = this.formBuilder.group({
     country: [],
@@ -39,10 +40,16 @@ export class CheckoutShippingComponent implements OnInit {
 
   ngOnInit() {
 
+    this.checkoutForm.get('country').valueChanges.subscribe(next => {
+      this.cities = this.countries[next][1];
+      this.checkoutForm.get('city').setValue(0)
+    })
+
     this.http.get('https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/6ee538beca8914133259b401ba47a550313e8984/countries.min.json')
       .subscribe(data => {
         this.countries = Object.entries(data)
         this.checkoutForm.get('country').setValue(7) // Armenia by default
+        
       })
   }
 }

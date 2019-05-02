@@ -10,7 +10,7 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
 import { CheckoutShippingComponent } from './components/checkout-shipping/checkout-shipping.component';
 import { CheckoutPaymentComponent } from './components/checkout-payment/checkout-payment.component';
 import { SharedModule } from '../shared-module/shared.module';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material';
     SharedModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
   ]
 })
 

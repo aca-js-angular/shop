@@ -4,9 +4,9 @@
 
   <img [src]="singleResult.images[0]" class="gridLeft">
   <div class="gridRight">
-    <span class="name">{{ singleResult.name }}</span><br>
-    <span class="brand">{{ singleResult.brand }}</span><br>
-    <span class="price">{{ singleResult.price | currency }}</span><br>
+    <span class="name">{{ singleResult.name }}</span>
+    <span class="brand">from <i>{{ singleResult.brand }}</i></span>
+    <span class="price">{{ singleResult.price | currency }}</span>
   </div>
 
 </div>

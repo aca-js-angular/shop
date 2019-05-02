@@ -49,49 +49,59 @@
 
   <div class="section">
       <h3 class="address-h3"><b>Your Shipping Adress</b></h3>
+      
       <div class="flexBox">
   
         <div class="flexLeft">
     
+          <form autocomplete="off" [formGroup]="checkoutForm">
     
-          <form [formGroup]="checkoutForm">
+            <!-- Country -->
+            <div class="shipping-form" id="country">
+              <mat-form-field>
+                <mat-label>Country</mat-label>
+                <mat-select formControlName="country">
+                  <ng-container *ngIf="countries">
+                    <mat-option *ngFor="let country of countries; index as i"  [value]="i">{{country[0]}}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+            </div>
     
-            <div><b>Country</b></div>
-            <select #selectedCountry formControlName="country">
-              <ng-container *ngIf="countries">
-                <option *ngFor="let country of countries; index as i"  [value]="i">{{country[0]}}</option>
-              </ng-container>
-            </select>
-    
-            <div><b>City</b></div>
-            <select formControlName="city" >
-              <ng-container *ngIf="countries">
-                <option *ngFor="let city of countries[selectedCountry.value][1]">{{city}}</option>
-              </ng-container>
-            </select>
+            <!-- City -->
+            <div class="shipping-form" id="city">
+              <mat-form-field>
+              <mat-label>City</mat-label>
+              <mat-select formControlName="city" >
+                <ng-container *ngIf="cities">
+                  <mat-option *ngFor="let city of cities; index as i" [value]="i">{{city}}</mat-option>
+                </ng-container>
+              </mat-select>
+              </mat-form-field>
+            </div>
 
             <!-- Full name -->
-            <div>
-            <mat-form-field>
-              <input _onlyAlphabet placeholder="Full Name" formControlName="fullName" matInput>
-              <mat-error>{{getErrors(checkoutForm.get('fullName'))}}</mat-error>
-            </mat-form-field>
+            <div class="shipping-form" id="full-name">
+              <mat-form-field>
+                <input _onlyAlphabet placeholder="Full Name" formControlName="fullName" matInput>
+                <mat-error>{{getErrors(checkoutForm.get('fullName'))}}</mat-error>
+              </mat-form-field>
             </div>
     
             <!-- Adress -->
-            <div>
-            <mat-form-field>
-              <input placeholder="Street Adress" formControlName="streetAdress" matInput>
-              <mat-error>{{getErrors(checkoutForm.get('streetAdress'))}}</mat-error>
-            </mat-form-field>
+            <div class="shipping-form" id="adress">
+              <mat-form-field>
+                <input placeholder="Adress" formControlName="streetAdress" matInput>
+                <mat-error>{{getErrors(checkoutForm.get('streetAdress'))}}</mat-error>
+              </mat-form-field>
             </div>
     
             <!-- Postal code -->
-            <div>
-            <mat-form-field>
-              <input _onlyDigits placeholder="Postal Code" formControlName="postalCode" matInput>
-              <mat-error>{{getErrors(checkoutForm.get('postalCode'))}}</mat-error>
-            </mat-form-field>
+            <div class="shipping-form" id="postal-code">
+              <mat-form-field>
+                <input _naturalNumbers placeholder="Postal Code" formControlName="postalCode" matInput>
+                <mat-error>{{getErrors(checkoutForm.get('postalCode'))}}</mat-error>
+              </mat-form-field>
             </div>
           
           </form>
