@@ -23,11 +23,11 @@
             placeholder="Last Name" [_feedback]="lastName">
           <span class="invalid-message" *ngIf="lastName.errors?.minlength && invMess"> Required Length
             {{ lastName.errors.minlength.requiredLength }} </span>
-
+ 
 
           <input #emailInpElem type="email" (blur)="invMess = true" _format="lowercase" (focus)="invMess = false"
             maxlength="28" formControlName="email" class="form-control mb-2 invalid-email" placeholder="E-mail">
-          <mat-spinner class="await-async-validator-spinner" *ngIf="!emailAwiitIsBusyAnime" [diameter]="19">
+          <mat-spinner class="await-async-validator-spinner" *ngIf="emailAwiitIsBusyAnime" [diameter]="19">
           </mat-spinner>
 
           <span class="invalid-message" *ngIf="!busyEmail && invMess && email.invalid && !email.pristine">Invalid

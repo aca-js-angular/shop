@@ -1,11 +1,8 @@
 <div *ngIf="thisProduct" class="section">
   <div class="flexBox">
     <div class="flexLeft">
-      <img [src]="currentSrc" onerror="this.src = 'assets/emptycart.png'">
+      <img [src]="currentSrc" class="main-img" id="img_01" onerror="this.src = 'assets/emptycart.png'">
       <img [src]="currentSrc" onerror="this.hidden = true" class="ghost" [class.animation-element]="startAnimation">
-
-   
-   
     </div>
     <div class="flexMiddle">
 
@@ -20,7 +17,7 @@
         recusandae quis culpa, nostrum iure debitis ad illum nesciunt esse ipsam. Impedit labore quo ab?
       </p>
       <div class="slide">
-        <app-image-slider (setSrc)="currentSrc = $event" [imageCollection]="thisProduct.images"></app-image-slider>
+        <app-image-slider (setSrc)="currentSrc = $event; jQueryZoom()" [imageCollection]="thisProduct.images"></app-image-slider>
       </div>
     </div>
 
@@ -90,9 +87,7 @@
     </div>
   </div>
 
-  
 </div>
-
 
 
 <!---------- More From This Brand ---------->
