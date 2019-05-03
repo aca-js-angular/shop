@@ -10,6 +10,7 @@ import { Product } from 'src/app/interfaces and constructors/product.interface';
 import { ConfirmDialogService } from 'src/app/comfirm-module/services/confirm-dialog.service';
 import { AdditionalService } from 'src/app/fa-module/Services/additional.service';
 import { BasketService } from 'src/app/basket-module/services/basket.service';
+import { JQueryZoomService } from 'src/app/products-module/services/j-query-zoom.service';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +25,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private auth: AngularFireAuth,
     private additionalFa: AdditionalService,
     private router: Router,
+    private jQuery: JQueryZoomService,
     private db: DatabaseFireService,
     private confirm: ConfirmDialogService,
     private basketService: BasketService
@@ -40,6 +42,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
 
   /* --- Getters --- */
+  
+  get basketSize(){ return this.basketService.getTotalQuantity()}
 
   get is404(): boolean {
     return document.location.href.includes('not-found')
@@ -70,9 +74,19 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/', 'basket'])
   }
 
-  hide() {
-    setTimeout(() => this.searchBoxHid = false, 200)
+  hideSearchBox() {
+    setTimeout(() => this.searchBoxHid = false, 200);
+    this.jQuery.jQueryZoomImg()
   }
+  
+  showSearchBox(){
+    this.searchBoxHid = true;
+    this.jQuery.clearjQueryZoomScreans()
+  }
+
+
+
+
 
   private signOut(){
     this.additionalFa.signOut()
@@ -104,6 +118,5 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     )
   }
 
-  get basketSize(){ return this.basketService.getTotalQuantity()}
 
 }

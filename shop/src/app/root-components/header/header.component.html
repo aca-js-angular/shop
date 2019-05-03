@@ -8,8 +8,8 @@
         #searchInput
         [placeholder]="!is404 ? 'Search by brand, name...' : '404 NOT FOUND'"
         type="text"
-        (blur)="hide()"
-        (focus)="searchBoxHid = true"
+        (blur)="hideSearchBox()"
+        (focus)="showSearchBox()"
         >
         <app-search [results]="searchResult$ | async" [animation]="searchAwaitAnimation" [hidden]="!searchBoxHid"></app-search >
         <img id="loupe" src="assets/loupe.png" class="loupe">

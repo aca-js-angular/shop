@@ -4,10 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { DatabaseFireService } from 'src/app/database-fire.service';
 import { Product } from '../../../interfaces and constructors/product.interface';
 import { ProductService } from '../../services/product.service';
-import { async } from 'rxjs/internal/scheduler/async';
+import { JQueryZoomService } from '../../services/j-query-zoom.service';
 
-declare var $: any;
-declare var jQuery: any;
+const ZOOM_IMG_CLASSNAME: string = 'main-img'
 
 @Component({
   selector: 'app-product-detail',
@@ -23,6 +22,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private active: ActivatedRoute,
     private db: DatabaseFireService,
     private ps: ProductService,
+    private jQuery: JQueryZoomService
 
   ) { }
 
@@ -52,7 +52,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
 
-
   /* --- LC hooks --- */
 
   ngOnInit() {
@@ -68,10 +67,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.thisProduct = response;
 
         this.currentSrc = this.thisProduct.images[0];
-        document.querySelectorAll('.zoomContainer').forEach(zoomElem => zoomElem.remove());
 
+        this.jQuery.clearjQueryZoomScreans()
 
-        this.jQueryZoom()
+        this.jQuery.jQueryZoomImg(ZOOM_IMG_CLASSNAME)
+
         this.db.dynamicQueryFilter('products', { brand: response.brand }, res => this.moreFromThisBrand = res);
 
         this.ps.getSimilarProducts(response).subscribe(res => this.similarProducts = res)
@@ -81,33 +81,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   }
 
-
-
-
   ngOnDestroy() {
-    document.querySelectorAll('.zoomContainer').forEach(zoomElem => zoomElem.remove());
+    this.jQuery.clearjQueryZoomScreans()
   }
 
-  // Animated element removal
-  jQueryZoom() {
-    $(document).ready(function () {
-      // Using custom configuration
-      $('.main-img').ezPlus({
-        zoomWindowFadeIn: 500,
-        zoomWindowWidth: 550,
-        zoomWindowHeight: 350,
-        zoomWindowOffsetX: 0,
-        zoomWindowOffsetY: 0,
-        scrollZoom: true,
-        cursor: 'pointer'
-      });
-    });
-
-
-
-  }
-
-
-  ngAfterViewInit() {
-  }
 }
