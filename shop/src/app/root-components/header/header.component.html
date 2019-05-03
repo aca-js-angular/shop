@@ -32,6 +32,9 @@
         </div>
         <div class="actionButton" matTooltip="Go to basket">
           <img [_persistance]="goToBasket" id="basket" src="assets/basket.png">
+
+          <span  matBadgeSize="medium" [matBadge]="basketSize" [matBadgeHidden]="!currentUser"  matBadgeOverlap="false" ></span>
+
         </div>
         
       </div>

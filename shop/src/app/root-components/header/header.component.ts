@@ -8,6 +8,8 @@ import { fromEvent, Subscribable } from 'rxjs';
 import { DatabaseFireService } from 'src/app/database-fire.service';
 import { Product } from 'src/app/interfaces and constructors/product.interface';
 import { ConfirmDialogService } from 'src/app/comfirm-module/services/confirm-dialog.service';
+import { AdditionalService } from 'src/app/fa-module/Services/additional.service';
+import { BasketService } from 'src/app/basket-module/services/basket.service';
 
 @Component({
   selector: 'app-header',
@@ -20,9 +22,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   constructor(
     private dialog: DialogService,
     private auth: AngularFireAuth,
+    private additionalFa: AdditionalService,
     private router: Router,
     private db: DatabaseFireService,
-    private confirm: ConfirmDialogService
+    private confirm: ConfirmDialogService,
+    private basketService: BasketService
   ) {}
 
   /* --- Variables --- */
@@ -71,7 +75,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   private signOut(){
-    this.auth.auth.signOut()
+    this.additionalFa.signOut()
     const isInBasket = document.location.href.includes('basket')
     if (isInBasket) {
       this.router.navigate(['home'])
@@ -100,5 +104,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     )
   }
 
+  get basketSize(){ return this.basketService.getTotalQuantity()}
 
 }

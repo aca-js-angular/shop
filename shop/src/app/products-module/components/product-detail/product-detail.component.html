@@ -1,10 +1,12 @@
+
 <div *ngIf="thisProduct" class="section">
   <div class="flexBox">
     <div class="flexLeft">
-      <img [src]="currentSrc" class="main-img" id="img_01" onerror="this.src = 'assets/emptycart.png'">
+      <img [src]="currentSrc" class ="main-img" onerror="this.src = 'assets/emptycart.png'">
       <img [src]="currentSrc" onerror="this.hidden = true" class="ghost" [class.animation-element]="startAnimation">
     </div>
     <div class="flexMiddle">
+
 
       <!---------- Main Description ---------->
       <div class="smallCaps"><b>{{thisProduct.name}}</b></div>
@@ -116,3 +118,7 @@
   <!-- {{currentSrc}} -->
   
  <!-- data-zoom-image="https://cdn.jsdelivr.net/gh/igorlino/elevatezoom-plus@1.1.6/demo/images/large/image3.jpg" -->
+
+
+
+

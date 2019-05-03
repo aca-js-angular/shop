@@ -8,7 +8,12 @@ export const environment = {
     storageBucket: "online-shop-96aba.appspot.com",
     messagingSenderId: "1022320605927"
   }
-  // production: false,
+
+}  
+
+
+
+// production: false,
   // firebase: {
   //   apiKey: "AIzaSyCffoF2p_Ph4kAOL7BMOl8NduAKR2OvprQ",
   //   authDomain: "aca-shop.firebaseapp.com",
@@ -17,4 +22,3 @@ export const environment = {
   //   storageBucket: "aca-shop.appspot.com",
   //   messagingSenderId: "513994673413"
   // }
-}
