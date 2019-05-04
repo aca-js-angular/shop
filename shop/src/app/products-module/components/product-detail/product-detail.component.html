@@ -1,7 +1,9 @@
-<div *ngIf="thisProduct" class="section">
+<ng-container *ngIf="thisProduct">
+
+<div class="section">
   <div class="flexBox">
     <div class="flexLeft">
-      <img [src]="currentSrc" class="main-img" id="img_01" onerror="this.src = 'assets/emptycart.png'">
+      <img [src]="currentSrc" class ="main-img" onerror="this.src = 'assets/emptycart.png'">
       <img [src]="currentSrc" onerror="this.hidden = true" class="ghost" [class.animation-element]="startAnimation">
     </div>
     <div class="flexMiddle">
@@ -91,7 +93,7 @@
 
 
 <!---------- More From This Brand ---------->
-<app-product-slider *ngIf="moreFromThisBrand" [href]="['/','products','brands',thisProduct.brand]"
+<app-product-slider [href]="['/','products','brands',thisProduct.brand]"
   [title]="'More from ' + thisProduct.brand" [productCollection]="moreFromThisBrand"
   [config]="{ratio: 4, likeable: true, info: true}">
 </app-product-slider>
@@ -107,12 +109,4 @@
   </app-product-list>
 </div>
 
-
-
-
-<!-- <dir *ngIf=> -->
-
-  <!-- <img style="width:411px" id="img_01" src="https://cdn.jsdelivr.net/gh/igorlino/elevatezoom-plus@1.1.6/demo/images/large/image3.jpg"/> -->
-  <!-- {{currentSrc}} -->
-  
- <!-- data-zoom-image="https://cdn.jsdelivr.net/gh/igorlino/elevatezoom-plus@1.1.6/demo/images/large/image3.jpg" -->
+</ng-container>

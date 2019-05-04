@@ -11,6 +11,7 @@ import { CheckoutShippingComponent } from './components/checkout-shipping/checko
 import { CheckoutPaymentComponent } from './components/checkout-payment/checkout-payment.component';
 import { SharedModule } from '../shared-module/shared.module';
 import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { AnimationModule } from '../animation-module/animation.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/ma
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    AnimationModule,
   ]
 })
 

@@ -1,4 +1,4 @@
-import { FormControl, ValidationErrors } from '@angular/forms';
+import { FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function _adress(control: FormControl): ValidationErrors | null {
     const source = control.value
@@ -7,6 +7,6 @@ export function _adress(control: FormControl): ValidationErrors | null {
     if(char.test(source) && number.test(source)){
         return null
     }else{
-        return {_adress: {message: 'Adress must contain "street" and "house-index"'}}
+        return {_adress: {message: 'Adress must contain at least "street" and "house-index"'}}
     }
 }

@@ -109,7 +109,7 @@ $active: rgb(0, 115, 255);
                 background: transparent;
                 border: solid 1px rgb(205, 205, 226);
                 color: rgb(103, 103, 124);
-                transition: all 0.3s;
+                // transition: all 0.3s;
                 &:hover{
                     color: $active;
                     border-color: $active;
@@ -173,5 +173,23 @@ $active: rgb(0, 115, 255);
         border-bottom-color:  $active;
     }
 
+}
+#basketIcon{
+    position: relative;
+    .myBadge{
+        display: inline-block;
+        position: absolute;
+        top: -10px;
+        right: -12px;
+        border-radius: 50%;
+        padding-left: 0.5em;
+        padding-top: 0.15em;
+        background: #446E8E;
+        color: rgb(255, 255, 255);
+        height: 20px;
+        width: 20px;
+        // text-align: center;
+        font-size: 12px;
+    }
 }
 

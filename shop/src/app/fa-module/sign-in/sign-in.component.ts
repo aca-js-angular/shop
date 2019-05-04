@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AutoService } from '../Services/fa.service'
 import { AdditionalService } from '../Services/additional.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { CloseDialogService } from '../Services/close-dialog.service';
+import { FormControlService } from 'src/app/form-control.service';
 
 //--------Messages-----------
 const RESET_PASS: string = 'Reset Password';
@@ -23,6 +24,7 @@ const VERIFY_EMAIL: string = 'Verify Your Addres';
 export class SignInComponent implements OnInit, OnDestroy {
 
   constructor(
+    private fs: FormControlService,
     private additionalFa: AdditionalService,
     private dialog: CloseDialogService,
     private formBuilder: FormBuilder,
@@ -44,12 +46,9 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-
-
     this.logInForm = this.formBuilder.group({
       email: ['', [
         Validators.required,
-        Validators.maxLength(28),
         Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"),
       ]],
 
@@ -63,14 +62,33 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
   //-----------
 
-  get email(): AbstractControl { return this.logInForm.get('email'); }
-  get pass(): AbstractControl { return this.logInForm.get('password'); }
-  closeDialog() { this.dialog.closeDialog() }
+  get email(): FormControl {
+    return this.logInForm.get('email') as FormControl;
+  }
+
+  get pass(): FormControl {
+    return this.logInForm.get('password') as FormControl;
+  }
+
+  closeDialog() {
+    this.dialog.closeDialog()
+  }
 
   resetPass(): void {
     this.showResetPanel = false;
     this.loginOrReset = RESET_PASS
     this.invalidPassOrMail = null;
+  }
+
+  get emailError(){
+    return this.getErrors(this.email)
+  }
+  get passError(){
+    return this.getErrors(this.pass)
+  }
+
+  getErrors(control: FormControl, message?){
+    return this.fs.getErrorMessage(control,message)
   }
 
   backToSignIn(){

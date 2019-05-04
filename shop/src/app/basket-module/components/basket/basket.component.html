@@ -1,13 +1,18 @@
 <div class="section">
-  <div class="fields">
-    <span>
+  <div class="basket-header">
+    <div class="items-left title">
+      <span>{{basketSize}} Orders in Basket</span>
+
+      <anim-flow inline="true">
+        <img src="assets/basket.png">
+      </anim-flow>
+    </div>
+    <div class="items-right">
       <button (click)="clear()" class="action-btn clear-basket">Clear Basket</button>
-    </span>
-    <span>
       <button (click)="back()" class="action-btn keep-shopping">Keep Shoping</button>
-    </span>
+    </div>
   </div>
-  <br>
+  <br><br>
   <div class="flexBox" *ngIf="basketSize; else emptyBasket">
     <div class="flexLeft">
       <div  class="basket-content" *ngFor="let order of basket, index as i">
@@ -23,4 +28,5 @@
       <img src="assets/emptyBasket.png">
     </div>
   </ng-template>
+  
 </div>

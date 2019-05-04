@@ -15,12 +15,15 @@ input {
     font-family: Raleway-Medium;
     color: #686666;
     line-height: 1.2;
-    font-size: 18px;
     display: block;
     width: 100%;
     background: transparent;
-    height: 43px;
-    padding: 0 25px 0 25px;
+}
+
+mat-form-field{
+    width: 100%;
+    font-size: 12px;
+    transition: margin 0.5s;
 }
 
 .sign-in-btn  {    

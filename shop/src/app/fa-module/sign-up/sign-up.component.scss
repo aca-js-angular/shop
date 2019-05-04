@@ -65,3 +65,18 @@ mat-form-field {margin: 2% 1px -5%;}
 .invalid-email { border-left-width: 3.5px; transition: 1s  }
 .invalid-email:not(.ng-invalid) { border-left-color: rgb(112, 184, 185)  }
 .invalid-email:not(.ng-valid):not(.ng-untouched):not(.ng-pending) { border-left-color: rgb(167, 107, 107); }
+
+
+
+
+
+
+mat-form-field{
+    width: 100%;
+    font-size: 12px;
+    transition: margin 0.2s;
+}
+
+.indent{
+    margin-bottom: 1px;
+}

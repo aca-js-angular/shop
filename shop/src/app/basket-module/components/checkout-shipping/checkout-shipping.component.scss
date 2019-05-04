@@ -9,27 +9,17 @@
 }
 .flexRight{
     flex: 38%;
-    border: solid #446E8E 1px;
     border-radius: 5px;
     height: 100%;
-    padding: 20px 10px;
-    margin-top: 23px;
 }
-// input{
-//     width: 100%;
-//     margin-bottom: 15px;
-//     padding: 5px 5px;
-//     border: solid #446E8E 1px;
-//     border-radius: 3px;
-//     outline: none;
-// }
-.shipping-form{
-    // margin: 20px;
-}
+
 mat-form-field{
     width: 100%;
-    font-size: 13px;
-    // height: 30px;
+    font-size: 12px;
+    transition: margin 0.5s;
+}
+.indent{
+    margin-bottom: 7px;
 }
 select{
     width: 100%;

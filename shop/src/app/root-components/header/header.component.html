@@ -22,16 +22,20 @@
           
           <img matTooltip="Go to profile" src="assets/user.png"></div>
         
-          <div class="actionButton" *ngIf="!currentUser" matTooltip="Registrate now"><button (click)="signUp()"
-            id="register">Register</button></div>
+          <div class="actionButton" *ngIf="!currentUser" matTooltip="Registrate now">
+            <button (click)="signUp()" id="register">Register</button></div>
         <div class="actionButton" *ngIf="!currentUser" matTooltip="Sign-in with E-mail">
           <button (click)="signIn()" id="signIn">Sign-in</button>
         </div>
         <div class="actionButton" *ngIf="currentUser">
           <button matTooltip="Sign-out from account" id="signOut" (click)="logout()">Logout</button>
         </div>
-        <div class="actionButton" matTooltip="Go to basket">
+        <div id="basketIcon" class="actionButton" matTooltip="Go to basket">
           <img [_persistance]="goToBasket" id="basket" src="assets/basket.png">
+          <!-- <span matBadgeSize="medium" [matBadge]="basketSize" [matBadgeHidden]="!currentUser"  matBadgeOverlap="false" ></span> -->
+          <div [style.padding-left]="basketSize < 10 ? '0.5em' : '0.2em'" *ngIf="currentUser" anim-blink-on-changes class="myBadge">{{basketSize}}</div>
+          
+          
         </div>
         
       </div>

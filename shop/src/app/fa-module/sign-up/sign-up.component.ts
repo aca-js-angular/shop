@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, of, Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -7,6 +7,8 @@ import { AutoService } from '../Services/fa.service';
 import { takeUntil, switchMap, map, debounceTime, tap } from 'rxjs/operators';
 import { CloseDialogService } from '../Services/close-dialog.service';
 import { AdditionalService } from '../Services/additional.service';
+import { _password , _passConfirm} from '../../validators/root/custom-validators'
+import { FormControlService } from 'src/app/form-control.service';
 
 // const Validation = new FormValidators()
 
@@ -28,48 +30,94 @@ export class SignUpComponent implements OnInit {
     public router: Router,
     private autoService: AutoService,
     private fireAuth: AngularFireAuth,
-  ) {}
+    private control: FormControlService
+  ) { }
 
   /* --- Variables --- */
 
-  private profileForm: FormGroup;
   destroyStream = new Subject<void>()
-  cities: string[] = [];
-  btnValid: boolean;
-  info: string = CREATE_ACCOUNT;
-  invMess: boolean = false;
-  comfirmPass: boolean = false;
-  mailInvMessage: string;
-  invalidInput: {}
-  comfPass: string
+  // btnValid: boolean;
+  // info: string = CREATE_ACCOUNT;
+  // invMess: boolean = false;
+  // comfirmPass: boolean = false;
+  // mailInvMessage: string;
+  // invalidInput: {}
+  // comfPass: string
   awaitAnimation: boolean;
   emailAwiitIsBusyAnime: boolean;
-  busyEmail: boolean;
+  // busyEmail: boolean;
+
+
+
+  profileForm: FormGroup = this.formBuilder.group({
+    firstName: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
+    lastName: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
+
+    email: ['', [
+      Validators.required,
+      Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"),
+    ],
+      // [this.isBusyEmail.bind(this)]
+    ],
+    password: ['', [Validators.required,Validators.minLength(8),_password]],
+    passwordConfirm: ['',[]]
+
+  })
+
 
 
   /* --- Getters --- */
 
-  get firstName(): AbstractControl { return this.profileForm.get('firstName') }
-  get lastName(): AbstractControl { return this.profileForm.get('lastName') }
-  get email(): AbstractControl { return this.profileForm.get("email") }
-  get card(): AbstractControl { return this.profileForm.get("creditCard") }
-  get pass(): AbstractControl { return this.profileForm.get("password") }
+  get firstName(): FormControl {
+    return this.profileForm.get('firstName') as FormControl
+  }
+  get lastName(): FormControl {
+    return this.profileForm.get('lastName') as FormControl
+  }
+  get email(): FormControl {
+    return this.profileForm.get("email") as FormControl
+  }
+  get pass(): FormControl {
+    return this.profileForm.get("password") as FormControl
+  }
+  get passConfirm(): FormControl {
+    return this.profileForm.get("passwordConfirm") as FormControl
+  }
+
+
+  get firstNameError(): string | null {
+    return this.firstName.touched && this.control.getErrorMessage(this.firstName)
+  }
+  get lastNameError(): string | null {
+    return this.lastName.touched && this.control.getErrorMessage(this.lastName)
+  }
+  get emailError(): string | null {
+    return this.email.touched && this.control.getErrorMessage(this.email,'invalid-email')
+  }
+  get passError(): string | null {
+    return this.pass.touched && this.control.getErrorMessage(this.pass)
+  }
+  get passConfirmError(): string | null {
+    return this.passConfirm.touched && this.control.getErrorMessage(this.passConfirm)
+  }
+
+
 
 
   /* --- Methods --- */
 
-  isBusyEmail(control: FormControl): Observable<ValidationErrors | null> {
+  // isBusyEmail(control: FormControl): Observable<ValidationErrors | null> {
 
-    return of(control.value).pipe(
-      tap(_ => this.emailAwiitIsBusyAnime = true),
-      debounceTime(400),
-      switchMap(email => this.fireAuth.auth.fetchSignInMethodsForEmail(email)),
-      map(isBusy => isBusy[0] ? {error: 'error'} : null ), 
-      tap(res => res ? this.busyEmail = true :this.busyEmail = false),
-      tap(_ => this.emailAwiitIsBusyAnime = false),
-      )
+  //   return of(control.value).pipe(
+  //     tap(_ => this.emailAwiitIsBusyAnime = true),
+  //     debounceTime(400),
+  //     switchMap(email => this.fireAuth.auth.fetchSignInMethodsForEmail(email)),
+  //     map(isBusy => isBusy[0] ? { error: 'error' } : null),
+  //     tap(res => res ? this.busyEmail = true : this.busyEmail = false),
+  //     tap(_ => this.emailAwiitIsBusyAnime = false),
+  //   )
 
-  }
+  // }
 
   onSubmit() {
     this.awaitAnimation = true;
@@ -87,11 +135,11 @@ export class SignUpComponent implements OnInit {
       })
   }
 
-  passComfirm(value1: string, value2?: string): void {
-    if (value1 && this.pass.value === value1) { this.comfirmPass = false }
-    else if (value2 && this.pass.value === value2) { this.comfirmPass = false }
-    else if (value2 || value1) { this.comfirmPass = true }
-  }
+  // passComfirm(value1: string, value2?: string): void {
+  //   if (value1 && this.pass.value === value1) { this.comfirmPass = false }
+  //   else if (value2 && this.pass.value === value2) { this.comfirmPass = false }
+  //   else if (value2 || value1) { this.comfirmPass = true }
+  // }
 
   closeDialog() {
     this.dialog.closeDialog()
@@ -102,25 +150,11 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
 
-    this.profileForm = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.pattern("[A-Za-z]{2,20}")]],
-      lastName: ['', [Validators.required, Validators.pattern("[A-Za-z]{2,20}")]],
-
-      email: ['', [
-        Validators.required,
-        Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"),
-      ],
-        [this.isBusyEmail.bind(this)]
-
-      ],
-      password: ['', [Validators.required, Validators.minLength(8),]],
-      //   Validators.pattern('^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14})$')]],
-    })
-
-    this.btnValid = this.profileForm.valid;
+    this.passConfirm.setValidators(_passConfirm(this.pass))
+    // this.btnValid = this.profileForm.valid;
   }
-  
-  
+
+
   ngOnDestroy() {
     this.destroyStream.next()
   }

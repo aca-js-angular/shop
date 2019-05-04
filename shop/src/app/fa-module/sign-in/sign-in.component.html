@@ -10,17 +10,29 @@
   <div class="sign-in">
 
     <h3 class="messageHead"> {{loginOrReset}} </h3>
-    <form [formGroup]=logInForm>
-      <div class="form-row align-items-center" [ngClass]="{ 'requiredLogin': !logInForm.pristine }">
-        <div class="col-auto">
+    <form autocomplete="off" [formGroup]=logInForm>
+      <div>
+      <!-- <div class="form-row align-items-center" [ngClass]="{ 'requiredLogin': !logInForm.pristine }"> -->
 
-          <input formControlName="email" [_format]="'lowercase'" required minlength="7" maxlength="28" type="email"
-            class="form-control mb-2" placeholder="Email" [_feedback]="email">
+          <div class="sign-in-form">
+            <mat-form-field appearance="outline">
+              <mat-label>E-mail</mat-label>
+              <mat-hint align="end"><i>example:</i> jamesparker@gmail.com</mat-hint>
+              <input  formControlName="email" matInput required>
+              <mat-error>{{getErrors(email,'invalid email')}}</mat-error>
+            </mat-form-field>
+          </div>
 
           <div *ngIf="showResetPanel" class="hid-panel">
 
-            <input formControlName="password" required minlength="8" maxlength="25" type="password"
-              class="form-control mb-2" placeholder="Password" [_feedback]="pass">
+          
+          <div class="sign-in-form">
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input formControlName="password" matInput required maxlength="25">
+              <mat-error>{{getErrors(pass)}}</mat-error>
+            </mat-form-field>
+          </div>
 
             <button class="btn btn-outline-dark sign-in-btn" [_inactive]="logInForm.invalid"
               (click)="signIn(rememberState.checked)">Sign In</button>
@@ -33,8 +45,8 @@
             <button class="btn btn-outline-dark reset-pass" [_inactive]="email.invalid"
               (click)="sendLinkResetPass()">Send Email Meaasge</button><br>
             <span class="reset-pass-message">{{resetEmailMessage}}</span>
-          </div>
-        </div>
+      </div>
+      
       </div>
     </form>
     <br>

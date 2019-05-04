@@ -2,12 +2,13 @@
 .flexBox{
     display: flex;
     width: 100%;
-    padding: 20px;
-    border: solid #446E8E 1px;
+    padding: 4px 4px;
     border-radius: 5px;
+    background: rgb(248, 248, 248);
+    box-shadow: 1px 1px 5px rgb(184, 184, 184);
 }
 .flexLeft{
-    flex: 20%;
+    flex: 15%;
     margin-right: 10px;
     img{
         border-radius: 5px;
@@ -16,7 +17,7 @@
     }
 }
 .flexRight{
-    flex: 80%;
+    flex: 85%;
     position: relative;
 }
 
@@ -41,7 +42,9 @@
 
 .pr-price {
     float: right;
-    font-size: 15px
+    font-size: 15px;
+    color: gray;
+
 }
 
 .pr-brand {
@@ -50,7 +53,8 @@
 
 .pr-total {
     font-size: 12px;
-    float: right
+    float: right;
+    color: gray;
 }
 
 .pr-quantity {

@@ -8,7 +8,7 @@
         <span class="pr-name">{{thisOrder.product.name}}</span>
         <span class="pr-price"><b>{{thisOrder.product.price | currency}}</b></span>
         <span class="pr-quantity">
-          <input min="1" type="number" [formControl]="quantity">
+          <input anim-blink-on-value-changes _naturalNumbers min="1" type="number" [formControl]="quantity">
         </span>
       </div>
       <div>

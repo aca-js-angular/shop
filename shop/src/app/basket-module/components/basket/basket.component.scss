@@ -1,28 +1,15 @@
 .flexBox{
     display: flex;
-    margin: 20px 0;
+    margin: 5px 0 20px 0;
 }
 .flexLeft{
     flex: 66%;
-    margin-right: 10px;
+    margin-right: 15px;
 }
 .flexRight{
     flex: 34%;
-    border: solid #446E8E 1px;
     border-radius: 5px;
     height: 100%;
-    padding: 20px 10px;
-}
-.action-btn{
-
-    border: none;
-    margin: 0 5px;
-    color: white;
-    font-size: 11px;
-    padding: 7px;
-    width: 200px;
-    border-radius: 5px;
-    outline: none;
 }
 
 .clear-basket{
@@ -39,15 +26,34 @@
     }
 }
 
-.fields{
-    margin-top: 30px;
-    span{
-        float: right
+
+.basket-header{
+    margin-top: 20px;
+    .title{
+        font-size: 20px;
+        font-weight: bold;
+        font-variant: small-caps;
+        color: #446E8E;
+        img{
+            height: 35px;
+            width: 35px;
+        }
+    }
+    .action-btn{
+        border: none;
+        margin: 0 3px;
+        margin-bottom: 5px;
+        color: white;
+        font-size: 11px;
+        padding: 7px;
+        width: 200px;
+        border-radius: 5px;
+        outline: none;
+        
     }
 }
-
 .basket-content {
-    margin-bottom: 10px
+    margin-bottom: 10px;
 }
 
 #empty-basket{

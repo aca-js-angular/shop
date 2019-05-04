@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ViewContainerRef, TemplateRef } from '@angular/core';
 import { DatabaseFireService } from 'src/app/database-fire.service';
 import { Product } from '../../../interfaces and constructors/product.interface';
 import { ActivatedRoute } from '@angular/router';
@@ -22,6 +22,7 @@ export class ProductsRootComponent implements OnInit, OnDestroy {
     private ps: ProductService,
     private build: FormBuilder,
     private fs: FilterService,
+    private vcr: ViewContainerRef,
   ) {}
 
   /* ---Variables --- */

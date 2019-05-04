@@ -1,7 +1,9 @@
-<!-- <div id="xx" class="section"> -->
+
   <div class="flex-box">
 
     <div class="flex-left">
+
+      <anim-flow duration="0.2">
  
       <!-- Price Filter -->
       <div class="filterSection" id="priceFilter">
@@ -14,6 +16,10 @@
         <button id="activate" [class.deactivated]="rangeControl.invalid" [disabled]="rangeControl.invalid" [title]="rangeControl.invalid ? 'invalid ranges' : ''" (click)="setRanges()">&#9654;</button>
         </form>
       </div>
+
+      </anim-flow>
+
+      <anim-flow duration="0.3">
 
       <!-- Color Filter -->
       <div class="filterSection" id="colorFilter">
@@ -37,6 +43,9 @@
 
       </div>
 
+      </anim-flow>
+
+      <anim-flow duration="0.4">
 
       <!-- Material Filter -->
       <div class="filterSection" id="materialFilter">
@@ -54,11 +63,19 @@
           </div>
         </div>
       </div>
+
+      </anim-flow>
+
+      <anim-flow duration="0.5">
+
       <div class="filterSection">
         <hr>
         <button (click)="resetFilters()" title="Reset all filters" class="reset resetall">Reset All</button>
         <button title="Remember filters while navigating to other pages" class="switcher" id="remember-filters" #rememberLabel [class.activate]="fs.remember" (click)="fs.remember = !fs.remember; toggleOpacity(rememberLabel,'remember')">Remember Filters</button>
       </div>
+
+      </anim-flow>
+
     </div> 
 
     <div class="flex-right">
@@ -90,4 +107,3 @@
     </div>
 
   </div>
-<!-- </div> -->

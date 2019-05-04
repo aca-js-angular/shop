@@ -10,6 +10,7 @@ import { StructuralSlideDirective } from './directives/structural-slide.directiv
 import { TopProductsComponent } from './components/top-products/top-products.component';
 import { BestDealsComponent } from './components/best-deals/best-deals.component';
 import { LatestProductsComponent } from './components/latest-products/latest-products.component';
+import { AnimationModule } from '../animation-module/animation.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { LatestProductsComponent } from './components/latest-products/latest-pro
     CommonModule,
     HomeRoutingModule,
     ProductsModule,
+    AnimationModule,
   ],
   exports: [HomeRootComponent]
 })

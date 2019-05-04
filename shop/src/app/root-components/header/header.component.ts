@@ -8,6 +8,8 @@ import { fromEvent, Subscribable } from 'rxjs';
 import { DatabaseFireService } from 'src/app/database-fire.service';
 import { Product } from 'src/app/interfaces and constructors/product.interface';
 import { ConfirmDialogService } from 'src/app/comfirm-module/services/confirm-dialog.service';
+import { BasketService } from 'src/app/basket-module/services/basket.service';
+import { StylesService } from 'src/app/animation-module/styles.service';
 
 @Component({
   selector: 'app-header',
@@ -22,7 +24,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private auth: AngularFireAuth,
     private router: Router,
     private db: DatabaseFireService,
-    private confirm: ConfirmDialogService
+    private confirm: ConfirmDialogService,
+    private bs: BasketService,
+    private ss: StylesService,
   ) {}
 
   /* --- Variables --- */
@@ -36,6 +40,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
 
   /* --- Getters --- */
+
+  get basketSize(): number{
+    return this.bs.getTotalQuantity()
+  }
 
   get is404(): boolean {
     return document.location.href.includes('not-found')

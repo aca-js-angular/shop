@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTooltipModule, MatProgressSpinnerModule, MatProgressBarModule } from '@angular/material';
+import { MatTooltipModule, MatProgressSpinnerModule, MatProgressBarModule, MatBadgeModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms'
 
@@ -29,6 +29,8 @@ import { SingleResultComponent } from './root-components/search/single-result/si
 import { SharedModule } from './shared-module/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NotFoundComponent } from './root-components/not-found/not-found.component';
+import { AnimationModule } from './animation-module/animation.module';
+
 
 
 @NgModule({
@@ -48,11 +50,13 @@ import { NotFoundComponent } from './root-components/not-found/not-found.compone
 
     ReactiveFormsModule,
     MatTooltipModule,
+    MatBadgeModule,
     HttpClientModule,
     HomeModule,
     ProductsModule,
     BasketModule,
     SharedModule,
+    AnimationModule,
 
     
 
@@ -70,6 +74,7 @@ import { NotFoundComponent } from './root-components/not-found/not-found.compone
     MatProgressBarModule,
 
     AppRoutingModule,
+
 
     
 

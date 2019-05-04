@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, AfterContentInit } from '@angular/core';
 import { Location } from '@angular/common'
 import { BasketService } from '../../services/basket.service';
 import { ConfirmDialogService } from 'src/app/comfirm-module/services/confirm-dialog.service';
@@ -10,13 +10,16 @@ import { decodedOrder } from 'src/app/interfaces and constructors/decoded-order.
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.scss']
 })
-export class BasketComponent {
+export class BasketComponent implements OnDestroy {
 
   constructor(
     private location: Location,
     private bs: BasketService,
     private confirm: ConfirmDialogService,
   ){}
+
+  /* --- Variables --- */
+
 
   /* --- Getters --- */
 
@@ -66,5 +69,6 @@ export class BasketComponent {
   ngOnDestroy(){
     this.bs.updateCredit()
   }
+
 
 }

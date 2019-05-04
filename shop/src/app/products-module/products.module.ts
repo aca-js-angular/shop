@@ -14,6 +14,7 @@ import { RatingPipe } from './pipes/rating.pipe';
 import { ZipperPipe } from './pipes/zipper.pipe';
 import { SharedModule } from '../shared-module/shared.module';
 import { MatFormFieldModule, MatSelectModule } from '@angular/material';
+import { AnimationModule } from '../animation-module/animation.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MatFormFieldModule, MatSelectModule } from '@angular/material';
     MatFormFieldModule,
     MatSelectModule,
     FormsModule,
+    AnimationModule,
   ],
 
   exports: [ProductSliderComponent,ZipperPipe]

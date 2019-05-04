@@ -1,31 +1,34 @@
-<div><span  class="order-sum">Order Summary</span></div>
-<hr color="#446E8E">
-<div class="font-13px">
-  <span>Items total</span>
-  <span class="items-right">{{totalQuantity}}</span>
-</div>
-<div class="font-13px">
-  <span>Total pure price</span>
-  <span class="items-right">{{totalPrice | currency}}</span>
-</div>
-<div class="font-13px">
-  <span>Estimated shipping</span>
-  <span class="items-right">{{totalShipping | currency}} ({{totalWeight}}g.)</span>
-</div>
-<div class="promo-code">
-  <input type="text" placeholder="Enter Promo Code">
-  <button class="apply-btn">Apply</button>
-</div>
-<hr color="#446E8E">
-<div class="font-13px text-bold">
-  <span>Total:</span>
-  <span class="items-right">{{(totalPrice + totalShipping) | currency}}</span>
-</div>
-<div>
-  <button
-  [_inactive]="currentForm?.invalid"
-  (click)="nextRoute()"
-  class="action-btn text-bold"
-  >{{action}}
-  </button>
+<div id="container">
+  <div>
+    <span  class="order-sum">Order Summary</span>
+  </div>
+  <hr>
+  <div class="font-13px">
+    <span class="text-bold">Items total</span>
+    <span class="items-right underline">{{totalQuantity}}</span>
+  </div>
+  <div class="font-13px">
+    <span class="text-bold">Total pure price</span>
+    <span class="items-right underline">{{totalPrice | currency}}</span>
+  </div>
+  <div class="font-13px">
+    <span class="text-bold">Estimated shipping</span>
+    <span class="items-right underline">{{totalWeight}}g. - {{totalShipping | currency}}</span>
+  </div>
+  <div class="promo-code">
+    <input type="text" placeholder="Enter Promo Code">
+    <button class="apply-btn">Apply</button>
+  </div>
+  <hr>
+  <div class="font-13px text-bold">
+    <span>Total:</span>
+    <span anim-blink-on-changes class="items-right underline">{{(totalPrice + totalShipping) | currency}}</span>
+  </div>
+  <div>
+    <button
+    (click)="nextRoute()"
+    class="btn btn-primary action-btn text-bold"
+    >{{action}}
+    </button>
+  </div>
 </div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { FormControlService } from 'src/app/form-control.service';
-import { _fullName, _adress } from '../../../validators/root/custom-validators'
+import { _fullName, _adress, _password } from '../../../validators/root/custom-validators'
 
 @Component({
   selector: 'app-checkout-shipping',
@@ -26,14 +26,34 @@ export class CheckoutShippingComponent implements OnInit {
     country: [],
     city: [],
     fullName: ['',[Validators.required,_fullName]],
-    streetAdress: ['',[Validators.required,_adress]],
-    postalCode: ['',[Validators.required,Validators.minLength(3)]],
+    adress: ['',[Validators.required,_adress]],
+    postalCode: ['',[Validators.required,Validators.minLength(4)]],
   })
 
   /* --- Methods --- */
 
   getErrors(form: FormControl): string | null{
     return this.control.getErrorMessage(form)
+  }
+
+  get fullNameError(){
+    return this.fullName.touched && this.control.getErrorMessage(this.fullName)
+  }
+  get adressError(){
+    return this.adress.touched && this.control.getErrorMessage(this.adress)
+  }
+  get postalCodeError(){
+    return this.postalCode.touched && this.control.getErrorMessage(this.postalCode)
+  }
+
+  get fullName(): FormControl {
+    return this.checkoutForm.get('fullName') as FormControl;
+  }
+  get adress(): FormControl {
+    return this.checkoutForm.get('adress') as FormControl;
+  }
+  get postalCode(): FormControl {
+    return this.checkoutForm.get('postalCode') as FormControl;
   }
 
   /* --- LC hooks --- */
