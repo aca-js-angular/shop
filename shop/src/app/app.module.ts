@@ -72,7 +72,7 @@ import { AnimationModule } from './animation-module/animation.module';
     MatRippleModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-
+    MatBadgeModule,
     AppRoutingModule,
 
 

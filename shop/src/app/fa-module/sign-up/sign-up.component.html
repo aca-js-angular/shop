@@ -66,9 +66,7 @@
           <span class="invalid-message" *ngIf="busyEmail"> This E-mail address already registered...</span>
 
 
-          <input (blur)="passComfirm(comf.value); invMess = true" (focus)="invMess = false" required minlength="8"
-            maxlength="18" formControlName="password" type="password" class="form-control mb-2" placeholder="Password"
-            [_feedback]="pass">
+          <input (blur)="passComfirm(comf.value); invMess = true" (focus)="invMess = false" required minlength="8" maxlength="18" formControlName="password" type="password" class="form-control mb-2" placeholder="Password" [_feedback]="pass">
           <span class="pass-info">At least 8 characters, one uppercase, one lowercase letter, one special symbol.</span>
 
           <input (keyup)="passComfirm($event.target.value)" #comf (blur)="passComfirm('',comf.value); invMess = true"

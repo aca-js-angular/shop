@@ -3,7 +3,7 @@ import { Location } from '@angular/common'
 import { BasketService } from '../../services/basket.service';
 import { ConfirmDialogService } from 'src/app/comfirm-module/services/confirm-dialog.service';
 import { decodedOrder } from 'src/app/interfaces and constructors/decoded-order.interface';
-
+declare var $: any;
 
 @Component({
   selector: 'app-basket',
@@ -56,9 +56,31 @@ export class BasketComponent implements OnDestroy {
     const message = [`You are about to remove ${quantity} ${quantity > 1 ? 'items' : 'item'}.`]
     this.confirm.openDialogMessage({
       message: message,
-      accept: () => this.bs.removeOrderFromBasket(index),
+      accept: () => { 
+          this.hide(index);  
+          setTimeout(() => this.bs.removeOrderFromBasket(index), 1000);
+        },
     });
   }
+
+//--------------
+
+// show() {
+//   $('#test').fadeIn(1000);
+// }
+ hide(ind) {
+  $(`.item${ind}`).fadeOut(1000);
+}
+
+
+
+
+
+
+
+
+
+//----------------
 
   back(){
     this.location.back()

@@ -1,3 +1,4 @@
+
 <div class="section">
   <div class="basket-header">
     <div class="items-left title">
@@ -15,7 +16,9 @@
   <br><br>
   <div class="flexBox" *ngIf="basketSize; else emptyBasket">
     <div class="flexLeft">
-      <div  class="basket-content" *ngFor="let order of basket, index as i">
+
+          <div *ngFor="let order of basket, index as i" class="basket-content {{'item' + i}}" >
+       
         <app-basket-item (removeOrder)="remove(i,$event)" [thisOrder]="order"></app-basket-item>
       </div>
     </div>

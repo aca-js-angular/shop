@@ -8,6 +8,7 @@
     </div>
     <div class="flexMiddle">
 
+
       <!---------- Main Description ---------->
       <div class="smallCaps"><b>{{thisProduct.name}}</b></div>
       <div class="font-13px">
@@ -19,7 +20,7 @@
         recusandae quis culpa, nostrum iure debitis ad illum nesciunt esse ipsam. Impedit labore quo ab?
       </p>
       <div class="slide">
-        <app-image-slider (setSrc)="currentSrc = $event; jQueryZoom()" [imageCollection]="thisProduct.images"></app-image-slider>
+        <app-image-slider (setSrc)="currentSrc = $event; jQuery.jQueryZoomImg()" [imageCollection]="thisProduct.images"></app-image-slider>
       </div>
     </div>
 
