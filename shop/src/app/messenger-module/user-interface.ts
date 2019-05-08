@@ -9,7 +9,6 @@ export interface CurrentUserCloud{
     fullName: string;
     userId: string;
     email: string;
-    chats: object;
     photoUrl?: string,
     
 }
@@ -33,6 +32,7 @@ export interface MessageData {
     message: string,
     timestamp:string,
     sender: string,
+    key? : string
 }
 
 export interface MessageDataRTimeDb {

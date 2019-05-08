@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { MessageBoxComponent } from '../components/message-box/message-box.component';
 import { CurrentUserCloud, CurrentChatMemberDialogData } from '../user-interface';
+import { OverlayRef } from '@angular/cdk/overlay';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,8 @@ export class MessengerDialogService {
     config.disableClose = false;
     config.hasBackdrop = false;
     config.closeOnNavigation = false;  // origin
+
+    // config.scrollStrategy = this.overlay.sc.block(),
     // config.width = '300px';
     // config.height = '340px';
     // config.position = {top : '25%', right: '30px'}

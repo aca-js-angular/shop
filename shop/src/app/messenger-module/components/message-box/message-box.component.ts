@@ -1,11 +1,11 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MessengerService } from '../../services/messenger.service';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { CurrentUserCloud } from '../../user-interface';
 import { FormControl, Validators } from '@angular/forms';
 import { AdditionalService } from 'src/app/fa-module/Services/additional.service';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { takeUntil, switchMap, debounceTime, map } from 'rxjs/operators';
+import { Subject, fromEvent, Subscription, pipe } from 'rxjs';
 
 
 @Component({
@@ -13,15 +13,17 @@ import { Subject } from 'rxjs';
   templateUrl: './message-box.component.html',
   styleUrls: ['./message-box.component.scss']
 })
-export class MessageBoxComponent implements OnInit, OnDestroy {
+export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('messageInput') messageInput: ElementRef
 
   curentChatMember: CurrentUserCloud;
   messageTexteria: FormControl;
   currentUserId: string;
-  allMessages: object[] = []// Subscribable<object[] | null>;
-  decodeNamesCurrentChatMebrs: object
-
+  allMessages: object[] = [];// Subscribable<object[] | null>;
+  decodeNamesCurrentChatMebrs: object;
+  isTypingChatMember: boolean;
   destroyStream$ = new Subject<void>()
+  inputTypingState: Subscription;
 
   constructor(
     private messagesService: MessengerService,
@@ -31,9 +33,9 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
     this.curentChatMember = data
   }
 
+
   ngOnInit() {
-
-
+    
     this.messageTexteria = new FormControl('', Validators.required);
     this.autoAdditional.autoState().then(cUserId => {
 
@@ -41,20 +43,48 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
         this.currentUserId = cUserId.uid;
 
         //----Get Messages-----
-        this.messagesService.getMeassages(this.curentChatMember.userId, this.currentUserId)
-        .pipe(takeUntil(this.destroyStream$)).subscribe(allMessages => {
+        this.messagesService.getMeassages()
+          .pipe(takeUntil(this.destroyStream$)).subscribe(allMessages => {
+            // window.scrollTo(500, 0);
             this.allMessages = allMessages;
           });
 
         //------Decode Mesage Data-------
         this.messagesService.decodMessSenderUidInName(this.curentChatMember.userId, cUserId.uid).then(decodedFields =>
           this.decodeNamesCurrentChatMebrs = decodedFields);
-      }
+
+        //-----------typing---------
+        this.messagesService.isTypingChatMember();
+        this.messagesService.isTypingChatMember$.pipe(takeUntil(this.destroyStream$))
+          .subscribe(uid => { this.isTypingChatMember = uid === this.curentChatMember.userId ? true : false})
+
+      } else { this.messagesService.closeMessageBox() } // <<<<<<<<<<<<<<<<<??????????
     });
   }
 
+
+
+  ngAfterViewInit() {
+    
+    this.inputTypingState = fromEvent(this.messageInput.nativeElement, 'input').pipe(
+       debounceTime(200),
+ 
+       switchMap(_ => this.messagesService.changerTypingState(this.currentUserId)),
+       debounceTime(1000),
+ 
+       switchMap(_ => this.messagesService.changerTypingState('false'))
+     ).subscribe()
+   }
+ 
+
+  //----------------Metods--------------
+
+  removeMessage(key: string) {
+    this.messagesService.removeMessage(key).catch()
+  }
+
   sendMessage() {
-    this.messagesService.sendMessage(this.curentChatMember.userId, this.currentUserId, this.messageTexteria.value)
+    this.messagesService.sendMessage(this.currentUserId, this.messageTexteria.value)
     this.messageTexteria.patchValue('')
   }
 
@@ -62,6 +92,16 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
     this.messagesService.closeMessageBox()
   }
   ngOnDestroy() {
-    this.destroyStream$.next()
+
+    this.destroyStream$.next();
+    this.inputTypingState.unsubscribe()
+
+    //----Message-Box Subscriptions------------
+    this.messagesService.destroyStream$.next();
+    this.messagesService.getMessagesDestroyStream$.next()
+    this.messagesService.decoderFieldsdestroyStream$.next()
+    this.messagesService.sendMessage$.next()
+    this.messagesService.getMessages$.next()
   }
+
 }

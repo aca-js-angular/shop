@@ -81,8 +81,16 @@ button {
  
  @include angular-material-theme($candy-app-theme);
 
+//-------------Scrolling dialog-----------
+ html.cdk-global-scrollblock {
+    width: initial;
+    position: initial;
+    overflow-y: initial;
+}
 
- 
+
+
+
 // @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 // @import '~@angular/material/theming';

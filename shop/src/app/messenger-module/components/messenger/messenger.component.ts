@@ -33,17 +33,15 @@ export class MessengerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-
     this.sendMessageForm = this.formBuilder.group({
       email: ['', [
         Validators.required,
         Validators.email,
         Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"),
       ]],
-
     })
-  }
 
+  }
 
   get email() { return this.sendMessageForm.get('email') }
 
@@ -51,10 +49,9 @@ export class MessengerComponent implements OnInit, OnDestroy {
     return this.formControlService.getErrorMessage(control, message)
   }
 
-
-
   searchUser() {
-    this.messengerService.searchUserCombineRtimeCloud(this.email.value).then(findedChatMember => this.findedUser = findedChatMember)
+    this.messengerService.searchUserCombineRtimeCloud(this.email.value)
+      .then(findedChatMember => {this.findedUser = findedChatMember;console.log(findedChatMember)})
   }
 
 
@@ -64,9 +61,13 @@ export class MessengerComponent implements OnInit, OnDestroy {
 
       //-------Dublicat mincev Confirm@ dnenq
       if (enumResult === 'openMess') {
+
+        this.toggleMesengerPanel = !this.toggleMesengerPanel;
         this.messengerDialogService.openMessengerBox(this.findedUser);
 
       } else if (enumResult = 'openConf') {
+
+        this.toggleMesengerPanel = !this.toggleMesengerPanel;
         this.messengerDialogService.openMessengerBox(this.findedUser);
 
         // accept > messengerService.AddmemberInChat    'You are Friends;
@@ -78,8 +79,6 @@ export class MessengerComponent implements OnInit, OnDestroy {
         //   }
         // })
       }
-
-
       this.findedUser = null;
     });
 
