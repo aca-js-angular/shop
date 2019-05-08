@@ -30,6 +30,7 @@ import { SharedModule } from './shared-module/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NotFoundComponent } from './root-components/not-found/not-found.component';
 import { AnimationModule } from './animation-module/animation.module';
+import { ProjectMainModules, FireBaseModules, MaterialDesignModules } from './useds-modules';
 
 
 
@@ -38,7 +39,7 @@ import { AnimationModule } from './animation-module/animation.module';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    WorkingWithDbComponent,
+    // WorkingWithDbComponent,
     SearchComponent,
     SingleResultComponent,
     NotFoundComponent
@@ -47,37 +48,15 @@ import { AnimationModule } from './animation-module/animation.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-
     ReactiveFormsModule,
-    MatTooltipModule,
-    MatBadgeModule,
     HttpClientModule,
-    HomeModule,
-    ProductsModule,
-    BasketModule,
-    SharedModule,
-    AnimationModule,
 
+
+    ...ProjectMainModules,
+    ...FireBaseModules,
+    ...MaterialDesignModules,
     
-
-    AudentificModule,
-    ConfirmModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule.enablePersistence(),
-    AngularFireAuthModule,
-    AngularFireStorageModule,
-    AngularFireDatabaseModule,
-    MatButtonModule,
-    MatIconModule,
-    MatRippleModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    MatBadgeModule,
     AppRoutingModule,
-
-
-    
-
   ],
 
   providers: [],

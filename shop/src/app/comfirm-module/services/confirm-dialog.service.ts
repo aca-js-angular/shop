@@ -17,6 +17,6 @@ export class ConfirmDialogService {
       data: options,
       disableClose: options.sticky,
     })
-  }
+  } 
 
 }

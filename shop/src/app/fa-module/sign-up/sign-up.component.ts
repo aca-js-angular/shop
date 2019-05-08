@@ -36,16 +36,10 @@ export class SignUpComponent implements OnInit {
   /* --- Variables --- */
 
   destroyStream = new Subject<void>()
-  // btnValid: boolean;
-  // info: string = CREATE_ACCOUNT;
-  // invMess: boolean = false;
-  // comfirmPass: boolean = false;
-  // mailInvMessage: string;
-  // invalidInput: {}
-  // comfPass: string
+  info: string = CREATE_ACCOUNT;
   awaitAnimation: boolean;
   emailAwiitIsBusyAnime: boolean;
-  // busyEmail: boolean;
+  busyEmail: boolean;
 
 
 
@@ -57,7 +51,7 @@ export class SignUpComponent implements OnInit {
       Validators.required,
       Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"),
     ],
-      // [this.isBusyEmail.bind(this)]
+      [this.isBusyEmail.bind(this)]
     ],
     password: ['', [Validators.required,Validators.minLength(8),_password]],
     passwordConfirm: ['',[]]
@@ -106,18 +100,18 @@ export class SignUpComponent implements OnInit {
 
   /* --- Methods --- */
 
-  // isBusyEmail(control: FormControl): Observable<ValidationErrors | null> {
+  isBusyEmail(control: FormControl): Observable<ValidationErrors | null> {
 
-  //   return of(control.value).pipe(
-  //     tap(_ => this.emailAwiitIsBusyAnime = true),
-  //     debounceTime(400),
-  //     switchMap(email => this.fireAuth.auth.fetchSignInMethodsForEmail(email)),
-  //     map(isBusy => isBusy[0] ? { error: 'error' } : null),
-  //     tap(res => res ? this.busyEmail = true : this.busyEmail = false),
-  //     tap(_ => this.emailAwiitIsBusyAnime = false),
-  //   )
+    return of(control.value).pipe(
+      tap(_ => this.emailAwiitIsBusyAnime = true),
+      debounceTime(400),
+      switchMap(email => this.fireAuth.auth.fetchSignInMethodsForEmail(email)),
+      map(isBusy => isBusy[0] ? { error: 'error' } : null),
+      tap(res => res ? this.busyEmail = true : this.busyEmail = false),
+      tap(_ => this.emailAwiitIsBusyAnime = false),
+    )
 
-  // }
+  }
 
   onSubmit() {
     this.awaitAnimation = true;
@@ -134,12 +128,6 @@ export class SignUpComponent implements OnInit {
         }
       })
   }
-
-  // passComfirm(value1: string, value2?: string): void {
-  //   if (value1 && this.pass.value === value1) { this.comfirmPass = false }
-  //   else if (value2 && this.pass.value === value2) { this.comfirmPass = false }
-  //   else if (value2 || value1) { this.comfirmPass = true }
-  // }
 
   closeDialog() {
     this.dialog.closeDialog()

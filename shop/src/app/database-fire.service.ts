@@ -143,7 +143,7 @@ export class DatabaseFireService {
       map<T, T>(response => {
         let extractedProperty = response
         targetPropertyMap.forEach(property => {
-          extractedProperty = extractedProperty[property]
+         extractedProperty = extractedProperty[property] // <<<<<<<<<<<<<<<<< modifed (if)
         })
         return extractedProperty as T
       })

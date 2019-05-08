@@ -5,9 +5,11 @@ import { NotFoundComponent } from './root-components/not-found/not-found.compone
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'db', component: WorkingWithDbComponent},
+  // {path: 'messenger' , loadChildren: './messenger-module/messenger.module#MessengerModule' },
   {path: 'not-found', component: NotFoundComponent},
   {path: '**', redirectTo: 'not-found', pathMatch: 'full'},
+  // {path: 'db', component: WorkingWithDbComponent},
+
 ];
 
 @NgModule({

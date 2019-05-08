@@ -20,10 +20,10 @@ export class AdditionalService {
    return this.firebaseAuth.auth.setPersistence('session').catch(); 
   }
 
-  autoState(): Promise<{uid: string} | null> {
+  autoState(): Promise<{uid: string, displayName: string} | null> {
     return new Promise(resolve => {
        this.firebaseAuth.auth.onAuthStateChanged((user)=> {
-         user ? resolve({ uid: user.uid }) : resolve(null);
+         user ? resolve({ uid: user.uid, displayName: user.displayName }) : resolve(null);
        })
     })
   }

@@ -16,5 +16,5 @@ export class ConfirmComponent {
   constructor(@Inject(MAT_DIALOG_DATA) data) {
     this.options = data
   }
-
+ 
 }

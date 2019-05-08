@@ -1,0 +1,48 @@
+    .toggle-panel-btn {
+        transition: 0.2s;
+        width: 68px;
+        height: 71px;
+        position: fixed;
+        margin: 0% 88%;
+        cursor: pointer;
+    &:hover{
+        width: 75px;
+        height: 75px;
+        background-color: #f3f3f3;
+      }
+    }
+      
+      .messenger-main {     position: fixed;
+    position: fixed;
+    margin: 60px 82% 7px;
+    z-index: 11;
+    background: whitesmoke;
+    box-shadow: 15px 8px 15px grey;
+    border-radius: 10px;
+}
+
+.messenger {     
+    width: 82%;
+    margin: 10px auto 10px;
+    text-align: center;
+}
+.finded-user {
+    margin: 9px auto;
+    .sinle-result {     
+        width: 100%;
+        transition: 0.4s;
+        text-align: center;
+        background: gainsboro;
+        border-radius: 10px;
+    }
+    &:hover {
+        // background:darkgrey
+    }
+}
+.finded-user-name { 
+    cursor: pointer;
+    color: brown;
+    transition: 0.2s;
+&:hover{font-size: 105%}
+}
+.mat-form-field{width: 100%;}
