@@ -1,8 +1,11 @@
 <button (click)="updateDoc(name.value)">Update</button>
 <input #name type="text">
 <br><br>
-<button (click)="getId(byname.value)">Get ID by name</button>
-<input #byname type="text">
+<button (click)="getId(prName.value)">Get product ID by name</button>
+<input placeholder="product name" #prName type="text">
+<br>
+<button (click)="getCategoryId(ctName.value)">Get category ID by name</button>
+<input placeholder="category name" #ctName type="text">
 <br><br>
 <button (click)="checkDb()">Check DB</button>
 <br><br>
@@ -12,3 +15,4 @@
 <br>
 <br>
 <button (click)="push()" style="margin-left: 200px; width: 200px; background: rgb(211, 94, 94); border: none;">PUSH (DANGER)</button>
+<br><br>

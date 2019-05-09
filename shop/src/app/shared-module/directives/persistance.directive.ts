@@ -1,6 +1,6 @@
 import { Directive, Input, HostListener, ViewContainerRef } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { DialogService } from 'src/app/fa-module/Services/open-dialog.service';
+import { OpenDialogService } from 'src/app/fa-module/services/open-dialog.service';
 
 @Directive({
   selector: '[_persistance]'
@@ -11,9 +11,9 @@ export class PersistanceDirective {
 
   constructor(
     private fireAuth: AngularFireAuth,
-    private dialog: DialogService,
-    private viewRef: ViewContainerRef
-  ) {}
+    private dialog: OpenDialogService,
+    private viewRef: ViewContainerRef,
+  ){}
 
   @HostListener('click')onClick(){
 

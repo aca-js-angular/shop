@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { DatabaseFireService } from 'src/app/database-fire.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { P } from './product-constructor';
+import { Product } from 'src/app/interfaces/product.interface';
+import { zip, Observable } from 'rxjs';
+import { Vendor } from 'src/app/interfaces/vendor.interface';
+import { ProductService } from 'src/app/products-module/services/product.service';
+import { FormControl } from '@angular/forms';
 
 let sb = 'saddleBrown';
 let nw = 'navajoWhite';
@@ -15,8 +20,8 @@ let dg = 'darkGoldenRod';
 })
 export class WorkingWithDbComponent implements OnInit {
 
-  constructor(private db: DatabaseFireService, private dbf: AngularFirestore) {
-    this.dbf.firestore.disableNetwork()
+  constructor(private db: DatabaseFireService, private dbf: AngularFirestore,private ps: ProductService) {
+    // this.dbf.firestore.disableNetwork()
   }
 
   copy(arg: object): object{
@@ -57,7 +62,7 @@ export class WorkingWithDbComponent implements OnInit {
     new P('Blair','Pierre Cardin','Watches',520,['black','coral'],['leather'],4,1),
     new P('Bloom Gritty Glow','Rolex','Watches',400,['grey','silver'],['leather'],4,1),
     new P('Boulevard Gritty Glow','Rolex','Watches',560,['grey','silver'],['leather'],4,1),
-    new P('Bourbon Rose','Rolex','Watches',1050,['brown','grey','coral'],['leather'],5,0),
+    new P('Bourbon Rose','Rolex','Watches',1050,['brown','grey','coral'],['leather'],4,0),
     new P('Bristol','Rolex','Watches',880,['blue','silver'],['iron'],4,2),
     new P('Bronze Age Box','MVMT','Combo-Box',1650,['grey',dg],['leather','iron'],5,0),
     new P('Burnt Poppy','Rolex','Watches',440,['gold','orange','white'],['leather'],4,1),
@@ -95,7 +100,7 @@ export class WorkingWithDbComponent implements OnInit {
     new P('Limitless','Fossil','Watches',840,['silver','white'],['iron'],4,0),
     new P('Lynx','Fossil','Watches',620,['pink','coral',sb],['leather'],4,1),
     new P('Magnolia Marble','Fossil','Watches',950,['coral','black'],['iron'],4,1),
-    new P('Marble Box','MVMT','Watches',2100,['grey',sb,'black','white'],['leather','bronze'],7,1),
+    new P('Marble Box','MVMT','Combo-Box',2100,['grey',sb,'black','white'],['leather','bronze'],7,1),
     new P('Mason','Patek Philippe','Watches',1400,['black','gold'],['iron'],4,0),
     new P('Modern Sport Nude','Patek Philippe','Watches',1240,[nw,sb],['iron'],4,0),
     new P('Monochrome Box','MVMT','Combo-Box',1900,['grey','silver'],['leather','iron'],7,0),
@@ -113,7 +118,7 @@ export class WorkingWithDbComponent implements OnInit {
     new P('Revolver Nude','Patek Philippe','Watches',1140,[nw,sb,'silver'],['iron'],4,0),
     new P('Rosecrans','Patek Philippe','Watches',870,['pink','coral'],['leather'],4,1),
     new P('Sandstone Box','MVMT','Combo-Box',1900,['black','tan'],['leather'],5,0),
-    new P('Santa Monica Box','MVMT','Watches',3300,['black','coral'],['leather','bronze'],5,1),
+    new P('Santa Monica Box','MVMT','Combo-Box',3300,['black','coral'],['leather','bronze'],5,1),
     new P('Signature II Gritty Glow','Patek Philippe','Watches',995,['grey','silver'],['leather'],4,1),
     new P('Silver Myst','Patek Philippe','Watches',1800,['grey'],['leather'],4,0),
     new P('Skylar','Patek Philippe','Watches',1520,['aqua','silver'],['iron'],4,1),
@@ -214,6 +219,9 @@ export class WorkingWithDbComponent implements OnInit {
     'assets/Stone Rouge/5.jpg',
   ], name: 'Stone Rouge'}
 
+
+
+
   updateDoc(name: string){
     this.db.getDocumentIdByUniqueProperty('products','name',name).then(res => {
       this.db.updateData('products',res,this.updateValue)
@@ -224,6 +232,11 @@ export class WorkingWithDbComponent implements OnInit {
     this.db.getDocumentIdByUniqueProperty('products','name',arg).then(console.log)
   }
 
+  getCategoryId(arg: string){
+    this.db.getDocumentIdByUniqueProperty('categories','name',arg).then(console.log)
+  }
+
+  nameaa = new FormControl('')
 
   f(){
     let objs: object[] = this.prods.map(item => this.copy(item))

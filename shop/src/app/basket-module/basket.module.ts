@@ -12,6 +12,7 @@ import { CheckoutPaymentComponent } from './components/checkout-payment/checkout
 import { SharedModule } from '../shared-module/shared.module';
 import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { AnimationModule } from '../animation-module/animation.module';
+import { BasketRootComponent } from './components/basket-root/basket-root.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AnimationModule } from '../animation-module/animation.module';
     OrderSummaryComponent,
     CheckoutShippingComponent,
     CheckoutPaymentComponent,
+    BasketRootComponent,
   ],
 
   imports: [

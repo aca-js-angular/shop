@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Product } from 'src/app/interfaces and constructors/product.interface';
+import { Product } from 'src/app/interfaces/product.interface';
 import { ProductService } from 'src/app/products-module/services/product.service';
 
 @Component({

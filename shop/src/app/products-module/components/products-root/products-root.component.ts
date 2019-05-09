@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ViewContainerRef, TemplateRef } from '@angular/core';
 import { DatabaseFireService } from 'src/app/database-fire.service';
-import { Product } from '../../../interfaces and constructors/product.interface';
+import { Product } from '../../../interfaces/product.interface';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../services/product.service';
@@ -17,12 +17,10 @@ import { cross } from '../../../validators/priceRangeValidator'
 export class ProductsRootComponent implements OnInit, OnDestroy {
 
   constructor(
-    private db: DatabaseFireService,
     private active: ActivatedRoute,
     private ps: ProductService,
     private build: FormBuilder,
     private fs: FilterService,
-    private vcr: ViewContainerRef,
   ) {}
 
   /* ---Variables --- */
@@ -57,6 +55,12 @@ export class ProductsRootComponent implements OnInit, OnDestroy {
 
 
   /* --- Methods --- */
+
+  setSortDirection(ascending: boolean){
+    this.fs.ascending = ascending;
+    this.fs.sort(this.initProducts);
+    this.update();
+  }
   
   setRanges(){
     const min = this.rangeControl.get('min').value;
@@ -146,7 +150,8 @@ export class ProductsRootComponent implements OnInit, OnDestroy {
     })
     
     this.routerListener = this.active.params.subscribe(next => {
-      this.db.getCollection<Product>('products').subscribe(response => {
+
+      this.ps.getAllProducts().then(response => {
 
         this.fs.sort(response)
 

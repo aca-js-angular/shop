@@ -1,25 +1,48 @@
-import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, AfterContentInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common'
 import { BasketService } from '../../services/basket.service';
-import { ConfirmDialogService } from 'src/app/comfirm-module/services/confirm-dialog.service';
-import { decodedOrder } from 'src/app/interfaces and constructors/decoded-order.interface';
-
+import { decodedOrder } from 'src/app/interfaces/decoded-order.interface';
+import { OpenDialogService } from 'src/app/fa-module/services/open-dialog.service';
+import { removeBasketItem, clearBasket } from '../../../constants/popup-messages.constant'
+import { trigger, transition, style, animate, query, stagger, animateChild } from '@angular/animations';
+declare var $: any;
 
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.scss']
+  styleUrls: ['./basket.component.scss'],
+  animations: [
+    trigger('list', [
+      transition(':enter', [
+        query('@items', stagger(80, animateChild()))
+      ]),
+    ]),
+    trigger('items', [
+      transition(':enter', [
+        style({ transform: 'scale(0.5)', opacity: 0 }),
+        animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)', 
+          style({ transform: 'scale(1)', opacity: 1 }))
+      ]),
+      transition(':leave', [
+        style({ transform: 'scale(1)', opacity: 1, height: '*' }),
+        animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)', 
+         style({ 
+           transform: 'scale(0.5)', opacity: 0, 
+           height: '0px', margin: '0px' 
+         })) 
+      ]),
+    ]),
+  ],
+  
 })
+
 export class BasketComponent implements OnDestroy {
 
   constructor(
     private location: Location,
     private bs: BasketService,
-    private confirm: ConfirmDialogService,
+    private dialog: OpenDialogService,
   ){}
-
-  /* --- Variables --- */
-
 
   /* --- Getters --- */
 
@@ -38,24 +61,25 @@ export class BasketComponent implements OnDestroy {
   /* --- Methods --- */
 
   clear(): void{
-    const isEmpty = this.basketSize === 0;
-    const message = isEmpty ? 
-    ['Basket is empty'] :
-    [`You are about to remove ${this.totalQuantuty} ${this.totalQuantuty > 1 ? 'items' : 'item'}.`, `This action can't be undone`]
-    const accept = isEmpty ? () => {return} : () => this.bs.clearBasket()
-    this.confirm.openDialogMessage({
-      message: message,
-      accept: accept,
-      skipCancel: (isEmpty ? true : false)
-    });
+
+    if(this.basketSize){
+      this.dialog.openConfirmMessage({
+        message: clearBasket(this.basketSize),
+        accept: () => this.bs.clearBasket()
+      })
+    }else{
+      this.dialog.openAlertMessage({
+        message: ['Basket is empty'],
+        after: null,
+      })
+    }
   
   }
 
   remove(index: number){
     const quantity = this.basket[index].quantity
-    const message = [`You are about to remove ${quantity} ${quantity > 1 ? 'items' : 'item'}.`]
-    this.confirm.openDialogMessage({
-      message: message,
+    this.dialog.openConfirmMessage({
+      message: removeBasketItem(quantity),
       accept: () => this.bs.removeOrderFromBasket(index),
     });
   }

@@ -1,64 +1,61 @@
 
 <div [class.not-found]="is404" class="header">
-    <div class="headerToolBar">
-      <div [routerLink]="['home']" id="logo"><b>Mode</b>-Concept</div>
-  
-      <div class="searchBox">
-        <input
-        #searchInput
-        [placeholder]="!is404 ? 'Search by brand, name...' : '404 NOT FOUND'"
-        type="text"
-        (blur)="hide()"
-        (focus)="searchBoxHid = true"
-        >
-        <app-search [results]="searchResult$ | async" [animation]="searchAwaitAnimation" [hidden]="!searchBoxHid"></app-search >
-        <img id="loupe" src="assets/loupe.png" class="loupe">
-      </div>
-  
-  
-      <div id="actionButtons">
-        <div class="actionButton" *ngIf="currentUser"><span class="btn-actions-span">{{currentUser.displayName}}
-        </span> 
-          
-          <img matTooltip="Go to profile" src="assets/user.png"></div>
-        
-          <div class="actionButton" *ngIf="!currentUser" matTooltip="Registrate now">
-            <button (click)="signUp()" id="register">Register</button></div>
-        <div class="actionButton" *ngIf="!currentUser" matTooltip="Sign-in with E-mail">
-          <button (click)="signIn()" id="signIn">Sign-in</button>
-        </div>
-        <div class="actionButton" *ngIf="currentUser">
-          <button matTooltip="Sign-out from account" id="signOut" (click)="logout()">Logout</button>
-        </div>
-        <div id="basketIcon" class="actionButton" matTooltip="Go to basket">
-          <img [_persistance]="goToBasket" id="basket" src="assets/basket.png">
-          <!-- <span matBadgeSize="medium" [matBadge]="basketSize" [matBadgeHidden]="!currentUser"  matBadgeOverlap="false" ></span> -->
-          <div [style.padding-left]="basketSize < 10 ? '0.5em' : '0.2em'" *ngIf="currentUser" anim-blink-on-changes class="myBadge">{{basketSize}}</div>
-          
-          
-        </div>
-        
-      </div>
+  <div class="headerToolBar">
+    <div [routerLink]="['home']" id="logo"><b>Mode</b>-Concept</div>
+
+    <div class="searchBox">
+      <input
+      #searchInput
+      [placeholder]="!is404 ? 'Search by brand, name...' : '404 NOT FOUND'"
+      type="text"
+      (blur)="hideSearchBox()"
+      (focus)="showSearchBox()"
+      >
+      <app-search [results]="searchResult$ | async" [animation]="searchAwaitAnimation" [hidden]="!searchBoxHid"></app-search >
+      <img id="loupe" src="assets/loupe.png" class="loupe">
     </div>
-    <div id="headerCategories">
-      <div routerLinkActive="activeRoute" [routerLink]="['products','category','All']"
-        [routerLinkActiveOptions]="{exact: true}" class="category">All categories</div>
-      <div routerLinkActive="activeRoute" [routerLink]="['products','category','Watches']" class="category">Watches</div>
-      <div routerLinkActive="activeRoute" [routerLink]="['products','category','Sunglasses']" class="category">Sunglasses
+
+
+    <div id="actionButtons">
+      <div class="actionButton" *ngIf="currentUser"><span class="btn-actions-span">{{currentUser.displayName}}
+      </span> 
+        
+        <img matTooltip="Go to profile" src="assets/user.png"></div>
+      
+        <div class="actionButton" *ngIf="!currentUser" matTooltip="Registrate now">
+          <button (click)="signUp()" id="register">Register</button></div>
+      <div class="actionButton" *ngIf="!currentUser" matTooltip="Sign-in with E-mail">
+        <button (click)="signIn()" id="signIn">Sign-in</button>
       </div>
-      <div routerLinkActive="activeRoute" [routerLink]="['products','category','Bracelets']" class="category">Bracelets
+      <div class="actionButton" *ngIf="currentUser">
+        <button matTooltip="Sign-out from account" id="signOut" (click)="logout()">Logout</button>
       </div>
-      <div routerLinkActive="activeRoute" [routerLink]="['products','category','Necklaces']" class="category">Necklaces
+      <div id="basketIcon" class="actionButton" matTooltip="Go to basket">
+        <img [_persistance]="goToBasket" id="basket" src="assets/basket.png">
+        <div [style.padding-left]="basketSize < 10 ? '0.5em' : '0.2em'" *ngIf="currentUser" anim-fork-on-changes blink="true" class="basketBadge">
+          <span *ngIf="basketSize <= 99">{{basketSize}}</span>
+          <span *ngIf="basketSize > 99">99<sup>+</sup></span>
+        </div>
+        
+        
       </div>
-      <div routerLinkActive="activeRoute" [routerLink]="['products','category','Combo-Box']" class="category">Combo-Boxes
-      </div>
+      
     </div>
-  
-  
-  
   </div>
-  <!-- <ng-template #notFound>
-    <div class="headerToolBar">
-        <div [routerLink]="['home']" id="logo"><b>Mode</b>-Concept <b><u>404</u></b></div>
+  <div id="headerCategories">
+    <div routerLinkActive="activeRoute" [routerLink]="['products','category','All']"
+      [routerLinkActiveOptions]="{exact: true}" class="category">All categories</div>
+    <div routerLinkActive="activeRoute" [routerLink]="['products','category','Watches']" class="category">Watches</div>
+    <div routerLinkActive="activeRoute" [routerLink]="['products','category','Sunglasses']" class="category">Sunglasses
     </div>
-  </ng-template> -->
+    <div routerLinkActive="activeRoute" [routerLink]="['products','category','Bracelets']" class="category">Bracelets
+    </div>
+    <div routerLinkActive="activeRoute" [routerLink]="['products','category','Necklaces']" class="category">Necklaces
+    </div>
+    <div routerLinkActive="activeRoute" [routerLink]="['products','category','Combo-Box']" class="category">Combo-Boxes
+    </div>
+  </div>
+
+
+
+</div>

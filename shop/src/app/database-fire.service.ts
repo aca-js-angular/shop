@@ -3,7 +3,6 @@ import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { Observable, zip, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators'
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Order } from './interfaces and constructors/order.interface';
 
 /* --- Error throwing functions */
 
@@ -38,9 +37,8 @@ export class DatabaseFireService {
 
   constructor(
     private fire: AngularFirestore,
-    private auth: AngularFireAuth,
   ) {
-    this.fire.firestore.disableNetwork()
+    // this.fire.firestore.disableNetwork()
   }
 
 
@@ -86,25 +84,28 @@ export class DatabaseFireService {
   }
 
 
-  dynamicQueryFilter<T>(collectionName: string, options: object, callbackFn: Function): void {
+  dynamicQueryFilter<T>(collectionName: string, options: object): Promise<T[]> {
+    return new Promise(resolve => {
 
-    const targetCollection = this.fire.collection(collectionName).ref
-    const optionPairs = Object.entries(options)
-
-    let queryMap = targetCollection.where(optionPairs[0][0], '==', optionPairs[0][1])
-
-    optionPairs.slice(1).forEach(item => {
-      queryMap = queryMap.where(item[0], '==', item[1])
-    })
-
-    queryMap.get()
+      const targetCollection = this.fire.collection(collectionName).ref
+      const optionPairs = Object.entries(options)
+  
+      let queryMap = targetCollection.where(optionPairs[0][0], '==', optionPairs[0][1])
+  
+      optionPairs.slice(1).forEach(item => {
+        queryMap = queryMap.where(item[0], '==', item[1])
+      })
+  
+      queryMap.get()
       .then(querySnapshots => {
 
-        const documents = []
+        const documents: T[] = []
         querySnapshots.forEach(doc => documents.push(doc.data() as T))
+        
+        resolve(documents)
 
-        callbackFn.call(this,documents)
       })
+    })
   }
 
 
@@ -148,19 +149,6 @@ export class DatabaseFireService {
         return extractedProperty as T
       })
     )
-  }
-
-
-  changeOrderQuantity(index: number, value: number): void {
-    const uid = this.auth.auth.currentUser.uid;
-    let x = this.getExtractedProperty<Order[]>('users',uid,['credit']).subscribe(credit => {
-      let newCredit = credit.map(item => item)
-      newCredit[index].quantity = value;
-      this.updateData('users',uid,{credit: newCredit}).then(_ => {
-        console.log('updated');
-        x.unsubscribe()
-      })
-    })
   }
 
 
@@ -217,24 +205,6 @@ export class DatabaseFireService {
 
       )
     )
-  }
-
-
-  clearDocumentArray(collectionName: string, id: string, targetArrayName: string): Promise<void> {
-    return this.fire.collection(collectionName).doc(id).update({ [targetArrayName]: [] })
-  }
-
-
-  removeElementFromArray<T>(collectionName: string, docid: string, targetArrayName: string, index: number): Promise<void>{
-    return new Promise(resolve => {
-      let subscr = this.getExtractedProperty<T[]>(collectionName,docid,[targetArrayName]).subscribe(array => {
-        array.splice(index,1)
-        this.updateData(collectionName,docid,{[targetArrayName]: array}).then(_void => {
-          resolve()
-        })
-        subscr.unsubscribe()
-      })
-    })
   }
 
 

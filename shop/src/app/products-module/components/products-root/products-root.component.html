@@ -1,25 +1,26 @@
+<div class="flex-box">
 
-  <div class="flex-box">
+  <div class="flex-left">
 
-    <div class="flex-left">
+    <anim-flow duration="0.2">
 
-      <anim-flow duration="0.2">
- 
       <!-- Price Filter -->
       <div class="filterSection" id="priceFilter">
-        <div><span class="name">Price</span><button (click)="resetRanges()" title="Reset price ranges" class="reset">Reset</button></div>
+        <div><span class="name">Price</span><button (click)="resetRanges()" title="Reset price ranges"
+            class="reset">Reset</button></div>
         <hr>
         <form [formGroup]="rangeControl">
-        <input _naturalNumbers formControlName="min" placeholder="from" type="number">
-        <span>-</span>
-        <input _naturalNumbers formControlName="max" placeholder="to" type="number">
-        <button id="activate" [class.deactivated]="rangeControl.invalid" [disabled]="rangeControl.invalid" [title]="rangeControl.invalid ? 'invalid ranges' : ''" (click)="setRanges()">&#9654;</button>
+          <input _naturalNumbers formControlName="min" placeholder="from" type="number">
+          <span>-</span>
+          <input _naturalNumbers formControlName="max" placeholder="to" type="number">
+          <button id="activate" [class.deactivated]="rangeControl.invalid" [disabled]="rangeControl.invalid"
+            [title]="rangeControl.invalid ? 'invalid ranges' : ''" (click)="setRanges()">&#9654;</button>
         </form>
       </div>
 
-      </anim-flow>
+    </anim-flow>
 
-      <anim-flow duration="0.3">
+    <anim-flow duration="0.3">
 
       <!-- Color Filter -->
       <div class="filterSection" id="colorFilter">
@@ -27,36 +28,38 @@
           <span class="name">Color</span>
           <div class="items-right">
             <button (click)="resetColors()" title="Reset color filters" class="reset">Reset</button>
-            <button class="switcher" id="strict-mode" #strictLabel title="Filter colors in strict mode" [class.activate]="fs.strict" (click)="fs.strict = !fs.strict; toggleOpacity(strictLabel,'strict')">strict</button>
+            <button class="switcher" id="strict-mode" #strictLabel title="Filter colors in strict mode"
+              [class.activate]="fs.strict"
+              (click)="fs.strict = !fs.strict; toggleOpacity(strictLabel,'strict')">strict</button>
           </div>
         </div>
 
         <hr>
-          <button *ngFor="let color of initColorArr"
-          [title]="decodeColorName(color)"
-          [style.borderColor]="color"
+        <button *ngFor="let color of initColorArr" [title]="decodeColorName(color)" [style.borderColor]="color"
           [class.selectedColor]="fs.colorArray.includes(color)"
-          [style.background]="fs.colorArray.includes(color) ? color : 'transparent'"
-          class="colorSelector"
-          (click)="fs.toggleColors(color);update()"
-          ></button>
+          [style.background]="fs.colorArray.includes(color) ? color : 'transparent'" class="colorSelector"
+          (click)="fs.toggleColors(color);update()"></button>
 
       </div>
 
-      </anim-flow>
+    </anim-flow>
 
-      <anim-flow duration="0.4">
+    <anim-flow duration="0.4">
 
       <!-- Material Filter -->
       <div class="filterSection" id="materialFilter">
-        <div><span class="name">Material</span><button class="reset" (click)="resetMaterials()" title="Reset material filters">Reset</button></div>
+        <div><span class="name">Material</span><button class="reset" (click)="resetMaterials()"
+            title="Reset material filters">Reset</button></div>
         <hr>
         <div [formGroup]="materials">
           <div class="mat-first-box">
             <span><input formControlName="iron" type="checkbox" id="iron"><label for="iron">Iron</label></span>
-            <span><input formControlName="leather" type="checkbox" id="leather"><label for="leather">Leather</label></span>
-            <span><input formControlName="plastic" type="checkbox" id="plastic"><label for="plastic">Plastic</label></span>
-          </div><div class="mat-last-box">
+            <span><input formControlName="leather" type="checkbox" id="leather"><label
+                for="leather">Leather</label></span>
+            <span><input formControlName="plastic" type="checkbox" id="plastic"><label
+                for="plastic">Plastic</label></span>
+          </div>
+          <div class="mat-last-box">
             <span><input formControlName="gold" type="checkbox" id="gold"><label for="gold">Gold</label></span>
             <span><input formControlName="silver" type="checkbox" id="silver"><label for="silver">Silver</label></span>
             <span><input formControlName="bronze" type="checkbox" id="bronze"><label for="bronze">Bronze</label></span>
@@ -64,46 +67,55 @@
         </div>
       </div>
 
-      </anim-flow>
+    </anim-flow>
 
-      <anim-flow duration="0.5">
+    <anim-flow duration="0.5">
 
       <div class="filterSection">
         <hr>
         <button (click)="resetFilters()" title="Reset all filters" class="reset resetall">Reset All</button>
-        <button title="Remember filters while navigating to other pages" class="switcher" id="remember-filters" #rememberLabel [class.activate]="fs.remember" (click)="fs.remember = !fs.remember; toggleOpacity(rememberLabel,'remember')">Remember Filters</button>
+        <button title="Remember filters while navigating to other pages" class="switcher" id="remember-filters"
+          #rememberLabel [class.activate]="fs.remember"
+          (click)="fs.remember = !fs.remember; toggleOpacity(rememberLabel,'remember')">Remember Filters</button>
       </div>
 
-      </anim-flow>
+    </anim-flow>
 
-    </div> 
+  </div>
 
-    <div class="flex-right">
-      <div class="bread-crumbs sort-section" *ngIf="path">   <!--special for MARIAM (bread crumbs)-->
+  <div class="flex-right">
+    <div *ngIf="allProducts" class="inner-flex">
+      <div class="bread-crumbs sort-section inner-flex-left" *ngIf="path"> <!--special for MARIAM (bread crumbs)-->
         <ng-container *ngFor="let segment of path, last as last">
           <span class="path">{{segment}}</span>
           <span class="pathArrow" *ngIf="!last">&#xbb;</span>
         </ng-container>
-        <span *ngIf="allProducts" class="quantity"><u>{{allProducts.length}} products found</u></span>
-
-        <span *ngIf="allProducts" id="sortSelector">
+        <span class="quantity"><u>{{allProducts.length}} products found</u></span>
+      </div>
+      <div class="inner-flex-right sort-section bread-crumbs">
+        
+        <span>
           <mat-form-field>
             <mat-select [formControl]="sortControl">
-                  <mat-option value="postDate">By Date</mat-option>
-                  <mat-option value="price">By Price</mat-option>
-                  <mat-option value="rating">By Rating</mat-option>
+              <mat-option value="postDate">By Date</mat-option>
+              <mat-option value="price">By Price</mat-option>
+              <mat-option value="rating">By Rating</mat-option>
             </mat-select>
           </mat-form-field>
         </span>
-        
+        <span class="sort-direction-container">
+          <span title="Ascending order" (click)="setSortDirection(true)" class="sort-direction up"
+            [class.activated-sort-direction]="fs.ascending">&#x25b2;</span>
+          <span title="Descending order" (click)="setSortDirection(false)" class="sort-direction down"
+            [class.activated-sort-direction]="!fs.ascending">&#x25bc;</span>
+        </span>
       </div>
-
-      <app-product-list
-      *ngIf="allProducts"
-      [productCollection]="allProducts"
-      [config]="{ratio: 4, info: true, likeable: true}"
-      ></app-product-list>
-
     </div>
 
+
+    <app-product-list *ngIf="allProducts" [productCollection]="allProducts"
+      [config]="{ratio: 4, info: true, likeable: true}"></app-product-list>
+
   </div>
+
+</div>

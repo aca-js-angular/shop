@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../../interfaces and constructors/product.interface';
+import { Product } from '../../interfaces/product.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DatabaseFireService } from '../../database-fire.service';
-import { Order } from '../../interfaces and constructors/order.interface';
-import { decodedOrder } from 'src/app/interfaces and constructors/decoded-order.interface';
+import { Order } from '../../interfaces/order.interface';
+import { decodedOrder } from 'src/app/interfaces/decoded-order.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -60,12 +60,11 @@ export class BasketService {
   }
 
   removeOrderFromBasket(index: number): void {
-    console.log('removed',index)
     this.basket.splice(index,1)
   }
 
   updateCredit(){
-    this.db.updateData('users',this.currentUid,{credit: this.reDecodeOrders(this.basket)}).then(_ => console.log('updated'))
+    this.db.updateData('users',this.currentUid,{credit: this.reDecodeOrders(this.basket)})
   }
 
   

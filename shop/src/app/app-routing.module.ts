@@ -5,6 +5,7 @@ import { NotFoundComponent } from './root-components/not-found/not-found.compone
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'basket', loadChildren: './basket-module/basket.module#BasketModule'},
   {path: 'db', component: WorkingWithDbComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: '**', redirectTo: 'not-found', pathMatch: 'full'},

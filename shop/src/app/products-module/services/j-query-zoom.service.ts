@@ -27,7 +27,6 @@ export class JQueryZoomService {
 
  private jQueryZoom(imgClassName: string) {
     $(document).ready(function () {
-      // Using custom configuration
       $(`.${imgClassName}`).ezPlus({
         zoomWindowFadeIn: 500,
         zoomWindowWidth: 550,

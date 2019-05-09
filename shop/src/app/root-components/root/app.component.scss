@@ -1,9 +1,19 @@
-
-.stickyHeader{
-    position: sticky;
-    top: 0;
-    z-index: 10;
-} 
-.main {
-    position: relative
+#global-container {
+    position: relative;
+    #sticky-header{
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    };
+    
+    #footer{
+        height: 50px;
+    }
 }
+
+#contetn{
+    // background: red;
+    // min-height: calc(100vh - 70px);
+    font-family: monospace;
+}
+ 

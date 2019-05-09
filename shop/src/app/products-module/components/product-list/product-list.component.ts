@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { ProductService } from '../../services/product.service';
-import { Config } from '../../../interfaces and constructors/config.Interface';
-import { Product } from '../../../interfaces and constructors/product.interface';
+import { Config } from '../../../interfaces/config.Interface';
+import { Product } from '../../../interfaces/product.interface';
 
 @Component({
   selector: 'app-product-list',

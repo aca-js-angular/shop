@@ -1,15 +1,16 @@
 
 import { Component, OnInit, ViewChild, ElementRef, AfterContentInit, AfterViewInit } from '@angular/core';
-import { DialogService } from '../../fa-module/Services/open-dialog.service'
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { switchMap, map, debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent, Subscribable } from 'rxjs';
 import { DatabaseFireService } from 'src/app/database-fire.service';
-import { Product } from 'src/app/interfaces and constructors/product.interface';
-import { ConfirmDialogService } from 'src/app/comfirm-module/services/confirm-dialog.service';
+import { Product } from 'src/app/interfaces/product.interface';
 import { BasketService } from 'src/app/basket-module/services/basket.service';
-import { StylesService } from 'src/app/animation-module/styles.service';
+import { JQueryZoomService } from 'src/app/products-module/services/j-query-zoom.service';
+import { FaService } from 'src/app/fa-module/services/fa.service';
+import { OpenDialogService } from '../../fa-module/services/open-dialog.service'
+import { logOut } from '../../constants/popup-messages.constant'
 
 @Component({
   selector: 'app-header',
@@ -20,13 +21,14 @@ import { StylesService } from 'src/app/animation-module/styles.service';
 export class HeaderComponent implements OnInit, AfterViewInit {
 
   constructor(
-    private dialog: DialogService,
     private auth: AngularFireAuth,
     private router: Router,
+    private jQuery: JQueryZoomService,
     private db: DatabaseFireService,
-    private confirm: ConfirmDialogService,
     private bs: BasketService,
-    private ss: StylesService,
+    private fa: FaService,
+    private dialog: OpenDialogService
+
   ) {}
 
   /* --- Variables --- */
@@ -63,8 +65,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   logout() {
 
-    this.confirm.openDialogMessage({
-      message: ['Are you sure ?'],
+    this.dialog.openConfirmMessage({
+      message: logOut(),
       accept: () => this.signOut(),
     })
 
@@ -74,12 +76,22 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/', 'basket'])
   }
 
-  hide() {
-    setTimeout(() => this.searchBoxHid = false, 200)
+  hideSearchBox() {
+    setTimeout(() => this.searchBoxHid = false, 200);
+    this.jQuery.jQueryZoomImg()
+  }
+  
+  showSearchBox(){
+    this.searchBoxHid = true;
+    this.jQuery.clearjQueryZoomScreans()
   }
 
+
+
+
+
   private signOut(){
-    this.auth.auth.signOut()
+    this.fa.signOut()
     const isInBasket = document.location.href.includes('basket')
     if (isInBasket) {
       this.router.navigate(['home'])
@@ -90,10 +102,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   /* --- LC hooks --- */
 
   ngOnInit() {
-    this.auth.authState.subscribe((user) => {
-        setTimeout(() => 
-        this.auth.auth.currentUser ? this.currentUser = this.auth.auth.currentUser.providerData[0]:
-        this.currentUser = null, 1800);
+    this.auth.authState.subscribe(_ => {
+      this.auth.auth.currentUser ? this.currentUser = this.auth.auth.currentUser.providerData[0]:this.currentUser = null
     })
   }
 

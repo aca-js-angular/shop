@@ -1,44 +1,110 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { SignUpComponent } from '../sign-up/sign-up.component';
-import { SignInComponent } from '../sign-in/sign-in.component';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { SignUpComponent } from '../components/sign-up/sign-up.component';
+import { SignInComponent } from '../components/sign-in/sign-in.component';
+import { ResetPassComponent } from '../components/reset-pass/reset-pass.component';
+import { ConfirmComponent } from '../components/confirm-message/confirm.component';
+import { ConfirmMessage } from 'src/app/interfaces/confirm-message.interface';
+import { AlertMessage } from 'src/app/interfaces/alert-message.interface';
+import { WarningComponent } from '../components/warning/warning.component';
+import { AlertComponent } from '../components/alert/alert.component';
 
 @Injectable({
   providedIn: 'root'
 }) 
-export class DialogService {
 
-  constructor(private dialog: MatDialog, private firebaseAuth: AngularFireAuth) { }
+export class OpenDialogService {
+
+  constructor(private dialog: MatDialog){}
+
+  redirect(options: {to: string, confirmOptions?: ConfirmMessage, alertOptions?: AlertMessage}){
+    if(!options)return;
+    switch(options.to){
+      case 'sign-in': this.openSignIn(); break;
+      case 'sign-up': this.openSignUp(); break;
+      case 'reset-pass': this.openResetPass(); break;
+      case 'confirm': this.openConfirmMessage(options.confirmOptions); break;
+      case 'warning': this.openWarningMessage(options.alertOptions); break;
+      case 'alert': this.openAlertMessage(options.alertOptions); break;
+    }
+  }
+
 
   openSignUp(): void {
-    this.firebaseAuth.auth.onAuthStateChanged((res) => {
-      if(res){ this.closeDialog() }
-    })
 
     const dialogRef = this.dialog.open(SignUpComponent, {
       width: '500px',
       autoFocus: true,
       disableClose: true,
+      panelClass: 'custom-dialog-class'
     });
-    dialogRef.afterClosed().subscribe();
+
+    dialogRef.afterClosed().subscribe(to => {
+      this.redirect(to)
+    })
+
   }
 
   openSignIn(): void {
-    this.firebaseAuth.auth.onAuthStateChanged((res) => {
-      if(res){ this.closeDialog() }
-    })
 
     const dialogRef = this.dialog.open(SignInComponent, {
-      height: '442px',
+      width: '400px',
       autoFocus: true,
       disableClose: true,
+      panelClass: 'custom-dialog-class',
     });
-    dialogRef.afterClosed().subscribe();
-  }
- 
-  closeDialog(): void {
-    this.dialog.closeAll()
+
+    dialogRef.afterClosed().subscribe((to) => {
+      this.redirect(to)
+    });
   }
 
+
+  openResetPass(): void {
+    const dialogRef = this.dialog.open(ResetPassComponent, {
+      width: '400px',
+      autoFocus: true,
+      disableClose: true,
+      panelClass: 'custom-dialog-class',
+    });
+
+    dialogRef.afterClosed().subscribe(to => {
+      this.redirect(to)
+    })
+  }
+
+  openConfirmMessage(options: ConfirmMessage): void {
+    this.dialog.open(ConfirmComponent,{
+      data: options,
+      disableClose: true,
+      panelClass: 'primary-dialog-class',
+    })
+  }
+
+  openWarningMessage(options: AlertMessage): void {
+    const dialogRef = this.dialog.open(WarningComponent, {
+      data: options,
+      disableClose: false,
+      panelClass: 'warning-dialog-class',
+      autoFocus: true
+    })
+
+    dialogRef.afterClosed().subscribe(to => {
+      this.redirect(to)
+    })
+  }
+
+  openAlertMessage(options: AlertMessage): void {
+    const dialogRef = this.dialog.open(AlertComponent, {
+      data: options,
+      disableClose: false,
+      panelClass: 'primary-dialog-class',
+      autoFocus: true
+    })
+
+    dialogRef.afterClosed().subscribe(to => {
+      this.redirect(to)
+    })
+  }
+ 
 }

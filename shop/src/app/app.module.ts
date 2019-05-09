@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTooltipModule, MatProgressSpinnerModule, MatProgressBarModule, MatBadgeModule } from '@angular/material';
+import { MatTooltipModule, MatProgressSpinnerModule, MatProgressBarModule, MatBadgeModule, ErrorStateMatcher } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms'
 
@@ -19,10 +19,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth'
-import { AudentificModule } from './fa-module/fa.module';
 
 import { MatButtonModule, MatIconModule, MatRippleModule } from "@angular/material";
-import { ConfirmModule } from './comfirm-module/confirm.module';
 import { WorkingWithDbComponent } from './root-components/working-with-db/working-with-db.component';
 import { SearchComponent } from './root-components/search/search.component';
 import { SingleResultComponent } from './root-components/search/single-result/single-result.component';
@@ -30,6 +28,7 @@ import { SharedModule } from './shared-module/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NotFoundComponent } from './root-components/not-found/not-found.component';
 import { AnimationModule } from './animation-module/animation.module';
+import { FaModule } from './fa-module/fa.module';
 
 
 
@@ -54,14 +53,12 @@ import { AnimationModule } from './animation-module/animation.module';
     HttpClientModule,
     HomeModule,
     ProductsModule,
-    BasketModule,
+    // BasketModule,
     SharedModule,
     AnimationModule,
 
     
-
-    AudentificModule,
-    ConfirmModule,
+    FaModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
@@ -72,7 +69,7 @@ import { AnimationModule } from './animation-module/animation.module';
     MatRippleModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-
+    MatBadgeModule,
     AppRoutingModule,
 
 
@@ -80,7 +77,6 @@ import { AnimationModule } from './animation-module/animation.module';
 
   ],
 
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -15,6 +15,7 @@ const vendors = [
     {img: 'assets/vendors/vendor13.jpg', fullName: 'Rachel Mayers', country: 'England', city: 'london', rating: '7/10', email: 'mayersrachel.1978@gmail.com' },
 ]
 
+
 function randomVendor():object {
     return vendors[randomDigit(0,12)]
 }

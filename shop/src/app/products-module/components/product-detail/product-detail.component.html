@@ -1,4 +1,4 @@
-<ng-container *ngIf="thisProduct">
+<ng-container *ngIf="thisProduct; else loading">
 
 <div class="section">
   <div class="flexBox">
@@ -7,6 +7,7 @@
       <img [src]="currentSrc" onerror="this.hidden = true" class="ghost" [class.animation-element]="startAnimation">
     </div>
     <div class="flexMiddle">
+
 
       <!---------- Main Description ---------->
       <div class="smallCaps"><b>{{thisProduct.name}}</b></div>
@@ -19,7 +20,7 @@
         recusandae quis culpa, nostrum iure debitis ad illum nesciunt esse ipsam. Impedit labore quo ab?
       </p>
       <div class="slide">
-        <app-image-slider (setSrc)="currentSrc = $event; jQueryZoom()" [imageCollection]="thisProduct.images"></app-image-slider>
+        <app-image-slider (setSrc)="currentSrc = $event; jQuery.jQueryZoomImg()" [imageCollection]="thisProduct.images"></app-image-slider>
       </div>
     </div>
 
@@ -63,7 +64,7 @@
         </div>
         <div>
           <span><b>Colors</b></span>
-          <div class="items-right details-color" *ngFor="let color of thisProduct.details.colors"
+          <div class="items-right details-color" *ngFor="let color of thisProduct.details.colors.main.concat(thisProduct.details.colors.additional).reverse()"
             [style.background]="color"></div>
         </div>
       </div>
@@ -110,3 +111,9 @@
 </div>
 
 </ng-container>
+
+<ng-template #loading>
+  <div class="placeholder">
+      Loading...
+  </div>
+</ng-template>
