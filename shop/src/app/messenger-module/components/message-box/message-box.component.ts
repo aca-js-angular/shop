@@ -63,6 +63,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
+  
 
   ngAfterViewInit() {
     
@@ -87,8 +88,15 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   sendMessage() {
+    this.sendMessageSound()
     this.messagesService.sendMessage(this.currentUserId, this.messageTexteria.value)
     this.messageTexteria.patchValue('')
+  }
+
+   sendMessageSound() {
+    var audio = new Audio();
+    audio.src = '../../../../assets/messengerAudio/message2.mp3';
+    audio.autoplay = true; 
   }
 
   closeMessageBox() {
