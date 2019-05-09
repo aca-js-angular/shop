@@ -214,16 +214,15 @@ export class MessengerService implements OnDestroy {
 
     return new Promise(resolve => {
       let findedUser: CurrentChatMemberDialogData;
-      this.searchUserInEmailCloud(searchEmail).pipe(takeUntil(this.destroyStream$))
-
-        .subscribe(cloudData => {
+      this.searchUserInEmailCloud(searchEmail)
+      .pipe(takeUntil(this.destroyStream$)).subscribe(cloudData => {
           this.autoAdditional.autoState().then(currentUser => {
 
-            if (cloudData && cloudData.uid !== currentUser.uid) {
-              this.searhUserOnRealTimeDb(cloudData.uid, 'users').pipe(takeUntil(this.destroyStream$))
-                .subscribe(realTdata => {
-
-                  if (realTdata.length <= 1) {
+          if (cloudData && cloudData.uid !== currentUser.uid) {
+              this.searhUserOnRealTimeDb(cloudData.uid)
+              .pipe(takeUntil(this.destroyStream$)).subscribe(realTdata => {
+				
+               if (realTdata.length <= 1) {
 
                     findedUser = Object.assign({},
                       { fullName: realTdata[0].fullName },

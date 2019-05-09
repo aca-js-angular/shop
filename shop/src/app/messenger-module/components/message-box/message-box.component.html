@@ -7,24 +7,32 @@
   </header>
   <div class="chat">
       <div class="chat-history">
-        
           <!-- Message Item -->
-        <div *ngFor="let messageObj of allMessages">
-          <div class="chat-message clearfix">
+        <div *ngFor="let messageObj of allMessages; first as first; trackBy: trackByMessages">
+
+          <div class="chat-message clearfix" [class.firstMessage] ="first">
             <img [src]="messageObj | decodeMessage:decodeNamesCurrentChatMebrs:'photoUrl'" alt="" width="32" height="32">
             <div  class="chat-message-content clearfix">
               <span class="chat-time">{{messageObj.message.timestamp | date :'hh:mm' }}</span>
               <h5>{{messageObj | decodeMessage:decodeNamesCurrentChatMebrs:'fullName'}}</h5>
-              <p>{{messageObj.message.message}}</p>
+              <p class="message-text">{{messageObj.message.message}}</p>
             </div> <!-- end chat-message-content -->
-            <span class="remove-message" (click)="removeMessage(messageObj.key)">x</span>
-
+            <span [ngClass]="{'remove-message': true, 'none': first}"  (click)="removeMessage(messageObj.key)">x</span>
             </div> <!-- end chat-message -->
-            <hr>
+            <!-- <hr> -->
           </div>
 
       </div> <!-- end chat-history -->
-      <p class="chat-feedback" *ngIf="isTypingChatMember">Your partner is typing…</p>
+      <!-- <p class="chat-feedback" *ngIf="isTypingChatMember">Your partner is typing…</p> -->
+
+      <div class="spinner" [hidden]="!isTypingChatMember">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+        
+            
+
       <form method="post">
           <fieldset>
               <input #messageInput maxlength="50" [formControl]="messageTexteria" name="messageTexteria" type="text" placeholder="Type your message…" autofocus>

@@ -77,6 +77,9 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
    }
  
 
+   trackByMessages(unicIndex,data){
+    return data ? data.key : undefined
+   }
   //----------------Metods--------------
 
   removeMessage(key: string) {
