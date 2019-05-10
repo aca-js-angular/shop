@@ -29,21 +29,25 @@ img{
     border-radius: 50%;
     padding: 10px;
     background: transparent;
-    cursor: pointer;
 }
 .leftContainer{
     z-index: 5;
     position: absolute;
     left: -8px;
     top: 50%;
-    transform: translateY(-50%)
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    cursor: default;
 }
 .rightContainer{
     z-index: 5;
     position: absolute;
     right: -8px;
     top: 50%;
-    transform: translateY(-50%)
+    transform: translateY(-50%);
+    transition: opacity 0.5s;
+    cursor: pointer;
 }
 
 .arrowContainer:hover .arrow{

@@ -7,7 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms'
 
 import { HomeModule } from './home-module/home.module';
 import { ProductsModule } from './products-module/products.module'
-import { BasketModule } from './basket-module/basket.module'
 
 import { AppComponent } from './root-components/root/app.component';
 import { HeaderComponent } from './root-components/header/header.component';
@@ -29,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NotFoundComponent } from './root-components/not-found/not-found.component';
 import { AnimationModule } from './animation-module/animation.module';
 import { FaModule } from './fa-module/fa.module';
+import { MessengerModule } from './messenger-module/messenger.module';
 
 
 
@@ -40,7 +40,8 @@ import { FaModule } from './fa-module/fa.module';
     WorkingWithDbComponent,
     SearchComponent,
     SingleResultComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    
   ],
 
   imports: [
@@ -53,9 +54,9 @@ import { FaModule } from './fa-module/fa.module';
     HttpClientModule,
     HomeModule,
     ProductsModule,
-    // BasketModule,
     SharedModule,
     AnimationModule,
+    MessengerModule,
 
     
     FaModule,

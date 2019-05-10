@@ -1,9 +1,9 @@
 <ng-container *ngIf="imageCollection">
   <div class="container">
-    <div class="arrowContainer leftContainer" (click)="previous()">
+    <div class="arrowContainer leftContainer" #leftArrRef (click)="previous()">
       <div class="arrow"></div>
     </div>
-    <div class="arrowContainer rightContainer" (click)="next()">
+    <div class="arrowContainer rightContainer" #rightArrRef (click)="next()">
       <div class="arrow rightArrow"></div>
     </div>
     <div #sliderRef id="slider">

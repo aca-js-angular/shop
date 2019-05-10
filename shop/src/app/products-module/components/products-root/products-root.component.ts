@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ViewContainerRef, TemplateRef } from '@angular/core';
-import { DatabaseFireService } from 'src/app/database-fire.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product } from '../../../interfaces/product.interface';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';

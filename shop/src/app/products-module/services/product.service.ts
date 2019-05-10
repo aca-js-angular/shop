@@ -84,18 +84,18 @@ export class ProductService {
   }
 
   getLatestProducts(): Observable<Product[]>{
-    return this.db.getSortedCollectionByProperty('products','postDate',20,true)
+    return this.db.getSortedCollectionByProperty('products','postDate',30,true)
   }
 
   getTopProducts(): Observable<Product[]>{
-    return this.db.getSortedCollectionByProperty('products','rating',20,true)
+    return this.db.getSortedCollectionByProperty('products','rating',45,true)
   }
 
   getBestDeals(): Observable<Product[]>{
     return this.db.getCollection<Product>('products').pipe(map(products => {
       return products.filter(product => {
-        return product.rating >= 4 && product.price < 700
-      }).slice(0,20)
+        return product.rating >= 4 && product.price < 800
+      })
     }))
   }
 

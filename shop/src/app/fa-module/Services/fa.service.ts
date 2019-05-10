@@ -4,6 +4,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { DatabaseFireService } from 'src/app/database-fire.service';
 import { User } from '../../interfaces/user.interface'
 import { Order } from 'src/app/interfaces/order.interface';
+import { AngularFireDatabase } from '@angular/fire/database';
+
+const WELLCOM_MESSAGE_CHAT: string = 'Hello wellcome to Mod-Concept'
 
 
 /* --- Sign-in errors --- */
@@ -20,6 +23,7 @@ export class FaService {
   constructor(
     private firebaseAuth: AngularFireAuth,
     private db: DatabaseFireService,
+    private realTimeDb: AngularFireDatabase,
   ) {}
 
 
@@ -67,7 +71,13 @@ export class FaService {
             lastName: input.lastName,
             email: input.email,
             credit: [] as Order[],
-          }).then(_ => done())
+          }).then(_ => {
+            this.realTimeDb.list('users').set(result.user.uid, {
+                fullName: `${input.firstName} ${input.lastName}`,
+                photoUrl: '',
+            })
+            done()
+          })
         })
       })
     })

@@ -7,15 +7,16 @@
     </div>
     <hr *ngIf="title">
 
-    <div class="arrowContainer leftContainer" (click)="previous()">
-      <div class="arrow"></div>
+    <div class="arrowContainer leftContainer" #leftArrRef (click)="previous()">
+      <div class="arrow leftArrow"></div>
     </div>
     <div class="arrowContainer rightContainer" (click)="next()">
-      <div class="arrow rightArrow"></div>
+      <div *ngIf="!overed" #rightArrRef class="arrow rightArrow"></div>
+      <div [routerLink]="href" *ngIf="overed" class="remains">+{{productCollection.length - divideArr(productCollection).length}}</div>
     </div>
     <div #sliderRef id="slider">
       <app-single-product
-      *ngFor="let product of productCollection"
+      *ngFor="let product of divideArr(productCollection)"
       [thisProduct]="product"
       [config]="config"
       ></app-single-product>

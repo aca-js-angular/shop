@@ -7,7 +7,6 @@ import { Product } from '../../../interfaces/product.interface';
   selector: 'app-product-slider',
   templateUrl: './product-slider.component.html',
   styleUrls: ['./product-slider.component.scss'],
-  providers: [SlideService]
 })
 export class ProductSliderComponent implements AfterViewInit {
 
@@ -15,27 +14,41 @@ export class ProductSliderComponent implements AfterViewInit {
 
   /* --- Variables --- */
 
-  @Input() productCollection: Product[]
+  @Input() productCollection: Product[];
   @Input() title: string;
   @Input() config: Config;
   @Input() href: string[];
   @ViewChild('sliderRef')sliderRef: ElementRef;
+  @ViewChild('leftArrRef')leftArrRef: ElementRef;
+  @ViewChild('rightArrRef')rightArrRef: ElementRef;
 
   sliderRefNative: HTMLElement;
+  leftArrRefNative: HTMLElement;
+  rightArrRefNative: HTMLElement;
+
+  overed: boolean = false;
 
   /* --- Methods --- */
 
+  divideArr(arg: any[]): any[]{
+    return arg.slice(0,Math.floor(arg.length / 2))
+  }
+
   next(){
-    this.ss.slide(this.sliderRefNative,this.productCollection,4,true)
+    let isOvered = this.ss.slide(this.sliderRefNative,this.leftArrRefNative,this.rightArrRefNative,this.divideArr(this.productCollection).length,4,true)
+    this.overed = isOvered ? true : false
   }
   previous(){
-    this.ss.slide(this.sliderRefNative,this.productCollection,4,false)
+    this.ss.slide(this.sliderRefNative,this.leftArrRefNative,this.rightArrRefNative,this.divideArr(this.productCollection).length,4,false);
+    this.overed = false;
   }
 
   /* --- LC hooks --- */
 
   ngAfterViewInit(){
     this.sliderRefNative = this.sliderRef.nativeElement
+    this.leftArrRefNative = this.leftArrRef.nativeElement
+    this.rightArrRefNative = this.rightArrRef.nativeElement
   }
 
 }

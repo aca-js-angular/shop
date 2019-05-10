@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
 @Injectable({
   providedIn: 'root'

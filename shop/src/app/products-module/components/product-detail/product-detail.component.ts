@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../../interfaces/product.interface';
 import { ProductService } from '../../services/product.service';
 import { JQueryZoomService } from '../../services/j-query-zoom.service';
+import { SlideService } from '../../services/slide.service';
 
 const ZOOM_IMG_CLASSNAME: string = 'main-img'
 
@@ -58,6 +59,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.active.params.subscribe(next => {
+
 
       this.currentId = next.id
       this.startAnimation = false
