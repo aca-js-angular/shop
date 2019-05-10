@@ -39,6 +39,6 @@ import { RatingPipe } from './pipes/rating.pipe';
     MatProgressSpinnerModule,
   ],
 
-  exports: [ProductSliderComponent]
+  exports: [ProductSliderComponent, ProductListComponent]
 })
 export class ProductsModule { }

@@ -1,6 +1,8 @@
 <div id="global-container" >
-    <div id="sticky-header">
-        <app-header></app-header>
+    <div [ngSwitch]="currentState" id="sticky-header">
+        <app-header *ngSwitchCase="'ordinar'"></app-header>
+        <app-header-not-found *ngSwitchCase="'404'"></app-header-not-found>
+        <app-header-checkout *ngSwitchCase="'checkout'"></app-header-checkout>
     </div>
     <div id="content">
         <router-outlet></router-outlet>

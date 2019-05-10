@@ -26,6 +26,12 @@
       <app-order-summary (click)="nextRoute()" action="CHECKOUT"></app-order-summary>
     </div>
   </div>
+  <ng-container *ngIf="basketSize">
+  <h4>You May Also Like</h4>
+  <hr>
+  <app-product-list *ngIf="randomCollection" [productCollection]="randomCollection" [config]="{ratio: 5, likeable: true, info: true}">
+  </app-product-list>
+  </ng-container>
   <ng-template #emptyBasket>
     <div id="empty-basket">
       <img src="assets/emptyBasket.png">

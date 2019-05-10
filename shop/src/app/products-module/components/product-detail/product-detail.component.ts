@@ -75,7 +75,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
         this.jQuery.jQueryZoomImg(ZOOM_IMG_CLASSNAME)
 
-        this.ps.getProductsByBrand(this.thisProduct.brand).then(res => this.moreFromThisBrand = res)
+        this.ps.getProductsByBrand(this.thisProduct.brand,this.thisProduct.name).then(res => this.moreFromThisBrand = res)
 
         this.ps.getSimilarProducts(this.thisProduct).then(res => this.similarProducts = res)
 

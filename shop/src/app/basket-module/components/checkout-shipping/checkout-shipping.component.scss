@@ -1,4 +1,12 @@
 
+.shipping-adress{
+    font-weight: bold;
+    font-size: 18px;
+    font-variant: small-caps;
+    color: #446E8E;
+    margin-top: 10px;
+}
+
 .flexBox{
     display: flex;
     margin: 15px 0;
@@ -17,18 +25,15 @@ mat-form-field{
     width: 100%;
     font-size: 12px;
     transition: margin 0.5s;
+    color: #446E8E;
+    .mat-selected{
+        color: #446E8E !important;
+    }
 }
 .indent{
     margin-bottom: 7px;
 }
-select{
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 8px 5px;
-    border: solid #446E8E 1px;
-    border-radius: 5px;
-    outline: none;
-}
+
 #postalCode{
     width: 50%;
 }

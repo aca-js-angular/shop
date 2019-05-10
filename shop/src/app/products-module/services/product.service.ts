@@ -115,8 +115,33 @@ export class ProductService {
     })
   }
 
-  getProductsByBrand(brand: string): Promise<Product[]> {
-    return this.db.dynamicQueryFilter<Product>('products',{brand})
+  getProductsByBrand(brand: string, excluded: string): Promise<Product[]> {
+    return new Promise(resolve => {
+      this.db.dynamicQueryFilter<Product>('products',{brand}).then(products => {
+        resolve(products.filter(product => product.name !== excluded))
+      })
+    }) 
+  }
+
+  shuffle(array: any[]) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+  
+    while (0 !== currentIndex) {
+  
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
+  }
+
+  getRandomCollection(): Observable<Product[]>{
+    return this.db.getCollection('products').pipe(
+      map(products => this.shuffle(products).slice(0,15))
+    )
   }
 
   pushToCard(order: Order, currentUserId: string){

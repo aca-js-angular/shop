@@ -3,25 +3,6 @@
     padding: 20px 18% 0 18%;
     background-image: linear-gradient(to bottom, white, rgb(240, 240, 245));
 }
-.not-found{
-    padding: 20px 18% 0 18%;
-    background-image: linear-gradient(to bottom,  rgb(165, 165, 165), rgba(224, 224, 224,0));
-    opacity: 0.7;
-    *{
-        img{
-            opacity: 0 !important;
-        }
-        ::placeholder{
-            color: white !important;
-        }
-        :not(.category){
-            border-color: white !important;
-        }
-        color: white !important;
-        background: transparent !important;
-    }
-    
-}
 
 #checkout{
     margin-bottom: 30px;
@@ -44,7 +25,7 @@ $active: rgb(0, 115, 255);
     #logo{
         font-size: 24px;
         width: 20%;
-        color: #446E8E; 
+        color: #446E8E;
         cursor: pointer;
         outline: none;
     }

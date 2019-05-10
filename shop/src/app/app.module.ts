@@ -9,7 +9,7 @@ import { HomeModule } from './home-module/home.module';
 import { ProductsModule } from './products-module/products.module'
 
 import { AppComponent } from './root-components/root/app.component';
-import { HeaderComponent } from './root-components/header/header.component';
+import { HeaderComponent } from './root-components/header/header-main/header.component';
 import { FooterComponent } from './root-components/footer/footer.component';
 
 import { environment } from '../environments/environment';
@@ -29,6 +29,8 @@ import { NotFoundComponent } from './root-components/not-found/not-found.compone
 import { AnimationModule } from './animation-module/animation.module';
 import { FaModule } from './fa-module/fa.module';
 import { MessengerModule } from './messenger-module/messenger.module';
+import { HeaderNotFoundComponent } from './root-components/header/header-not-found/header-not-found.component';
+import { HeaderCheckoutComponent } from './root-components/header/header-checkout/header-checkout.component';
 
 
 
@@ -41,7 +43,8 @@ import { MessengerModule } from './messenger-module/messenger.module';
     SearchComponent,
     SingleResultComponent,
     NotFoundComponent,
-    
+    HeaderNotFoundComponent,
+    HeaderCheckoutComponent,
   ],
 
   imports: [

@@ -5,6 +5,8 @@ import { decodedOrder } from 'src/app/interfaces/decoded-order.interface';
 import { OpenDialogService } from 'src/app/fa-module/services/open-dialog.service';
 import { removeBasketItem, clearBasket } from '../../../constants/popup-messages.constant'
 import { trigger, transition, style, animate, query, stagger, animateChild } from '@angular/animations';
+import { Product } from 'src/app/interfaces/product.interface';
+import { ProductService } from 'src/app/products-module/services/product.service';
 declare var $: any;
 
 @Component({
@@ -42,7 +44,10 @@ export class BasketComponent implements OnDestroy {
     private location: Location,
     private bs: BasketService,
     private dialog: OpenDialogService,
+    private ps: ProductService,
   ){}
+
+  randomCollection: Product[];
 
   /* --- Getters --- */
 
@@ -89,6 +94,10 @@ export class BasketComponent implements OnDestroy {
   }
 
   /* --- LC hooks --- */
+
+  ngOnInit(){
+    this.ps.getRandomCollection().subscribe(res => this.randomCollection = res)
+  }
 
   ngOnDestroy(){
     this.bs.updateCredit()

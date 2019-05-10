@@ -9,8 +9,8 @@ import { Product } from 'src/app/interfaces/product.interface';
 import { BasketService } from 'src/app/basket-module/services/basket.service';
 import { JQueryZoomService } from 'src/app/products-module/services/j-query-zoom.service';
 import { FaService } from 'src/app/fa-module/services/fa.service';
-import { OpenDialogService } from '../../fa-module/services/open-dialog.service'
-import { logOut } from '../../constants/popup-messages.constant'
+import { OpenDialogService } from '../../../fa-module/services/open-dialog.service'
+import { logOut } from '../../../constants/popup-messages.constant'
 
 @Component({
   selector: 'app-header',
@@ -46,11 +46,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   get basketSize(): number{
     return this.bs.getTotalQuantity()
   }
-
-  get is404(): boolean {
-    return document.location.href.includes('not-found')
-  }
-  
 
   /* --- Methods --- */
 

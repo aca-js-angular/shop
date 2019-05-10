@@ -10,7 +10,7 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
 import { CheckoutShippingComponent } from './components/checkout-shipping/checkout-shipping.component';
 import { CheckoutPaymentComponent } from './components/checkout-payment/checkout-payment.component';
 import { SharedModule } from '../shared-module/shared.module';
-import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatIconModule, MatTooltipModule } from '@angular/material';
 import { AnimationModule } from '../animation-module/animation.module';
 import { BasketRootComponent } from './components/basket-root/basket-root.component';
 
@@ -34,6 +34,9 @@ import { BasketRootComponent } from './components/basket-root/basket-root.compon
     MatInputModule,
     MatSelectModule,
     AnimationModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
   ]
 })
 

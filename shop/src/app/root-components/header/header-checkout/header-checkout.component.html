@@ -1,0 +1,17 @@
+<div class="header">
+    <div (click)="goHomeByConfirm()" id="logo"><b>Mode</b>-Concept</div>
+    <img src="assets/secure.png"><span class="secure"><sub>Secure Checkout</sub></span>
+    <div class="steps">
+      <div class="step">
+        <div class="badge active-badge">1</div>
+        <br>
+        <span class="name active-name">Shipping</span>
+      </div>
+      <div class="line" [class.active-line]="isPayment"></div>
+      <div class="step">
+        <div class="badge" [class.active-badge]="isPayment">2</div>
+        <br>
+        <span class="name" [class.active-name]="isPayment">Payment</span>
+      </div>
+    </div>
+</div>

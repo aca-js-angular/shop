@@ -25,10 +25,11 @@
     <span anim-fork-on-changes class="items-right underline">{{(totalPrice + totalShipping) | currency}}</span>
   </div>
   <div>
-    <button
-    (click)="nextRoute()"
-    class="btn btn-primary action-btn text-bold"
-    >{{action}}
-    </button>
+    <button mat-raised-button
+      color="primary"
+      [disabled]="currentForm?.invalid"
+      (click)="nextRoute()"
+      class="action-btn text-bold"
+    >{{action}}</button>
   </div>
 </div>
