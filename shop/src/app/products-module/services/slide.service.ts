@@ -39,14 +39,17 @@ export class SlideService {
         elem.style.transform = `translateX(${indent})`
         arrowRight.style.opacity = '0'
         arrowRight.style.cursor = 'default'
+        arrowLeft.style.opacity = '1'
+        arrowLeft.style.cursor = 'pointer'
         return true
       }
       else{
         let indent = -(scrolled + width) + 'px'
         elem.style.transform = `translateX(${indent})`
+        arrowLeft.style.opacity = '1'
+        arrowLeft.style.cursor = 'pointer'
       }
-      arrowLeft.style.opacity = '1'
-      arrowLeft.style.cursor = 'pointer'
+      
 
     }else{
       if(!scrolledTimes){

@@ -1,4 +1,4 @@
-<ng-container *ngIf="productCollection">
+
   <div class="container">
 
     <div *ngIf="title">
@@ -7,6 +7,9 @@
     </div>
     <hr *ngIf="title">
 
+  
+
+<ng-container *ngIf="productCollection; else loading">
     <div class="arrowContainer leftContainer" #leftArrRef (click)="previous()">
       <div class="arrow leftArrow"></div>
     </div>
@@ -21,5 +24,10 @@
       [config]="config"
       ></app-single-product>
     </div>
-  </div>
 </ng-container>
+</div>
+<ng-template #loading>
+  <div id="loading" *ngIf="!productCollection">
+    <mat-spinner id="spinner" [diameter]="25"></mat-spinner>
+  </div>
+</ng-template>

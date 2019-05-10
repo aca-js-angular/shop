@@ -113,8 +113,10 @@
     </div>
 
 
-    <app-product-list *ngIf="allProducts" [productCollection]="allProducts"
-      [config]="{ratio: 4, info: true, likeable: true}"></app-product-list>
+    <app-product-list
+    [productCollection]="allProducts"
+    [config]="{ratio: 4, info: true, likeable: true}">
+    </app-product-list>
 
   </div>
 

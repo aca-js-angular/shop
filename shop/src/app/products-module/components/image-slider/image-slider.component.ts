@@ -26,10 +26,10 @@ export class ImageSliderComponent implements OnInit, AfterViewInit {
   /* --- Methods --- */
 
   next(){
-    this.ss.slide(this.sliderRefNative,this.leftArrRefNative,this.rightArrRefNative,this.imageCollection,2,true)
+    this.ss.slide(this.sliderRefNative,this.leftArrRefNative,this.rightArrRefNative,this.imageCollection.length,2,true)
   }
   previous(){
-    this.ss.slide(this.sliderRefNative,this.leftArrRefNative,this.rightArrRefNative,this.imageCollection,2,false)
+    this.ss.slide(this.sliderRefNative,this.leftArrRefNative,this.rightArrRefNative,this.imageCollection.length,2,false)
   }
 
   /* --- LC hooks --- */

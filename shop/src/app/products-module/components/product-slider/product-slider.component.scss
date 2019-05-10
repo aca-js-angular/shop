@@ -3,6 +3,13 @@
     transition: all 1s;
 }
 
+#loading{
+    width: 100%;
+    #spinner{
+        margin: 20px auto;
+    }
+}
+
 h4{
     display: inline-block;
     color: rgb(59, 59, 121);

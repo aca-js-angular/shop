@@ -113,7 +113,7 @@
 </ng-container>
 
 <ng-template #loading>
-  <div class="placeholder">
-      Loading...
+  <div id="loading" *ngIf="!productCollection">
+    <mat-spinner id="spinner" [diameter]="25"></mat-spinner>
   </div>
 </ng-template>
