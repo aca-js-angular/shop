@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { BasketService } from '../../services/basket.service';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { decodedOrder } from 'src/app/interfaces and constructors/decoded-order.interface';
+import { decodedOrder } from 'src/app/interfaces/decoded-order.interface';
 
 @Component({
   selector: 'app-order-summary',
@@ -42,10 +42,10 @@ export class OrderSummaryComponent {
   nextRoute(){
     switch(this.action){
       case 'CHECKOUT':
-      this.router.navigate(['/','checkout']);
+      this.router.navigate(['/','basket','checkout']);
       break;
       case 'CONTINUE TO PAYMENT':
-      this.router.navigate(['/','checkout','payment']);
+      this.router.navigate(['/','basket','checkout','payment']);
       break;
       case 'PLACE ORDER':
       this.bs.clearBasket()

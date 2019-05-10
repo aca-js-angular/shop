@@ -4,7 +4,6 @@ import { FormControlService } from 'src/app/form-control.service';
 import { MessengerService } from '../../services/messenger.service';
 import { Subject } from 'rxjs';
 import { MessengerDialogService } from '../../services/messenger-dialog.service';
-import { ConfirmDialogService } from 'src/app/comfirm-module/services/confirm-dialog.service';
 import { AdditionalService } from 'src/app/fa-module/Services/additional.service';
 import { CurrentChatMemberDialogData } from '../../user-interface';
 
@@ -22,7 +21,6 @@ export class MessengerComponent implements OnInit, OnDestroy {
   toggleMesengerPanel: boolean = true;
 
   constructor(
-    private confirmMessage: ConfirmDialogService,
     private db: AngularFireDatabase, // <<<<<<<<  TEST
     private messengerService: MessengerService,
     private messengerDialogService: MessengerDialogService,

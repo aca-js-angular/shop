@@ -6,7 +6,7 @@ import { map, switchMap, takeUntil, debounceTime, distinctUntilChanged } from 'r
 import { Observable, zip, of, from, Subject, merge, combineLatest, BehaviorSubject, Subscriber, timer } from 'rxjs';
 import { AdditionalService } from 'src/app/fa-module/Services/additional.service';
 import { MatDialog } from '@angular/material';
-import { User } from 'src/app/interfaces and constructors/user.interface';
+import { User } from 'src/app/interfaces/user.interface';
 // import { ConfirmDialogService } from 'src/app/comfirm-module/services/confirm-dialog.service';
 
 

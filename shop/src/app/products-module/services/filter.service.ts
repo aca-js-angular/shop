@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../../interfaces and constructors/product.interface';
+import { Product } from '../../interfaces/product.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ export class FilterService {
   /* --- Variables --- */
 
   sortType: string = 'postDate'
+  ascending: boolean = false;
   remember: boolean = false;
   strict: boolean = false;
   priceRange: {min: number, max: number} = {min: null, max: Infinity};
@@ -61,11 +62,9 @@ export class FilterService {
   }
 
   sort(array: Product[]){
-    if(this.sortType === 'rating'){
-      array.sort((productA,productB) => parseInt(productB.rating) - parseInt(productA.rating))
-    }else{
-      array.sort((productA,productB) => productB[this.sortType] - productA[this.sortType])
-    }
+    array.sort((productA,productB) => {
+      return this.ascending ? productA[this.sortType] - productB[this.sortType] : productB[this.sortType] - productA[this.sortType]  
+    })
   }
 
   globalFilter(sourceArray: Product[]): Product[]{
@@ -81,9 +80,9 @@ export class FilterService {
     if (this.colorArray.length) {
         filteredArray = filteredArray.filter(product => {
           if(this.strict){
-            return this.colorArray.every(color => product.details.colors.includes(color))
+            return this.colorArray.every(color => product.details.colors.main.includes(color))
           }else{
-            return this.colorArray.some(color => product.details.colors.includes(color))
+            return this.colorArray.some(color => product.details.colors.main.includes(color))
           }
         })
     }

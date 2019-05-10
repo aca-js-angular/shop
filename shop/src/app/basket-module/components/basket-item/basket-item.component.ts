@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { decodedOrder } from '../../../interfaces and constructors/decoded-order.interface';
+import { decodedOrder } from '../../../interfaces/decoded-order.interface';
 import { FormControl } from '@angular/forms';
-import { DatabaseFireService } from 'src/app/database-fire.service';
+
 
 @Component({
   selector: 'app-basket-item',
@@ -10,7 +10,7 @@ import { DatabaseFireService } from 'src/app/database-fire.service';
 })
 export class BasketItemComponent implements OnInit {
 
-  constructor(private db: DatabaseFireService) { }
+  constructor() { }
 
   /* --- Variables --- */
 

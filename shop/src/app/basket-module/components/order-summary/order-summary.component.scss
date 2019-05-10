@@ -44,15 +44,5 @@ input{
 }
 .action-btn {
     margin-top: 7px;
-    border: none;
-    border-radius: 5px;
-    background: #446E8E;
-    color: white;
-    padding: 7px;
     width: 100%;
-    font-size: 14px;
-    outline: none;
-    &:active{
-        background: rgb(94, 142, 179);
-    }
 }

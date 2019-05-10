@@ -3,6 +3,13 @@
     transition: all 1s;
 }
 
+#loading{
+    width: 100%;
+    #spinner{
+        margin: 20px auto;
+    }
+}
+
 h4{
     display: inline-block;
     color: rgb(59, 59, 121);
@@ -38,7 +45,6 @@ a{
     border-radius: 50%;
     padding: 10px;
     background: white;
-    cursor: pointer;
     box-shadow: 1px 1px 3px gray;
     &:hover{
         box-shadow: 1px 1px 5px rgb(0, 115, 255);
@@ -56,14 +62,21 @@ a{
     position: absolute;
     left: 5px;
     top: 50%;
-    transform: translateY(-50%)
+    transform: translateY(-50%);
+    opacity: 0;
+    cursor: default;
 }
 .rightContainer{
     z-index: 5;
     position: absolute;
     right: 5px;
     top: 50%;
-    transform: translateY(-50%)
+    transform: translateY(-50%);
+    cursor: pointer;
+    &:hover .remains{
+        color: rgb(0, 115, 255);
+        font-weight: bold;
+    }
 }
 
 .arrow{
@@ -71,12 +84,24 @@ a{
     border-left: solid 1px rgb(153, 153, 153);
     height: 100%;
     width: 100%;
-    transform: rotate(45deg);
     transition: all 0.3s;
 }
 .arrow:hover{
     background: white;
 }
+.leftArrow{
+    transform: rotate(45deg);
+}
 .rightArrow{
-    transform: rotate(-135deg)
+    transform: rotate(-135deg);
+}
+.remains{
+    outline: none;
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%,50%);
+    font-size: 13px;
+    color: #446E8E;
+    
 }

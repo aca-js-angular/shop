@@ -27,8 +27,13 @@
 }
 
 
-.basket-header{
+.inner-flex{
     margin-top: 20px;
+    display: flex;
+    margin-bottom: 10px;
+    .inner-flex-left{
+        flex: 50%;
+    }
     .title{
         font-size: 20px;
         font-weight: bold;
@@ -39,9 +44,13 @@
             width: 35px;
         }
     }
+    .inner-flex-right{
+        flex: 50%;
+    }
     .action-btn{
+        float: right;
         border: none;
-        margin: 0 3px;
+        margin-left: 3px;
         margin-bottom: 5px;
         color: white;
         font-size: 11px;
@@ -57,11 +66,19 @@
 }
 
 #empty-basket{
-    text-align: center;
+    text-align: left;
     img{
-        margin-top: 100px;
+        margin-top: 70px;
         height: 300px;
         width: 300px;
     }
+}
+h4{
+    display: inline-block;
+    color: rgb(59, 59, 121);
+    font-style: italic;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-bottom: 2px;
+    margin-top: 50px;
 }
 

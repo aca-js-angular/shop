@@ -1,4 +1,4 @@
-import { Directive, Input, HostBinding, HostListener, ElementRef, OnInit } from '@angular/core';
+import { Directive, Input, HostBinding } from '@angular/core';
 
 @Directive({
   selector: '[_inactive]',

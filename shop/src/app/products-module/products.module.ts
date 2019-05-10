@@ -10,11 +10,10 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductListPageComponent } from './components/product-list-page/product-list-page.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { RatingPipe } from './pipes/rating.pipe';
-import { ZipperPipe } from './pipes/zipper.pipe';
 import { SharedModule } from '../shared-module/shared.module';
-import { MatFormFieldModule, MatSelectModule } from '@angular/material';
+import { MatFormFieldModule, MatSelectModule, MatSpinner, MatProgressSpinnerModule } from '@angular/material';
 import { AnimationModule } from '../animation-module/animation.module';
+import { RatingPipe } from './pipes/rating.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +25,6 @@ import { AnimationModule } from '../animation-module/animation.module';
     ProductListPageComponent,
     ProductDetailComponent,
     RatingPipe,
-    ZipperPipe,
   ],
 
   imports: [
@@ -38,8 +36,9 @@ import { AnimationModule } from '../animation-module/animation.module';
     MatSelectModule,
     FormsModule,
     AnimationModule,
+    MatProgressSpinnerModule,
   ],
 
-  exports: [ProductSliderComponent,ZipperPipe]
+  exports: [ProductSliderComponent, ProductListComponent]
 })
 export class ProductsModule { }

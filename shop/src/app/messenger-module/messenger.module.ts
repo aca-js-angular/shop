@@ -4,7 +4,6 @@ import { MessageBoxComponent } from './components/message-box/message-box.compon
 import { MatDialogModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule } from '@angular/material';
 import { MessengerComponent } from './components/messenger/messenger.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ConfirmModule } from '../comfirm-module/confirm.module';
 import { DecodeMessagePipe } from './Pipes/decode-message.pipe';
 
 
@@ -21,7 +20,6 @@ import { DecodeMessagePipe } from './Pipes/decode-message.pipe';
     MatInputModule,
     ReactiveFormsModule,
     MatCardModule,
-    ConfirmModule,
     MatButtonModule,
   ],
   entryComponents:[MessageBoxComponent],

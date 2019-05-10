@@ -1,18 +1,20 @@
 
+/*--------------------------------------------------------------
 /* ---------- Global Styles ----------*/
 
 * {
     margin: 0;
-} 
+}
+html{
+    height: 100%;
+}
 body { 
     min-width: 500px;
     font-family: sans-serif;
+    height: 100%;
 }
 button {
     cursor: pointer
-}
-.mat-dialog-container {
-    overflow: hidden;
 }
 .rout-active {
     border-bottom: 2px outset;
@@ -20,6 +22,7 @@ button {
 }
 
 
+/*---------------------------------------------------------------------------
 /* ---------- Document Wide Classes ---------- */
 
 .section {
@@ -39,6 +42,14 @@ button {
 }
 .items-left {
     float: left;
+}
+.center{
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+.pr-color{
+    color: #446E8E;
 }
 .font-10px {
     font-size: 10px
@@ -63,6 +74,120 @@ button {
 }
 
 
+/*----------------------------------------------------------------------------------
+
+/* ---------- Angular Material Styles ---------- */
+
+
+/* --- MatInput Styles ---*/
+
+//border-init
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #446E8E !important;
+    opacity: 0.7;
+}
+//border-focused
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #446E8E !important;
+}
+//border-error
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick{
+    color: rgb(185, 52, 52) !important;
+}
+
+//label-init
+.mat-form-field-label {
+    color: #446E8E !important;
+    opacity: 0.7 !important;
+}
+//label-focused
+.mat-form-field.mat-focused .mat-form-field-label {
+    color: #446E8E !important;
+    opacity: 1 !important;
+}
+//label-error
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: rgb(185, 52, 52) !important;
+    opacity: 1 !important;
+}
+
+
+
+/* --- MatDialog Styles --- */
+
+.custom-dialog-class .mat-dialog-container{
+
+    background: rgb(239, 239, 243);
+    border-radius: 20px;
+    margin: 0px;
+    padding: 0px;
+    max-height: 465px;
+    box-shadow: 0px 0px 3px 3px rgb(239, 239, 243);
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+        width: 1em;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-image: linear-gradient(to right, slategrey, rgb(104, 129, 148));
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        outline: 1px solid slategrey;
+      }
+     
+    &::-webkit-scrollbar-track {
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }   
+}
+/* --- MatDialog Warning --- */
+
+.warning-dialog-class .mat-dialog-container{
+
+    min-width: 400px;
+    background: rgb(243, 243, 237);
+    color: #446E8E;
+    text-shadow: 1px 1px 5px rgb(175, 175, 175);
+    box-shadow: 0px 0px 3px 3px gray;
+    border-radius: 15px;
+    button{
+        background: rgb(224, 224, 212);
+        color: rgb(136, 136, 66);
+    }
+
+}
+
+.primary-dialog-class .mat-dialog-container{
+
+    min-width: 400px;
+    background: rgb(239, 239, 243);
+    color: #446E8E;
+    text-shadow: 1px 1px 5px rgb(175, 175, 175);
+    box-shadow: 0px 0px 3px 3px gray;
+    border-radius: 15px;
+
+}
+
+/* --- MatTooltip Styles --- */
+
+.mat-tooltip-panel .mat-tooltip{
+    background: slategrey;
+}
+
+
+/* --- MatCheckbox Styles --- */
+
+.mat-checkbox .mat-checkbox-frame {
+    border-color: slategrey;
+}
+
+
+
+/*----------------------------------------------------------------------------------------
+
+
 /* ---------- Angular Material Theme ---------- */ 
 
  @import '~@angular/material/theming';
@@ -79,10 +204,11 @@ button {
    $candy-app-warn
 );
  
- @include angular-material-theme($candy-app-theme);
+@include angular-material-theme($candy-app-theme);
 
-//-------------Scrolling dialog-----------
- html.cdk-global-scrollblock {
+
+
+html.cdk-global-scrollblock {
     width: initial;
     position: initial;
     overflow-y: initial;
@@ -90,23 +216,4 @@ button {
 
 
 
-
-// @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
-
-// @import '~@angular/material/theming';
-// // Plus imports for other components in your app.
-
-// // Include the common styles for Angular Material. We include this here so that you only
-// // have to load a single css file for Angular Material in your app.
-// // **Be sure that you only ever include this mixin once!**
-// @include mat-core();
-
-// // Define the theme.
-// $candy-app-primary: mat-palette($mat-indigo);
-// $candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
-// $candy-app-theme:   mat-light-theme($candy-app-primary, $candy-app-accent);
-
-// // Include the theme styles for only specified components.
-// @include mat-core-theme($candy-app-theme);
-// @include mat-button-theme($candy-app-theme);
-// @include mat-checkbox-theme($candy-app-theme);
+//#446E8E;

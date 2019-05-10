@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { trigger, transition, style, animate, query, stagger, animateChild } from '@angular/animations';
 
 @Component({
   selector: 'app-search',

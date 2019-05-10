@@ -1,4 +1,4 @@
-<ng-container *ngIf="thisProduct">
+<ng-container *ngIf="thisProduct; else loading">
 
 <div class="section">
   <div class="flexBox">
@@ -64,7 +64,7 @@
         </div>
         <div>
           <span><b>Colors</b></span>
-          <div class="items-right details-color" *ngFor="let color of thisProduct.details.colors"
+          <div class="items-right details-color" *ngFor="let color of thisProduct.details.colors.main.concat(thisProduct.details.colors.additional).reverse()"
             [style.background]="color"></div>
         </div>
       </div>
@@ -95,7 +95,8 @@
 
 <!---------- More From This Brand ---------->
 <app-product-slider [href]="['/','products','brands',thisProduct.brand]"
-  [title]="'More from ' + thisProduct.brand" [productCollection]="moreFromThisBrand"
+  [title]="'More from ' + thisProduct.brand" 
+  [productCollection]="moreFromThisBrand"
   [config]="{ratio: 4, likeable: true, info: true}">
 </app-product-slider>
 
@@ -111,3 +112,9 @@
 </div>
 
 </ng-container>
+
+<ng-template #loading>
+  <div id="loading" *ngIf="!productCollection">
+    <mat-spinner id="spinner" [diameter]="25"></mat-spinner>
+  </div>
+</ng-template>

@@ -91,5 +91,16 @@ export class FormControlService {
     return groupControl.hasError(errorName) ? groupControl.errors[errorName].message : null;
   }
 
+  public toggleState(control: FormControl){
+    control.touched ? control.markAsUntouched() : control.markAsTouched()
+  }
+
+  public getPasswordSafety(control: FormControl): {color: string, safety: string}{
+    const value = control.value
+    if(!value.length)return {color: '', safety: ''};
+    else if(value.length <= 10)return {color: 'rgb(172, 111, 111)', safety: 'ordinar'}
+    else if(value.length <= 14)return {color: 'rgb(163, 162, 106)', safety: 'safe'}
+    else if(value.length >= 15)return {color: 'rgb(126, 165, 107)', safety: 'secret'}
+  }
 
 }

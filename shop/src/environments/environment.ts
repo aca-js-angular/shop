@@ -1,5 +1,7 @@
+
+
 export const environment = {
-  production: false,
+production: false,
   firebase: {
     apiKey: "AIzaSyCffoF2p_Ph4kAOL7BMOl8NduAKR2OvprQ",
     authDomain: "aca-shop.firebaseapp.com",
@@ -8,17 +10,4 @@ export const environment = {
     storageBucket: "aca-shop.appspot.com",
     messagingSenderId: "513994673413"
   }
-  // production: false,
-  // firebase: {
-  //   apiKey: "AIzaSyAK-n2NyK76pgQ9aIhjNp0X04nH8Wng2d4",
-  //   authDomain: "online-shop-96aba.firebaseapp.com",
-  //   databaseURL: "https://online-shop-96aba.firebaseio.com",
-  //   projectId: "online-shop-96aba",
-  //   storageBucket: "online-shop-96aba.appspot.com",
-  //   messagingSenderId: "1022320605927"
-  // }
-
-}  
-
-
-
+} 

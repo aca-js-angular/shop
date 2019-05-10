@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Config } from '../../../interfaces and constructors/config.Interface';
+import { Config } from '../../../interfaces/config.Interface';
 
 @Component({
   selector: 'app-product-list-page',

@@ -1,10 +1,10 @@
 
-import { Component, OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, AfterViewChecked, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DatabaseFireService } from 'src/app/database-fire.service';
-import { Product } from '../../../interfaces and constructors/product.interface';
+import { Product } from '../../../interfaces/product.interface';
 import { ProductService } from '../../services/product.service';
 import { JQueryZoomService } from '../../services/j-query-zoom.service';
+import { SlideService } from '../../services/slide.service';
 
 const ZOOM_IMG_CLASSNAME: string = 'main-img'
 
@@ -18,7 +18,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private active: ActivatedRoute,
-    private db: DatabaseFireService,
     private ps: ProductService,
     private jQuery: JQueryZoomService,
   ) {}
@@ -41,8 +40,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   
 
-
-
   /* --- Methods --- */
 
   toDate(seconds: number): Date {
@@ -63,11 +60,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
     this.active.params.subscribe(next => {
 
+
       this.currentId = next.id
       this.startAnimation = false
       this.ps.isInBasket(this.currentId).then(res => this.isInBasket = res)
 
-      this.db.getDocumentById<Product>('products', this.currentId).subscribe(response => {
+      this.ps.getProductById(this.currentId).then(response => {
 
         this.thisProduct = response;
 
@@ -77,9 +75,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
         this.jQuery.jQueryZoomImg(ZOOM_IMG_CLASSNAME)
 
-        this.db.dynamicQueryFilter('products', { brand: response.brand }, res => this.moreFromThisBrand = res);
+        this.ps.getProductsByBrand(this.thisProduct.brand,this.thisProduct.name).then(res => this.moreFromThisBrand = res)
 
-        this.ps.getSimilarProducts(response).subscribe(res => this.similarProducts = res)
+        this.ps.getSimilarProducts(this.thisProduct).then(res => this.similarProducts = res)
 
       })
     })

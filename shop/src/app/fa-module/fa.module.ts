@@ -1,36 +1,58 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { ConfirmComponent } from './components/confirm-message/confirm.component';
+import { MatDialogModule, MatButtonModule, MatCheckboxModule, MatProgressBarModule, MatProgressSpinnerModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { ResetPassComponent } from './components/reset-pass/reset-pass.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule, MatButtonModule, MatCheckboxModule, MatSelectModule, MatProgressSpinnerModule, MatProgressBarModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared-module/shared.module';
-
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-  
+import { faTooltipDefaults } from '../constants/tooltip-defaults.constant';
+import { WarningComponent } from './components/warning/warning.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
-  declarations: [ 
-    SignInComponent, SignUpComponent,
-   ],
+  declarations: [
+    ConfirmComponent,
+    SignInComponent,
+    SignUpComponent,
+    ResetPassComponent,
+    WarningComponent,
+    AlertComponent,
+  ],
   imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatCheckboxModule,
     CommonModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
     SharedModule,
-    
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatDialogModule,  
-    MatButtonModule,
-    MatCheckboxModule,
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
   ],
-  entryComponents: [SignInComponent, SignUpComponent],
-})
+  
+  entryComponents: [
+    ConfirmComponent,
+    SignInComponent,
+    SignUpComponent,
+    ResetPassComponent,
+    WarningComponent,
+    AlertComponent,
+  ],
 
-export class AudentificModule {}
+  providers: [
+    {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: faTooltipDefaults}
+  ],
+  
+})
+export class FaModule {}

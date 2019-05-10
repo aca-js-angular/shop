@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Config } from '../../interfaces and constructors/config.Interface';
-import { DecodedConfig } from '../../interfaces and constructors/decoded-config.Interface';
+import { Config } from '../../interfaces/config.Interface';
+import { DecodedConfig } from '../../interfaces/decoded-config.Interface';
 
 @Injectable({
   providedIn: 'root'

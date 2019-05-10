@@ -4,8 +4,8 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 import { CurrentUserCloud } from '../../user-interface';
 import { FormControl, Validators } from '@angular/forms';
 import { AdditionalService } from 'src/app/fa-module/Services/additional.service';
-import { takeUntil, switchMap, debounceTime, map } from 'rxjs/operators';
-import { Subject, fromEvent, Subscription, pipe } from 'rxjs';
+import { takeUntil, switchMap, debounceTime } from 'rxjs/operators';
+import { Subject, fromEvent, Subscription } from 'rxjs';
 
 
 @Component({

@@ -1,6 +1,8 @@
 
   <div class="section">
-      <h3 class="address-h3"><b>Your Shipping Adress</b></h3>
+      <div class="shipping-adress"><u>Your Shipping Adress</u></div>
+
+      <hr>
       
       <div class="flexBox">
   
@@ -37,7 +39,7 @@
               <mat-form-field appearance="outline" [class.indent]="fullNameError">
                 <mat-label>Full-name</mat-label>
                 <mat-hint align="end"><i>example:</i> James Parker</mat-hint>
-                <input  formControlName="fullName" matInput required>
+                <input _onlyAlphabet formControlName="fullName" matInput required>
                 <mat-error>{{fullNameError}}</mat-error>
               </mat-form-field>
             </div> 

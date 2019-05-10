@@ -8,17 +8,7 @@ export class AdditionalService {
 
   constructor(private firebaseAuth: AngularFireAuth) { }
 
-  deleteCurrentUser() {
-    this.firebaseAuth.auth.currentUser.delete().catch()
-  }
-
-  sendEmailVerifResetPass(email: string): Promise<void> {
-    return this.firebaseAuth.auth.sendPasswordResetEmail(email).catch()
-  }
-
-  rememberMy(): Promise<void>{
-   return this.firebaseAuth.auth.setPersistence('session').catch(); 
-  }
+  
 
   autoState(): Promise<{uid: string, displayName: string} | null> {
     return new Promise(resolve => {
@@ -27,11 +17,6 @@ export class AdditionalService {
        })
     })
   }
-
-
-  signOut(): Promise<void> {
-   return this.firebaseAuth.auth.signOut();
-  } 
 
 
 

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { MessageBoxComponent } from '../components/message-box/message-box.component';
-import { CurrentUserCloud, CurrentChatMemberDialogData } from '../user-interface';
-import { OverlayRef } from '@angular/cdk/overlay';
+import { CurrentChatMemberDialogData } from '../user-interface';
 
 @Injectable({
   providedIn: 'root'
