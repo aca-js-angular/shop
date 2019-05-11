@@ -7,7 +7,7 @@ import { fromEvent, Subscribable } from 'rxjs';
 import { DatabaseFireService } from 'src/app/database-fire.service';
 import { Product } from 'src/app/interfaces/product.interface';
 import { BasketService } from 'src/app/basket-module/services/basket.service';
-import { JQueryZoomService } from 'src/app/products-module/services/j-query-zoom.service';
+import { JQueryZoomService } from 'src/app/products-module/services/j-query.service';
 import { FaService } from 'src/app/fa-module/services/fa.service';
 import { OpenDialogService } from '../../../fa-module/services/open-dialog.service'
 import { logOut } from '../../../constants/popup-messages.constant'

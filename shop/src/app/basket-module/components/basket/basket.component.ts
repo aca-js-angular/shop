@@ -7,7 +7,8 @@ import { removeBasketItem, clearBasket } from '../../../constants/popup-messages
 import { trigger, transition, style, animate, query, stagger, animateChild } from '@angular/animations';
 import { Product } from 'src/app/interfaces/product.interface';
 import { ProductService } from 'src/app/products-module/services/product.service';
-declare var $: any;
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 
 @Component({
   selector: 'app-basket',
@@ -80,6 +81,11 @@ export class BasketComponent implements OnDestroy {
     }
   
   }
+  
+  drop(event: CdkDragDrop<decodedOrder[]>) {
+   moveItemInArray(this.basket, event.previousIndex, event.currentIndex);
+  }
+  
 
   remove(index: number){
     const quantity = this.basket[index].quantity

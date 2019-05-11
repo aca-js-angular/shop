@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../../interfaces/product.interface';
 import { ProductService } from '../../services/product.service';
-import { JQueryZoomService } from '../../services/j-query-zoom.service';
+import { JQueryZoomService } from '../../services/j-query.service';
 import { SlideService } from '../../services/slide.service';
 
 const ZOOM_IMG_CLASSNAME: string = 'main-img'

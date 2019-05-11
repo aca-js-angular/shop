@@ -13,6 +13,7 @@ import { SharedModule } from '../shared-module/shared.module';
 import { MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatIconModule, MatTooltipModule } from '@angular/material';
 import { AnimationModule } from '../animation-module/animation.module';
 import { BasketRootComponent } from './components/basket-root/basket-root.component';
+import { DragDropModule } from '@angular/cdk/drag-drop'
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { BasketRootComponent } from './components/basket-root/basket-root.compon
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
+    DragDropModule,
   ]
 })
 

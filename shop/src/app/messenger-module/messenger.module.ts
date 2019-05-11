@@ -5,7 +5,7 @@ import { MatDialogModule, MatButtonModule, MatInputModule, MatFormFieldModule, M
 import { MessengerComponent } from './components/messenger/messenger.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DecodeMessagePipe } from './Pipes/decode-message.pipe';
-
+import { DragDropModule } from '@angular/cdk/drag-drop'
 
 @NgModule({
   declarations: [MessageBoxComponent, MessengerComponent, DecodeMessagePipe],
@@ -21,6 +21,7 @@ import { DecodeMessagePipe } from './Pipes/decode-message.pipe';
     ReactiveFormsModule,
     MatCardModule,
     MatButtonModule,
+    DragDropModule
   ],
   entryComponents:[MessageBoxComponent],
   exports: [MessageBoxComponent,MessengerComponent]

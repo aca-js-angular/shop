@@ -17,8 +17,9 @@
     </div>
   </div>
   <div class="flexBox" *ngIf="basketSize; else emptyBasket">
-    <div @list class="flexLeft">
-      <div *ngFor="let order of basket, index as i" class="basket-content {{'item' + i}}" @items>
+    <div @list class="flexLeft drag-list-bs" cdkDropList (cdkDropListDropped)="drop($event)" >
+      <div *ngFor="let order of basket, index as i" class="basket-content {{'item' + i}}" cdkDrag  @items>
+          <div class="custom-placeholder-bs" *cdkDragPlaceholder></div>
         <app-basket-item (removeOrder)="remove(i,$event)" [thisOrder]="order"></app-basket-item>
       </div>
     </div>

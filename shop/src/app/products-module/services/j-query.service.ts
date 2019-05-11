@@ -19,13 +19,13 @@ export class JQueryZoomService {
   }
 
 
-  clearjQueryZoomScreans(): void{
-      document.querySelectorAll('.zoomContainer').forEach(zoomElem => zoomElem.remove());
+  clearjQueryZoomScreans(): void {
+    document.querySelectorAll('.zoomContainer').forEach(zoomElem => zoomElem.remove());
   }
 
 
 
- private jQueryZoom(imgClassName: string) {
+  private jQueryZoom(imgClassName: string) {
     $(document).ready(function () {
       $(`.${imgClassName}`).ezPlus({
         zoomWindowFadeIn: 500,
@@ -37,9 +37,24 @@ export class JQueryZoomService {
         cursor: 'pointer'
       });
     });
-
-
-
   }
+
+
+
+  hidChatBox(toggleElementClassname: string) {
+
+    $('.live-chat header').on('click', function () {
+      $('.chat').slideToggle(300, 'swing');
+      $('.chat-message-counter').fadeToggle(300, 'swing');
+    });
+
+    $('.chat-close').on('click', function (e) {
+
+      e.preventDefault();
+      $('#live-chat').fadeOut(300);
+
+    });
+
+  };
 
 }

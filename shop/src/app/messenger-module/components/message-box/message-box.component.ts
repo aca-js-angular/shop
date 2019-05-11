@@ -1,12 +1,13 @@
 import { Component, OnInit, Inject, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MessengerService } from '../../services/messenger.service';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, DialogRole, MatDialog, MatDialogRef } from '@angular/material';
 import { CurrentUserCloud } from '../../user-interface';
 import { FormControl, Validators } from '@angular/forms';
 import { AdditionalService } from 'src/app/fa-module/Services/additional.service';
 import { takeUntil, switchMap, debounceTime } from 'rxjs/operators';
 import { Subject, fromEvent, Subscription } from 'rxjs';
 
+const NOTIFICATION_SOUND: string = 'assets/messengerAudio/message2.mp3';
 
 @Component({
   selector: 'app-message-box',
@@ -14,10 +15,10 @@ import { Subject, fromEvent, Subscription } from 'rxjs';
   styleUrls: ['./message-box.component.scss']
 })
 export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('messageInput') messageInput: ElementRef
+  @ViewChild('messageInputRef') messageInputRef: ElementRef;
 
   curentChatMember: CurrentUserCloud;
-  messageTexteria: FormControl;
+  messageInput: FormControl;
   currentUserId: string;
   allMessages: object[] = [];// Subscribable<object[] | null>;
   decodeNamesCurrentChatMebrs: object;
@@ -28,7 +29,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private messagesService: MessengerService,
     private autoAdditional: AdditionalService,
-
+    private dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) data) {
     this.curentChatMember = data
   }
@@ -36,7 +37,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     
-    this.messageTexteria = new FormControl('', Validators.required);
+    this.messageInput = new FormControl('', Validators.required);
     this.autoAdditional.autoState().then(cUserId => {
 
       if (cUserId) {   // ---security---
@@ -44,9 +45,10 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
         //----Get Messages-----
         this.messagesService.getMeassages()
-          .pipe(takeUntil(this.destroyStream$)).subscribe(allMessages => {
+          .pipe(takeUntil(this.destroyStream$)).subscribe(messages => {
             // window.scrollTo(500, 0);
-            this.allMessages = allMessages;
+            this.allMessages[0] ? this.messagesService.sendMessageSound(NOTIFICATION_SOUND): null
+            this.allMessages = messages;
           });
 
         //------Decode Mesage Data-------
@@ -67,8 +69,8 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     
-    this.inputTypingState = fromEvent(this.messageInput.nativeElement, 'input').pipe(
-       debounceTime(200),
+    this.inputTypingState = fromEvent(this.messageInputRef.nativeElement, 'input').pipe(
+       debounceTime(300),
  
        switchMap(_ => this.messagesService.changerTypingState(this.currentUserId)),
        debounceTime(1000),
@@ -88,20 +90,20 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   sendMessage() {
-    this.sendMessageSound()
-    this.messagesService.sendMessage(this.currentUserId, this.messageTexteria.value)
-    this.messageTexteria.patchValue('')
+
+    if(!this.messageInput.value) return;
+    this.messagesService.sendMessageSound(NOTIFICATION_SOUND);
+    this.messagesService.sendMessage(this.currentUserId, this.messageInput.value);
+    this.messageInput.patchValue('');
   }
 
-   sendMessageSound() {
-    var audio = new Audio();
-    audio.src = '../../../../assets/messengerAudio/message2.mp3';
-    audio.autoplay = true; 
-  }
-
+  
   closeMessageBox() {
-    this.messagesService.closeMessageBox()
+    this.messagesService.closeMessageBox();
+    this.dialogRef.close('ok')
   }
+
+
   ngOnDestroy() {
 
     this.destroyStream$.next();
@@ -111,7 +113,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
     this.messagesService.destroyStream$.next();
     this.messagesService.getMessagesDestroyStream$.next()
     this.messagesService.decoderFieldsdestroyStream$.next()
-    this.messagesService.sendMessage$.next()
+    this.messagesService.sendMessageStream$.next()
     this.messagesService.getMessages$.next()
   }
 

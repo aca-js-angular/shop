@@ -15,15 +15,10 @@ export class MessengerDialogService {
     config.disableClose = false;
     config.hasBackdrop = false;
     config.closeOnNavigation = false;  // origin
-
     // config.scrollStrategy = this.overlay.sc.block(),
     // config.width = '300px';
     // config.height = '340px';
     // config.position = {top : '25%', right: '30px'}
-
-
-
-
     config.width = '299px';
     config.height = '405px';
     config.position = {bottom : '0px', right: '30px'}
@@ -31,16 +26,19 @@ export class MessengerDialogService {
 
     //-------Chat Member--------------
 
-    config.data = { 
+   config.data = { 
       fullName: nativeUserData.fullName,
       userId: nativeUserData.userId, // Chat Member User Uid
       img: nativeUserData.photoUrl
     }
 
-    this.dialog.open(MessageBoxComponent,config)
+    const dialogRef = this.dialog.open(MessageBoxComponent,config)
+  
+    dialogRef.afterClosed().subscribe(option => {
+			console.log('​-> option', option)
+      dialogRef.close()
+    })
   }
 
-  closeMessengerBox(): void {
-    this.dialog.closeAll()
-  }
+
 }

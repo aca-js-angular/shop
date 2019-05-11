@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { FormControlService } from 'src/app/form-control.service';
 import { MessengerService } from '../../services/messenger.service';
@@ -20,6 +20,8 @@ export class MessengerComponent implements OnInit, OnDestroy {
   findedUser: CurrentChatMemberDialogData;
   toggleMesengerPanel: boolean = true;
 
+
+
   constructor(
     private db: AngularFireDatabase, // <<<<<<<<  TEST
     private messengerService: MessengerService,
@@ -30,16 +32,37 @@ export class MessengerComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    console.log(' -> on init', )
+
+
+    this.messengerService.autoOpenMessengerWhenNotifing().subscribe(notyfiMessageUserData => {
+      // console.log(' -> notyfiMessageUserData', notyfiMessageUserData)
+
+      this.messengerService.openMesssengerBoxOrConfirm(notyfiMessageUserData[0]).subscribe(enumResult => {
+
+        if (enumResult === 'openMess') {
+          this.toggleMesengerPanel = !this.toggleMesengerPanel;
+          this.messengerDialogService.openMessengerBox(notyfiMessageUserData[0]); // this.findedUser
+        }
+      });
+
+
+    })
+  
 
     this.sendMessageForm = this.formBuilder.group({
-      email: ['', [
+      email: ['davit_2014@list.ru', [
         Validators.required,
         Validators.email,
         Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"),
       ]],
     })
 
-  }
+}
+
+
+
+  //----------Metods-------------
 
   get email() { return this.sendMessageForm.get('email') }
 
@@ -49,22 +72,23 @@ export class MessengerComponent implements OnInit, OnDestroy {
 
   searchUser() {
     this.messengerService.searchUserCombineRtimeCloud(this.email.value)
-      .then(findedChatMember => {this.findedUser = findedChatMember;console.log(findedChatMember)})
+      .then(findedChatMember => this.findedUser = findedChatMember)
   }
 
 
   openMesssengerBox() {
-    this.messengerService.openMesssengerBoxOrConfirm(this.findedUser).then(enumResult => {
-      this.destroyStream.next();
+
+    //---original---------
+    this.messengerService.openMesssengerBoxOrConfirm(this.findedUser).subscribe(enumResult => {
+      // this.destroyStream.next();
 
       //-------Dublicat mincev Confirm@ dnenq
       if (enumResult === 'openMess') {
-
         this.toggleMesengerPanel = !this.toggleMesengerPanel;
         this.messengerDialogService.openMessengerBox(this.findedUser);
 
-      } else if (enumResult = 'openConf') {
 
+      } else if (enumResult = 'openConf') {
         this.toggleMesengerPanel = !this.toggleMesengerPanel;
         this.messengerDialogService.openMessengerBox(this.findedUser);
 
@@ -80,7 +104,6 @@ export class MessengerComponent implements OnInit, OnDestroy {
       this.findedUser = null;
     });
 
-
     ///---------autoOpen--------
   }
 
@@ -88,3 +111,30 @@ export class MessengerComponent implements OnInit, OnDestroy {
     this.destroyStream.next();
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+      
+		// 	console.log('​notyfiMessage', notyfiMessageUserData)
+
+    //   // console.log('notyfiMessageUserData', notyfiMessageUserData)
+
+    //   if(notyfiMessageUserData[ind]){ }
+
+
+    //   this.messengerService.openMesssengerBoxOrConfirm(notyfiMessageUserData[ind]).subscribe(enumResult => {
+    //     this.destroyStream.next();
+
+    //     if (enumResult === 'openMess') {
+    //       this.toggleMesengerPanel = !this.toggleMesengerPanel;
+    //       this.messengerDialogService.openMessengerBox(notyfiMessageUserData[0]); // this.findedUser
+    //     }
+    //   });

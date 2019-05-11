@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
+
 <div class="live-chat">
   <header class="clearfix">
       <a class="chat-close" (click)="closeMessageBox()">x</a>
@@ -23,20 +24,24 @@
           </div>
 
       </div> <!-- end chat-history -->
-      <!-- <p class="chat-feedback" *ngIf="isTypingChatMember">Your partner is typing…</p> -->
+      <!-- Typing anumation -->
 
+      <!-- <p class="chat-feedback" *ngIf="isTypingChatMember">Your partner is typing…</p> -->
       <div class="spinner" [hidden]="!isTypingChatMember">
             <div class="bounce1"></div>
             <div class="bounce2"></div>
             <div class="bounce3"></div>
         </div>
-        
-            
 
       <form method="post">
           <fieldset>
-              <input #messageInput maxlength="50" [formControl]="messageTexteria" name="messageTexteria" type="text" placeholder="Type your message…" autofocus>
-              <!-- <input type="hidden"> -->
+              <input 
+              type="text" 
+              placeholder="Type your message…" 
+              #messageInputRef maxlength="50" 
+              (keydown.enter)="sendMessage()" 
+              [formControl]="messageInput" 
+              autofocus>
           </fieldset>
       </form>
       <img class="send-message-btn" title="Send Message" (click)="sendMessage()" src="assets/send-message-button64.png" >

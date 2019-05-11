@@ -36,7 +36,7 @@ import { RatingPipe } from './pipes/rating.pipe';
     MatSelectModule,
     FormsModule,
     AnimationModule,
-    MatProgressSpinnerModule,
+    MatProgressSpinnerModule
   ],
 
   exports: [ProductSliderComponent, ProductListComponent]

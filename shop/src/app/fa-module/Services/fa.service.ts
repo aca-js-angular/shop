@@ -63,24 +63,26 @@ export class FaService {
       this.firebaseAuth.auth.createUserWithEmailAndPassword(input.email, input.password)
       .then(result => {
         this.firebaseAuth.auth.currentUser.sendEmailVerification()
+
+          this.realTimeDb.list('users').set(result.user.uid, {
+            fullName: `${input.firstName} ${input.lastName}`,
+            photoUrl: '',
+          })
+
         this.signOut()
         .then(_ => result.user.updateProfile({displayName: input.firstName}))
         .then(_ => {
-          this.db.postDataWithId('users',result.user.uid,{
+          this.db.postDataWithId('users', result.user.uid, {
             firstName: input.firstName,
             lastName: input.lastName,
             email: input.email,
             credit: [] as Order[],
-          }).then(_ => {
-            this.realTimeDb.list('users').set(result.user.uid, {
-                fullName: `${input.firstName} ${input.lastName}`,
-                photoUrl: '',
-            })
+          })
+        }).then(_ => {
             done()
           })
         })
       })
-    })
   }
 
   
