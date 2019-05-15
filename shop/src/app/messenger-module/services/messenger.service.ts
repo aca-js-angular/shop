@@ -4,7 +4,7 @@ import { CurrentUserCloud, CurrentChatMemberDialogData, MessageDataRTimeDb, Real
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map, switchMap, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Observable, zip, of, Subject, BehaviorSubject, observable, Subscribable, Subscription } from 'rxjs';
-import { AdditionalService } from 'src/app/fa-module/Services/additional.service';
+import { AdditionalService } from 'src/app/fa-module/services/additional.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { User } from 'src/app/interfaces/user.interface';
 import { MessengerDialogService } from './messenger-dialog.service';
@@ -18,6 +18,7 @@ const FIRST_OPEN_TEXT: string = 'Opened chat...'
   providedIn: 'root'
 })
 export class MessengerService implements OnDestroy {
+  
   destroyStream$ = new Subject<void>()
   getMessagesDestroyStream$ = new Subject<void>()
   decoderFieldsdestroyStream$ = new Subject<void>()

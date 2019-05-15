@@ -5,19 +5,14 @@ import { DatabaseFireService } from 'src/app/database-fire.service';
 import { User } from '../../interfaces/user.interface'
 import { Order } from 'src/app/interfaces/order.interface';
 import { AngularFireDatabase } from '@angular/fire/database';
-
-const WELLCOM_MESSAGE_CHAT: string = 'Hello wellcome to Mod-Concept'
-
+import { BAD_FORMAT, WRONG_EMAIL, WRONG_PASSWORD } from 'src/app/constants/sign-in-errors.constant';
 
 /* --- Sign-in errors --- */
-
-const WRONG_EMAIL: string = 'This emial is not registered, sign it up.'
-const BAD_FORMAT: string = 'Email adress is badly formatted.'
-const WRONG_PASSWORD: string = 'Password is incorrect, try again or reset it.'
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class FaService {
 
   constructor(
@@ -98,6 +93,10 @@ export class FaService {
 
   deactivateAccount(): Promise<void> {
     return this.firebaseAuth.auth.currentUser.delete()
+  }
+
+  get currentUser(): null | any {
+    return this.firebaseAuth.auth.currentUser
   }
 
 

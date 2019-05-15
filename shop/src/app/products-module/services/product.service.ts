@@ -30,9 +30,9 @@ export class ProductService {
         }
         const category: Observable<{name: string}> = this.db.getDocumentById<{name: string}>('categories',product.category)
         const vendor: Observable<Vendor> = this.db.getDocumentById<Vendor>('vendors',product.vendor.toString())
-        zip(category,vendor).subscribe(res => {
-          product.category = res[0].name;
-          product.vendor = res[1];
+        zip(category,vendor).subscribe(response => {
+          product.category = response[0].name;
+          product.vendor = response[1];
           resolve(product)
         })
       })
@@ -123,7 +123,7 @@ export class ProductService {
     }) 
   }
 
-  shuffle(array: any[]) {
+  private shuffle(array: any[]) {
     let currentIndex = array.length, temporaryValue, randomIndex;
   
     while (0 !== currentIndex) {

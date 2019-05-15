@@ -26,7 +26,7 @@ export class FilterService {
   }
 
   resetColorsFilter(){
-    this.colorArray.length = 0;
+    this.colorArray = [];
   }
 
   resetMaterialFilter(){

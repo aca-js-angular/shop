@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product } from '../../../interfaces/product.interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
@@ -20,6 +20,7 @@ export class ProductsRootComponent implements OnInit, OnDestroy {
     private ps: ProductService,
     private build: FormBuilder,
     private fs: FilterService,
+    private router: Router,
   ) {}
 
   /* ---Variables --- */
@@ -169,9 +170,13 @@ export class ProductsRootComponent implements OnInit, OnDestroy {
               return product.brand === next.brand
             }
           })
+          if(!this.initProducts.length){
+            this.router.navigate(['/','not-found'])
+          }
         }
         else if(next.package){
           switch(next.package){
+
             case 'topRated': 
             this.path = ['Products','Packages','Top Rated']
             this.ps.getTopProducts().subscribe(res => {
@@ -179,6 +184,7 @@ export class ProductsRootComponent implements OnInit, OnDestroy {
               this.update()
             })
             break;
+
             case 'bestDeals':
             this.path = ['Products','Packages','Best Deals']
             this.ps.getBestDeals().subscribe(res => {
@@ -186,6 +192,7 @@ export class ProductsRootComponent implements OnInit, OnDestroy {
               this.update()
             })
             break;
+
             case 'latestCollection':
             this.path = ['Products','Packages','Latest Collection']
             this.ps.getLatestProducts().subscribe(res => {
@@ -193,6 +200,8 @@ export class ProductsRootComponent implements OnInit, OnDestroy {
               this.update()
             })
             break;
+
+            default: this.router.navigate(['/','not-found'])
           }
         }
 

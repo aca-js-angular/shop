@@ -10,6 +10,7 @@
 .flexBox{
     display: flex;
     margin: 15px 0;
+    overflow-y: hidden;
 }
 .flexLeft{
     flex: 62%;
