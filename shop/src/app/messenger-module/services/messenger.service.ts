@@ -3,12 +3,9 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { CurrentUserCloud, CurrentChatMemberDialogData, MessageDataRTimeDb, RealTimeDbUserData } from '../user-interface';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map, switchMap, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Observable, zip, of, Subject, BehaviorSubject, observable, Subscribable, Subscription } from 'rxjs';
-import { AdditionalService } from 'src/app/fa-module/Services/additional.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { Observable, zip, of, Subject, BehaviorSubject } from 'rxjs';
+import { AdditionalService } from 'src/app/fa-module/services/additional.service';
 import { User } from 'src/app/interfaces/user.interface';
-import { MessengerDialogService } from './messenger-dialog.service';
-// import { ConfirmDialogService } from 'src/app/comfirm-module/services/confirm-dialog.service';
 
 
 const FIRST_OPEN_TEXT: string = 'Opened chat...'
@@ -35,8 +32,8 @@ export class MessengerService implements OnDestroy {
   constructor(
     private db: AngularFireDatabase,
     private afs: AngularFirestore,
-    // private dialog: MatDialog,
     private autoAdditional: AdditionalService,
+    // private dialog: MatDialog,
     // private confirmMessage: ConfirmDialogService,
   ) { }
 
@@ -328,12 +325,12 @@ export class MessengerService implements OnDestroy {
   subscriblablesChatsUrls = new Set<string>();
   firstState: boolean = false;
 
-  autoOpenMessengerWhenNotifing(): Observable<CurrentUserCloud[]> {
+  autoOpenMessengerWhenNotifing(): Observable<CurrentChatMemberDialogData[]> {
     return new Observable(subscribtion => {
 
       this.autoAdditional.autoState().then(currentUser => {  // myus@ subscriba elnum u chi hascnum hetevi opopoxutyunnerin seti mej chi elnum subscrib@
         if (currentUser) {
-          const subscribableNotifi$ = this.db.list('chats').stateChanges().pipe(
+          const subscribableNotifi$ = this.db.list('chats').stateChanges(['child_added','child_removed']).pipe(
             takeUntil(this.getMessagesDestroyStream$),
             map(messagesData => messagesData.key.includes(currentUser.uid) ? messagesData.key : ''))
 
@@ -387,7 +384,6 @@ export class MessengerService implements OnDestroy {
             getUserDataSubscribible.unsubscribe()
           })
         })
-      
       })
     })
   }
@@ -399,7 +395,7 @@ export class MessengerService implements OnDestroy {
 
     const chatUrl$ = this.currentChatUrl.subscribe(chatUrl => {
       this.activeChatBoxs.delete(chatUrl);
-      chatUrl$.unsubscribe();
+      chatUrl$ ? chatUrl$.unsubscribe() : null;
     })
   }
 

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms'
-import { AppComponent } from './root-components/root/app.component';
+import { AppComponent } from './root-components/app-root/app.component';
 import { HeaderComponent } from './root-components/header/header-main/header.component';
 import { FooterComponent } from './root-components/footer/footer.component';
 import { WorkingWithDbComponent } from './root-components/working-with-db/working-with-db.component';

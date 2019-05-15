@@ -71,12 +71,15 @@
       <hr>
 
       <!---------- Vendor Details ---------->
+
+      
       <h6 class="text-bold">Vendor Profile</h6>
+      <app-messenger *ngIf="currentUser" [(email)]="thisProduct.vendor.email"></app-messenger>
       <table>
         <tr>
           <td><img class="vendorImg" [src]="thisProduct.vendor.img" onerror="this.src = 'assets/empty_user.png'"></td>
           <td class="vendor-tab">
-            <div class="font-12px vendor-details">
+            <div class="font-12px vendor-details" >
               <span><b>{{thisProduct.vendor.fullName}}</b></span>
               <span>{{thisProduct.vendor.country}}, <i>{{thisProduct.vendor.city}}</i></span>
               <span>{{thisProduct.vendor.rating | rating}}</span>

@@ -11,7 +11,6 @@ import { ProductsModule } from './products-module/products.module';
 import { SharedModule } from './shared-module/shared.module';
 import { AnimationModule } from './animation-module/animation.module';
 import { MessengerModule } from './messenger-module/messenger.module';
-// import { ConfirmModule } from './comfirm-module/confirm.module';
 
 
 export const ProjectMainModules = [
@@ -20,7 +19,7 @@ export const ProjectMainModules = [
     ProductsModule,
     SharedModule,
     AnimationModule,
-    MessengerModule,
+    // MessengerModule,
   ];
 
 

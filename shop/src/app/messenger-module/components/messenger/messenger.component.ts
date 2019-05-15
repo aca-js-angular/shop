@@ -4,17 +4,20 @@ import { FormControlService } from 'src/app/form-control.service';
 import { MessengerService } from '../../services/messenger.service';
 import { Subject } from 'rxjs';
 import { MessengerDialogService } from '../../services/messenger-dialog.service';
-import { AdditionalService } from 'src/app/fa-module/Services/additional.service';
-import { CurrentChatMemberDialogData } from '../../user-interface';
+import { CurrentChatMemberDialogData, CurrentUserCloud } from '../../user-interface';
+import { MatDialogRef } from '@angular/material';
+import { MessageBoxComponent } from '../message-box/message-box.component';
 
-import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-messenger',
   templateUrl: './messenger.component.html',
-  styleUrls: ['./messenger.component.scss']
+  styleUrls: ['./messenger.component.scss'],
+  inputs: ['vendorEmail:email']
 })
 export class MessengerComponent implements OnInit, OnDestroy {
+  vendorEmail: string = '';
+
   sendMessageForm: FormGroup;
   destroyStream = new Subject<void>()
   findedUser: CurrentChatMemberDialogData;
@@ -23,7 +26,7 @@ export class MessengerComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private db: AngularFireDatabase, // <<<<<<<<  TEST
+    // private dialogRef: MatDialogRef<any>,
     private messengerService: MessengerService,
     private messengerDialogService: MessengerDialogService,
     private formBuilder: FormBuilder,
@@ -32,32 +35,18 @@ export class MessengerComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    console.log(' -> on init', )
-
-
-    this.messengerService.autoOpenMessengerWhenNotifing().subscribe(notyfiMessageUserData => {
-      // console.log(' -> notyfiMessageUserData', notyfiMessageUserData)
-
-      this.messengerService.openMesssengerBoxOrConfirm(notyfiMessageUserData[0]).subscribe(enumResult => {
-
-        if (enumResult === 'openMess') {
-          this.toggleMesengerPanel = !this.toggleMesengerPanel;
-          this.messengerDialogService.openMessengerBox(notyfiMessageUserData[0]); // this.findedUser
-        }
-      });
-
-
-    })
-  
-
     this.sendMessageForm = this.formBuilder.group({
-      email: ['davit_2014@list.ru', [
+      email: [this.vendorEmail, [
         Validators.required,
         Validators.email,
         Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"),
       ]],
-    })
+    });
 
+
+    this.messengerService.autoOpenMessengerWhenNotifing().subscribe(notyfiMessageUserData => {
+      this.openMesssengerBox(notyfiMessageUserData)      // console.log(' -> notyfiMessageUserData', notyfiMessageUserData)
+    })
 }
 
 
@@ -72,25 +61,25 @@ export class MessengerComponent implements OnInit, OnDestroy {
 
   searchUser() {
     this.messengerService.searchUserCombineRtimeCloud(this.email.value)
-      .then(findedChatMember => this.findedUser = findedChatMember)
+      .then(findedChatMember => this.findedUser = findedChatMember) 
   }
 
 
-  openMesssengerBox() {
 
-    //---original---------
-    this.messengerService.openMesssengerBoxOrConfirm(this.findedUser).subscribe(enumResult => {
+  openMesssengerBox(chatMemberData: CurrentChatMemberDialogData[] = []) {
+    if(!chatMemberData[0]) chatMemberData[0] = this.findedUser;
+
+
+    this.messengerService.openMesssengerBoxOrConfirm(chatMemberData[0]).subscribe(enumResult => {
       // this.destroyStream.next();
-
       //-------Dublicat mincev Confirm@ dnenq
       if (enumResult === 'openMess') {
         this.toggleMesengerPanel = !this.toggleMesengerPanel;
-        this.messengerDialogService.openMessengerBox(this.findedUser);
-
+        this.messengerDialogService.openMessengerBox(chatMemberData[0]);
 
       } else if (enumResult = 'openConf') {
         this.toggleMesengerPanel = !this.toggleMesengerPanel;
-        this.messengerDialogService.openMessengerBox(this.findedUser);
+        this.messengerDialogService.openMessengerBox(chatMemberData[0]);
 
         // accept > messengerService.AddmemberInChat    'You are Friends;
         //-------ConfirmMessage-----------
@@ -108,6 +97,7 @@ export class MessengerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    // this.dialogRef.close()
     this.destroyStream.next();
   }
 }
