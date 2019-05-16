@@ -40,7 +40,7 @@ export class ProductService {
   }
 
   private getCategoryNameById(id: string,array: {id: string, name: string}[]): string{
-    return array.find(item => item.id === id).name
+    return array.find(item => item.id === id) ? array.find(item => item.id === id).name : ''
   }
 
   private getVendorById(id: string | Vendor, array: Vendor[]): Vendor {

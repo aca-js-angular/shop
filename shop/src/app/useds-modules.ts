@@ -19,7 +19,7 @@ export const ProjectMainModules = [
     ProductsModule,
     SharedModule,
     AnimationModule,
-    // MessengerModule,
+    MessengerModule,
   ];
 
 
