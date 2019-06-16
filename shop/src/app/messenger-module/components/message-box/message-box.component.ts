@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MessengerService } from '../../services/messenger.service';
-import { MAT_DIALOG_DATA, DialogRole, MatDialog, MatDialogRef } from '@angular/material';
-import { CurrentUserCloud } from '../../user-interface';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
+import { CurrentChatMemberDialogData } from '../../user-interface';
 import { FormControl, Validators } from '@angular/forms';
-import { AdditionalService } from 'src/app/fa-module/Services/additional.service';
+import { AdditionalService } from 'src/app/fa-module/services/additional.service';
 import { takeUntil, switchMap, debounceTime } from 'rxjs/operators';
 import { Subject, fromEvent, Subscription } from 'rxjs';
 
@@ -17,11 +17,11 @@ const NOTIFICATION_SOUND: string = 'assets/messengerAudio/message2.mp3';
 export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('messageInputRef') messageInputRef: ElementRef;
 
-  curentChatMember: CurrentUserCloud;
+  curentChatMember: CurrentChatMemberDialogData;
   messageInput: FormControl;
   currentUserId: string;
-  allMessages: object[] = [];// Subscribable<object[] | null>;
-  decodeNamesCurrentChatMebrs: object;
+  allMessages: object[] = [];// or Subscribable<object[] | null>;
+  decodeDataCurrentChatMebrs: object;
   isTypingChatMember: boolean;
   destroyStream$ = new Subject<void>()
   inputTypingState: Subscription;
@@ -30,7 +30,9 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
     private messagesService: MessengerService,
     private autoAdditional: AdditionalService,
     private dialogRef: MatDialogRef<any>,
-    @Inject(MAT_DIALOG_DATA) data) {
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) data: CurrentChatMemberDialogData,
+    ) {
     this.curentChatMember = data
   }
 
@@ -47,20 +49,20 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
         this.messagesService.getMeassages()
           .pipe(takeUntil(this.destroyStream$)).subscribe(messages => {
             // window.scrollTo(500, 0);
-            this.allMessages[0] ? this.messagesService.sendMessageSound(NOTIFICATION_SOUND): null
+            this.allMessages[0] ? this.messagesService.sendMessageSound(NOTIFICATION_SOUND): null;
             this.allMessages = messages;
           });
 
         //------Decode Mesage Data-------
         this.messagesService.decodMessSenderUidInName(this.curentChatMember.userId, cUserId.uid).then(decodedFields =>
-          this.decodeNamesCurrentChatMebrs = decodedFields);
+          this.decodeDataCurrentChatMebrs = decodedFields);
 
         //-----------typing---------
         this.messagesService.isTypingChatMember();
         this.messagesService.isTypingChatMember$.pipe(takeUntil(this.destroyStream$))
           .subscribe(uid => { this.isTypingChatMember = uid === this.curentChatMember.userId ? true : false})
 
-      } else { this.messagesService.closeMessageBox() } // <<<<<<<<<<<<<<<<<??????????
+      } else { this.messagesService.closeMessageBox(); } // <<<<<<<<<<<<<<<<<??????????
     });
   }
 
@@ -80,7 +82,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
    }
  
 
-   trackByMessages(unicIndex,data){
+   trackByMessages(unicIndex, data){
     return data ? data.key : undefined
    }
   //----------------Metods--------------
@@ -90,7 +92,6 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   sendMessage() {
-
     if(!this.messageInput.value) return;
     this.messagesService.sendMessageSound(NOTIFICATION_SOUND);
     this.messagesService.sendMessage(this.currentUserId, this.messageInput.value);
@@ -105,6 +106,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnDestroy() {
+    this.dialog.closeAll()
 
     this.destroyStream$.next();
     this.inputTypingState.unsubscribe()

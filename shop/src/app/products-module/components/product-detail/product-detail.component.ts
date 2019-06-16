@@ -5,6 +5,7 @@ import { Product } from '../../../interfaces/product.interface';
 import { ProductService } from '../../services/product.service';
 import { JQueryZoomService } from '../../services/j-query.service';
 import { SlideService } from '../../services/slide.service';
+import { AdditionalService } from 'src/app/fa-module/services/additional.service';
 
 const ZOOM_IMG_CLASSNAME: string = 'main-img'
 
@@ -20,6 +21,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private active: ActivatedRoute,
     private ps: ProductService,
     private jQuery: JQueryZoomService,
+    private additionalAuth: AdditionalService,
   ) {}
 
   /* --- Variables --- */
@@ -30,7 +32,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   currentSrc: string;
   currentId: string;
-
+  currentUser: object;
   isInBasket: boolean;
   startAnimation: boolean = false;
  
@@ -53,10 +55,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.isInBasket = true
   }
 
-
   /* --- LC hooks --- */
 
   ngOnInit() {
+
+    this.additionalAuth.autoState().then(user => this.currentUser = user)
 
     this.active.params.subscribe(next => {
 

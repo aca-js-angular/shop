@@ -53,31 +53,31 @@ export class FaService {
 
   /* --- Sign Up --- */
 
-  signUp(input: User): Promise<void> {
+  signUp(input: User, imgUrl: string): Promise<void> {
     return new Promise(done => {
       this.firebaseAuth.auth.createUserWithEmailAndPassword(input.email, input.password)
       .then(result => {
         this.firebaseAuth.auth.currentUser.sendEmailVerification()
 
-          this.realTimeDb.list('users').set(result.user.uid, {
-            fullName: `${input.firstName} ${input.lastName}`,
-            photoUrl: '',
-          })
+        this.realTimeDb.list('users').set(result.user.uid, {
+          fullName: `${input.firstName} ${input.lastName}`,
+          photoUrl: '',
+        })
 
         this.signOut()
-        .then(_ => result.user.updateProfile({displayName: input.firstName}))
+        .then(_ => result.user.updateProfile({displayName: input.firstName, photoURL: imgUrl}))
         .then(_ => {
-          this.db.postDataWithId('users', result.user.uid, {
+          this.db.postDataWithId<User>('users', result.user.uid, {
             firstName: input.firstName,
             lastName: input.lastName,
+            country: input.country,
+            city: input.city,
             email: input.email,
             credit: [] as Order[],
           })
-        }).then(_ => {
-            done()
-          })
-        })
+        }).then(_ => done())
       })
+    })
   }
 
   

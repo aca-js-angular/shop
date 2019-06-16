@@ -12,10 +12,10 @@
         <div *ngFor="let messageObj of allMessages; first as first; trackBy: trackByMessages">
 
           <div class="chat-message clearfix" [class.firstMessage] ="first">
-            <img [src]="messageObj | decodeMessage:decodeNamesCurrentChatMebrs:'photoUrl'" alt="" width="32" height="32">
+            <img [src]="messageObj | decodeMessage:decodeDataCurrentChatMebrs:'photoUrl'" width="32" height="32" onload="this.hidden = false" onerror="this.hidden = true">
             <div  class="chat-message-content clearfix">
               <span class="chat-time">{{messageObj.message.timestamp | date :'hh:mm' }}</span>
-              <h5>{{messageObj | decodeMessage:decodeNamesCurrentChatMebrs:'fullName'}}</h5>
+              <h5>{{messageObj | decodeMessage:decodeDataCurrentChatMebrs:'fullName'}}</h5>
               <p class="message-text">{{messageObj.message.message}}</p>
             </div> <!-- end chat-message-content -->
             <span [ngClass]="{'remove-message': true, 'none': first}"  (click)="removeMessage(messageObj.key)">x</span>

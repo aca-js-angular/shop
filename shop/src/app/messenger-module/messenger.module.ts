@@ -8,7 +8,12 @@ import { DecodeMessagePipe } from './Pipes/decode-message.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop'
 
 @NgModule({
-  declarations: [MessageBoxComponent, MessengerComponent, DecodeMessagePipe],
+  declarations: [
+    MessageBoxComponent, 
+    MessengerComponent, 
+    DecodeMessagePipe
+  ],
+
   imports: [
     CommonModule,
     MatDialogModule,
@@ -24,6 +29,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop'
     DragDropModule
   ],
   entryComponents:[MessageBoxComponent],
-  exports: [MessageBoxComponent,MessengerComponent]
+  exports: [MessengerComponent, MessageBoxComponent]
 })
 export class MessengerModule { }

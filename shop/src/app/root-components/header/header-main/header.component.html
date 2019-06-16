@@ -1,10 +1,13 @@
 
-<!-- <app-messenger *ngIf="currentUser"></app-messenger> -->
+<app-messenger *ngIf="currentUser"></app-messenger>
 
 <div class="header" >
-  <div class="headerToolBar">
-    <div [routerLink]="['home']" id="logo"><b>Mode</b>-Concept</div>
 
+  <div class="headerToolBar">
+    <div [routerLink]="['home']" id="logo"><b>Mode</b>Concept</div>
+    <div class="panel">
+      <app-category-panel></app-category-panel>
+    </div>
     <div class="searchBox">
       <input
       #searchInput
@@ -17,17 +20,19 @@
       <img id="loupe" src="assets/loupe.png" class="loupe">
     </div>
 
-
     <div id="actionButtons">
-      <div class="actionButton" *ngIf="currentUser"><span class="btn-actions-span">{{currentUser.displayName}}
-      </span> 
-        
-        <img matTooltip="Go to profile" src="assets/user.png"></div>
+      <div class="actionButton" *ngIf="currentUser">
+        <span class="btn-actions-span">
+          {{currentUser.displayName}}
+        </span> 
+        <img class="profile-picture" matTooltip="Go to profile" [routerLink]="['/','profile']" [src]="currentUser.photoURL">
+      </div>
       
-        <div class="actionButton" *ngIf="!currentUser" matTooltip="Registrate now">
-          <button (click)="signUp()" id="register">Register</button></div>
+      <div class="actionButton" *ngIf="!currentUser" matTooltip="Registrate now">
+        <button (click)="signUp()" id="register">Register</button>
+      </div>
       <div class="actionButton" *ngIf="!currentUser" matTooltip="Sign-in with E-mail">
-        <button (click)="signIn()" id="signIn">Sign-in</button>
+        <button (click)="signIn()" id="signIn">Signin</button>
       </div>
       <div class="actionButton" *ngIf="currentUser">
         <button matTooltip="Sign-out from account" id="signOut" (click)="logout()">Logout</button>
@@ -37,13 +42,12 @@
         <div [style.padding-left]="basketSize < 10 ? '0.5em' : '0.2em'" *ngIf="currentUser" anim-fork-on-changes blink="true" class="basketBadge">
           <span *ngIf="basketSize <= 99">{{basketSize}}</span>
           <span *ngIf="basketSize > 99">99<sup>+</sup></span>
-        </div>
-        
-        
+        </div> 
       </div>
       
     </div>
   </div>
+
   <div id="headerCategories">
     <div routerLinkActive="activeRoute" [routerLink]="['products','category','All']"
       [routerLinkActiveOptions]="{exact: true}" class="category">All categories</div>

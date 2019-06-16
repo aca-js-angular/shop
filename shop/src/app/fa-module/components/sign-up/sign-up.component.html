@@ -35,6 +35,24 @@ tabindex="-1" (mousedown)="prevent()" mat-dialog-close
     </mat-form-field>
   </div>
 
+  <!-- Country -->
+  <div class="sign-up-form">
+    <mat-form-field appearance="outline" [class.indent]="countryError">
+      <mat-label>Country</mat-label>
+      <input _format="capital" _onlyAlphabet  formControlName="country" matInput>
+      <mat-error>{{countryError}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- City -->
+  <div class="sign-up-form">
+    <mat-form-field appearance="outline" [class.indent]="cityError">
+      <mat-label>City</mat-label>
+      <input _format="capital" _onlyAlphabet  formControlName="city" matInput>
+      <mat-error>{{cityError}}</mat-error>
+    </mat-form-field>
+  </div>
+
   <!-- Email -->
   <div class="sign-up-form">
     <mat-form-field appearance="outline" [class.indent]="emailError">
@@ -68,6 +86,13 @@ tabindex="-1" (mousedown)="prevent()" mat-dialog-close
       <input formControlName="passwordConfirm" type="password" matInput>
       <mat-error>{{passConfirmError}}</mat-error>
     </mat-form-field>
+  </div>
+
+  <!-- Image Upload -->
+  <div class="sign-up-form upload-section">
+    <label class="upload-btn" for="upload-btn">upload image &#x21ea;</label>
+    <input type="file" id="upload-btn" (change)="apply($event,preview)">
+    <img #preview class="user-img" src="assets/empty_user.png">
   </div>
 
   <!-- Submit -->

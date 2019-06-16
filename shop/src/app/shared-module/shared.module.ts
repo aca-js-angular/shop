@@ -6,6 +6,7 @@ import { SingleClickDirective } from './directives/single-click.directive';
 import { PersistanceDirective } from './directives/persistance.directive';
 import { OnlyDigitsDirective, NoDigitsDirective, OnlyAlphabetDirective, NaturalNumbersDirective } from './directives/restrictions.directive';
 import { ConsoleDirective } from './directives/console.directive';
+import { DashPipe } from './pipes/dash.pipe';
 
 @NgModule({
   
@@ -19,6 +20,7 @@ import { ConsoleDirective } from './directives/console.directive';
     OnlyAlphabetDirective,
     NaturalNumbersDirective,
     ConsoleDirective,
+    DashPipe,
   ],
 
   imports: [
@@ -35,6 +37,7 @@ import { ConsoleDirective } from './directives/console.directive';
     OnlyAlphabetDirective,
     NaturalNumbersDirective,
     ConsoleDirective,
+    DashPipe,
   ]
 
 })

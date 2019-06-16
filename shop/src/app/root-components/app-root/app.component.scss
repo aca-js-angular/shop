@@ -1,10 +1,13 @@
 #global-container {
     position: relative;
-    #sticky-header{
-        position: sticky;
-        top: 0;
-        z-index: 10;
-    };
+    @media (min-width: 700px) {
+        #sticky-header{
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        };
+    }
+    
     
     #footer{
         height: 50px;

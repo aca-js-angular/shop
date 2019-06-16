@@ -8,6 +8,7 @@ import { switchMap, map, tap, delay } from 'rxjs/operators';
 import { _password , _passConfirm} from '../../../validators/root/custom-validators'
 import { FormControlService } from 'src/app/form-control.service';
 import { MatDialogRef } from '@angular/material';
+import { AngularFireUploadTask, AngularFireStorageReference, AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-sign-up',
@@ -25,10 +26,13 @@ export class SignUpComponent implements OnInit {
     private fa: FaService,
     private fireAuth: AngularFireAuth,
     private control: FormControlService,
+    private storage: AngularFireStorage,
   ) {}
 
   
   /* --- Variables --- */
+
+  currentImg: File;
 
   destroyStream = new Subject<void>()
 
@@ -49,6 +53,9 @@ export class SignUpComponent implements OnInit {
       Validators.maxLength(20),
       Validators.minLength(2)
     ]],
+
+    country: ['',Validators.required],
+    city: ['',Validators.required],
 
     email: ['', [
       Validators.required,
@@ -75,6 +82,12 @@ export class SignUpComponent implements OnInit {
   get lastName(): FormControl {
     return this.registerForm.get('lastName') as FormControl
   }
+  get country(): FormControl {
+    return this.registerForm.get('country') as FormControl
+  }
+  get city(): FormControl {
+    return this.registerForm.get('city') as FormControl
+  }
   get email(): FormControl {
     return this.registerForm.get("email") as FormControl
   }
@@ -100,6 +113,12 @@ export class SignUpComponent implements OnInit {
   }
   get lastNameError(): string | null {
     return this.lastName.touched && this.control.getErrorMessage(this.lastName)
+  }
+  get countryError(): string | null {
+    return this.country.touched && this.control.getErrorMessage(this.country)
+  }
+  get cityError(): string | null {
+    return this.city.touched && this.control.getErrorMessage(this.city)
   }
   get emailError(): string | null {
     return this.email.touched && this.control.getErrorMessage(this.email,'invalid-email')
@@ -164,10 +183,37 @@ export class SignUpComponent implements OnInit {
 
   register() {
     this.submitted = true;
-    this.fa.signUp(this.registerForm.value)
-    .then(_ => {
-      this.submitted = false;
-      this.toSignIn();
+    this.upload().then(imgUrl => {
+      this.fa.signUp(this.registerForm.value,imgUrl)
+      .then(_ => {
+        this.submitted = false;
+        this.toSignIn();
+      })
+    })
+  }
+
+
+  apply(event, preview: HTMLImageElement){
+
+    this.currentImg = event.target.files[0];
+    if(!this.currentImg)return;
+    let imgReader = new FileReader();
+    imgReader.readAsDataURL(this.currentImg)
+    imgReader.onload = function(event){
+      preview.src = event.target['result']
+    }
+
+  }
+
+  upload(): Promise<string> {
+    return new Promise(resolve => {
+      const storageRef: AngularFireStorageReference = this.storage.ref('profile-images');
+      const uploadTask: AngularFireUploadTask = storageRef.child(`${this.email.value}`).put(this.currentImg);
+      uploadTask.then(snapshot => {
+        snapshot.ref.getDownloadURL().then(url => {
+          resolve(url);
+        }) 
+      })
     })
   }
 

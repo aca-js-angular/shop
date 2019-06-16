@@ -38,7 +38,7 @@ export class DatabaseFireService {
   constructor(
     private fire: AngularFirestore,
   ) {
-    this.fire.firestore.disableNetwork()
+    // this.fire.firestore.disableNetwork()
   }
 
 
@@ -141,7 +141,7 @@ export class DatabaseFireService {
 
   getExtractedProperty<T>(collectionName: string, id: string, targetPropertyMap: string[]): Observable<T> {
     return this.fire.collection(collectionName).doc(id).valueChanges().pipe(
-      map<T, T>(response => {
+      map<T,T>(response => {
         let extractedProperty = response
         targetPropertyMap.forEach(property => {
           extractedProperty = extractedProperty[property]

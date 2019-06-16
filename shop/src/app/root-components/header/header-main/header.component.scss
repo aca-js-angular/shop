@@ -1,6 +1,6 @@
 
 .header{
-    padding: 20px 18% 0 18%;
+    padding: 20px 18% 10px 18%;
     background-image: linear-gradient(to bottom, white, rgb(240, 240, 245));
 }
 
@@ -19,20 +19,18 @@ $active: rgb(0, 115, 255);
 
 
 .headerToolBar{
-    div{
-        display: inline-block;
-    }
+    display: flex;
+    align-items: center;
     #logo{
         font-size: 24px;
-        width: 20%;
         color: #446E8E;
         cursor: pointer;
         outline: none;
     }
     .searchBox{
-        position: relative;
         margin-left: 10px;
-        width: 50%;
+        margin-right: 10px;
+        flex-basis: 400px;
         input{
             width: 100%;
             color: rgb(82, 82, 82);
@@ -71,9 +69,12 @@ $active: rgb(0, 115, 255);
         color: rgb(62, 90, 128);
     }
     #actionButtons{
-        float: right;
+        margin-left: auto;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
         .actionButton{
-            margin: 0 5px;
+            margin: 0 3px;
 
             .btn-actions-span {
                 font-variant: small-caps; font-size: 11px; font-weight: bold; color: #446E8E;
@@ -83,7 +84,7 @@ $active: rgb(0, 115, 255);
                 border: none;
                 border-radius: 7px;
                 font-size: 14px;
-                padding: 7px;
+                padding: 5px 10px;
                 outline: none;
             }
             #register{
@@ -127,19 +128,20 @@ $active: rgb(0, 115, 255);
     }
     
 }
+
 #headerCategories{
-    margin: 0 8%;
-    text-align: center;
+    display: flex;
+    white-space: nowrap;
+    margin-right: 8%;
+    margin-left: 8%;
     margin-top: 15px;
-    padding-bottom: 10px;
+    justify-content: space-around;
     div{
         color: gray;
         display: inline-block;
     }
     .category{
         font-size: 12px;
-        width: 15%;
-        margin: 0 0.8333%;
         cursor: pointer;
         transition: all 0.3s;
         border: 2px solid transparent;
@@ -147,11 +149,10 @@ $active: rgb(0, 115, 255);
     }
     .category:hover{
         color: $active;
-        border-bottom-color:  $active;
+        border-bottom-color: $active;
     }
     .activeRoute{
-        color: $active;
-        border-bottom-color:  $active;
+        border-bottom-color: $active;
     }
 
 }
@@ -176,3 +177,7 @@ $active: rgb(0, 115, 255);
     }
 }
 
+.profile-picture{
+    border-radius: 50%;
+    margin-left: 5px;
+}

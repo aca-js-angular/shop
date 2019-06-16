@@ -1,7 +1,8 @@
+<!-- <button (click)="changeRatio()">Set ratio</button> -->
 <app-product-slider
 *ngIf="bestDeals" 
 [href]="['/','products','bestDeals']" 
 [title]="'Best Deals'" 
 [productCollection]="bestDeals" 
-[config]="{ratio: 4, likeable: true, info: true}"
+[config]="sliderConfig"
 ></app-product-slider>

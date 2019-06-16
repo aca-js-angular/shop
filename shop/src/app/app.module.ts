@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms'
-import { AppComponent } from './root-components/root/app.component';
+import { AppComponent } from './root-components/app-root/app.component';
 import { HeaderComponent } from './root-components/header/header-main/header.component';
 import { FooterComponent } from './root-components/footer/footer.component';
 import { WorkingWithDbComponent } from './root-components/working-with-db/working-with-db.component';
@@ -14,6 +14,7 @@ import { NotFoundComponent } from './root-components/not-found/not-found.compone
 import { HeaderNotFoundComponent } from './root-components/header/header-not-found/header-not-found.component';
 import { HeaderCheckoutComponent } from './root-components/header/header-checkout/header-checkout.component';
 import { ProjectMainModules, FireBaseModules, MaterialDesignModules } from './useds-modules';
+import { CategoryPanelComponent } from './root-components/category-panel/category-panel.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { ProjectMainModules, FireBaseModules, MaterialDesignModules } from './us
     NotFoundComponent,
     HeaderNotFoundComponent,
     HeaderCheckoutComponent,
+    CategoryPanelComponent,
   ],
 
   imports: [

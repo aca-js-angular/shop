@@ -40,8 +40,11 @@ export class SingleProductComponent implements OnInit {
 
   /* --- LC hooks --- */
 
+  ngOnChanges(change){
+    this.decoded = this.cds.decodeConfig(change.config.currentValue)
+  }
+
   ngOnInit() {
-    this.decoded = this.cds.decodeConfig(this.config)
     this.ps.getIdByName(this.thisProduct.name).then(id => this.thisId = id)
   }
 

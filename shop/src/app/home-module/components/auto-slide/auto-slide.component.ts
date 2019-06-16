@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { PostProductService } from 'src/app/profile-module/post-product.service';
 
 @Component({
   selector: 'app-auto-slide',

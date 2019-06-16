@@ -5,7 +5,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
   providedIn: 'root'
 })
 export class AdditionalService {
-
+  routRedirectUrl: string;
+  
   constructor(private firebaseAuth: AngularFireAuth) { }
 
   
