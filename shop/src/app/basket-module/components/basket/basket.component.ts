@@ -4,38 +4,16 @@ import { BasketService } from '../../services/basket.service';
 import { decodedOrder } from 'src/app/interfaces/decoded-order.interface';
 import { OpenDialogService } from 'src/app/fa-module/services/open-dialog.service';
 import { removeBasketItem, clearBasket } from '../../../constants/popup-messages.constant'
-import { trigger, transition, style, animate, query, stagger, animateChild } from '@angular/animations';
 import { Product } from 'src/app/interfaces/product.interface';
 import { ProductService } from 'src/app/products-module/services/product.service';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { bsAnimation } from './bs-animation';
 
 
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.scss'],
-  animations: [
-    trigger('list', [
-      transition(':enter', [
-        query('@items', stagger(80, animateChild()))
-      ]),
-    ]),
-    trigger('items', [
-      transition(':enter', [
-        style({ transform: 'scale(0.5)', opacity: 0 }),
-        animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)', 
-          style({ transform: 'scale(1)', opacity: 1 }))
-      ]),
-      transition(':leave', [
-        style({ transform: 'scale(1)', opacity: 1, height: '*' }),
-        animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)', 
-         style({ 
-           transform: 'scale(0.5)', opacity: 0, 
-           height: '0px', margin: '0px' 
-         })) 
-      ]),
-    ]),
-  ],
+  animations: [bsAnimation],
   
 })
 
@@ -82,9 +60,9 @@ export class BasketComponent implements OnDestroy {
   
   }
   
-  drop(event: CdkDragDrop<decodedOrder[]>) {
-   moveItemInArray(this.basket, event.previousIndex, event.currentIndex);
-  }
+  // drop(event: CdkDragDrop<decodedOrder[]>) {
+  //  moveItemInArray(this.basket, event.previousIndex, event.currentIndex);
+  // }
   
 
   remove(index: number){
