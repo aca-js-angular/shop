@@ -1,123 +1,120 @@
-
 <div id="container">
 
-<!-- Close-btn -->
-<button 
-class="close sticky" type="button" matTooltip="Close"
-tabindex="-1" (mousedown)="prevent()" mat-dialog-close
->&times;</button>
+  <!-- Close-btn -->
+  <button class="close sticky" type="button" matTooltip="Close" tabindex="-1" (mousedown)="prevent()"
+    mat-dialog-close>&times;</button>
 
 
-<!-- Title -->
-<h3 mat-dialog-title class="title" [style.color]="isShownError ? ERROR_COLOR : ''">
-  Create Account
-</h3>
+  <!-- Title -->
+  <h3 mat-dialog-title class="title" [style.color]="isShownError ? ERROR_COLOR : ''">
+    Create Account
+  </h3>
 
 
-<!-- Registration Form -->
-<form autocomplete="off" (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+  <!-- Registration Form -->
+  <form autocomplete="off" (ngSubmit)="onSubmit()" [formGroup]="registerForm">
 
-  <!-- First Name -->
-  <div class="sign-up-form">
-    <mat-form-field appearance="outline" [class.indent]="firstNameError">
-      <mat-label>First Name</mat-label>
-      <input _format="capital" _onlyAlphabet  formControlName="firstName" matInput>
-      <mat-error>{{firstNameError}}</mat-error>
-    </mat-form-field>
-  </div>
+    <!-- First Name -->
+    <div class="sign-up-form">
+      <mat-form-field appearance="outline" [class.indent]="firstNameError">
+        <mat-label>First Name</mat-label>
+        <input _format="capital" _onlyAlphabet formControlName="firstName" matInput>
+        <mat-error>{{firstNameError}}</mat-error>
+      </mat-form-field>
+    </div>
 
-  <!-- Last Name -->
-  <div class="sign-up-form">
-    <mat-form-field appearance="outline" [class.indent]="lastNameError">
-      <mat-label>Last Name</mat-label>
-      <input _format="capital" _onlyAlphabet  formControlName="lastName" matInput>
-      <mat-error>{{lastNameError}}</mat-error>
-    </mat-form-field>
-  </div>
+    <!-- Last Name -->
+    <div class="sign-up-form">
+      <mat-form-field appearance="outline" [class.indent]="lastNameError">
+        <mat-label>Last Name</mat-label>
+        <input _format="capital" _onlyAlphabet formControlName="lastName" matInput>
+        <mat-error>{{lastNameError}}</mat-error>
+      </mat-form-field>
+    </div>
 
-  <!-- Country -->
-  <div class="sign-up-form">
-    <mat-form-field appearance="outline" [class.indent]="countryError">
-      <mat-label>Country</mat-label>
-      <input _format="capital" _onlyAlphabet  formControlName="country" matInput>
-      <mat-error>{{countryError}}</mat-error>
-    </mat-form-field>
-  </div>
 
-  <!-- City -->
-  <div class="sign-up-form">
-    <mat-form-field appearance="outline" [class.indent]="cityError">
-      <mat-label>City</mat-label>
-      <input _format="capital" _onlyAlphabet  formControlName="city" matInput>
-      <mat-error>{{cityError}}</mat-error>
-    </mat-form-field>
-  </div>
+    <!-- Country -->
+    <div class="sign-up-form">
+      <mat-form-field appearance="outline" [class.indent]="countryError">
+        <mat-label>Country</mat-label>
+        <input _format="capital" _onlyAlphabet formControlName="country" matInput>
+        <mat-error>{{countryError}}</mat-error>
+      </mat-form-field>
+    </div>
 
-  <!-- Email -->
-  <div class="sign-up-form">
-    <mat-form-field appearance="outline" [class.indent]="emailError">
-      <mat-label>E-mail</mat-label>
-      <mat-spinner diameter="20" matSuffix *ngIf="email.pending"></mat-spinner>
-      <img class="icon" src="assets/marked.png" alt="OK" matSuffix *ngIf="email.valid">
-      <img class="icon" src="assets/denied.png" alt="ERROR" matSuffix *ngIf="emailAsyncError">
-      <input _format="lowercase" formControlName="email" matInput>
-      <mat-error>{{emailError}}</mat-error>
-    </mat-form-field>
-  </div>
+    <!-- City -->
+    <div class="sign-up-form">
+      <mat-form-field appearance="outline" [class.indent]="cityError">
+        <mat-label>City</mat-label>
+        <input _format="capital" _onlyAlphabet formControlName="city" matInput>
+        <mat-error>{{cityError}}</mat-error>
+      </mat-form-field>
+    </div>
 
-  <!-- Password -->
-  <div class="sign-up-form">
-    <mat-form-field appearance="outline" class="indent">
-      <mat-label>Password</mat-label>
-      <mat-hint class="font-12px" [style.color]="safetyState.color" *ngIf="pass.valid">*{{safetyState.safety}}</mat-hint>
-      <mat-hint align="end">At least 8 characters, one uppercase, one lowercase letter, one numeric value</mat-hint>
-      <input #inp formControlName="password" [type]="hidePassword ? 'password' : 'text'" matInput>
-      <mat-icon [class.invalid-icon]="passError" (click)="hidePassword = !hidePassword" (mousedown)="prevent()" *ngIf="hidePassword" matSuffix matTooltip="show password">{{'visibility_off'}}</mat-icon>
-      <mat-icon [class.invalid-icon]="passError" (click)="hidePassword = !hidePassword" (mousedown)="prevent()" *ngIf="!hidePassword" matSuffix matTooltip="hide password">{{'visibility'}}</mat-icon>
-      <mat-error>{{passError}}</mat-error>
-    </mat-form-field>
-  </div>
+    <!-- Email -->
+    <div class="sign-up-form">
+      <mat-form-field appearance="outline" [class.indent]="emailError">
+        <mat-label>E-mail</mat-label>
+        <mat-spinner diameter="20" matSuffix *ngIf="email.pending"></mat-spinner>
+        <img class="icon" src="assets/marked.png" alt="OK" matSuffix *ngIf="email.valid">
+        <img class="icon" src="assets/denied.png" alt="ERROR" matSuffix *ngIf="emailAsyncError">
+        <input _format="lowercase" formControlName="email" matInput>
+        <mat-error>{{emailError}}</mat-error>
+      </mat-form-field>
+    </div>
 
-  <!-- Password Confirm -->
-  <div class="sign-up-form">
-    <mat-form-field appearance="outline" [class.indent]="passConfirmError">
-      <mat-label>Password Coonfirm</mat-label>
-      <img matSuffix class="icon" src="assets/marked.png" alt="OK" *ngIf="passConfirm.valid">
-      <input formControlName="passwordConfirm" type="password" matInput>
-      <mat-error>{{passConfirmError}}</mat-error>
-    </mat-form-field>
-  </div>
+    <!-- Password -->
+    <div class="sign-up-form">
+      <mat-form-field appearance="outline" class="indent">
+        <mat-label>Password</mat-label>
+        <mat-hint class="font-12px" [style.color]="safetyState.color" *ngIf="pass.valid">*{{safetyState.safety}}
+        </mat-hint>
+        <mat-hint align="end">At least 8 characters, one uppercase, one lowercase letter, one numeric value</mat-hint>
+        <input #inp formControlName="password" [type]="hidePassword ? 'password' : 'text'" matInput>
+        <mat-icon [class.invalid-icon]="passError" (click)="hidePassword = !hidePassword" (mousedown)="prevent()"
+          *ngIf="hidePassword" matSuffix matTooltip="show password">{{'visibility_off'}}</mat-icon>
+        <mat-icon [class.invalid-icon]="passError" (click)="hidePassword = !hidePassword" (mousedown)="prevent()"
+          *ngIf="!hidePassword" matSuffix matTooltip="hide password">{{'visibility'}}</mat-icon>
+        <mat-error>{{passError}}</mat-error>
+      </mat-form-field>
+    </div>
 
-  <!-- Image Upload -->
-  <div class="sign-up-form upload-section">
-    <label class="upload-btn" for="upload-btn">upload image &#x21ea;</label>
-    <input type="file" id="upload-btn" (change)="apply($event,preview)">
-    <img #preview class="user-img" src="assets/empty_user.png">
-  </div>
+    <!-- Password Confirm -->
+    <div class="sign-up-form">
+      <mat-form-field appearance="outline" [class.indent]="passConfirmError">
+        <mat-label>Password Coonfirm</mat-label>
+        <img matSuffix class="icon" src="assets/marked.png" alt="OK" *ngIf="passConfirm.valid">
+        <input formControlName="passwordConfirm" type="password" matInput>
+        <mat-error>{{passConfirmError}}</mat-error>
+      </mat-form-field>
+    </div>
 
-  <!-- Submit -->
-  <button
-  mat-raised-button
-  type="submit"
-  class="submit-btn"
-  [matTooltip]="registerForm.invalid ? 'Form is not valid yet' : ''"
-  [class.invalid-hover]="registerForm.invalid"
-  >Register</button>
-  
-</form>
+    <!-- Image Upload -->
+    <div class="sign-up-form upload-section">
+      <label class="upload-btn" for="upload-btn">upload image &#x21ea;</label>
+      <input type="file" id="upload-btn" (change)="apply($event,preview)">
+      <img #preview class="user-img" src="assets/empty_user.png">
+    </div>
+
+    <!-- Submit -->
+    <button mat-raised-button type="submit" class="submit-btn"
+      [matTooltip]="registerForm.invalid ? 'Form is not valid yet' : ''"
+      [class.invalid-hover]="registerForm.invalid">Register</button>
+
+  </form>
 
   <!-- To Sign-in -->
   <div class="to-sign-in">
     Already registered ? <span class="redirect" (mousedown)="prevent()" (click)="toSignIn()">Sign-in</span>
   </div>
 
-<!-- Load-bar -->
-<hr *ngIf="!submitted">
-<mat-progress-bar mode="indeterminate" *ngIf="submitted"></mat-progress-bar>
+  <!-- Load-bar -->
+  <hr *ngIf="!submitted">
+  <mat-progress-bar mode="indeterminate" *ngIf="submitted"></mat-progress-bar>
 
-<!-- Privacy info -->
-<span class="privacy-info">
-  By creating an account, you agree to <b>Mode-Concept’s</b> conditions of use and privacy policy.
-</span>
+  <!-- Privacy info -->
+  <span class="privacy-info">
+    By creating an account, you agree to <b>Mode-Concept’s</b> conditions of use and privacy policy.
+  </span>
 
 </div>

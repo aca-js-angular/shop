@@ -26,26 +26,28 @@
 
 button { margin-top: 4%;}
 .messenger {     
-width: 82%;
-margin: 10px auto 0px;
-min-height: 109px;
-text-align: center;
+    width: 82%;
+    margin: 10px auto 0px;
+    min-height: 109px;
+    text-align: center;
 }
 .finded-user {
-margin: 9px auto;
-.sinle-result {     
-    width: 100%;
-    transition: 0.4s;
-    text-align: center;
-    background: gainsboro;
-    border-radius: 10px;
-}
-
+    margin: 9px auto;
+    .sinle-result {     
+        width: 100%;
+        transition: 0.4s;
+        text-align: center;
+        background: gainsboro;
+        border-radius: 10px;
+    }
+    &:hover {
+        // background:darkgrey
+    }
 }
 .finded-user-name { 
-cursor: pointer;
-color: brown;
-transition: 0.2s;
+    cursor: pointer;
+    color: brown;
+    transition: 0.2s;
 &:hover{font-size: 105%}
 }
 .mat-form-field{width: 100%;}

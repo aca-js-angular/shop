@@ -29,7 +29,7 @@ export class MessengerDialogService {
     const dialogRef = this.dialog.open(MessageBoxComponent,config)
   
     dialogRef.afterClosed().subscribe(option => {
-			console.log('​-> option', option)
+			// console.log('​-> option', option)
       dialogRef.close()
     })
   }

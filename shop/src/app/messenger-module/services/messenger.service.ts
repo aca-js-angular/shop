@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { CurrentUserCloud, CurrentChatMemberDialogData, MessageDataRTimeDb, RealTimeDbUserData } from '../user-interface';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map, switchMap, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { map, switchMap, takeUntil, debounceTime, distinctUntilChanged, toArray } from 'rxjs/operators';
 import { Observable, zip, of, Subject, BehaviorSubject } from 'rxjs';
 import { AdditionalService } from 'src/app/fa-module/services/additional.service';
 import { User } from 'src/app/interfaces/user.interface';
@@ -15,7 +15,6 @@ const FIRST_OPEN_TEXT: string = 'Opened chat...'
   providedIn: 'root'
 })
 export class MessengerService implements OnDestroy {
-  
   destroyStream$ = new Subject<void>()
   getMessagesDestroyStream$ = new Subject<void>()
   decoderFieldsdestroyStream$ = new Subject<void>()
@@ -265,7 +264,7 @@ export class MessengerService implements OnDestroy {
             this.activeChatBoxs.add(chatUrl)
             this.currentChatUrl.next(chatUrl)
 
-            console.log('User fields already added -> Open Chat');
+            console.log('User fields already added db -> Open Chat');
             
             subscriber.next(OpenOrConfirm.openMessageBox)
             // --------Add new Chat-Url--------------
@@ -324,22 +323,22 @@ export class MessengerService implements OnDestroy {
 
   //-----------Combine Metods--------------
   subscriblablesChatsUrls = new Set<string>();
-  firstState: boolean = false;
 
   autoOpenMessengerWhenNotifing(): Observable<CurrentChatMemberDialogData[]> {
     return new Observable(subscribtion => {
 
       this.autoAdditional.autoState().then(currentUser => {  // myus@ subscriba elnum u chi hascnum hetevi opopoxutyunnerin seti mej chi elnum subscrib@
         if (currentUser) {
-          const subscribableNotifi$ = this.db.list('chats').stateChanges(['child_added','child_removed']).pipe(
+          const subscribableNotifi$ = this.db.list('chats').stateChanges(['child_added']).pipe(
             takeUntil(this.getMessagesDestroyStream$),
+         
             map(messagesData => messagesData.key.includes(currentUser.uid) ? messagesData.key : ''))
 
             .subscribe(includesInChatsCurrentUser => {
               //--Has Olreddy Opened Meessage Box
               // this.hasOpenedMessageBox(includesInChatsCurrentUser).then(_true => { // warning _true ;   vonc anenq vor skzbic subsqrib elneluc sax sms ner@ stanaluc bcaic uvedomlenin 
               //-------------------------------------
-              if (includesInChatsCurrentUser && !this.activeChatBoxs.has(includesInChatsCurrentUser)) {
+              if (includesInChatsCurrentUser && !this.activeChatBoxs.has(includesInChatsCurrentUser)  ) {
 
                 // subscribableNotifi$.unsubscribe(); // <<<<<<<<<<<<<<<<<<<<<<<< unsubs chat states
 
@@ -350,9 +349,10 @@ export class MessengerService implements OnDestroy {
                 this.subscriblablesChatsUrls.forEach(chatUrl =>
                   subscribable.push(this.db.list<MessageDataRTimeDb>(`chats/${chatUrl}/messages/`).valueChanges(['child_added'])))
 
+                  
                   this.notificationsZipData(currentUser.uid, subscribable, this.subscriblablesChatsUrls).subscribe(notifiUserData =>
                     subscribtion.next(notifiUserData));
-              }
+              } 
             })
         }
       })
@@ -373,14 +373,16 @@ export class MessengerService implements OnDestroy {
       zip(...subscribable).pipe(takeUntil(this.diasbleMessagesNotyfictions)).subscribe(chatMembers => {
         
           subscriberChatMessagesSetCollectionReference.forEach((subscribeChatsNotificationsUrl) => {
-            console.log('​subscribeChatsNotificationsUrl', subscribeChatsNotificationsUrl)
-            
+            // console.log('​subscribeChatsNotificationsUrl', subscribeChatsNotificationsUrl)
+            console.log('​subscribeChatsNotificationsUrl')
+             
             const chatMemberNotifiUid = subscribeChatsNotificationsUrl.split(`${currentUserUid}`).join('').split('&').join('');
 					// console.log('​chatMemberNotifiUid', chatMemberNotifiUid)
           
           //---Search result With RT db-----
           const getUserDataSubscribible = this.searhUserOnRealTimeDb(chatMemberNotifiUid).subscribe(uData => {
-            console.log('​uData', uData)
+            // console.log('notifed ​uData ***', uData)
+            console.log('notifed ​userData ***')
             subscribtion.next(uData);
             getUserDataSubscribible.unsubscribe()
           })
@@ -453,3 +455,4 @@ export class MessengerService implements OnDestroy {
 // }
 // }
 // https://github.com/angular/angularfire2/blob/master/docs/rtdb/objects.md
+

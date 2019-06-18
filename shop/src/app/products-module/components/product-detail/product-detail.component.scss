@@ -140,3 +140,16 @@ input{
 
 }
 
+
+
+.toggle-panel-btn {
+    transition: 0.2s;
+    cursor: pointer;
+    width: 62px;
+    height: 61px;
+    margin: 15px 170px;
+    position: absolute;
+&:hover{
+    background-color: #f3f3f3;
+  }
+}

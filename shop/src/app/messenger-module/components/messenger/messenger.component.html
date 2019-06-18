@@ -1,26 +1,28 @@
 
 <section cdkDrag>
   <!--  -->
-  <img (click)="toggleMesengerPanel = !toggleMesengerPanel" title="Direct Message"
-  class="toggle-panel-btn" width="10%" height="10%" 
-  src="http://store-images.s-microsoft.com/image/apps.7488.13510798886918977.69182166-f125-495d-80d2-44fdaab21523.8fcea13e-5d9a-48a9-9937-b26deeced1b5" >
+  <img (click)="toggleMesengerPanel = !toggleMesengerPanel" 
+  title="Direct Message" 
+  class="toggle-panel-btn" 
+  width="10%" height="10%" 
+  src="assets/chat/chat_img.jpg" >
   
 
   <div  class="messenger-main">
     <div class="messenger" [hidden]="toggleMesengerPanel">
-      <form autocomplete="off" [formGroup]=sendMessageForm>
+     
         
         <div class="fields">
           <mat-form-field appearance="legacy">
             <mat-label>Send MessageE-mail</mat-label>
-            <input  formControlName="email" matInput required>
-            <mat-error>{{getErrors(email,'invalid email')}}</mat-error>
+            <input [formControl]="searchEmailForm" matInput required>
+            <mat-error>{{getErrors(searchEmailForm,'invalid email')}}</mat-error>
           </mat-form-field>
         </div> 
  
-        <button  class="btn btn-outline-dark" (click)="searchUser()">Send Message</button>
+        <button class="btn btn-outline-dark" (click)="searchUser()">Send Message</button>
         
-      </form>
+
       <div class="finded-user">
     <div class="single-result" >
       <span (click)="openMesssengerBox()" class="finded-user-name">{{findedUser?.fullName}}</span>

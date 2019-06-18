@@ -1,12 +1,15 @@
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../../interfaces/product.interface';
 import { ProductService } from '../../services/product.service';
 import { JQueryZoomService } from '../../services/j-query.service';
 import { SlideService } from '../../services/slide.service';
 import { AdditionalService } from 'src/app/fa-module/services/additional.service';
+import { Vendor } from 'src/app/interfaces/vendor.interface';
 
+export const chatEmitVendor = new EventEmitter();
+export const openChatSearchBox = new EventEmitter<boolean>();
 const ZOOM_IMG_CLASSNAME: string = 'main-img'
 
 @Component({
@@ -44,6 +47,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   /* --- Methods --- */
 
+  openChatSearch(){
+    openChatSearchBox.emit()
+  }
+
   toDate(seconds: number): Date {
     return new Date(seconds)
   }
@@ -58,11 +65,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   /* --- LC hooks --- */
 
   ngOnInit() {
-
+    
     this.additionalAuth.autoState().then(user => this.currentUser = user)
-
+    
     this.active.params.subscribe(next => {
-
 
       this.currentId = next.id
       this.startAnimation = false
@@ -73,6 +79,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.thisProduct = response;
 
         this.currentSrc = this.thisProduct.images[0];
+
+        chatEmitVendor.emit(this.thisProduct.vendor as Vendor);
 
         this.jQuery.clearjQueryZoomScreans()
 
@@ -87,7 +95,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    this.jQuery.clearjQueryZoomScreans()
+    this.jQuery.clearjQueryZoomScreans();
   }
 
 }
