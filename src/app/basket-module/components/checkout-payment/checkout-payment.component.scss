@@ -1,0 +1,45 @@
+.payment-form{
+    margin-bottom: 10px;
+}
+
+.payment-info{
+    font-weight: bold;
+    font-size: 18px;
+    font-variant: small-caps;
+    color: #446E8E;
+    margin-top: 10px;
+}
+
+.flexBox{
+    display: flex;
+    margin: 15px 0;
+}
+.flexLeft{
+    flex: 62%;
+    margin-right: 70px;
+}
+.flexRight{
+    flex: 38%;
+    border-radius: 5px;
+    height: 100%;
+}
+
+mat-form-field{
+    width: 100%;
+    font-size: 12px;
+    color: #446E8E;
+}
+
+.inlineExp{
+    display: inline-block;
+    width: 20%;
+    margin-right: 2%;
+}
+.inlineCvv{
+    width: 50%;
+    margin-left: 6%;
+    display: inline-block;
+}
+.invalid-icon{
+    color: rgb(185, 52, 52)
+}

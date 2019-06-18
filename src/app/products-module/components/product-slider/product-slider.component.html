@@ -1,0 +1,33 @@
+
+  <div class="container">
+
+    <div *ngIf="title">
+      <h4>{{title}}</h4>
+      <a [routerLink]="href" class="items-right" >view more</a>
+    </div>
+    <hr *ngIf="title">
+
+  
+
+<ng-container *ngIf="productCollection; else loading">
+    <div class="arrowContainer leftContainer" #leftArrRef (click)="previous()">
+      <div class="arrow leftArrow"></div>
+    </div>
+    <div class="arrowContainer rightContainer" (click)="next()">
+      <div *ngIf="!overed" #rightArrRef class="arrow rightArrow"></div>
+      <div [routerLink]="href" *ngIf="overed" class="remains">+{{productCollection.length - divideArr(productCollection).length}}</div>
+    </div>
+    <div #sliderRef id="slider">
+      <app-single-product
+      *ngFor="let product of divideArr(productCollection)"
+      [thisProduct]="product"
+      [config]="config"
+      ></app-single-product>
+    </div>
+</ng-container>
+</div>
+<ng-template #loading>
+  <div id="loading" *ngIf="!productCollection">
+    <mat-spinner id="spinner" [diameter]="25"></mat-spinner>
+  </div>
+</ng-template>
