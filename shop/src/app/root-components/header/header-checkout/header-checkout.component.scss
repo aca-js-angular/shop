@@ -1,0 +1,74 @@
+$main: #446E8E;
+
+.header-checkout{
+    padding: 10px 18%;
+    background-image: linear-gradient(to bottom, white, rgb(240, 240, 245));
+    display: flex;
+    align-items: flex-start;
+
+    .left-side{
+        display: flex;
+        #logo{
+            font-size: 24px;
+            color: $main;
+            cursor: pointer;
+        }
+        .secure-sign{
+            margin-top: 5px;
+            img{
+                margin-left: 15px;
+                height: 20px;
+                width: 20px;
+            }
+            span{
+                color: $main;
+                font-weight: bold;
+                margin-left: 5px;
+            }
+            
+        }
+    }
+
+    
+    .steps{
+        display: flex;
+        margin-left: auto;
+        align-items: center;
+        .step{
+            text-align: center;
+        }
+        .badge{
+            display: inline-block;
+            border-radius: 50%;
+            background: #afafaf;
+            color: white;
+            padding: 5px 8px;
+            opacity: 0.5;
+        }
+        .name{
+            color: #afafaf;
+            opacity: 0.5;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .line{
+            height: 30px;
+            border-top: 1px solid #afafaf;
+            width: 100px;
+            opacity: 0.5;
+        }
+    }
+}
+
+.active-line{
+    border-top-color: $main !important;
+    opacity: 1 !important;
+}
+.active-badge{
+    background: $main !important;
+    opacity: 1 !important;
+}
+.active-name{
+    color: $main !important;
+    opacity: 1 !important;
+}

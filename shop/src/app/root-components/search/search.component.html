@@ -1,0 +1,10 @@
+
+<div class="search-box-results">
+  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+  <div class="flex-box">
+    <div class="flex-item" *ngFor="let result of results">
+        <app-single-result [singleResult]="result"></app-single-result>
+    </div>
+  </div>
+  <div *ngIf="results && results.length === 0" class="not-found">No Results Found</div>
+</div>

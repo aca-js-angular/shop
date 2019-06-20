@@ -1,0 +1,18 @@
+<div id="loading" *ngIf="!productCollection">
+  <mat-spinner id="spinner" [diameter]="25"></mat-spinner>
+</div>
+<ng-container *ngIf="productCollection">
+  <ng-container *ngFor="let package of packages, index as i" >
+    <app-product-list-page *ngIf="currentPage === i" [productsPackage]="package" [config]="listConfig"></app-product-list-page>
+  </ng-container>
+
+  <div class="pages-nav-btn">
+    <span class="items-right">
+      <ng-container *ngIf="packages.length > 1">
+        <ng-container *ngFor="let package of packages, index as i">
+          <button (click)="currentPage = i; toTop()" [class.active]="currentPage === i">{{i + 1}}</button>
+        </ng-container>
+      </ng-container>
+    </span>
+  </div>
+</ng-container>

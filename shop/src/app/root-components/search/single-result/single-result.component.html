@@ -1,0 +1,11 @@
+
+<div [routerLink]="['/','product',singleResult.id]" class="product-item">
+    
+  <img [src]="singleResult.images[0]" onerror="this.src = 'assets/emptycart.png'" class="gridLeft">
+  <div class="gridRight">
+    <span class="name">{{ singleResult.name }}</span>
+    <span class="brand">from <i>{{ singleResult.brand }}</i></span>
+    <span class="price">{{ singleResult.price | currency }}</span>
+  </div>
+
+</div>

@@ -1,0 +1,107 @@
+#slider{
+    position: relative;
+    transition: all 1s;
+}
+
+#loading{
+    width: 100%;
+    #spinner{
+        margin: 20px auto;
+    }
+}
+
+h4{
+    display: inline-block;
+    color: rgb(59, 59, 121);
+    font-style: italic;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-bottom: 2px;
+}
+hr{
+    margin: 15px;
+}
+a{
+    float: right;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.container{
+    position: relative;
+    width: 68%;
+    padding: 0;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.arrowContainer{
+    transition: all 0.2s;
+    position: relative;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    padding: 10px;
+    background: white;
+    box-shadow: 1px 1px 3px gray;
+    &:hover{
+        box-shadow: 1px 1px 5px rgb(0, 115, 255);
+    }
+    &:hover .arrow{
+        border-color: rgb(0, 115, 255);
+    }
+    &:active {
+        height: 35px;
+        width: 35px;
+    }
+}
+.leftContainer{
+    z-index: 5;
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    cursor: default;
+}
+.rightContainer{
+    z-index: 5;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    &:hover .remains{
+        color: rgb(0, 115, 255);
+        font-weight: bold;
+    }
+}
+
+.arrow{
+    border-bottom: solid 1px rgb(153, 153, 153);
+    border-left: solid 1px rgb(153, 153, 153);
+    height: 100%;
+    width: 100%;
+    transition: all 0.3s;
+}
+.arrow:hover{
+    background: white;
+}
+.leftArrow{
+    transform: rotate(45deg);
+}
+.rightArrow{
+    transform: rotate(-135deg);
+}
+.remains{
+    outline: none;
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%,50%);
+    font-size: 13px;
+    color: #446E8E;
+    
+}

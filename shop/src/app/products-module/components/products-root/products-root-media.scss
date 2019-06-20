@@ -1,0 +1,118 @@
+
+$light-shadow: 2px 2px 3px gray;
+$strong-shadow: 5px 5px 10px 10px gray;
+
+@media (max-width: 1000px){
+    .flex-left{
+        padding-left: 5%;
+    }
+    .flex-right{
+        padding-right: 5%;
+        .info-panel{
+            font-size: 11px;
+        }
+    }
+}
+
+@media (max-width: 700px){
+
+    hr{
+        display: none;
+    }
+    
+    .flex-box{
+        flex-direction: column;
+    }
+    
+    .flex-left{
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        padding: 10px 5px;
+        border-right:  none;
+        
+        .filter-section{
+            position: relative;
+            margin: 5px;
+            align-items: center;
+            border-radius: 5px;
+            box-shadow: $light-shadow;
+            transition: box-shadow 0.5s;
+            min-width: 140px;
+            
+
+            .intro-field{
+                width: 100%;
+                padding: 3px 5px;
+                border-radius: 5px;
+                background: #f1f1f1;
+                z-index: 2;
+                .settings{
+                    .reset{
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        border-top-left-radius: 5px;
+                        border-bottom-right-radius: 5px;
+                    }
+                }
+                
+            }
+            .action-field{
+                position: absolute;
+                top: 0;
+                max-height: 0;
+                overflow: hidden;
+                z-index: 1;
+                padding: 10px;
+                background: #f1f1f1;
+                box-shadow: $light-shadow;
+                border-radius: 5px;
+                transition: all 0.5s;
+            }
+
+            &:hover {
+                box-shadow: $strong-shadow; 
+                .action-field{
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                    top: 90%;
+                    max-height: 200px;
+                    box-shadow: $strong-shadow;
+                }
+            }
+        }
+
+        #price-section #price-range{
+            flex-direction: column;
+            *{
+                width: 100% !important;
+            }
+        }
+
+        #color-section{
+            #strict-mode{
+                display: none;
+            }
+        }
+        
+        #global-settings{
+            display: none;
+        }
+        
+        
+    }
+    .flex-right{
+        flex: 100%;
+        padding: 0;
+        .info-panel{
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .product-list{
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+        
+    }
+}

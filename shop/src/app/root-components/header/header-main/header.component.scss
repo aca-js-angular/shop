@@ -1,0 +1,175 @@
+
+.header{
+    padding: 15px 18%;
+    background-image: linear-gradient(to bottom, white, rgb(240, 240, 245));
+    box-shadow: 2px 2px 5px gray;
+}
+
+#checkout{
+    margin-bottom: 30px;
+    margin-left: 30px;
+
+    img{
+        height: 18px;
+        width: 18px;
+        margin-right: 10px;
+    }
+}
+
+$active: rgb(0, 115, 255);
+
+ 
+.headerToolBar{
+    display: flex;
+    align-items: center;
+    #logo{
+        font-size: 24px;
+        color: #446E8E;
+        cursor: pointer;
+        outline: none;
+    }
+    .search-box{
+        position: relative;
+        min-width: 250px;
+        margin-left: 10px;
+        margin-right: 10px;
+        flex-basis: 400px;
+        input{
+            width: 100%;
+            color: rgb(82, 82, 82);
+            padding-left: 5px;
+            font-size: 14px;
+            padding: 5px;
+            border: 1px solid rgb(159, 174, 190);
+            border-radius: 10px;
+            outline: none;
+            transition: background 0.5s;
+        }
+        input:focus{
+            background: rgb(223, 223, 223);
+            color: rgb(62, 90, 128);
+            border: none;
+            padding: 6px;
+        }
+    }
+    input::placeholder{
+        font-size: 12px;
+        color: rgb(62, 90, 128);
+    }
+    #actionButtons{
+        margin-left: auto;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        .actionButton{
+            margin: 0 3px;
+            display: flex;
+            align-items: center;
+
+            .btn-actions-span {
+                font-variant: small-caps; font-size: 11px; font-weight: bold; color: #446E8E;
+            }
+
+            button{
+                border: none;
+                border-radius: 7px;
+                font-size: 14px;
+                padding: 5px 10px;
+                outline: none;
+            }
+            #register{
+                background: transparent;
+                border: solid 1px #446E8E; 
+                color: #446E8E; 
+                transition: all 0.3s;
+                &:hover{
+                    color: $active;
+                    border-color: $active;
+                }
+            }
+            #signOut{
+                background: #446E8E;
+                transition: 0.3s;
+                color: white;
+                &:hover{
+                    background: rgb(89, 141, 180);  
+                }
+            }
+            #signIn{
+                background: #446E8E;
+                transition: 0.3s;
+                color: white;
+                &:hover{
+                    background: rgb(89, 141, 180);  
+                }
+            }
+            img{
+                cursor: pointer;
+                width: 25px;
+                height: 25px;
+                background: transparent;
+                transition: all 0.3s;
+                &:hover{
+                    height: 30px;
+                    width: 30px;
+                }
+            }
+        }
+    }
+    
+}
+
+#headerCategories{
+    display: flex;
+    white-space: nowrap;
+    margin-right: 8%;
+    margin-left: 8%;
+    margin-top: 15px;
+    justify-content: space-around;
+
+    .category{
+        flex-grow: 1;
+        text-align: center;
+        margin: 0 7px;
+        color: gray;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: 2px solid transparent;
+        outline: none;
+    }
+    .category:hover{
+        color: $active;
+        border-bottom-color: $active;
+    }
+    .activeRoute{
+        color: $active;
+        border-bottom-color: $active;
+    }
+
+}
+#basketIcon{
+    position: relative;
+    .basketBadge{
+        display: inline-block;
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        border-radius: 50%;
+        background: #446E8E;
+        color: rgb(255, 255, 255);
+        height: 25px;
+        width: 25px;
+        font-size: 12px;
+        span{
+            display: inline-block;
+            margin-left: 0.25em;
+            margin-top: 0.4em
+        }
+    }
+}
+
+.profile-picture{
+    border-radius: 50%;
+    margin-left: 5px;
+}

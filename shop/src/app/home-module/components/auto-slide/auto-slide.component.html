@@ -1,0 +1,23 @@
+<div 
+id="slider" 
+@entrance
+*_slide=
+"let img from images,
+let i = index ,
+let next = next,
+let prev = prev,
+let jumpTo = jumpTo,
+repeat true,
+autoplay 5000">
+
+  <img [src]="img">
+
+  <div class="arrow-left arrow" (click)="prev()"></div>
+  <div class="arrow-right arrow" (click)="next()"></div>
+  
+  <div id="dots">
+    <ng-container *ngFor="let dot of images, index as ind">
+        <div (click)="jumpTo(ind)" [class.active]="i === ind" class="dot"></div>
+    </ng-container>
+  </div>
+</div>

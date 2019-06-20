@@ -1,0 +1,46 @@
+
+<div class="section">
+  <div class="inner-flex">
+    <div *ngIf="basketSize" class="inner-flex-left title">
+
+    <anim-flow inline="true" duration="1">
+      <span><u>{{basketSize}} Orders in Basket</u></span>
+    </anim-flow>
+    <anim-flow inline="true" duration="1.2" delay="400">
+      <img src="assets/basket.png">
+    </anim-flow>
+      
+    </div>
+    <div class="inner-flex-right">
+      <button (click)="clear()" class="action-btn clear-basket">Clear Basket</button>
+      <button (click)="back()" class="action-btn keep-shopping">Keep Shoping</button>
+    </div>
+  </div>
+  <div class="flexBox" *ngIf="basketSize; else emptyBasket">
+    <div @list class="flexLeft drag-list-bs"  > 
+      <!-- (cdkDropListDropped)="drop($event)" -->
+      <!-- cdkDropList    cdkDrag-->
+      <!-- <div class="custom-placeholder-bs" *cdkDragPlaceholder></div> -->
+      <div *ngFor="let order of basket, index as i" class="basket-content {{'item' + i}}"  @items>
+        <app-basket-item (removeOrder)="remove(i,$event)" [thisOrder]="order"></app-basket-item>
+      </div>
+    </div>
+    <div class="flexRight">
+      <app-order-summary (click)="nextRoute()" action="CHECKOUT"></app-order-summary>
+    </div>
+  </div>
+  <ng-container *ngIf="basketSize">
+  <h4>You May Also Like</h4>
+  <hr>
+  <app-product-list 
+  *ngIf="randomCollection" 
+  [productCollection]="randomCollection"
+  ></app-product-list>
+  </ng-container>
+  <ng-template #emptyBasket>
+    <div id="empty-basket">
+      <img src="assets/emptyBasket.png">
+    </div>
+  </ng-template>
+  
+</div>

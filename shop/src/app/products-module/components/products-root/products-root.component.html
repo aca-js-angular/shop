@@ -1,0 +1,198 @@
+<div class="flex-box">
+
+  <div class="flex-left">
+
+      <!-- Price Filter -->
+      <div class="filter-section" id="price-section">
+        <div class="intro-field">
+          <div class="name">Price</div>
+          <div class="settings">
+            <button 
+            class="reset"
+            title="Reset price ranges"
+            (click)="resetRanges()" 
+            >Reset</button>
+          </div>
+        </div>
+        <hr>
+        <div class="action-field">
+          <form id="price-range" [formGroup]="rangeControl">
+            <input
+            id="from"
+            _naturalNumbers 
+            formControlName="min" 
+            placeholder="from" 
+            type="number" />
+            <input
+            id="to"
+            _naturalNumbers 
+            formControlName="max" 
+            placeholder="to" 
+            type="number" />
+            <button 
+            id="activate-range" 
+            [class.deactivated]="rangeControl.invalid" 
+            [disabled]="rangeControl.invalid"
+            [title]="rangeControl.invalid ? 'invalid ranges' : 'apply'" 
+            (click)="setRanges()"
+            >&#9654;</button>
+          </form>
+        </div>
+      </div>
+
+
+      <!-- Color Filter -->
+      <div class="filter-section" id="color-section">
+        <div class="intro-field">
+          <div class="name">Color</div>
+          <div class="settings">
+            <button
+            #strictLabel
+            class="switcher"
+            id="strict-mode" 
+            title="Filter colors in strict mode"
+            [class.activate]="fs.strict"
+            (click)="fs.strict = !fs.strict; toggleOpacity(strictLabel,'strict')"
+            >strict</button>
+            <button
+            (click)="resetColors()" 
+            title="Reset color filters" 
+            class="reset">Reset</button>
+          </div>
+          
+        </div>
+
+        <hr>
+        <div class="action-field">
+          <div id="color-box">
+              <button
+              *ngFor="let color of initColorArr" 
+              class="color-picker"
+              [class.selected-color]="fs.colorArray.includes(color)"
+              [style.borderColor]="color"
+              [style.background]="fs.colorArray.includes(color) ? color : 'transparent'"
+              [title]="decodeColorName(color)"
+              (click)="fs.toggleColors(color);update()"
+              ></button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Material Filter -->
+      <div class="filter-section" id="material-section">
+        <div class="intro-field">
+          <div class="name">Material</div>
+          <div class="settings">
+            <button 
+            class="reset" 
+            (click)="resetMaterials()"
+            title="Reset material filters">
+            Reset</button>
+          </div>
+        </div>
+        <hr>
+        <div class="action-field" [formGroup]="materials">
+          <div id="first-box">
+            <div class="material-picker">
+              <input formControlName="iron" type="checkbox" id="iron">
+              <label for="iron">Iron</label>
+            </div>
+            <div class="material-picker">
+              <input formControlName="leather" type="checkbox" id="leather">
+              <label for="leather">Leather</label>
+            </div>
+            <div class="material-picker">
+              <input formControlName="plastic" type="checkbox" id="plastic">
+              <label for="plastic">Plastic</label>
+            </div>
+          </div>
+          <div id="last-box">
+            <div class="material-picker"> 
+              <input formControlName="gold" type="checkbox" id="gold">
+              <label for="gold">Gold</label>
+            </div>
+            <div class="material-picker">
+              <input formControlName="silver" type="checkbox" id="silver">
+              <label for="silver">Silver</label>
+            </div>
+            <div class="material-picker">
+              <input formControlName="bronze" type="checkbox" id="bronze">
+              <label for="bronze">Bronze</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Global-settings -->
+      <div class="filter-section" id="global-settings">
+        <hr>
+        <div class="intro-field">
+            <div class="settings">
+              <button 
+              class="reset"
+              title="Reset all filters" 
+              (click)="resetFilters()"
+              >Reset All</button>
+
+              <button
+              class="switcher"
+              id="remember-filters"
+              title="Remember filters while navigating to other pages"
+              #rememberLabel
+              [class.activate]="fs.remember"
+              (click)="fs.remember = !fs.remember; toggleOpacity(rememberLabel,'remember')"
+              >Remember Filters</button>
+            </div>
+        </div>    
+      </div>
+
+    
+  </div>
+
+
+  <div class="flex-right">
+    <div *ngIf="allProducts" class="info-panel">
+      <div class="bread-crumbs" *ngIf="path">
+        <ng-container *ngFor="let segment of path, last as last">
+          <span class="path-segment">{{segment}}</span>
+          <span class="path-arrow" *ngIf="!last">&#xbb;</span>
+        </ng-container>
+        <br>
+        <span class="font-12px"><u>{{allProducts.length}} products found</u></span>
+      </div>
+      <div class="sort-section">
+        <div class="sort-controller">
+          <mat-form-field>
+            <mat-select [formControl]="sortControl">
+              <mat-option value="postDate">By Date</mat-option>
+              <mat-option value="price">By Price</mat-option>
+              <mat-option value="rating">By Rating</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="sort-direction-container">
+          <span
+          class="up"
+          title="Ascending order"
+          (mousedown)="setSortDirection(true)"
+          [class.activated-sort-direction]="fs.ascending"
+          >&#x25b2;</span>
+          <span 
+          class="down"
+          title="Descending order" 
+          (mousedown)="setSortDirection(false)"
+          [class.activated-sort-direction]="!fs.ascending"
+          >&#x25bc;</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-list">
+      <app-product-list [productCollection]="allProducts"></app-product-list>
+    </div>
+
+  </div>
+
+</div>
