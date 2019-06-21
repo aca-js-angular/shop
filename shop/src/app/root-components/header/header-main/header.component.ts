@@ -70,7 +70,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   hideSearchResults() {
-    this.jQuery.jQueryZoomImg();
     setTimeout(() => {this.displayingResults = false},200)
   }
   

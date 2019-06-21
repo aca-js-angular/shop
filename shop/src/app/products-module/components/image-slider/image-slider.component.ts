@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, ViewChild, Input, ElementRef, Output, EventEmitter, OnInit } from '@angular/core';
 import { SlideService } from '../../services/slide.service';
 import { ActivatedRoute } from '@angular/router';
+import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-image-slider',
@@ -22,6 +23,9 @@ export class ImageSliderComponent implements OnInit, AfterViewInit {
   sliderRefNative: HTMLElement;
   leftArrRefNative: HTMLElement;
   rightArrRefNative: HTMLElement;
+
+  paramListener: Subscription;
+  resizeListener: Subscription;
   
   /* --- Methods --- */
 
@@ -39,12 +43,22 @@ export class ImageSliderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
+    
     this.sliderRefNative = this.sliderRef.nativeElement;
     this.leftArrRefNative = this.leftArrRef.nativeElement;
     this.rightArrRefNative = this.rightArrRef.nativeElement;
-    this.active.params.subscribe(_ => {
+
+    this.paramListener = this.active.params.subscribe(_ => {
       this.ss.resetSlide(this.sliderRefNative,this.leftArrRefNative,this.rightArrRefNative)
     })
+    this.resizeListener = fromEvent(window,'resize').subscribe(_ => {
+      this.ss.resetSlide(this.sliderRefNative,this.leftArrRefNative,this.rightArrRefNative)
+    })
+  }
+
+  ngOnDestroy(){
+    this.paramListener.unsubscribe();
+    this.resizeListener.unsubscribe();
   }
 
 }

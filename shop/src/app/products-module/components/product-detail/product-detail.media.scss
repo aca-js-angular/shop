@@ -1,0 +1,154 @@
+@media (max-width: 1000px){
+    .flex-box{
+        margin-top: 35px;
+        padding-left: 8%;
+        padding-right: 8%;
+        flex-wrap: wrap;
+        .flex-right{
+            min-width: 590px;
+            order: 1;
+            flex-basis: 100%;
+            margin-bottom: 15px;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            box-shadow: 2px 2px 3px gray;
+            padding: 10px;
+            .product-details{
+                
+                h6{
+                    display: none;
+                }
+                order: 1;
+                flex-basis: 150px;
+                margin-right: 25px;
+            }
+            .vendor-details{
+                h6{
+                    display: none;
+                }
+                order: 2;
+            }
+            .buy{
+                
+                padding-left: 10px;
+                border-left: 1px solid #f3f3f3;
+                order: 3;
+                margin-left: auto;
+                align-items: center;
+
+                h4{
+                    font-size: 16px;
+                    margin: 0;
+                    margin-right: 5px;
+                }
+                .price-quantity{
+                    flex-direction: row;
+                    align-items: center;
+                    .quantity div{
+                        display: none;    
+                    }
+                }
+                
+                .add-to-basket{
+                    width: 100%;
+                }
+                
+            }
+        }
+        .flex-left{
+            order: 2;
+        }
+        .flex-middle{
+            order: 3
+        }
+    }
+    #hidden-hr{
+        display: block;
+    }
+}
+
+@media (max-width: 700px){
+    .flex-box{
+        .flex-left{
+            order: 2;
+            margin-bottom: 15px;
+            .preview{
+                img{
+                    min-width: 0;
+                    min-height: 0;
+                }
+                
+            }
+            .image-picker{
+                display: flex;
+            }
+        }
+        .flex-middle{
+            order: 3;
+        }
+        .no-bottom{
+            padding-bottom: 0;
+        }
+        .flex-right{
+            min-width: 0;
+            transition: padding-bottom 0.3s;
+            order: 1;
+            align-items: flex-start;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            .product-details{
+                max-height: 0;
+                transform: scale(0);
+                transition: all 0.3s;
+                hr{
+                    display: block;
+                }
+                padding-top: 5px;
+                order: 2;
+            }
+            .vendor-details{
+                max-height: 0;
+                transform: scale(0);
+                transition: all 0.3s;
+                hr{
+                    display: block;
+                }
+                padding-top: 5px;
+                order: 3;
+            }
+            .buy{
+                display: flex;
+                flex-flow: row wrap;
+                order: 1;
+                flex-basis: 100%;
+                margin-bottom: 10px;
+                border-left: none;
+                padding-left: 0;
+                align-items: center;
+                .add-to-basket{
+                    flex-basis: 100%;
+                }
+                .rating{
+                    margin-left: 10px;
+                }
+                .plain-line{
+                    height: 1px;
+                    background-image: linear-gradient(to right, #e7e7e7, #c4c4c4 , #e7e7e7);
+                    flex-grow: 1;
+                    margin: 0 5px;
+                } 
+                    
+                .more-less-btn{
+                    display: inline-block;
+                }   
+            }
+            .more{
+                transform: scale(1);
+                max-height: 200px;
+            }
+        }
+    }
+}

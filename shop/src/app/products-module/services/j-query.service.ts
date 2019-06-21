@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ZoomConfig } from 'src/app/interfaces/zoom-config.interface';
 
 declare var $: any;
 
@@ -8,14 +9,14 @@ declare var $: any;
 })
 export class JQueryZoomService {
 
-  constructor() { }
+  constructor() {}
 
   /**
    * @param imgClassName 
    * @description No Point Only Classname (Classname)
    */
-  jQueryZoomImg(imgClassName: string = 'main-img'): void {
-    this.jQueryZoom(imgClassName)
+  jQueryZoomImg(imgClassName: string, config: ZoomConfig): void {
+    this.jQueryZoom(imgClassName,config)
   }
 
 
@@ -25,23 +26,9 @@ export class JQueryZoomService {
 
 
 
-  private jQueryZoom(imgClassName: string) {
+  private jQueryZoom(imgClassName: string,config: ZoomConfig) {
     $(document).ready(function () {
-      $(`.${imgClassName}`).ezPlus({
-        // zoomType: 'lens',
-        // lensShape: 'round',
-        // lensSize: 200,
-        zoomWindowFadeIn: 500,
-        zoomWindowFadeOut: 500,
-        lensFadeIn: 500,
-        lensFadeOut: 500,
-        zoomWindowWidth: 550,
-        zoomWindowHeight: 350,
-        // zoomWindowOffsetX: 0,
-        // zoomWindowOffsetY: 0,
-        scrollZoom: true,
-        cursor: 'pointer'
-      });
+      $(`.${imgClassName}`).ezPlus(config);
     });
   }
 

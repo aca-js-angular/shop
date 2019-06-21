@@ -115,7 +115,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnDestroy() {
-    this.dialog.closeAll()
+    this.dialogRef.close()
 
     this.destroyStream$.next();
     this.inputTypingState.unsubscribe()

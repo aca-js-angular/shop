@@ -28,10 +28,7 @@ export class MessengerDialogService {
 
     const dialogRef = this.dialog.open(MessageBoxComponent,config)
   
-    dialogRef.afterClosed().subscribe(option => {
-			// console.log('​-> option', option)
-      dialogRef.close()
-    })
+    dialogRef.afterClosed().subscribe();
   }
 
     // config.scrollStrategy = this.overlay.sc.block(),
