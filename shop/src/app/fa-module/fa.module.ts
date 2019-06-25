@@ -11,6 +11,9 @@ import { SharedModule } from '../shared-module/shared.module';
 import { faTooltipDefaults } from '../constants/tooltip-defaults.constant';
 import { WarningComponent } from './components/warning/warning.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { AuthActionsComponent } from './components/auth-actions/auth-actions.component';
+import { RouterModule } from '@angular/router';
+import { AnimationModule } from '../animation-module/animation.module';
 
 @NgModule({
   declarations: [
@@ -20,10 +23,12 @@ import { AlertComponent } from './components/alert/alert.component';
     ResetPassComponent,
     WarningComponent,
     AlertComponent,
+    AuthActionsComponent,
   ],
   imports: [
     CommonModule,
     MatDialogModule,
+    RouterModule,
     MatButtonModule,
     MatCheckboxModule,
     CommonModule,
@@ -39,6 +44,7 @@ import { AlertComponent } from './components/alert/alert.component';
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
+    AnimationModule,
   ],
   
   entryComponents: [
@@ -48,6 +54,10 @@ import { AlertComponent } from './components/alert/alert.component';
     ResetPassComponent,
     WarningComponent,
     AlertComponent,
+  ],
+
+  exports: [
+    AuthActionsComponent
   ],
 
   providers: [

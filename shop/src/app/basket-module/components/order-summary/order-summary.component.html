@@ -1,35 +1,67 @@
-<div id="container">
-  <div>
-    <span  class="order-sum">Order Summary</span>
+
+<div class="flex-box">
+
+  <!----- title ----->
+  <div class="title">
+    <span>Order Summary</span>
+    <hr class="static">
   </div>
-  <hr>
-  <div class="font-13px">
-    <span class="text-bold">Items total</span>
-    <span class="items-right underline">{{totalQuantity}}</span>
+
+  <!----- details ----->
+  <div class="details">
+    <div class="items-total">
+      <div class="detail-title">Items total</div>
+      <div class="plain-line"></div>
+      <div class="detail-result">
+          <span >{{totalQuantity}}</span>
+      </div>
+    </div>
+    <div class="total-pure-price">
+      <div class="detail-title">Total pure price</div>
+      <div class="plain-line"></div>
+      <span class="detail-result">
+          {{totalPrice | currency}}
+      </span>
+    </div>
+    <div class="estimated-shipping">
+      <div class="detail-title">Estimated shipping</div>
+      <div class="plain-line"></div>
+      <div class="detail-result">
+        <span>{{totalWeight}}g. - {{totalShipping | currency}}</span>
+      </div>
+    </div>
   </div>
-  <div class="font-13px">
-    <span class="text-bold">Total pure price</span>
-    <span class="items-right underline">{{totalPrice | currency}}</span>
-  </div>
-  <div class="font-13px">
-    <span class="text-bold">Estimated shipping</span>
-    <span class="items-right underline">{{totalWeight}}g. - {{totalShipping | currency}}</span>
-  </div>
+
+  <!----- promo-code ----->
   <div class="promo-code">
     <input type="text" placeholder="Enter Promo Code">
-    <button class="apply-btn">Apply</button>
+    <button>Apply</button>
   </div>
+
   <hr>
-  <div class="font-13px text-bold">
+
+  <!----- total ----->
+  <div class="total">
     <span>Total:</span>
-    <span anim-fork-on-changes class="items-right underline">{{(totalPrice + totalShipping) | currency}}</span>
+    <span anim-fork-on-changes>{{(totalPrice + totalShipping) | currency}}</span>
   </div>
-  <div>
-    <button mat-raised-button
-      color="primary"
-      [disabled]="currentForm?.invalid"
-      (click)="nextRoute()"
-      class="action-btn text-bold"
+
+
+  <!-- [disabled]="currentForm?.invalid" -->
+
+  <!----- action-btn ----->
+  <div class="action-btn">
+    <button 
+    mat-raised-button
+    color="primary"
+    (click)="nextRoute()"
+    class="mat-btn"
     >{{action}}</button>
   </div>
+
+  <div anim-fork-on-changes blink="true" class="hidden-total">
+    <span>Total:</span>
+    <span >{{(totalPrice + totalShipping) | currency}}</span>
+  </div>
+
 </div>

@@ -1,0 +1,49 @@
+@import '../../../../global-mixins.scss';
+
+.invalid-icon{
+    color: rgb(185, 52, 52)
+}
+
+form {
+    .full-width{
+        display: flex;
+        flex-direction: column;
+    }
+    .small-forms{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+
+        #cvv{
+            margin-left: auto;
+        }
+        #month , #year{
+            margin-right: 10px;
+        }
+
+        .payment-form{
+            width: 90px;
+        }
+        .payment-form#cvv{
+            width: 140px
+        }
+    }
+}
+
+@media (max-width: 700px){
+    form .small-forms{
+        justify-content: space-between;
+        .payment-form{
+            flex-grow: 1;
+        }
+        #month, #year, #cvv {
+            @include reset-margins;
+        }
+        .payment-form#cvv{
+            width: 80px;
+        }
+        #year{
+            @include side-margin(10px);
+        }
+    }
+}

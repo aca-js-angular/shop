@@ -1,0 +1,86 @@
+
+<div class="page-container">
+  <div class="top-panel">
+      <div class="title">Your Billing Info</div>
+      <button mat-button class="back-btn" (click)="backToShipping()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+        <span>Back</span>
+      </button>
+  </div>
+</div>
+
+<hr class="title-hr">
+
+<div class="page-container">
+
+  <div class="flex-box">
+    <div class="form-field">
+
+      <form autocomplete="off" [formGroup]="paymentForm">
+
+        <div class="full-width">
+
+          <!-- Card Number -->
+          <div class="payment-form">
+            <mat-form-field appearance="outline" [class.error-indent]="cardNumberError">
+              <mat-label>Card Number</mat-label>
+              <mat-hint align="end">{{cardNumberHint}}</mat-hint>
+              <input _onlyDigits formControlName="cardNumber" matInput [type]="hideCardNumber ? 'password' : 'text'" required maxlength="16">
+              <mat-icon [class.invalid-icon]="shownCardNumberError" matSuffix (mousedown)="prevent()" (click)="hideCardNumber = !hideCardNumber" *ngIf="hideCardNumber" matTooltip="showe card number">{{'visibility_off'}}</mat-icon>
+              <mat-icon [class.invalid-icon]="shownCardNumberError" matSuffix (mousedown)="prevent()" (click)="hideCardNumber = !hideCardNumber" *ngIf="!hideCardNumber" matTooltip="hide card number">{{'visibility'}}</mat-icon>
+              <mat-error>{{cardNumberError}}</mat-error>
+            </mat-form-field>
+          </div> 
+  
+          <!-- Name On Card -->
+          <div class="payment-form">
+            <mat-form-field appearance="outline" [class.error-indent]="nameOnCardError">
+              <mat-label>Name On Card</mat-label>
+              <mat-hint align="end"><i>example: </i>JAMES PARKER</mat-hint>
+              <input formControlName="nameOnCard" matInput required>
+              <mat-error>{{nameOnCardError}}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="small-forms">
+          <!-- Month -->
+          <div class="payment-form" id="month">
+            <mat-form-field appearance="outline">
+              <mat-label>Exp. Month</mat-label>
+              <mat-select formControlName="expMonth">
+                <mat-option *ngFor="let month of months" [value]="month">{{month}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Year -->
+          <div class="payment-form" id="year">
+            <mat-form-field appearance="outline">
+            <mat-label>Exp. Year</mat-label>
+              <mat-select formControlName="expYear">
+                <mat-option *ngFor="let year of nearestYears" [value]="year">{{year}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- CVV -->
+          <div class="payment-form" id="cvv">
+              <mat-form-field appearance="outline" [class.error-indent]="cvvError">
+                <mat-label>cvv</mat-label>
+                <mat-hint align="end">Min-length 3</mat-hint>
+                  <input _onlyDigits formControlName="cvv" matInput required>
+                <mat-error>{{cvvError}}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>        
+      </form>
+    </div>
+
+    <hr class="seperator-hr">
+
+    <div class="order-summary">
+      <app-order-summary [currentForm]="paymentForm" action="PLACE ORDER"></app-order-summary>
+    </div>
+  </div>
+</div>

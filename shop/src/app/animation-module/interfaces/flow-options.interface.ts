@@ -5,4 +5,5 @@ export interface flowOptions{
     from?: 'left' | 'right' | 'top' | 'bottom',
     inline?: boolean,
     if?: any,
+    overflow?: number,
 }

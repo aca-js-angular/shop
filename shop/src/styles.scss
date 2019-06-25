@@ -12,6 +12,7 @@ body {
     min-width: 500px;
     font-family: sans-serif;
     height: 100%;
+    overflow-x: hidden;
 }
 button {
     cursor: pointer
@@ -25,7 +26,7 @@ button {
 /*---------------------------------------------------------------------------
 /* ---------- Document Wide Classes ---------- */
 
-.section {
+.section{
     padding: 0 16%;
 }
 .inactive {

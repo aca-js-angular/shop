@@ -12,7 +12,7 @@ export class FlowService {
 
   /* ---------- Public Method ---------- */
 
-  public flow({target, duration = 2, delay = 0, from = 'left'}: flowOptions){
+  public flow({target, duration = 2, delay = 0, from = 'left', overflow = 0}: flowOptions){
 
     const initTransition = getComputedStyle(target).transition
     const distance = this.getHidingDistance(target,from) + 'px'
@@ -34,7 +34,10 @@ export class FlowService {
 
     function animate(){
       target.style.transitionProperty = 'transform'
-      target.style.transitionDuration = duration + 's'
+      target.style.transitionDuration = duration + 's';
+      if(overflow){
+        target.style.transitionTimingFunction = `cubic-bezier(.2, 1, 0.4, ${overflow})`
+      }
       target.style.transform = 'translate(0px,0px)'
     }
 

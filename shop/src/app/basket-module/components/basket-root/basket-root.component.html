@@ -1,13 +1,10 @@
-<div
-[@routeAnimations]=
-"active && 
-active.activatedRouteData && 
-active.activatedRouteData['animation']"
-><router-outlet #active="outlet"></router-outlet>
-</div>
-
-
-<div class="basket-footer">
-    <span class="items-left">&#169; 2019 ModeConcept. All Rights Reserved</span>
-    <span class="items-right href">www.modeconcept.com</span>
+<div 
+id="basket-root"
+class="yhidden"
+[@routeAnimations]="prepareRoute(outlet)"
+(@routeAnimations.start)="animating = true"
+(@routeAnimations.done)="animating = false"
+>
+    <router-outlet #outlet="outlet"></router-outlet>
+    <div class="fake-filler" *ngIf="animating"></div>
 </div>

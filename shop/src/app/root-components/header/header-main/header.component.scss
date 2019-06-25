@@ -1,6 +1,7 @@
 
 .header{
-    padding: 15px 18%;
+    
+    padding: 15px 16%;
     background-image: linear-gradient(to bottom, white, rgb(240, 240, 245));
     box-shadow: 2px 2px 5px gray;
 }
@@ -22,12 +23,24 @@ $active: rgb(0, 115, 255);
 .headerToolBar{
     display: flex;
     align-items: center;
-    #logo{
-        font-size: 24px;
-        color: #446E8E;
-        cursor: pointer;
-        outline: none;
+    .logo-panel{
+        display: flex;
+        align-items: center;
+        .panel{
+            display: none;
+        }
+        #logo{
+            font-size: 24px;
+            color: #446E8E;
+            cursor: pointer;
+            outline: none;
+        }
+        .hidden-auth-action{
+            display: none;
+        }
+
     }
+    
     .search-box{
         position: relative;
         min-width: 250px;
@@ -56,67 +69,9 @@ $active: rgb(0, 115, 255);
         font-size: 12px;
         color: rgb(62, 90, 128);
     }
-    #actionButtons{
+    .auth-action-box{
         margin-left: auto;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        .actionButton{
-            margin: 0 3px;
-            display: flex;
-            align-items: center;
-
-            .btn-actions-span {
-                font-variant: small-caps; font-size: 11px; font-weight: bold; color: #446E8E;
-            }
-
-            button{
-                border: none;
-                border-radius: 7px;
-                font-size: 14px;
-                padding: 5px 10px;
-                outline: none;
-            }
-            #register{
-                background: transparent;
-                border: solid 1px #446E8E; 
-                color: #446E8E; 
-                transition: all 0.3s;
-                &:hover{
-                    color: $active;
-                    border-color: $active;
-                }
-            }
-            #signOut{
-                background: #446E8E;
-                transition: 0.3s;
-                color: white;
-                &:hover{
-                    background: rgb(89, 141, 180);  
-                }
-            }
-            #signIn{
-                background: #446E8E;
-                transition: 0.3s;
-                color: white;
-                &:hover{
-                    background: rgb(89, 141, 180);  
-                }
-            }
-            img{
-                cursor: pointer;
-                width: 25px;
-                height: 25px;
-                background: transparent;
-                transition: all 0.3s;
-                &:hover{
-                    height: 30px;
-                    width: 30px;
-                }
-            }
-        }
     }
-    
 }
 
 #headerCategories{
@@ -147,29 +102,4 @@ $active: rgb(0, 115, 255);
         border-bottom-color: $active;
     }
 
-}
-#basketIcon{
-    position: relative;
-    .basketBadge{
-        display: inline-block;
-        position: absolute;
-        top: -15px;
-        right: -15px;
-        border-radius: 50%;
-        background: #446E8E;
-        color: rgb(255, 255, 255);
-        height: 25px;
-        width: 25px;
-        font-size: 12px;
-        span{
-            display: inline-block;
-            margin-left: 0.25em;
-            margin-top: 0.4em
-        }
-    }
-}
-
-.profile-picture{
-    border-radius: 50%;
-    margin-left: 5px;
 }

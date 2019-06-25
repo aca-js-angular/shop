@@ -1,13 +1,21 @@
 <div id="global-container" >
-    <div [ngSwitch]="currentState" id="sticky-header">
-        <app-header *ngSwitchCase="'ordinar'"></app-header>
-        <app-header-not-found *ngSwitchCase="'404'"></app-header-not-found>
-        <app-header-checkout *ngSwitchCase="'checkout'"></app-header-checkout>
+    <div [@headerTransforming]="currentPage" [ngSwitch]="currentPage" id="sticky-header">
+        <div *ngSwitchCase=" 'not-found' ">
+            <app-header-not-found></app-header-not-found>
+        </div>
+        <div *ngSwitchCase=" 'checkout' ">
+            <app-header-checkout></app-header-checkout>
+        </div>
+        <div *ngSwitchDefault>
+            <app-header></app-header>
+        </div>
     </div>
     <div id="content">
         <router-outlet></router-outlet>
     </div>
-    <div id="footer">
-        <app-footer></app-footer>
+    <div [ngSwitch]="currentPage" id="footer">
+        <app-footer-basket *ngSwitchCase=" 'basket' "></app-footer-basket>
+        <app-footer-basket *ngSwitchCase=" 'checkout' "></app-footer-basket>
+        <app-footer *ngSwitchDefault></app-footer>
     </div>
 </div>

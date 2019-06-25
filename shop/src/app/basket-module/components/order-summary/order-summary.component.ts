@@ -7,7 +7,7 @@ import { decodedOrder } from 'src/app/interfaces/decoded-order.interface';
 @Component({
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
-  styleUrls: ['./order-summary.component.scss']
+  styleUrls: ['./order-summary.component.scss','./order-summary.media.scss']
 })
 export class OrderSummaryComponent {
 

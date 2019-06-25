@@ -15,7 +15,8 @@ export class ProductListComponent implements OnChanges, OnInit, OnDestroy {
   /* --- Variables --- */
 
   @Input() productCollection: Product[];
-  listRatio: number = 4;
+  @Input() listRatio: number = 4;
+  initialRatio: number;
 
   get listConfig(): Config {
     return {ratio: this.listRatio, likeable: true, info: true};
@@ -36,11 +37,11 @@ export class ProductListComponent implements OnChanges, OnInit, OnDestroy {
   resizeHandler = () => {
     const width = window.innerWidth;
     if(width < 700){
-      this.listRatio = 2;
+      this.listRatio = this.initialRatio - 2;
     }else if(width < 1000){
-      this.listRatio = 3;
+      this.listRatio = this.initialRatio - 1;
     }else{
-      this.listRatio = 4;
+      this.listRatio = this.initialRatio;
     }
   }
 
@@ -54,6 +55,7 @@ export class ProductListComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   ngOnInit(){
+    this.initialRatio = this.listRatio;
     this.resizeHandler();
     window.addEventListener('resize',this.resizeHandler)
   }

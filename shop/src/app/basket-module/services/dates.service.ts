@@ -11,13 +11,15 @@ export class DatesService {
     return new Array(quantity).fill(null).map(() => start++)
   }
 
-  getNearestYears(amount: number): number[]{
-    let thisYear: number = new Date().getFullYear()
+  getNearestYears(amount: number = 20): number[]{
+    const thisYear: number = new Date().getFullYear()
     return this.generateArray(amount,thisYear)
   }
 
-  getMonths(): number[]{
-    return this.generateArray(12,1)
+  getMonths(year?: number): number[]{
+    const isThisYear: boolean = !year || year == new Date().getFullYear();
+    const firstMonth: number = isThisYear ? new Date().getMonth() + 1 : 1;
+    return this.generateArray(12 - firstMonth + 1, firstMonth);
   }
 
   getMonthDays(monthIndex: number): number[]{

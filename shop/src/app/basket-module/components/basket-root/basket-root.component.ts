@@ -1,17 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { slideInAnimation } from '../../basket-route.animation';
+import { RouterOutlet, Router } from '@angular/router';
+import { routerSlide } from '../../animations/router-slide.animation';
 
 @Component({
   selector: 'app-basket-root',
   templateUrl: './basket-root.component.html',
   styleUrls: ['./basket-root.component.scss'],
-  animations: [slideInAnimation]
+  animations: [routerSlide]
 })
 export class BasketRootComponent implements OnInit {
 
-  constructor() { }
+  animating: boolean = false;
 
-  ngOnInit() {
+  constructor(private router: Router) {}
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
+
+  ngOnInit(){}
 
 }

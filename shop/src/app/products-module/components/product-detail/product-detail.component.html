@@ -1,148 +1,151 @@
 <ng-container *ngIf="thisProduct; else loading">
 
   <div class="flex-box">
+
     <div class="flex-left">
-      <div class="preview">
-        <img 
-        data-identity="id"
-        #originalImage
-        class="main-img"
-        [src]="currentSrc"
-        onerror="this.src = 'assets/emptycart.png'"
-        >
-        <div class="image-picker">
-          <img *ngFor="let image of thisProduct.images" [src]="image" (click)="currentSrc = image" />
-        </div>
-      </div>
-      
-    </div>
-    <div class="flex-middle">
 
-
-      <!---------- Main Description ---------->
-      <div class="small-caps"><b>{{thisProduct.name}}</b></div>
-      <div class="font-13px">
-        from <a [routerLink]="['/','products','brands',thisProduct.brand]">{{thisProduct.brand}}</a>
-      </div>
-      <hr>
-      <p class="font-13px">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic officiis rerum architecto cum dolores vel,
-        recusandae quis culpa, nostrum iure debitis ad illum nesciunt esse ipsam. Impedit labore quo ab?
-      </p>
-      <div class="slide">
-        <app-image-slider 
-        (setSrc)="currentSrc = $event; resetZoom()"
-        [imageCollection]="thisProduct.images"
-        ></app-image-slider>
-      </div>
-    </div>
-
-
-    <!---------- Price And Quantity ------------>
-    <div class="flex-right" [class.no-bottom]="!showMore">
-      <div class="buy">
-          
-        <div class="price-quantity">
-          <h4 class="text-bold">{{thisProduct.price | currency}}</h4>
-          <div class="quantity">
-              <div class="font-11px">Quantity</div>
-              <input min="1" type="number" [(ngModel)]="quantity" _onlyDigits>
+        <!---------- Product-Images ---------->
+        <div class="preview">
+          <img
+          data-identity="id"
+          #originalImage
+          class="main-img"
+          [src]="currentSrc"
+          onerror="this.src = 'assets/emptycart.png'"
+          />
+          <div class="image-picker">
+            <img
+            *ngFor="let image of thisProduct.images" 
+            [src]="image" 
+            (click)="currentSrc = image" 
+            />
           </div>
         </div>
-        <div class="rating">
-              {{thisProduct.rating | rating}}
+    </div>
+
+
+    <div class="flex-middle">
+
+        <!---------- Main Description ---------->
+        <div class="small-caps"><b>{{thisProduct.name}}</b></div>
+        <div class="font-13px">
+          from <a [routerLink]="['/','products','brands',thisProduct.brand]">{{thisProduct.brand}}</a>
         </div>
-        <div class="plain-line"></div>
-        <span class="more-less-btn" (click)="showMore = !showMore">
-            <span class="font-12px">{{showMore ? 'less' : 'more'}}</span>
-            <span class="toggle-arrow" [class.expand]="showMore">
-              &#x25bc;
-            </span>
-        </span >
-          
-        <!---------- Add to Basket Button ---------->
-        <div class="add-to-basket">
+        <hr />
+        <p class="font-13px">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic officiis rerum architecto cum dolores vel,
+          recusandae quis culpa, nostrum iure debitis ad illum nesciunt esse ipsam. Impedit labore quo ab?
+        </p>
+        <div class="slide">
+          <app-image-slider 
+          (setSrc)="currentSrc = $event; resetZoom()"
+          [imageCollection]="thisProduct.images"
+          ></app-image-slider>
+        </div>
+
+    </div>
+
+
+    <div class="flex-right" [class.no-bottom]="!showMore">
+
+        <!---------- Buying-Terms ------------>
+        <div class="buy">
+          <div class="price-quantity">
+            <h4 class="text-bold">{{thisProduct.price | currency}}</h4>
+            <div class="quantity">
+              <div class="font-11px">Quantity</div>
+              <input min="1" type="number" [(ngModel)]="quantity" _onlyDigits />
+            </div>
+          </div>
+          <div class="rating">{{thisProduct.rating | rating}}</div>
+          <div class="plain-line"></div>
+          <span class="more-less-btn" (click)="showMore = !showMore">
+            <span class="font-12px">{{showMore ? 'Less' : 'More'}}</span>
+            <span class="toggle-arrow" [class.expand]="showMore">&#x25bc;</span>
+          </span >
+            
+          <!--- Add to Basket Button --->
+          <div class="add-to-basket">
             <button 
             [_persistance]="addToBasket" 
             [_inactive]="isInBasket"
             [innerHTML]="isInBasket ? 'IN BASKET' : 'ADD TO BASKET'" 
             id="addToBasket"
             ></button>
-        </div>
-      </div>
-        
-     
-        
-
-      <hr>
-
-      <!---------- Product Details ---------->
-      <div class="product-details" [class.more]="showMore">
-        <hr>
-        <h6 class="text-bold">Product details</h6>
-        <div class="product-details-container font-11px">
-          <div>
-            <span><b>Weight</b></span>
-            <span>{{thisProduct.details.weight}}g</span>
-          </div>
-          <div>
-            <span><b>Origin Country</b></span>
-            <span>{{thisProduct.details.originCountry}}</span>
-          </div>
-          <div>
-            <span><b>Post Date</b></span>
-            <span>{{toDate(thisProduct.postDate) | date}}</span>
-          </div>
-          <div>
-            <span><b>Materials</b></span>
-            <span>
-                <span *ngFor="let material of thisProduct.details.material, last as last">
-                  {{material[0].toUpperCase() + material.slice(1)}}
-                  <span *ngIf="!last"> ,</span>
-                </span>
-            </span>
-          </div>
-          <div>
-            <span><b>Colors</b></span>
-            <span>
-              <span
-              class="details-color"
-              *ngFor="let color of thisProduct.details.colors.main.concat(thisProduct.details.colors.additional).reverse()"
-              [style.background]="color"
-              ></span>
-            </span>
           </div>
         </div>
-      </div>
-      <hr>
 
-      <!---------- Vendor Details ---------->
+        <hr />
 
-      <!-- <img [_persistance]="openChatSearch" title="Direct Message" class="toggle-panel-btn" src="assets/chat/chat_img.jpg"> -->
-
-      <div class="vendor-details" [class.more]="showMore">
-        <hr>
-        <h6 class="text-bold">Vendor Profile</h6>
-        <div class="vendor-section">
-          <div class="vendor-img">
-            <img [src]="thisProduct.vendor.img" onerror="this.src = 'assets/empty_user.png'">
-          </div>
-          <div class="vendor-data">
-            <span><b>{{thisProduct.vendor.fullName}}</b></span>
-            <span>{{thisProduct.vendor.country}}, <i>{{thisProduct.vendor.city}}</i></span>
-            <span>{{thisProduct.vendor.rating | rating}}</span>
-            <span><a href="mailto: {{thisProduct.vendor.email}}">{{thisProduct.vendor.email}}</a></span>
+        <!---------- Product Details ---------->
+        <div class="product-details" [class.more]="showMore">
+          <hr />
+          <h6 class="text-bold">Product details</h6>
+          <div class="product-details-container font-11px">
+            <div>
+              <span><b>Weight</b></span>
+              <span>{{thisProduct.details.weight}}g</span>
+            </div>
+            <div>
+              <span><b>Origin Country</b></span>
+              <span>{{thisProduct.details.originCountry}}</span>
+            </div>
+            <div>
+              <span><b>Post Date</b></span>
+              <span>{{toDate(thisProduct.postDate) | date}}</span>
+            </div>
+            <div>
+              <span><b>Materials</b></span>
+              <span>
+                  <span *ngFor="let material of thisProduct.details.material, last as last">
+                    {{material[0].toUpperCase() + material.slice(1)}}
+                    <span *ngIf="!last"> ,</span>
+                  </span>
+              </span>
+            </div>
+            <div>
+              <span><b>Colors</b></span>
+              <span>
+                <span
+                class="details-color"
+                *ngFor="let color of thisProduct.details.colors.main.concat(thisProduct.details.colors.additional).reverse()"
+                [style.background]="color"
+                ></span>
+              </span>
+            </div>
           </div>
         </div>
-      </div>      
+
+        <hr />
+
+        <!---------- Vendor Details ---------->
+        <!-- <img [_persistance]="openChatSearch" title="Direct Message" class="toggle-panel-btn" src="assets/chat/chat_img.jpg"> -->
+        <div class="vendor-details" [class.more]="showMore">
+          <hr />
+          <h6 class="text-bold">Vendor Profile</h6>
+          <div class="vendor-section">
+            <div class="vendor-img">
+              <img [src]="thisProduct.vendor.img" onerror="this.src = 'assets/empty_user.png'">
+            </div>
+            <div class="vendor-data">
+              <span><b>{{thisProduct.vendor.fullName}}</b></span>
+              <span>{{thisProduct.vendor.country}}, <i>{{thisProduct.vendor.city}}</i></span>
+              <span>{{thisProduct.vendor.rating | rating}}</span>
+              <span><a href="mailto: {{thisProduct.vendor.email}}">{{thisProduct.vendor.email}}</a></span>
+            </div>
+          </div>
+        </div>  
+
     </div>
   </div>
 
 
   <!---------- More From This Brand ---------->
-  <app-product-slider [href]="['/','products','brands',thisProduct.brand]" [title]="'More from ' + thisProduct.brand"
-    [productCollection]="moreFromThisBrand">
-  </app-product-slider>
+  <app-product-slider 
+  [href]="['/','products','brands',thisProduct.brand]" 
+  [title]="'More from ' + thisProduct.brand"
+  [productCollection]="moreFromThisBrand"
+  ></app-product-slider>
 
 
   <!---------- Similar Products ---------->
@@ -150,9 +153,8 @@
     <div>
       <h3 class="similarProducts">Similar products</h3>
     </div>
-    <hr>
-    <app-product-list [productCollection]="similarProducts">
-    </app-product-list>
+    <hr />
+    <app-product-list [productCollection]="similarProducts"></app-product-list>
   </div>
 
 </ng-container>

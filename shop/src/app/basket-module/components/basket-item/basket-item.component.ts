@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { decodedOrder } from '../../../interfaces/decoded-order.interface';
 import { FormControl } from '@angular/forms';
 
@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-basket-item',
   templateUrl: './basket-item.component.html',
-  styleUrls: ['./basket-item.component.scss']
+  styleUrls: ['./basket-item.component.scss','./basket-item.media.scss']
 })
 export class BasketItemComponent implements OnInit {
 

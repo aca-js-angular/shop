@@ -16,7 +16,7 @@ export class JQueryZoomService {
    * @description No Point Only Classname (Classname)
    */
   jQueryZoomImg(imgClassName: string, config: ZoomConfig): void {
-    this.jQueryZoom(imgClassName,config)
+      this.jQueryZoom(imgClassName,config)
   }
 
 
@@ -27,8 +27,13 @@ export class JQueryZoomService {
 
 
   private jQueryZoom(imgClassName: string,config: ZoomConfig) {
+
     $(document).ready(function () {
-      $(`.${imgClassName}`).ezPlus(config);
+      try{
+        $(`.${imgClassName}`).ezPlus(config);
+      }catch(error){
+        console.warn('ERROR_FROM_CATCH: \n' + error)
+      }
     });
   }
 

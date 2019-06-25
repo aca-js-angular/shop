@@ -99,8 +99,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     let temporaryQuantity = initialQuantity;
 
     const original = this.originalImage.nativeElement as HTMLImageElement;
-    const basketIcon = document.getElementById('basket') as HTMLImageElement;
-    const distanceBetween = this.ss.getDistanceBetweenElements(original,basketIcon);
+    const basketIcon = Array.from(document.getElementsByClassName('_basket')) as HTMLImageElement[];
+    const target = basketIcon.find(icon => {
+      const container = icon.closest('.auth-action-box');
+      console.log(container);
+      return getComputedStyle(container).display !== 'none';
+    })
+
+    const distanceBetween = this.ss.getDistanceBetweenElements(original,target);
 
     const throwFn = () => {
       if(!temporaryQuantity){
@@ -163,6 +169,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   zoomed = false;
 
   ngOnInit() {
+    
     this.setZoomConfig();
     document.addEventListener('mousemove',this.mouseListener);
     window.addEventListener('resize',this.setZoomConfig);

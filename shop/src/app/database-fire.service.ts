@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { Observable, zip, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators'
-import { AngularFireAuth } from '@angular/fire/auth';
 
 /* --- Error throwing functions */
 

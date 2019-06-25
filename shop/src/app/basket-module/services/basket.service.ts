@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Product } from '../../interfaces/product.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DatabaseFireService } from '../../database-fire.service';

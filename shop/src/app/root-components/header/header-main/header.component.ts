@@ -15,7 +15,7 @@ import { logOut } from '../../../constants/popup-messages.constant'
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss','../header-media.scss'],
+  styleUrls: ['./header.component.scss','../header.media.scss'],
 })
 
 export class HeaderComponent implements OnInit, AfterViewInit {
@@ -70,7 +70,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   hideSearchResults() {
-    setTimeout(() => {this.displayingResults = false},200)
+    setTimeout(() => {this.displayingResults = false},300)
   }
   
   displaySearchResults(){

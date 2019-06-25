@@ -21,10 +21,13 @@ export class ProductsRootComponent implements OnInit, OnDestroy {
     private build: FormBuilder,
     private fs: FilterService,
     private router: Router,
-  ) {}
+  ) {
+    this.animationDirection = window.innerWidth > 700 ? 'left' : 'top';
+  }
 
   /* ---Variables --- */
 
+  animationDirection: string;
   initProducts: Product[];
   allProducts: Product[];
   path: string[];

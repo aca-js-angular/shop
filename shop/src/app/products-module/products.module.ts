@@ -14,7 +14,7 @@ import { SharedModule } from '../shared-module/shared.module';
 import { MatFormFieldModule, MatSelectModule, MatProgressSpinnerModule } from '@angular/material';
 import { AnimationModule } from '../animation-module/animation.module';
 import { RatingPipe } from './pipes/rating.pipe';
-// import { MessengerModule } from '../messenger-module/messenger.module';
+import { MessengerModule } from '../messenger-module/messenger.module';
 
 @NgModule({
   declarations: [

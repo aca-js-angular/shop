@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms'
 import { AppComponent } from './root-components/app-root/app.component';
 import { HeaderComponent } from './root-components/header/header-main/header.component';
-import { FooterComponent } from './root-components/footer/footer.component';
+import { FooterComponent } from './root-components/footer/footer-main/footer.component';
 import { WorkingWithDbComponent } from './root-components/working-with-db/working-with-db.component';
 import { SearchComponent } from './root-components/search/search.component';
 import { SingleResultComponent } from './root-components/search/single-result/single-result.component';
@@ -15,19 +15,21 @@ import { HeaderNotFoundComponent } from './root-components/header/header-not-fou
 import { HeaderCheckoutComponent } from './root-components/header/header-checkout/header-checkout.component';
 import { ProjectMainModules, FireBaseModules, MaterialDesignModules } from './useds-modules';
 import { CategoryPanelComponent } from './root-components/category-panel/category-panel.component';
+import { FooterBasketComponent } from './root-components/footer/footer-basket/footer-basket.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    HeaderCheckoutComponent,
+    HeaderNotFoundComponent,
     FooterComponent,
+    FooterBasketComponent,
     WorkingWithDbComponent,
     SearchComponent,
     SingleResultComponent,
     NotFoundComponent,
-    HeaderNotFoundComponent,
-    HeaderCheckoutComponent,
     CategoryPanelComponent,
   ],
 

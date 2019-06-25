@@ -14,7 +14,27 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+
+// class AppModule {
+//   constructor(router: Router, viewportScroller: ViewportScroller) {
+//     router.events.pipe(
+//       filter((e: Event): e is Scroll => e instanceof Scroll)
+//     ).subscribe(e => {
+//       if (e.position) {
+//         // backward navigation
+//         viewportScroller.scrollToPosition(e.position);
+//       } else if (e.anchor) {
+//         // anchor navigation
+//         viewportScroller.scrollToAnchor(e.anchor);
+//       } else {
+//         // forward navigation
+//         viewportScroller.scrollToPosition([0, 0]);
+//       }
+//     });
+//   }
+// }

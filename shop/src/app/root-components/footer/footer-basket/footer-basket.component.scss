@@ -1,0 +1,17 @@
+
+@import '../../../global-vars.scss';
+@import '../../../global-mixins.scss';
+
+.footer-basket{
+
+    z-index: 10000;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: rgb(243, 243, 248);
+    font-size: 12px;
+    font-weight: bold;
+    color: $theme-dark;
+    @include side-padding(5%);
+
+}

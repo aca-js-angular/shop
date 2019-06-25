@@ -6,18 +6,24 @@ import { OpenDialogService } from 'src/app/fa-module/services/open-dialog.servic
 import { removeBasketItem, clearBasket } from '../../../constants/popup-messages.constant'
 import { Product } from 'src/app/interfaces/product.interface';
 import { ProductService } from 'src/app/products-module/services/product.service';
-import { bsAnimation } from './bs-animation';
+import { BasketListAnimation } from '../../animations/basket-list.animation';
+import { Subscription } from 'rxjs';
 
 
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.scss'],
-  animations: [bsAnimation],
+  styleUrls: ['./basket.component.scss','./basket.media.scss'],
+  animations: BasketListAnimation,
   
 })
 
 export class BasketComponent implements OnDestroy {
+
+  /* --- Variables --- */
+
+  randomCollectionSubscription: Subscription;
+  randomCollection: Product[];
 
   constructor(
     private location: Location,
@@ -26,16 +32,15 @@ export class BasketComponent implements OnDestroy {
     private ps: ProductService,
   ){}
 
-  randomCollection: Product[];
 
   /* --- Getters --- */
 
-  get basket(): decodedOrder[]{
-    return this.bs.basket
-  }
-
   get basketSize(): number{
     return this.bs.basket.length
+  }
+  
+  get basket(): decodedOrder[]{
+    return this.bs.basket
   }
 
   get totalQuantuty(): number {
@@ -45,31 +50,29 @@ export class BasketComponent implements OnDestroy {
   /* --- Methods --- */
 
   clear(): void{
-
     if(this.basketSize){
       this.dialog.openConfirmMessage({
         message: clearBasket(this.basketSize),
         accept: () => this.bs.clearBasket()
       })
-    }else{
+    }
+    else{
       this.dialog.openAlertMessage({
         message: ['Basket is empty'],
         after: null,
       })
     }
-  
   }
-  
-  // drop(event: CdkDragDrop<decodedOrder[]>) {
-  //  moveItemInArray(this.basket, event.previousIndex, event.currentIndex);
-  // }
-  
 
-  remove(index: number){
-    const quantity = this.basket[index].quantity
+  removeAnimation(ind: number){
+    
+  }
+
+  remove(ind: number){
+    const quantity = this.basket[ind].quantity
     this.dialog.openConfirmMessage({
       message: removeBasketItem(quantity),
-      accept: () => this.bs.removeOrderFromBasket(index),
+      accept: () => this.bs.removeOrderFromBasket(ind)
     });
   }
 
@@ -80,11 +83,12 @@ export class BasketComponent implements OnDestroy {
   /* --- LC hooks --- */
 
   ngOnInit(){
-    this.ps.getRandomCollection().subscribe(res => this.randomCollection = res)
+    this.randomCollectionSubscription = this.ps.getRandomCollection().subscribe(res => this.randomCollection = res);
   }
 
   ngOnDestroy(){
-    this.bs.updateCredit()
+    this.bs.updateCredit();
+    this.randomCollectionSubscription.unsubscribe();
   }
 
 

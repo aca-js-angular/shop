@@ -1,0 +1,25 @@
+<div class="auth-action-field">
+
+  <div class="auth-action" *ngIf="currentUser">
+    <span class="user-name">{{currentUser.displayName}}</span> 
+    <img class="profile-picture" matTooltip="Go to profile" [routerLink]="['/','profile']" [src]="currentUser.photoURL">
+  </div>
+  
+  <div class="auth-action" *ngIf="!currentUser" matTooltip="Registrate now">
+    <button (click)="signUp()" class="register">Register</button>
+  </div>
+  <div class="auth-action" *ngIf="!currentUser" matTooltip="Sign-in with E-mail">
+    <button (click)="signIn()" class="signIn">Signin</button>
+  </div>
+  <div class="auth-action" *ngIf="currentUser">
+    <button matTooltip="Sign-out from account" class="signOut" (click)="logout()">Logout</button>
+  </div>
+  <div class="auth-action basket-icon" matTooltip="Go to basket">
+    <img [_persistance]="goToBasket" class="_basket" src="assets/basket.png">
+    <div [style.padding-left]="basketSize < 10 ? '0.5em' : '0.2em'" *ngIf="currentUser" anim-fork-on-changes blink="true" class="basket-badge">
+      <span *ngIf="basketSize <= 99">{{basketSize}}</span>
+      <span *ngIf="basketSize > 99">99<sup>+</sup></span>
+    </div> 
+  </div>
+  
+</div>

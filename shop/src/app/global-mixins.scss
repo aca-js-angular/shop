@@ -1,0 +1,61 @@
+
+
+/*----- side-radius -----*/
+
+@mixin side-radius($side, $amount, $reset: true) {
+    @if($reset){
+        border-radius: initial;
+    }
+    @if($side == top){
+        border-top-left-radius: #{$amount};
+        border-top-right-radius: #{$amount};
+    }
+    @else if($side == bottom){
+        border-bottom-left-radius: #{$amount};
+        border-bottom-right-radius: #{$amount};
+    }
+    @else if($side == left){
+        border-top-left-radius: #{$amount};
+        border-bottom-left-radius: #{$amount};
+    }
+    @else if($side == right){
+        border-bottom-right-radius: #{$amount};
+        border-top-right-radius: #{$amount};
+    }
+}
+
+
+/*----- side-padding -----*/
+
+@mixin side-padding($amount, $direction: horizontal){
+    @if($direction == horizontal){
+        padding-right: #{$amount};
+        padding-left: #{$amount};
+    }
+    @else if($direction == vertical){
+        padding-top: #{$amount};
+        padding-bottom: #{$amount};
+    }
+}
+
+
+/*----- margins -----*/
+
+@mixin side-margin($amount, $direction: horizontal){
+    @if($direction == horizontal){
+        margin-right: #{$amount};
+        margin-left: #{$amount};
+    }
+    @else if($direction == vertical){
+        margin-top: #{$amount};
+        margin-bottom: #{$amount};
+    }
+}
+
+@mixin reset-margins {
+    margin-left: unset;
+    margin-right: unset;
+    margin-top: unset;
+    margin-bottom: unset;
+}
+

@@ -2,12 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { FormControlService } from 'src/app/form-control.service';
-import { _fullName, _adress, _password } from '../../../validators/root/custom-validators'
+import { _fullName, _adress, _password } from '../../../../validators/root/custom-validators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-checkout-shipping',
   templateUrl: './checkout-shipping.component.html',
-  styleUrls: ['./checkout-shipping.component.scss']
+  styleUrls: [
+    './checkout-shipping.component.scss',
+    '../checkout.scss',
+    '../checkout.media.scss',
+  ]
 })
 export class CheckoutShippingComponent implements OnInit {
 
@@ -15,6 +20,7 @@ export class CheckoutShippingComponent implements OnInit {
     private http: HttpClient,
     private formBuilder: FormBuilder,
     private control: FormControlService,
+    private loaction: Location,
   ) {}
 
   /* --- Variables --- */
@@ -31,6 +37,10 @@ export class CheckoutShippingComponent implements OnInit {
   })
 
   /* --- Methods --- */
+
+  backToBasket(){
+    this.loaction.back()
+  }
 
   getErrors(form: FormControl): string | null{
     return this.control.getErrorMessage(form)

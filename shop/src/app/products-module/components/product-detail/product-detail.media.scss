@@ -6,7 +6,7 @@
         flex-wrap: wrap;
         .flex-right{
             min-width: 590px;
-            order: 1;
+            order: 0;
             flex-basis: 100%;
             margin-bottom: 15px;
             flex-direction: row;
@@ -56,12 +56,10 @@
                 
             }
         }
-        .flex-left{
-            order: 2;
+        .flex-left, .flex-middle{
+            flex: 1 200px;
         }
-        .flex-middle{
-            order: 3
-        }
+        
     }
     #hidden-hr{
         display: block;
@@ -70,19 +68,23 @@
 
 @media (max-width: 700px){
     .flex-box{
+        padding-left: 5%;
+        padding-right: 5%;
         .flex-left{
             order: 2;
             margin-bottom: 15px;
+            flex-basis: 100%;
             .preview{
+                align-items: center;
                 img{
                     min-width: 0;
                     min-height: 0;
                 }
-                
+                .image-picker{
+                    display: flex;
+                }
             }
-            .image-picker{
-                display: flex;
-            }
+            
         }
         .flex-middle{
             order: 3;
@@ -128,17 +130,30 @@
                 border-left: none;
                 padding-left: 0;
                 align-items: center;
+                h4{
+                    font-size: 15px;
+                    color: rgb(57, 92, 119);
+                }
+                .quantity{
+                    input{
+                        height: 25px;
+                        font-size: 12px;
+                        border-radius: 2px;
+                    }
+                }
                 .add-to-basket{
                     flex-basis: 100%;
                 }
                 .rating{
                     margin-left: 10px;
+                    color: #00a2ff;
+                    font-size: 12px;
                 }
                 .plain-line{
                     height: 1px;
                     background-image: linear-gradient(to right, #e7e7e7, #c4c4c4 , #e7e7e7);
                     flex-grow: 1;
-                    margin: 0 5px;
+                    margin: 0 8px;
                 } 
                     
                 .more-less-btn{

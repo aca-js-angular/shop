@@ -1,0 +1,90 @@
+@media (max-width: 1000px){
+    .additional-fields{
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    .flex-box{
+        padding-left: 5%;
+        padding-right: 5%;
+        .top-panel{
+            flex-grow: 1;
+            .top-panel-intro{
+                font-size: 18px;
+                img{
+                    height: 30px;
+                    width: 30px;
+                }
+            }
+            .top-panel-actions{    
+                .action-btn{
+                    width: 125px;
+                    &:hover{
+                        width: 150px;
+                    }
+                }
+            }
+        }
+        .basket-content{
+            .order-summary{
+                flex-basis: 250px;
+                min-width: 220px;
+                top: 160px;
+            }
+        }
+    }
+}
+
+@media (max-width: 700px){
+    .flex-box{
+        display: block;
+        .top-panel{
+            margin-bottom: 20px;
+            .top-panel-actions{    
+                .action-btn{
+                    width: 50px;
+                    text-align: center;
+                    span{
+                        display: none;
+                    }
+                    &:hover{
+                        width: 70px;
+                    }
+                }
+            }
+        }
+        .basket-content{
+            flex-direction: column;
+            .ordered-items-list{
+                flex-flow: row wrap;
+                align-items: center;
+                order: 2;
+                margin-right: unset;
+                flex-basis: unset;
+                .ordered-item{
+                    flex-basis: calc(100% / 3);
+                    &:last-child{
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+            .order-summary{
+                position: initial;
+                margin-left: unset;
+                margin-bottom: 10px;
+                flex-basis: 100%;
+                order: 1;
+                hr.non-static{
+                    display: block;
+                }
+            }
+            
+        }
+    }
+}
+
+@media (max-width: 500px){
+    .flex-box .basket-content .ordered-items-list .ordered-item {
+        flex-basis: 50%;
+        margin-bottom: 25px !important;
+    }
+}

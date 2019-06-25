@@ -1,0 +1,110 @@
+@media (max-width: 1000px){
+    
+    .flex-box{
+        .price-field{
+            .price-quantity{
+                flex-direction: column;
+                align-items: center;
+                .item-quantity {
+                    margin-left: unset;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 700px){
+    
+    .flex-box{
+        display: flex;
+        flex-flow: row wrap;
+        box-shadow: 0px 0px 5px rgb(184, 184, 184);
+        background: initial;
+        margin-right: 5px;
+        margin-left: 5px;
+        padding: 0;
+
+        .poster-field{
+            flex-basis: 100%;
+            padding: 5px 0;
+            order: 2;
+            img{
+                height: 100%;
+                width: 100%;
+            }
+        }
+        .info-field{
+            padding: 3px 5px;
+            background: #2196f3;
+            position: relative;
+            justify-content: space-between;
+            order: 1;
+            flex-basis: 100%;
+            .item-name {
+                cursor: pointer;
+                height: 1.5em;
+                overflow: hidden;
+                color: white;
+                font-size: 12px;
+            }
+            .item-brand {
+                font-size: 11px;
+                color: white;
+                a{
+                    color: #d8d8d8;
+                }
+            }
+            .remove-btn{
+                transition: all 0.3s;
+                padding: 5px 8px;
+                color: white;
+                position: absolute;
+                top: 0;
+                right: 0;
+                box-shadow: inset 10px 10px 1px 1px #2196f3;
+                u{
+                    display: none;
+                }
+                &:hover{
+                    color: red;
+                }
+                &::after{
+                    content: "X";
+                }
+            }
+        }
+        .price-field{
+            flex-basis: 100%;
+            margin-left: unset;
+            order: 3;
+            padding: 5px;
+            flex-direction: row;
+            justify-content: space-between;
+            .price-quantity{
+                order: 2;
+                align-items: flex-end;
+                .item-price {
+                    order: 2;
+                }
+                .item-quantity {
+                    order: 1;
+                    input{
+                        width: 45px;
+                        font-size: 11px;
+                    }
+                }
+            }
+            .item-total-price {
+                order: 1;
+                white-space: normal;
+            }
+        }
+    }
+}
+
+@media (max-width: 500px){
+    .flex-box{
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+}

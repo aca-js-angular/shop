@@ -1,7 +1,12 @@
+@import '../../../global-mixins.scss';
+
 $main: #446E8E;
 
 .header-checkout{
-    padding: 10px 18%;
+    @include side-padding(16%);
+    padding-top: 30px;
+    padding-bottom: 22px;
+    box-shadow: 2px 2px 5px gray;
     background-image: linear-gradient(to bottom, white, rgb(240, 240, 245));
     display: flex;
     align-items: flex-start;
@@ -14,6 +19,7 @@ $main: #446E8E;
             cursor: pointer;
         }
         .secure-sign{
+            display: flex;
             margin-top: 5px;
             img{
                 margin-left: 15px;
@@ -24,6 +30,7 @@ $main: #446E8E;
                 color: $main;
                 font-weight: bold;
                 margin-left: 5px;
+                white-space: nowrap;
             }
             
         }

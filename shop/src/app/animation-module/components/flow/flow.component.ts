@@ -18,6 +18,8 @@ export class FlowComponent implements OnChanges, AfterViewInit {
   @Input() from: 'left' | 'right' | 'top' | 'bottom' = 'left';
   @Input() inline: boolean = false;
   @Input() if: boolean = true;
+  @Input() zIndex: number = 0;
+  @Input() overflow: number = 0;
 
 
   /* ----- Methods ----- */
@@ -32,6 +34,7 @@ export class FlowComponent implements OnChanges, AfterViewInit {
         duration: this.duration,
         delay: this.delay,
         from: this.from,
+        overflow: this.overflow,
       })
     }
   }
@@ -52,7 +55,11 @@ export class FlowComponent implements OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit(){
-    this.native = this.ref.nativeElement
+    this.native = this.ref.nativeElement;
+    if(this.zIndex){
+      this.native.style.zIndex = this.zIndex.toString();
+      this.native.style.position = 'relative';
+    }
     this.doFlow(this.native)
   }
 

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-header-checkout',
   templateUrl: './header-checkout.component.html',
-  styleUrls: ['./header-checkout.component.scss','../header-media.scss']
+  styleUrls: ['./header-checkout.component.scss','../header.media.scss']
 })
 export class HeaderCheckoutComponent {
 

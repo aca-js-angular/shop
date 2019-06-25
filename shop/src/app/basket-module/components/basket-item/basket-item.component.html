@@ -1,28 +1,42 @@
 
-<div class="flexBox" >
-    <div class="flexLeft">
-      <img [src]="thisOrder.product.images[0]" onerror="this.src = 'assets/emptycart.png'">
-    </div>
-    <div class="flexRight">
-      <div>
-        <span class="pr-name">{{thisOrder.product.name}}</span>
-        <span class="pr-price"><b>{{thisOrder.product.price | currency}}</b></span>
-        <span class="pr-quantity">
-          <input _naturalNumbers min="1" type="number" [formControl]="quantity">
-        </span>
-      </div>
-      <div>
-        <span class="pr-brand" >from 
-          <a [routerLink]="['/','products','brands',thisOrder.product.brand]">
-            {{thisOrder.product.brand}}
-          </a>
-        </span>
-      </div>
-      <div>
-        <span (click)="removeOrder.emit()" class="remove-btn"><u>Remove</u></span>
-        <span class="pr-total">
-          <b>Total: </b>{{(thisOrder.product.price * thisOrder.quantity) | currency}}
-        </span>
-      </div>
-    </div>
+<div class="flex-box" [style.opacity]="quantity.value ? 'initial' : '0.5'">
+
+  <!----- Poster ----->
+  <div class="poster-field">
+    <img [src]="thisOrder.product.images[0]" onerror="this.src = 'assets/emptycart.png'">
   </div>
+
+  <!----- Info ----->
+  <div class="info-field">
+    <div class="item-name" [title]="thisOrder.product.name">{{thisOrder.product.name}}</div>
+    <div class="item-brand" >
+      <span>from </span>
+      <a [routerLink]="['/','products','brands',thisOrder.product.brand]">
+        {{thisOrder.product.brand}}
+      </a>
+    </div>
+    <div (click)="removeOrder.emit()" class="remove-btn"><u>Remove</u></div>
+  </div>
+
+  <!----- Price ----->
+  <div class="price-field">
+    <div class="price-quantity">
+      <div class="item-price">{{thisOrder.product.price | currency}}</div>
+      <div class="item-quantity">
+        <input 
+        _naturalNumbers 
+        min="0"
+        type="number"
+        [formControl]="quantity"
+        />
+      </div>
+    </div>
+    <div class="item-total-price">
+      <b>Total: </b> 
+      <span>
+        {{(thisOrder.product.price * thisOrder.quantity) | currency}}
+      </span>
+    </div>  
+  </div> 
+
+</div>

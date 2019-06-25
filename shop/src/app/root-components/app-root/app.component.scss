@@ -1,19 +1,21 @@
 #global-container {
+
     position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
     #sticky-header{
         position: sticky;
         top: 0;
         z-index: 10;
-    };
-    #footer{
-        height: 50px;
+        // *{
+        //     flex-basis: 100%;
+        //     flex-grow: 1;
+        // }
     }
-}
 
-#contetn{
-    font-family: monospace;
-}
-.inline{
-    display: inline-block;
-    width: 100%;
+    #footer{
+        margin-top: auto;
+    }
 }
