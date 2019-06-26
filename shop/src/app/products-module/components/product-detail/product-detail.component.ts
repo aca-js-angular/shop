@@ -195,7 +195,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
         this.currentSrc = this.thisProduct.images[0];
 
-        chatEmitVendor.emit(this.thisProduct.vendor)
+        chatEmitVendor.emit(this.thisProduct.vendor);
 
         this.resetZoom();
 
