@@ -1,4 +1,5 @@
-<div id="global-container" >
+<div id="global-container">
+    <app-messenger *ngIf="$currentUser | async"></app-messenger>
     <div [@headerTransforming]="currentPage" [ngSwitch]="currentPage" id="sticky-header">
         <div *ngSwitchCase=" 'not-found' ">
             <app-header-not-found></app-header-not-found>

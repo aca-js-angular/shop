@@ -18,10 +18,9 @@ import { logOut } from '../../../constants/popup-messages.constant'
   styleUrls: ['./header.component.scss','../header.media.scss'],
 })
 
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements AfterViewInit {
 
   constructor(
-    private auth: AngularFireAuth,
     private router: Router,
     private jQuery: JQueryZoomService,
     private db: DatabaseFireService,
@@ -38,7 +37,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isLoading: boolean;
   displayingResults: boolean;
   searchResult$: Subscribable<object[]>
-  currentUser: any;
 
 
   /* --- Getters --- */
@@ -88,12 +86,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
 
   /* --- LC hooks --- */
-
-  ngOnInit() {
-    this.auth.authState.subscribe(_ => {
-      this.auth.auth.currentUser ? this.currentUser = this.auth.auth.currentUser.providerData[0]:this.currentUser = null
-    })
-  }
 
  ngAfterViewInit(){
 

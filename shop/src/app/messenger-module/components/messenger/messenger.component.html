@@ -1,34 +1,32 @@
+<section>
+<!-- 
+  <img (click)="showNotifys = !showNotifys" src="assets/chat/notyfy-img.png">
 
-<section cdkDrag>
-  <!--  -->
-  <img (click)="toggleMesengerPanel = !toggleMesengerPanel" 
-  title="Direct Message" 
-  class="toggle-panel-btn" 
-  width="10%" height="10%" 
-  src="assets/chat/chat_img.jpg" >
-  
 
-  <div  class="messenger-main">
-    <div class="messenger" [hidden]="toggleMesengerPanel">
-     
-        
-        <div class="fields">
-          <mat-form-field appearance="legacy">
-            <mat-label>Send MessageE-mail</mat-label>
-            <input [formControl]="searchEmailForm" matInput required>
-            <mat-error>{{getErrors(searchEmailForm,'invalid email')}}</mat-error>
-          </mat-form-field>
-        </div> 
- 
-        <button class="btn btn-outline-dark" (click)="searchUser()">Send Message</button>
-        
-
-      <div class="finded-user">
-    <div class="single-result" >
-      <span (click)="openMesssengerBox()" class="finded-user-name">{{findedUser?.fullName}}</span>
+  <div [ngClass]="{'hid-panel': showNotifys,'messages-panel': !showNotifys}">
+    <div *ngFor="let vendor of notifysAndMessages" class="message-row">
+      <h6 class="sender-name">{{vendor.fullName}}</h6>
+      <span>Message Text..</span>
+    </div> 
+    <div class="message-row">
+      <h6>Davit Davtyan</h6>
+      <span class="message">baylus aaprett jan </span>
     </div>
-  </div>
-</div>
-</div>
+    <div class="message-row">
+      <h6>Artur Hakobyan</h6>
+      <span>baylus aaprett jan </span>
+    </div>
+    <div class="message-row">
+      <h6>Armen Asatryan</h6>
+      <span>baylus aaprett jan </span>
+    </div>
+    <div class="message-row">
+      <h6>Anna Sargsyan</h6>
+      <span>baylus aaprett jan </span>
+    </div>
+  
+   <h5 *ngFor="let vendor of newMessages">{{vendor.fullName}}>Message</h5>
+
+  </div> -->
 
 </section>

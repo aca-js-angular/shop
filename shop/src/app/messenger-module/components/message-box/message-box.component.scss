@@ -251,7 +251,11 @@ margin: 0 0 0 80px;
       transform: scale(1.0);
     }
   }
-
+.is-read-message {
+  position: absolute;
+  bottom: 60px;
+  margin: 3px 194px;
+}
 
 
   //------------------

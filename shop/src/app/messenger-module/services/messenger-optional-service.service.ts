@@ -27,6 +27,7 @@ export class MessengerOptionalService {
         if (currentUserUid) {
           this.messengerService.currentChatUrl.pipe(takeUntil(this.messengerService.destroyStream$)).subscribe(chatUrl => {
             const chatMemberUid = chatUrl.split(`${currentUserUid.uid}`).join('').split('&').join('');
+
             this.db.object(`users/${chatMemberUid}/isOnline`).valueChanges()
             .pipe(takeUntil(this.messengerService.getMessagesDestroyStream$))
             .subscribe(isOnline => observer.next(isOnline as boolean));

@@ -1,16 +1,12 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { Validators, FormControl } from '@angular/forms';
-import { FormControlService } from 'src/app/form-control.service';
+import { Component, OnInit, OnDestroy, AfterViewInit, EventEmitter } from '@angular/core';
 import { MessengerService } from '../../services/messenger.service';
-import { Subject } from 'rxjs';
-import { MessengerDialogService } from '../../services/messenger-dialog.service';
-import { CurrentChatMemberDialogData } from '../../user-interface';
-import { chatEmitVendor, openChatSearchBox } from 'src/app/products-module/components/product-detail/product-detail.component';
+import { MessengerDialogService, removeOpenedChatАccess } from '../../services/messenger-dialog.service';
+import { CurrentChatMemberDialogData } from '../../messenger-interface';
+import { chatEmitVendor, openChatBox } from 'src/app/products-module/components/product-detail/product-detail.component';
 import { MessengerAutoOpenChatBoxByNf } from '../../services/messsenger-auto-open-chat.service';
-
-// import { MatDialogRef } from '@angular/material';
-// import { MessageBoxComponent } from '../message-box/message-box.component';
-
+import { Vendor } from 'src/app/interfaces/vendor.interface';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -20,99 +16,97 @@ import { MessengerAutoOpenChatBoxByNf } from '../../services/messsenger-auto-ope
 })
 
 export class MessengerComponent implements OnInit, OnDestroy {
-  vendorEmail: string = '';
+  $destroyStream = new Subject<void>();
 
-  searchEmailForm: FormControl;
-  destroyStream = new Subject<void>()
-  findedUser: CurrentChatMemberDialogData;
-  toggleMesengerPanel: boolean = true;
+  notifysAndMessages: CurrentChatMemberDialogData[] = [];
+  findedVendor: CurrentChatMemberDialogData;
+  emitedVendor: Vendor;
   firstInit: boolean = false;
-
+  showNotifys: boolean = true;
 
   constructor(
-    // private dialogRef: MatDialogRef<any>,
-    private messengerAutoOpenChatService: MessengerAutoOpenChatBoxByNf,
     private messengerService: MessengerService,
     private messengerDialogService: MessengerDialogService,
-    private formControlService: FormControlService,
+    private messengerAutoOpenChatService: MessengerAutoOpenChatBoxByNf,
   ) { }
 
 
   ngOnInit() {
-    
-    chatEmitVendor.subscribe(emitedVendor => this.searchEmailForm.setValue(emitedVendor.email));
-    openChatSearchBox.subscribe(_void => this.toggleMesengerPanel = !this.toggleMesengerPanel);// this.toggleMesengerPanel = openSearchBox
+    let emitedVendorEmailUnicBox: string; // for unic box openning;
 
-    this.searchEmailForm = new FormControl('', [
-      Validators.required,
-      Validators.email,
-      Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"),
-    ])
+    //----Emiters-----
+    removeOpenedChatАccess.pipe(takeUntil(this.$destroyStream)).subscribe(_void => emitedVendorEmailUnicBox = '');
 
-    this.messengerAutoOpenChatService.autoOpenMessengerWhenNotifing().subscribe(notyfiMessageUserData => {
-      this.firstInit && this.openMesssengerBox(notyfiMessageUserData)    // console.log(' -> notyfiMessageUserData', notyfiMessageUserData)
-      this.firstInit = true;
+
+    chatEmitVendor.pipe(takeUntil(this.$destroyStream)).subscribe(emitedVendor => this.emitedVendor = emitedVendor as Vendor);
+
+    openChatBox.pipe(takeUntil(this.$destroyStream)).subscribe(_void => {
+      this.emitedVendor 
+        && this.emitedVendor.email 
+        && this.emitedVendor.email !== emitedVendorEmailUnicBox
+        && this.searchUserandEmite(this.emitedVendor.email);
+
+      emitedVendorEmailUnicBox = this.emitedVendor.email; // for unic search
     })
 
+    this.messengerAutoOpenChatService.subscribeNewMessageNotify().pipe(takeUntil(this.$destroyStream))
+
+      .subscribe(notyfiMessageUserData => {
+        this.firstInit && this.openMesssengerBoxByEmit(notyfiMessageUserData[0])    // console.log(' -> notyfiMessageUserData', notyfiMessageUserData)
+        this.firstInit = true;
+        // console.log("TCL:notyfiMessageUserData", notyfiMessageUserData)
+        // console.log(" ngOnInit -> this.notifysAndMessages", this.notifysAndMessages)
+      })
+  }
+
+
+  emiteNotifyVendorWithTemplate(vendor) {
+    // this.openMesssengerBoxByEmit(vendor)
   }
 
   //----------Metods-------------
 
-  searchUser() {
-    this.messengerService.searchUserCombineRtimeCloud(this.searchEmailForm.value)
-      .then(findedChatMember => this.findedUser = findedChatMember)
+  searchUserandEmite(emitedSearchEmail) {
+    this.messengerService.searchUserCombineRtimeCloud(emitedSearchEmail)
+      .then(findedChatMember => this.openMesssengerBoxByEmit(findedChatMember));
   }
 
 
 
-  openMesssengerBox(chatMemberData: CurrentChatMemberDialogData[] = []) { // Finded User
-    if (!chatMemberData[0]) chatMemberData[0] = this.findedUser;
+  openMesssengerBoxByEmit(emitedVendorData: CurrentChatMemberDialogData) { // Finded User
+    // console.log("-> vendor-----", emitedVendorData)
+    if (emitedVendorData) {
+      const $subscribable = this.messengerService.openMesssengerBoxOrConfirm(emitedVendorData)
+        .subscribe(enumCondition => {
+          console.log(enumCondition)
 
+          switch (enumCondition) {
+            case 'openMessBox':
+              this.messengerDialogService.openMessengerBox(emitedVendorData);
+              $subscribable.unsubscribe();
+              break;
 
-    this.messengerService.openMesssengerBoxOrConfirm(chatMemberData[0]).subscribe(enumResult => {
-      // this.destroyStream.next();
-      //-------Dublicat mincev Confirm@ dnenq
-      if (enumResult === 'openMess' || enumResult === 'openConf') {
-        this.toggleMesengerPanel = !this.toggleMesengerPanel;
-        this.messengerDialogService.openMessengerBox(chatMemberData[0]);
-      }
-
-      this.findedUser = null;
-    });
-
-    ///---------autoOpen--------
+            case 'openConf':
+              // confirm before open...
+              break;
+          }
+        })
+    }
   }
 
-  getErrors(control: FormControl, message?) {
-    return this.formControlService.getErrorMessage(control, message)
-  }
+
   ngOnDestroy() {
-    // this.dialogRef.close()
-    this.destroyStream.next();
+    this.$destroyStream.next();
+    this.messengerAutoOpenChatService.$diasbleMessagesNotyfictions.next();
   }
 }
 
 
-// if(!chatMemberData[0]) chatMemberData[0] = this.findedUser;
-// this.messengerService.openMesssengerBoxOrConfirm(chatMemberData[0]).subscribe(enumResult => {
-//   // this.destroyStream.next();
-//   //-------Dublicat mincev Confirm@ dnenq
-//   if (enumResult === 'openMess') {
-//     this.toggleMesengerPanel = !this.toggleMesengerPanel;
-//     this.messengerDialogService.openMessengerBox(chatMemberData[0]);
+        // if (this.notifysAndMessages.length) {
 
-//   } else if (enumResult = 'openConf') {
-//     this.toggleMesengerPanel = !this.toggleMesengerPanel;
-//     this.messengerDialogService.openMessengerBox(chatMemberData[0]);
-//     //-----comment-----
-//   }
-//   this.findedUser = null;
-// });
-        // accept > messengerService.AddmemberInChat    'You are Friends;
-        //-------ConfirmMessage-----------
-        // this.addMemberInChat(findedUser.userId, {
-        //   newMemberUid: curUser.uid,
-        //   messages: {
-        //     message: `You and ${findedUser.fullName} have become friends `, timestamp: new Date().getTime().toString(),
-        //   }
-        // })
+        //   this.notifysAndMessages.forEach(item => {
+        //      item.userId !== notyfiMessageUserData[0].userId 
+        //      && this.notifysAndMessages.push(notyfiMessageUserData[0]);
+        //   })
+
+        // } else if(this.firstInit) this.notifysAndMessages.push(notyfiMessageUserData[0]);

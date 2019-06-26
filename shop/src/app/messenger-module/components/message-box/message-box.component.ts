@@ -1,12 +1,13 @@
 import { Component, OnInit, Inject, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-import { MessengerService } from '../../services/messenger.service';
+import { MessengerService, emiteCloseMessageBox } from '../../services/messenger.service';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
-import { CurrentChatMemberDialogData } from '../../user-interface';
+import { CurrentChatMemberDialogData } from '../../messenger-interface';
 import { FormControl, Validators } from '@angular/forms';
 import { AdditionalService } from 'src/app/fa-module/services/additional.service';
 import { takeUntil, switchMap, debounceTime } from 'rxjs/operators';
 import { Subject, fromEvent, Subscription } from 'rxjs';
 import { MessengerOptionalService } from '../../services/messenger-optional-service.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 const NOTIFICATION_SOUND: string = 'assets/messengerAudio/message2.mp3';
 
@@ -32,8 +33,8 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
     private messengerService: MessengerService,
     private messengerOptService: MessengerOptionalService,
     private autoAdditional: AdditionalService,
-    private dialogRef: MatDialogRef<any>,
-    private dialog: MatDialog,
+    private faFirebase: AngularFireAuth,
+    private dialogRef: MatDialogRef<MessageBoxComponent>,
     @Inject(MAT_DIALOG_DATA) data: CurrentChatMemberDialogData,
     ) {
     this.curentChatMember = data
@@ -41,33 +42,33 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnInit() {
+    emiteCloseMessageBox.pipe(takeUntil(this.destroyStream$)).subscribe(_ => this.dialogRef.close());
     
     this.messageInput = new FormControl('', Validators.required);
-    this.autoAdditional.autoState().then(cUserId => {
+
+      this.faFirebase.auth.onAuthStateChanged((cUserId) => {
 
       if (cUserId) {   // ---security---
         this.currentUserId = cUserId.uid;
 
         //----Get Messages-----
-        this.messengerService.getMeassages()
-          .pipe(takeUntil(this.destroyStream$)).subscribe(messages => {
+        this.messengerService.getMeassages().pipe(takeUntil(this.destroyStream$))
+        .subscribe(messages => {
+            console.log("TCL: ngOnInit -> messages", messages)
             // window.scrollTo(500, 0);
             this.allMessages[0] ? this.messengerOptService.sendMessageSound(NOTIFICATION_SOUND): null;
             this.allMessages = messages;
           });
 
-        //------Decode Mesage Data-------
-        this.messengerService.decodMessSenderUidInName(this.curentChatMember.userId, cUserId.uid).then(decodedFields =>
-          this.decodeDataCurrentChatMebrs = decodedFields);
-
+        //----Decode Mesage Data-------
+        this.messengerService.decodMessSenderUidInName(this.curentChatMember.userId, cUserId.uid)
+          .then(decodedFields => this.decodeDataCurrentChatMebrs = decodedFields);
 
         //----isOnline-------
         this.messengerOptService.isOnline().pipe(takeUntil(this.destroyStream$))
         .subscribe(isOnlineChatMemberStatus => this.isOnlineChatMember = isOnlineChatMemberStatus)
 
-
-        //-----------typing---------
-        // this.messengerOptService.isTypingChatMember$
+        //----typing---------
         this.messengerOptService.isTypingChatMember().pipe(takeUntil(this.destroyStream$))
           .subscribe(uid => { this.isTypingChatMember = uid === this.curentChatMember.userId ? true : false})
 
@@ -92,7 +93,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
  
 
    trackByMessages(unicIndex, data){
-    return data ? data.key : undefined
+    return data ? data.key : undefined;
    }
   //----------------Metods--------------
 
@@ -110,22 +111,19 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   
   closeMessageBox() {
     this.messengerService.closeMessageBox();
-    this.dialogRef.close('ok')
   }
 
 
   ngOnDestroy() {
-    this.dialogRef.close()
 
     this.destroyStream$.next();
     this.inputTypingState.unsubscribe()
 
     //----Message-Box Subscriptions------------
     this.messengerService.destroyStream$.next();
-    this.messengerService.getMessagesDestroyStream$.next()
-    this.messengerService.decoderFieldsdestroyStream$.next()
-    this.messengerService.sendMessageStream$.next()
-    // this.messengerService.getMessages$.next()
+    this.messengerService.getMessagesDestroyStream$.next();
+    this.messengerService.decoderFieldsdestroyStream$.next();
+    this.messengerService.sendMessageStream$.next();
   }
 
 }
