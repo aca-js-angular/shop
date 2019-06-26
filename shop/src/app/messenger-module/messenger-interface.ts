@@ -36,5 +36,13 @@ export interface MessageData {
 }
 
 export interface MessageDataRTimeDb {
+    unread?: boolean;
+    key?: string;
     message: MessageData
+}
+
+
+export interface SubscribableChatUrls {
+    key : string;
+    payload: object;
 }

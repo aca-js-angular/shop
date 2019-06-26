@@ -3,12 +3,12 @@
 
   <!-- name -->
   <div>
-  <input type="text" formControlName="name" placeholder="name">
+    <input type="text" formControlName="name" placeholder="name">
   </div>
 
   <!-- brand -->
   <div>
-  <input type="text" formControlName="brand" placeholder="brand">
+    <input type="text" formControlName="brand" placeholder="brand">
   </div>
 
   <!-- category -->
@@ -32,10 +32,10 @@
   <div>main-color</div>
   <div formArrayName="mainColor">
     <div *ngFor="let main of mainColor.controls, index as i">
-    <select [formControlName]="i">
-      <option [style.backgroundColor]="color" *ngFor="let color of colors" [value]="color">{{color | dash}}</option>
-    </select>
-    <button (click)="removeControl(mainColor,i)">X</button>
+      <select [formControlName]="i">
+        <option [style.backgroundColor]="color" *ngFor="let color of colors" [value]="color">{{color | dash}}</option>
+      </select>
+      <button (click)="removeControl(mainColor,i)">X</button>
     </div>
     <button (click)="addControl(mainColor)">Add Main color</button>
   </div>
@@ -44,10 +44,10 @@
   <div>additional-color</div>
   <div formArrayName="additionalColor">
     <div *ngFor="let additional of additionalColor.controls; index as i">
-    <select [formControlName]="i">
-      <option [style.backgroundColor]="color" *ngFor="let color of colors" [value]="color">{{color | dash}}</option>
-    </select>
-    <button (click)="removeControl(additionalColor,i)">X</button>
+      <select [formControlName]="i">
+        <option [style.backgroundColor]="color" *ngFor="let color of colors" [value]="color">{{color | dash}}</option>
+      </select>
+      <button (click)="removeControl(additionalColor,i)">X</button>
     </div>
     <button (click)="addControl(additionalColor)">Add Additional color</button>
   </div>
@@ -56,17 +56,17 @@
   <div>material</div>
   <div formArrayName="material">
     <div *ngFor="let mat of material.controls, index as i">
-    <select [formControlName]="i">
-      <option>iron</option>
-      <option>leather</option>
-      <option>plastic</option>
-      <option>gold</option>
-      <option>silver</option>
-      <option>bronze</option>
-    </select>
-    <button (click)="removeControl(material,i)">X</button>
+      <select [formControlName]="i">
+        <option>iron</option>
+        <option>leather</option>
+        <option>plastic</option>
+        <option>gold</option>
+        <option>silver</option>
+        <option>bronze</option>
+      </select>
+      <button (click)="removeControl(material,i)">X</button>
     </div>
-  <button (click)="addControl(material)">Add material</button>
+    <button (click)="addControl(material)">Add material</button>
   </div>
 
   <!-- origin-country -->
@@ -80,17 +80,65 @@
 
 </form>
 
+
+
+
+
+
 <!-- images -->
-<div>upload image</div>
-<div>
-  <div class="image-container" *ngFor="let imgSrc of selectedImages, index as i">
-    <img [src]="imgSrc">
-    <button (click)="selectedImages.splice(i,1)">X</button>
-  </div>
-  
-  <label class="upload-label">+
-  <input type="file" (change)="addSrc($event,selectedImages);addFile($event)">
-  </label>
+
+
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://foliotek.github.io/Croppie/croppie.css'>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+
+<!-- Uploaded Images -->
+<div class="image-container" *ngFor="let imgSrc of selectedImages, index as i">
+  <img [src]="imgSrc">
+  <button (click)="deleteSelectedImgItem(i)">X</button>
 </div>
 
+
+<!-- Upload Box -->
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <label class="cabinet center-block">
+        <figure>
+          <img src="" class="gambar img-responsive img-thumbnail" id="item-img-output" />
+          <figcaption><i class="fa fa-camera"></i></figcaption>
+        </figure>
+        <input type="file" (change)="addImgFile($event)" class="item-img file center-block" name="file_photo" />
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Resize Fhoto</h4>
+      </div>
+      <div class="modal-body">
+        <div id="upload-demo" class="center-block"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" 
+        (click)="selectedImages.pop()">Close</button>
+        <button type="button" id="cropImageBtn" class="btn btn-primary">Crop</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 <button (click)="postProduct()">Post</button>
+

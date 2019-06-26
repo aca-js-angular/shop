@@ -119,7 +119,8 @@
         <hr />
 
         <!---------- Vendor Details ---------->
-        <!-- <img [_persistance]="openChatSearch" title="Direct Message" class="toggle-panel-btn" src="assets/chat/chat_img.jpg"> -->
+        <img *ngIf="$currentUser| async" [_persistance]="openChat"  title="Direct Message" class="toggle-panel-btn" src="assets/chat/notyfy-img.png">
+
         <div class="vendor-details" [class.more]="showMore">
           <hr />
           <h6 class="text-bold">Vendor Profile</h6>

@@ -4,15 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../../interfaces/product.interface';
 import { ProductService } from '../../services/product.service';
 import { JQueryZoomService } from '../../services/j-query.service';
-import { AdditionalService } from 'src/app/fa-module/services/additional.service';
+import { AdditionalService, UDataType } from 'src/app/fa-module/services/additional.service';
 import { StylesService } from 'src/app/animation-module/styles.service';
 import { ZoomConfig } from 'src/app/interfaces/zoom-config.interface';
 import { ZOOM_MAX, ZOOM_MID, ZOOM_MIN } from 'src/app/constants/zoom-static-config.constant';
 import { Subscription, fromEvent } from 'rxjs';
 
 export const chatEmitVendor = new EventEmitter();
-export const openChatSearchBox = new EventEmitter<boolean>();
-const ZOOM_IMG_CLASSNAME: string = 'main-img'
+export const openChatBox = new EventEmitter();
+const ZOOM_IMG_CLASSNAME: string = 'main-img';
 
 @Component({
   selector: 'app-product-detail',
@@ -40,7 +40,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   currentSrc: string;
   currentId: string;
-  currentUser: object;
+  currentUser: UDataType;
   isInBasket: boolean;
   showMore: boolean = true;
  
@@ -150,9 +150,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   };
 
-  openChatSearch(){
-    openChatSearchBox.emit()
-  }
 
   toDate(seconds: number): Date {
     return new Date(seconds)
@@ -164,12 +161,21 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.isInBasket = true;
   }
 
+  /* --- Chat Fields --- */
+  get $currentUser(){ 
+    return this.additionalAuth.$autoState;
+  }
+
+  openChat(){
+    openChatBox.emit()
+  }
+
   /* --- LC hooks --- */
 
   zoomed = false;
 
   ngOnInit() {
-    
+
     this.setZoomConfig();
     document.addEventListener('mousemove',this.mouseListener);
     window.addEventListener('resize',this.setZoomConfig);

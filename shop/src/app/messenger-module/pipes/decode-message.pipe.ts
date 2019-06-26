@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MessageDataRTimeDb } from '../user-interface';
+import { MessageDataRTimeDb } from '../messenger-interface';
 
 @Pipe({
   name: 'decodeMessage'

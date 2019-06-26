@@ -3,6 +3,9 @@ import { FormBuilder, FormControl, FormArray } from '@angular/forms';
 import { PostProductService } from '../../post-product.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { CSS_COLOR_NAMES } from 'src/app/constants/css-colors.constant';
+import { jQueryImagesResize, emitNewImage } from '../../j-query-resizing';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -10,12 +13,13 @@ import { CSS_COLOR_NAMES } from 'src/app/constants/css-colors.constant';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
+  $destroyStream = new Subject<void>()
   constructor(
     private build: FormBuilder,
     private post: PostProductService,
     private storage: AngularFireStorage,
-    ) {}
+    private jQueryService: jQueryImagesResize,
+  ) { }
 
   /* --- Variables --- */
 
@@ -39,7 +43,7 @@ export class ProfileComponent implements OnInit {
 
   })
 
-  
+
 
   selectedFiles: File[] = [];
   selectedImages: string[] = [];
@@ -69,7 +73,7 @@ export class ProfileComponent implements OnInit {
   get originCountry(): FormControl {
     return this.postForm.get('originCountry') as FormControl
   }
-  
+
   /* --- Form-Arrays --- */
 
   get mainColor(): FormArray {
@@ -89,34 +93,44 @@ export class ProfileComponent implements OnInit {
     return form.controls.map(control => control.value)
   }
 
-  addControl(control: FormArray){
+  addControl(control: FormArray) {
     control.push(this.build.control(''))
   }
 
-  removeControl(control: FormArray, index: number){
+  removeControl(control: FormArray, index: number) {
     control.removeAt(index)
   }
 
-  addFile(event){
-    const file = event.target.files[0];
-    if(!file)return;
-    this.selectedFiles.push(event.target.files[0]);
+  deleteSelectedImgItem(i: number){
+    this.selectedImages.length &&
+    this.selectedImages.splice(i,1);
   }
 
-  addSrc(event, arr: string[]){
-
+  addImgFile(event) {
     const file = event.target.files[0];
-    if(!file)return;
-    let imgReader = new FileReader();
-    imgReader.readAsDataURL(file)
-    imgReader.onload = function(event){
-      arr.push(event.target['result'])
-    }
+    if(!file) return;
+
+    const selectedImgRef = this.selectedImages;
+    const selectedFilesRef = this.selectedFiles;
+    const imgReader = new FileReader();
+
+    const subscribeEmitImg = emitNewImage.subscribe(imgCode => {
+      imgReader.readAsDataURL(file);
+      imgReader.onload = function(event){
+        selectedImgRef.push(event.target['result']);
+        
+        selectedImgRef[selectedImgRef.length-1] = imgCode;
+        selectedFilesRef.push(file);
+        subscribeEmitImg.unsubscribe(); 
+        console.log(selectedFilesRef)
+      }
+      imgReader.onerror = () => subscribeEmitImg.unsubscribe();
+    })
 
   }
 
 
-  postProduct(){
+  postProduct() {
     this.post.addProduct(
       this.name.value,
       this.brand.value,
@@ -130,10 +144,39 @@ export class ProfileComponent implements OnInit {
       this.originCountry.value,
       +this.weight.value
     );
+
+    
   }
 
 
   ngOnInit() {
+    this.jQueryService.resizeJQuery();
+
+
+  }
+
+  ngOnDestroy(): void {
   }
 
 }
+
+  // addSrc(emitedImg, ...arr: string[] ) {
+
+  //   if (emitedImg) {
+  //     // console.log("TCL: ProfileComponent -> addSrc -> emitedImg", emitedImg)
+  //     // const imgReader = new FileReader();
+  //     // imgReader.readAsDataURL(emitedImg);
+
+  //     // imgReader.onload = (event) =>
+  //     //   arr.push(event.target['result']);
+  //   }
+  //   const file = event.target.files[0];
+  //   console.log("TCL: addSrc -> file", file)
+  //   if (!file) return;
+  //   let imgReader = new FileReader();
+  //   imgReader.readAsDataURL(file)
+
+  //   imgReader.onload = function (event) {
+  //     arr.push(event.target['result'])
+  //   //
+  // }

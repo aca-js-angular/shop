@@ -1,16 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { MessageBoxComponent } from '../components/message-box/message-box.component';
-import { CurrentChatMemberDialogData } from '../user-interface';
+import { CurrentChatMemberDialogData } from '../messenger-interface';
+
+export const removeOpenedChatАccess = new EventEmitter();
 
 @Injectable({
   providedIn: 'root'
 }) 
 export class MessengerDialogService {
 
+  unicChatMembers = new Set();
+
+
   constructor(private dialog: MatDialog) { }
 
+
   openMessengerBox(nativeUserData: CurrentChatMemberDialogData): void{
+
     const config: MatDialogConfig = {}; 
     config.disableClose = false;
     config.hasBackdrop = false;
@@ -28,13 +35,10 @@ export class MessengerDialogService {
 
     const dialogRef = this.dialog.open(MessageBoxComponent,config)
   
-    dialogRef.afterClosed().subscribe();
+    dialogRef.afterClosed().subscribe(option => {
+      removeOpenedChatАccess.emit()
+      dialogRef.close()
+    })
   }
-
-    // config.scrollStrategy = this.overlay.sc.block(),
-    // config.width = '300px';
-    // config.height = '340px';
-    // config.position = {top : '25%', right: '30px'}
-
 
 }
