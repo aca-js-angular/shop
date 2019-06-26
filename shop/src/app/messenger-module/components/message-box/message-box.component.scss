@@ -31,10 +31,7 @@ margin: 0;
 margin: 6px 0 0;
 }
 
-h4, h5 {
-line-height: 1.5em;
-margin: 0;
-}
+
 
 hr {
 background: #e9e9e9;
@@ -46,12 +43,7 @@ margin: 0;
 min-height: 1px;
 }
 
-img {
-border: 0;
-display: block;
-height: auto;
-max-width: 100%;
-}
+
 
 input {
 border: 0;
@@ -62,14 +54,10 @@ line-height: normal;
 margin: 0;
 }
 
-p { margin: 0; }
-
-.clearfix { *zoom: 1; } /* For IE 6/7 */
-.clearfix:before, .clearfix:after {
-content: "";
-display: table;
+.live-chat h4 {
+  font-size: 0.76rem;
 }
-.clearfix:after { clear: both; }
+
 
 /* ---------- LIVE-CHAT ---------- */
 
@@ -104,13 +92,7 @@ margin: 0 8px 0 0;
 width: 8px;
 }
 
-.live-chat h4 {
-font-size: 12px;
-}
 
-.live-chat h5 {
-font-size: 10px;
-}
 
 .live-chat form {
   padding: 18px 19px 8px;
@@ -151,60 +133,12 @@ padding: 0px 24px;
 overflow-y: scroll;
 }
 
-.chat-message {
-margin: 16px 0;
-}
 
-.chat-message img {
-border-radius: 50%;
-float: left;
-}
-
-.chat-message-content {
-margin-left: 56px;
-}
-
-.chat-time {
-float: right;
-font-size: 10px;
-}
 
 .chat-feedback {
 font-style: italic;	
 margin: 0 0 0 80px;
 }
-
-.none { display: none}
-.remove-message {
-    float: right;
-    font-size: 13px;
-    margin: -15px -1px -4px;
-    padding: -3px -13px 11px;
-    cursor: pointer;
-    transition: 0.3s;
-    &:hover { color: brown; font-size: 13px }
-}
-
-//-----------------first message anumation
-
-@-webkit-keyframes typing {from { width: 0 }to { width:7.2em }}
-@-moz-keyframes typing {from { width: 0 }to { width:7em }}
-
-@-webkit-keyframes blink-caret {from, to { border-color: transparent } 50% { border-color: black }}
-@-moz-keyframes blink-caret { from, to { border-color: transparent }50% { border-color: black }}
-
-.firstMessage .message-text { 
-    // border-right: 0.05em solid black;
-    white-space:nowrap;
-    overflow:hidden;
-    font-style: italic;
-    font-family: inherit;
-    color: darkblue;
-    margin-top: 3px;
-    -webkit-animation: typing 2.5s steps(30, end),blink-caret 1s step-end infinite;
-    -moz-animation: typing 2.5s steps(30, end),blink-caret 1s step-end infinite;
-}
-
 
 //----------Typing-Spinner-----------------
 
@@ -256,35 +190,4 @@ margin: 0 0 0 80px;
   bottom: 60px;
   margin: 3px 194px;
 }
-
-
-  //------------------
-
-
-// .example-box {
-//   width: 200px;
-//   height: 200px;
-//   padding: 10px;
-//   box-sizing: border-box;
-//   border: solid 1px #ccc;
-//   color: rgba(0, 0, 0, 0.87);
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   text-align: center;
-//   background: #fff;
-//   border-radius: 4px;
-//   position: relative;
-//   z-index: 1;
-//   transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
-//   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-//               0 2px 2px 0 rgba(0, 0, 0, 0.14),
-//               0 1px 5px 0 rgba(0, 0, 0, 0.12);
-// }
-
-// .example-box:active {
-//   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-//               0 8px 10px 1px rgba(0, 0, 0, 0.14),
-//               0 3px 14px 2px rgba(0, 0, 0, 0.12);
-// }
 

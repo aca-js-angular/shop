@@ -7,12 +7,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DecodeMessagePipe } from './pipes/decode-message.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { AnimationModule } from '../animation-module/animation.module';
+import { MessageRowComponent } from './components/message-row/message-row.component';
 
 @NgModule({
   declarations: [
     MessageBoxComponent, 
     MessengerComponent, 
-    DecodeMessagePipe
+    DecodeMessagePipe, MessageRowComponent
   ],
 
   imports: [

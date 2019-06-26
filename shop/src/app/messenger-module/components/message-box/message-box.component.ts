@@ -91,11 +91,12 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
      ).subscribe()
    }
  
+  //----------------Metods--------------
 
-   trackByMessages(unicIndex, data){
+  trackByMessages(unicIndex, data){
     return data ? data.key : undefined;
    }
-  //----------------Metods--------------
+
 
   removeMessage(key: string) {
     this.messengerService.removeMessage(key).catch()

@@ -1,0 +1,13 @@
+
+
+<div class="chat-message clearfix" [class.firstMessage]="firstMessage">
+  <img [src]="messageRowObj | decodeMessage:decodeDataChatMebrs:'photoUrl'" width="32" height="32"
+    onload="this.hidden = false" onerror="this.hidden = true">
+  <div class="chat-message-content clearfix">
+    <span class="chat-time">{{messageRowObj.message.timestamp | date :'hh:mm' }}</span>
+    <h5 class="name">{{messageRowObj | decodeMessage:decodeDataChatMebrs:'fullName'}}</h5>
+    <p class="message-text">{{messageRowObj.message.message}}</p>
+  </div> <!-- end chat-message-content -->
+  
+  <span [ngClass]="{'remove-message': true, 'none': firstMessage}">x</span>
+</div> <!-- end chat-message -->

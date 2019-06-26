@@ -8,5 +8,6 @@ export interface User {
     email: string;
     credit: Order[];
     password?: string;
+    photoUrl?:string;
     uid?: string;
 }
