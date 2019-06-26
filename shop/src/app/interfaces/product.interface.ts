@@ -11,6 +11,7 @@ export interface Product {
     rating: number;
     images: string[];
     postDate: number;
+    comments?: object[];
     details: {
         colors: ColorFilter;
         material: string[];
@@ -20,3 +21,5 @@ export interface Product {
     vendor: string | Vendor;
     id?: string;
 }
+
+
