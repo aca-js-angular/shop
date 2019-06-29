@@ -1,19 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormControl, FormArray } from '@angular/forms';
-import { PostProductService } from '../../post-product.service';
+import { PostProductService } from '../../services/post-product.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { CSS_COLOR_NAMES } from 'src/app/constants/css-colors.constant';
-import { jQueryImagesResize, emitNewImage } from '../../j-query-resizing';
+import { jQueryImagesResize, emitNewImage } from '../../services/j-query-resizing';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-post-product',
+  templateUrl: './post-product.component.html',
+  styleUrls: ['./post-product.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class PostProductComponent implements OnInit {
+
+  @ViewChild('cropImagePopBtn') cropImagePopBtn: ElementRef<HTMLButtonElement>;
+  @ViewChild('cropImagePop') cropImagePop: ElementRef<HTMLDivElement>;
+
   $destroyStream = new Subject<void>()
+  imgReader = new FileReader();
+  selectedFiles: File[] = [];
+  selectedImages: string[] = [];
+  colors: string[] = CSS_COLOR_NAMES
+
+
   constructor(
     private build: FormBuilder,
     private post: PostProductService,
@@ -42,12 +51,6 @@ export class ProfileComponent implements OnInit {
     ]),
 
   })
-
-
-
-  selectedFiles: File[] = [];
-  selectedImages: string[] = [];
-  colors: string[] = CSS_COLOR_NAMES
 
 
   /* --- Getters --- */
@@ -104,19 +107,51 @@ export class ProfileComponent implements OnInit {
   deleteSelectedImgItem(i: number){
     this.selectedImages.length &&
     this.selectedImages.splice(i,1);
+   
+    this.selectedFiles.length &&
+    this.selectedFiles.splice(i,1);
+
+  }
+  
+  
+  closeEventListeners(){
+    if(this.cropImagePopBtn && this.cropImagePop){
+      this.cropImagePopBtn.nativeElement.onclick = this.abortUploading;
+      this.cropImagePop.nativeElement.onclick = this.abortUploading;
+      }
   }
 
+  abortUploading(){
+    console.log('clicked clos fields')
+      if(this.imgReader){
+        this.imgReader.onload = null;
+      //  this.unsubscribeCloseEventListeners();
+       console.log( this.closeEventListeners)
+    } else {
+  
+      console.log( this.closeEventListeners)
+    }
+  }
+
+
+
   addImgFile(event) {
+    this.cropImagePopBtn.nativeElement.addEventListener('click',this.abortUploading);
+    this.cropImagePop.nativeElement.addEventListener('click',this.abortUploading);
+
+
     const file = event.target.files[0];
     if(!file) return;
 
     const selectedImgRef = this.selectedImages;
     const selectedFilesRef = this.selectedFiles;
-    const imgReader = new FileReader();
+
 
     const subscribeEmitImg = emitNewImage.subscribe(imgCode => {
-      imgReader.readAsDataURL(file);
-      imgReader.onload = function(event){
+      this.imgReader.readAsDataURL(file);
+
+      this.imgReader.onload = function(event){
+
         selectedImgRef.push(event.target['result']);
         
         selectedImgRef[selectedImgRef.length-1] = imgCode;
@@ -124,7 +159,7 @@ export class ProfileComponent implements OnInit {
         subscribeEmitImg.unsubscribe(); 
         console.log(selectedFilesRef)
       }
-      imgReader.onerror = () => subscribeEmitImg.unsubscribe();
+      this.imgReader.onerror = () => subscribeEmitImg.unsubscribe();
     })
 
   }
@@ -155,28 +190,5 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  ngOnDestroy(): void {
-  }
 
 }
-
-  // addSrc(emitedImg, ...arr: string[] ) {
-
-  //   if (emitedImg) {
-  //     // console.log("TCL: ProfileComponent -> addSrc -> emitedImg", emitedImg)
-  //     // const imgReader = new FileReader();
-  //     // imgReader.readAsDataURL(emitedImg);
-
-  //     // imgReader.onload = (event) =>
-  //     //   arr.push(event.target['result']);
-  //   }
-  //   const file = event.target.files[0];
-  //   console.log("TCL: addSrc -> file", file)
-  //   if (!file) return;
-  //   let imgReader = new FileReader();
-  //   imgReader.readAsDataURL(file)
-
-  //   imgReader.onload = function (event) {
-  //     arr.push(event.target['result'])
-  //   //
-  // }

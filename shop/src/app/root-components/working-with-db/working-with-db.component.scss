@@ -1,0 +1,112 @@
+
+.main-container{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    .print-collection{
+        display: flex;
+        align-items: stretch;
+    }
+    .print-id{
+        .delete-product{
+            background: red;
+            color: white;
+            border: solid red;
+        }
+    }
+    .clear-collection{
+        display: flex;
+        align-items: stretch;
+        button{
+            background: red;
+            border-color: red;
+            border-style: solid;
+            color: white;
+        }
+    }
+    .replenish-collection{
+        display: flex;
+        align-items: stretch;
+        button{
+            background: #b1af34;
+            border-color: #8a882e;
+            border-style: solid;
+            color: white;
+        }
+        
+    }
+    .store-collection{
+        display: flex;
+        align-items: stretch;
+    }
+    .data-in-buffer{
+        display: flex;
+        flex-direction: column;
+        button{
+            margin-left: 5px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .json-data{
+            position: relative;
+            margin-top: 10px;
+            max-height: 100px;
+            overflow: hidden;
+            font-size: 12px;
+            background: gray;
+            padding: 10px;
+            color: white;
+            display: inline-block;
+            .expander{
+                display: inline-block;
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                margin-left: 20px;
+                color: white;
+                cursor: pointer;
+            }
+        }
+        .expanded{
+            max-height: none;
+        }
+    }
+
+    .id-checkbox{
+        display: flex;
+        align-items: flex-start;
+        align-self: flex-start;
+        input{
+            height: 15px;
+            width: 15px;
+        }
+        label{
+            font-size: 12px;
+        }
+    }
+    .add-update-delete-field{
+        display: flex;
+        flex-direction: column;
+        .danger{
+            background: red;
+            color: white;
+            border: solid red 1px;
+        }
+        .actions{
+            display: flex;
+            align-items: stretch;
+        }
+        .init-value{
+            margin-top: 10px;
+            font-weight: bold;
+            .json-value{
+                font-size: 12px;
+                background: gray;
+                padding: 5px;
+                display: inline-block;
+                color: white;
+            }
+        }
+    }
+            
+}

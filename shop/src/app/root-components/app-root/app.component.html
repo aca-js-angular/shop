@@ -7,6 +7,9 @@
         <div *ngSwitchCase=" 'checkout' ">
             <app-header-checkout></app-header-checkout>
         </div>
+        <div *ngSwitchCase=" 'db' ">
+            <app-header-db></app-header-db>
+        </div>
         <div *ngSwitchDefault>
             <app-header></app-header>
         </div>
@@ -15,6 +18,7 @@
         <router-outlet></router-outlet>
     </div>
     <div [ngSwitch]="currentPage" id="footer">
+        <app-footer-db *ngSwitchCase=" 'db' "></app-footer-db>
         <app-footer-basket *ngSwitchCase=" 'basket' "></app-footer-basket>
         <app-footer-basket *ngSwitchCase=" 'checkout' "></app-footer-basket>
         <app-footer *ngSwitchDefault></app-footer>

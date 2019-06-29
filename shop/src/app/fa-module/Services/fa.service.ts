@@ -6,7 +6,8 @@ import { User } from '../../interfaces/user.interface'
 import { Order } from 'src/app/interfaces/order.interface';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { BAD_FORMAT, WRONG_EMAIL, WRONG_PASSWORD } from 'src/app/constants/sign-in-errors.constant';
-import { AdditionalService } from './additional.service';
+import { __randomNumber } from '../../root-components/working-with-db/helper-functions.ts/root';
+import { Review } from 'src/app/interfaces/review.interface';
 
 /* --- Sign-in errors --- */
 
@@ -23,13 +24,19 @@ export class FaService {
     private realTimeDb: AngularFireDatabase,
 
   ) {
+    let currentUserUid: string;
+    let firstInit: boolean = false;
+    
     this.firebaseAuth.auth.onAuthStateChanged((currentUser)=>{
-      
       if(currentUser){
-        this.currentUserUid = currentUser.uid;
-        this.realTimeDb.object(`users/${this.currentUserUid}/`).update({isOnline: true})
-      } else {
-        this.realTimeDb.object(`users/${this.currentUserUid}/`).update({isOnline: false});
+
+        firstInit = true;
+        currentUserUid = currentUser.uid;
+        this.realTimeDb.object(`users/${currentUserUid}/`).update({isOnline: true})
+      } else if(!currentUser && firstInit){
+        this.realTimeDb.object(`users/${currentUserUid}/`).update({isOnline: false});
+        firstInit = false;
+        currentUserUid = '';
       }
     })
   }
@@ -73,7 +80,7 @@ export class FaService {
 
         this.realTimeDb.list('users').set(result.user.uid, {
           fullName: `${input.firstName} ${input.lastName}`,
-          photoUrl: '',
+          photoUrl: imgUrl,
         })
 
         this.signOut()
@@ -86,6 +93,10 @@ export class FaService {
             city: input.city,
             email: input.email,
             credit: [] as Order[],
+            rating: 3,
+            img: imgUrl,
+            registeredDate: new Date(),
+            reviews: [] as Review[],
           })
         }).then(_ => done())
       })
@@ -95,7 +106,7 @@ export class FaService {
   
   /* --- Additional --- */
 
-  signOut(): Promise<void>{ 
+  signOut(): Promise<void>{
     return this.firebaseAuth.auth.signOut()
   }
 
@@ -114,3 +125,4 @@ export class FaService {
 
 
 } 
+

@@ -4,9 +4,10 @@ import { MessengerDialogService, removeOpenedChatАccess } from '../../services/
 import { CurrentChatMemberDialogData } from '../../messenger-interface';
 import { chatEmitVendor, openChatBox } from 'src/app/products-module/components/product-detail/product-detail.component';
 import { MessengerAutoOpenChatBoxByNf } from '../../services/messsenger-auto-open-chat.service';
-import { Vendor } from 'src/app/interfaces/vendor.interface';
+
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { User } from 'src/app/interfaces/user.interface';
 
 
 @Component({
@@ -16,11 +17,12 @@ import { takeUntil } from 'rxjs/operators';
 })
 
 export class MessengerComponent implements OnInit, OnDestroy {
+  
   $destroyStream = new Subject<void>();
 
   notifysAndMessages: CurrentChatMemberDialogData[] = [];
   findedVendor: CurrentChatMemberDialogData;
-  emitedVendor: Vendor;
+  emitedVendor: User;
   firstInit: boolean = false;
   showNotifys: boolean = true;
 
@@ -38,7 +40,7 @@ export class MessengerComponent implements OnInit, OnDestroy {
     removeOpenedChatАccess.pipe(takeUntil(this.$destroyStream)).subscribe(_void => emitedVendorEmailUnicBox = '');
 
 
-    chatEmitVendor.pipe(takeUntil(this.$destroyStream)).subscribe(emitedVendor => this.emitedVendor = emitedVendor as Vendor);
+    chatEmitVendor.pipe(takeUntil(this.$destroyStream)).subscribe(emitedVendor => this.emitedVendor = emitedVendor as User);
 
     openChatBox.pipe(takeUntil(this.$destroyStream)).subscribe(_void => {
       this.emitedVendor 
@@ -87,7 +89,7 @@ export class MessengerComponent implements OnInit, OnDestroy {
               break;
 
             case 'openConf':
-              // confirm before open...
+
               break;
           }
         })

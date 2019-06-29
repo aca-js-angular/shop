@@ -1,0 +1,189 @@
+
+
+<div class="profile-page" *ngIf="(selectedUser$ | async) as user">
+
+  <div class="header">
+      <img class="user-img" [src]="user.img">
+      <div class="additional-info">
+        <div>{{user.firstName}}</div>
+        <div>{{user.lastName}}</div>
+        <div *ngIf="isAuthProfile">
+          MY PROFILE
+        </div>
+      </div>
+  </div>
+
+  <div class="body">
+
+    <div class="side-nav-bar">
+      <nav>
+        <div (click)="selectSection(sections.reviews)">Reviews</div>
+        <div (click)="selectSection(sections.products)">Posted Products</div>
+        <div (click)="selectSection(sections.personal)">Personal Info</div>
+        <div *ngIf="isAuthProfile" (click)="selectSection(sections.post_product)">Post your product</div>
+      </nav>
+    </div>
+
+    <div class="content" [ngSwitch]="selectedSection">
+
+      <div class="selected-page" *ngSwitchCase="sections.reviews">
+        <app-reviews [reviewList]="reviews$ | async"></app-reviews>
+      </div>
+
+      <div class="selected-page" *ngSwitchCase="sections.products">
+        <app-posted-products [postedProducts]="postedProducts$ | async"></app-posted-products>
+      </div>
+
+      <div class="selected-page" *ngSwitchCase="sections.personal">
+        <app-personal-info></app-personal-info>
+      </div>
+
+      <div class="selected-page" *ngSwitchCase="sections.post_product">
+        <app-post-product></app-post-product>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- <h1>Post product</h1>
+<form [formGroup]="postForm">
+
+  <div>
+    <input type="text" formControlName="name" placeholder="name">
+  </div>
+
+  <div>
+    <input type="text" formControlName="brand" placeholder="brand">
+  </div>
+
+  <div>category</div>
+  <select formControlName="category">
+    <option selected value="4RMgpOFfkrNEyI9oB94p">Combo-Box</option>
+    <option value="NCDp84gg0Jq68BlaW9I4">Watches</option>
+    <option value="YVy1OeWJ4zFi2cZ9037Y">Bracelets</option>
+    <option value="blZjBy1paLV2d4MGMNBL">Necklaces</option>
+    <option value="ejAAqdNIPrStLaCe6uFF">Sunglasses</option>
+  </select>
+
+  <div>gender</div>
+  <select formControlName="gender">
+    <option selected>men</option>
+    <option>women</option>
+  </select>
+
+  <div>main-color</div>
+  <div formArrayName="mainColor">
+    <div *ngFor="let main of mainColor.controls, index as i">
+      <select [formControlName]="i">
+        <option [style.backgroundColor]="color" *ngFor="let color of colors" [value]="color">{{color | dash}}</option>
+      </select>
+      <button (click)="removeControl(mainColor,i)">X</button>
+    </div>
+    <button (click)="addControl(mainColor)">Add Main color</button>
+  </div>
+
+  <div>additional-color</div>
+  <div formArrayName="additionalColor">
+    <div *ngFor="let additional of additionalColor.controls; index as i">
+      <select [formControlName]="i">
+        <option [style.backgroundColor]="color" *ngFor="let color of colors" [value]="color">{{color | dash}}</option>
+      </select>
+      <button (click)="removeControl(additionalColor,i)">X</button>
+    </div>
+    <button (click)="addControl(additionalColor)">Add Additional color</button>
+  </div>
+
+  <div>material</div>
+  <div formArrayName="material">
+    <div *ngFor="let mat of material.controls, index as i">
+      <select [formControlName]="i">
+        <option>iron</option>
+        <option>leather</option>
+        <option>plastic</option>
+        <option>gold</option>
+        <option>silver</option>
+        <option>bronze</option>
+      </select>
+      <button (click)="removeControl(material,i)">X</button>
+    </div>
+    <button (click)="addControl(material)">Add material</button>
+  </div>
+
+  <input type="text" placeholder="originCountry" formControlName="originCountry">
+
+  <input type="number" placeholder="weight" formControlName="weight">
+
+  <input type="number" formControlName="price" placeholder="price">
+
+</form>
+
+
+
+
+
+
+
+
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://foliotek.github.io/Croppie/croppie.css'>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+
+<div class="image-container" *ngFor="let imgSrc of selectedImages, index as i">
+  <img [src]="imgSrc">
+  <button (click)="deleteSelectedImgItem(i)">X</button>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <label class="cabinet center-block">
+        <figure>
+          <img src="" class="gambar img-responsive img-thumbnail" id="item-img-output" />
+          <figcaption><i class="fa fa-camera"></i></figcaption>
+        </figure>
+        <input type="file" (change)="addImgFile($event)" class="item-img file center-block" name="file_photo" />
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Resize Fhoto</h4>
+      </div>
+      <div class="modal-body">
+        <div id="upload-demo" class="center-block"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" 
+        (click)="selectedImages.pop()">Close</button>
+        <button type="button" id="cropImageBtn" class="btn btn-primary">Crop</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<button (click)="postProduct()">Post</button> -->
+

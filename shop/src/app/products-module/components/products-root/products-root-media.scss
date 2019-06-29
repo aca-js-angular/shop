@@ -74,7 +74,7 @@ $strong-shadow: 5px 5px 10px 10px gray;
             box-shadow: $light-shadow;
             transition: box-shadow 0.5s;
             &:not(:last-child){
-                border-right: solid 1px #446E8E;
+                // border-right: solid 1px #446E8E;
             }
             
 
@@ -85,10 +85,10 @@ $strong-shadow: 5px 5px 10px 10px gray;
                 z-index: 2;
                 .settings{
                     .reset:not(#resetall){
+                        height: 20px;
                         position: absolute;
                         bottom: 0;
                         right: 0;
-                        border-top-left-radius: 5px;
                     }
                 }
                 
@@ -129,10 +129,9 @@ $strong-shadow: 5px 5px 10px 10px gray;
         #color-section{
             #strict-mode{
                 position: absolute;
+                height: 20px;
                 bottom: 0;
-                right: 40px;
-                padding-right: 10px;
-                border-top-left-radius: 5px;
+                right: 45px;
                 border-bottom: none;
             }
         }

@@ -1,0 +1,37 @@
+<ng-template #decodedCommentTemplate let-senderName="firstName" let-image="img">
+  <ul class="posts">
+    <li>
+
+      <!-- Delet message -->
+      <span class="delete-comment" 
+      *ngIf="currentUser && singleComment.sender.includes(currentUser.uid)" 
+      (click)="deleteSelectedComment()">x
+      </span>
+
+      <!-- Message Content -->
+      <span class="sender-name">{{senderName}} </span>
+      <span class="timestamp" title="Posted on">
+        on {{singleComment.date.seconds * 1000 | date }}
+      </span>
+      <br>
+      <img class="photo" [src]="image"
+      [routerLink]="['/','profile',senderUid]"
+      >
+      <span class="content">{{singleComment.content}}</span>
+
+      <!-- Like Icon -->
+      <img class="like-icon" title="Like Comment" 
+      [_persistance]="likeSelectedComment" 
+      [src]="currentUser && singleComment.likes.includes(currentUser.uid) ? 
+        'assets/comments/liked 1.png': 'assets/comments/unliked 1.png'">
+
+      <span class="likes-count">likes {{singleComment.likes.length}}</span>
+    </li>
+  </ul>
+</ng-template>
+
+
+<ng-container *ngTemplateOutlet="decodedCommentTemplate; context: decodedFields ? 
+  {firstName: decodedFields.firstName, img: decodedFields.img } :
+  {firstName: 'Deleted User Accaunt', img: 'assets/comments/deactivateduser2.png' }">:
+</ng-container>

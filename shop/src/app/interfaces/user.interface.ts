@@ -1,4 +1,5 @@
 import { Order } from './order.interface';
+import { Review } from './review.interface';
 
 export interface User {
     firstName: string;
@@ -7,7 +8,10 @@ export interface User {
     city: string;
     email: string;
     credit: Order[];
-    password?: string;
-    photoUrl?:string;
+    rating: number;
+    img: string;
+    registeredDate: Date;
+    reviews: Review[];
     uid?: string;
+    password?: string;
 }

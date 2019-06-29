@@ -22,20 +22,6 @@
         </app-message-row>
 
 
-        <!-- <div *ngFor="let messageObj of allMessages; first as first; trackBy: trackByMessages"> -->
-
-          <!-- <div class="chat-message clearfix" [class.firstMessage] ="first">
-              <img [src]="messageObj | decodeMessage:decodeDataCurrentChatMebrs:'photoUrl'" width="32" height="32" onload="this.hidden = false" onerror="this.hidden = true">
-              <div  class="chat-message-content clearfix">
-              <span class="chat-time">{{messageObj.message.timestamp | date :'hh:mm' }}</span>
-              <h5>{{messageObj | decodeMessage:decodeDataCurrentChatMebrs:'fullName'}}</h5>
-              <p class="message-text">{{messageObj.message.message}}</p>
-            </div> 
-            <span [ngClass]="{'remove-message': true, 'none': first}"  (click)="removeMessage(messageObj.key)">x</span>
-            </div>  -->
-          <!-- <hr> -->
-        <!-- </div> -->
-
         <span *ngIf="!allMessages[allMessages.length-1]?.unread && !isTypingChatMember"
           class="is-read-message">readet</span>
 
@@ -61,27 +47,3 @@
   </div> <!-- end live-chat -->
 
 </ng-container>
-
-<!-- {{messageTexteria.value}} -->
-<!-- https://www.flaticon.com/free-icon/send-message-button_15537 -->
-<!-- <div class="chat-message clearfix">
-    <img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32"
-    height="32">
-              <div class="chat-message-content clearfix">
-                  <span class="chat-time">13:37</span>
-                  
-                  <h5>Marco Biedermann</h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, nulla accusamus magni
-                      rem voluptatem delectus!</p>
-              </div> 
-            </div> 
-            <hr> -->
-<!-- <div class="chat-message clearfix">
-              <img src="http://lorempixum.com/32/32/people" alt="" width="32" height="32">
-              <div class="chat-message-content clearfix">
-                  <span class="chat-time">13:38</span>
-                  <h5>John Doe</h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-                </div> 
-          </div> 
-          <hr> -->

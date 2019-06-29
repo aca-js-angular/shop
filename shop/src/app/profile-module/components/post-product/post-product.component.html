@@ -115,7 +115,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" #cropImagePop id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -127,8 +127,7 @@
         <div id="upload-demo" class="center-block"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" 
-        (click)="selectedImages.pop()">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" #cropImagePopBtn >Close</button>
         <button type="button" id="cropImageBtn" class="btn btn-primary">Crop</button>
       </div>
     </div>
@@ -141,4 +140,3 @@
 
 
 <button (click)="postProduct()">Post</button>
-

@@ -82,7 +82,7 @@ export class MessengerService implements OnDestroy {
           map(messageDecodedData => observer.next(messageDecodedData as MessageDataRTimeDb[]))
         ).subscribe();
 
-        getMessages$.next()  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        getMessages$.next()  // ???? <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
       })
     })
@@ -271,13 +271,13 @@ export class MessengerService implements OnDestroy {
           this.activeChatBoxs.add(chatUrl);
           this.currentChatUrl.next(chatUrl);
           
-          console.log('User chat already OPPENED in db -> Open Chat');
+          // console.log('User chat already OPPENED in db -> Open Chat');
           
           subscriber.next(OpenOrConfirm.openMessageBox);
           // --------Add new Chat-Url--------------
           
         } else if (!this.activeChatBoxs.has(chatUrl) && this.currentUser) {
-
+ 
           //-----Confirm-message-??-----------
           this.openNewChat(`${findedUser.userId}&${this.currentUser.uid}`).then(openedUrl => {
             this.activeChatBoxs.add(`${findedUser.userId}&${this.currentUser.uid}`);
@@ -300,7 +300,7 @@ export class MessengerService implements OnDestroy {
     this.currentChatUrl.pipe(takeUntil(this.destroyStream$)).subscribe(chatUrl => {
       emiteCloseMessageBox.emit('close') // close box with component
 
-      console.log(chatUrl, '------closed chat url')
+      // console.log(chatUrl, '------closed chat url')
 
       this.activeChatBoxs.delete(chatUrl);
     })

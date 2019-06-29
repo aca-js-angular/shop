@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Order } from 'src/app/interfaces/order.interface';
-import { Vendor } from 'src/app/interfaces/vendor.interface';
+import { User } from 'src/app/interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,19 +21,19 @@ export class ProductService {
 
   /* --- Methods --- */
 
-  getProductById(id: string): Promise<Product>{
-    return new Promise(resolve => {
+  getProductById(id: string): Observable<Product>{
+    return new Observable(observer => {
       this.db.getDocumentById<Product>('products',id).subscribe(product => {
         if(!product){
           this.router.navigate(['/','not-found'])
           return;
         }
         const category: Observable<{name: string}> = this.db.getDocumentById<{name: string}>('categories',product.category)
-        const vendor: Observable<Vendor> = this.db.getDocumentById<Vendor>('vendors',product.vendor.toString())
+        const vendor: Observable<User> = this.db.getDocumentById<User>('users',product.vendor.toString())
         zip(category,vendor).subscribe(response => {
           product.category = response[0].name;
-          product.vendor = response[1];
-          resolve(product)
+          product.vendor = Object.assign(response[1], {uid: product.vendor}) ;
+          observer.next(product);
         })
       })
     })
@@ -43,8 +43,8 @@ export class ProductService {
     return array.find(item => item.id === id) ? array.find(item => item.id === id).name : ''
   }
 
-  private getVendorById(id: string | Vendor, array: Vendor[]): Vendor {
-    return array.find(item => item.id === id)
+  private getVendorById(id: string | User, array: User[]): User {
+    return array.find(item => item.uid === id)
   }
 
   getAllProducts(): Promise<Product[]> {
@@ -52,9 +52,9 @@ export class ProductService {
       zip(
         this.db.getCollection<Product>('products'),
         this.db.getCollectionWithIds<{name: string}>('categories'),
-        this.db.getCollectionWithIds<Vendor>('vendors')
+        this.db.getCollectionWithIds<User>('users')
       ).subscribe(res => {
-        res[0].forEach((product,index,array) => {
+        res[0].forEach((_,index,array) => {
           array[index].category = this.getCategoryNameById(array[index].category,res[1])
           array[index].vendor = this.getVendorById(array[index].vendor,res[2])
         })

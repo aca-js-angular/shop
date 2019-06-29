@@ -1,0 +1,14 @@
+@import '../../../global-vars.scss';
+
+div{
+    display: flex;
+    justify-content: center;
+    background: $header-theme;
+    padding: 5px;
+    margin-top: 20px;
+    span{
+        font-size: 12px;
+        font-weight: bold;
+        color: $theme-dark;
+    }
+}

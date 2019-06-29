@@ -36,6 +36,9 @@ export class AppComponent implements OnInit {
     else if (url.includes('basket') && url.includes('checkout')) {
       return 'checkout'
     }
+    else if (url.includes('db')){
+      return 'db'
+    }
     else {
       return 'ordinar'
     }

@@ -7,6 +7,7 @@ import { PersistanceDirective } from './directives/persistance.directive';
 import { OnlyDigitsDirective, NoDigitsDirective, OnlyAlphabetDirective, NaturalNumbersDirective } from './directives/restrictions.directive';
 import { ConsoleDirective } from './directives/console.directive';
 import { DashPipe } from './pipes/dash.pipe';
+import { RatingPipe } from './pipes/rating.pipe';
 
 @NgModule({
   
@@ -21,6 +22,7 @@ import { DashPipe } from './pipes/dash.pipe';
     NaturalNumbersDirective,
     ConsoleDirective,
     DashPipe,
+    RatingPipe,
   ],
 
   imports: [
@@ -38,6 +40,7 @@ import { DashPipe } from './pipes/dash.pipe';
     NaturalNumbersDirective,
     ConsoleDirective,
     DashPipe,
+    RatingPipe,
   ]
 
 })

@@ -1,5 +1,5 @@
 import { ColorFilter } from './color-filter.interface';
-import { Vendor } from './vendor.interface';
+import { User } from '../interfaces/user.interface';
 
 export interface Product {
 
@@ -18,7 +18,7 @@ export interface Product {
         originCountry: string;
         weight: number;
     };
-    vendor: string | Vendor;
+    vendor: string | User;
     id?: string;
 }
 

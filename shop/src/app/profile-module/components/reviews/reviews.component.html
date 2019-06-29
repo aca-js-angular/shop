@@ -1,0 +1,11 @@
+<h4>Reviews</h4>
+
+<div *ngFor="let review of decodedReviews">
+  <app-single-review [singleReview]="review"></app-single-review>
+</div>
+<div class="write-review">
+    <textarea [(ngModel)]="reviewBody" cols="30" rows="10"></textarea>
+    
+    <app-rating-scale></app-rating-scale>
+    <button type="submit">Submit</button>
+</div>

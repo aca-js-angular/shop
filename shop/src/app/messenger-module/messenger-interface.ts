@@ -10,16 +10,12 @@ export interface CurrentUserCloud{
     userId: string;
     email: string;
     photoUrl?: string,
-    
 }
-
-
 
 export interface CurrentChatMemberDialogData{
     fullName: string;
     userId: string;
-    photoUrl?: string,
-    
+    photoUrl?: string
 }
 
 export interface RealTimeDbUserData{

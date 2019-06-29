@@ -11,10 +11,13 @@ import { ProductListPageComponent } from './components/product-list-page/product
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { SharedModule } from '../shared-module/shared.module';
-import { MatFormFieldModule, MatSelectModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatFormFieldModule, MatSelectModule, MatProgressSpinnerModule, MatButtonModule, MatInputModule } from '@angular/material';
 import { AnimationModule } from '../animation-module/animation.module';
-import { RatingPipe } from './pipes/rating.pipe';
-import { MessengerModule } from '../messenger-module/messenger.module';
+import { CommentsRootComponent } from './components/comments-root/comments-main/commnts-root.component';
+import { SingleCommentComponent } from './components/comments-root/single-comment/single-comment.component';
+// import { CommentRowFieldsPipe } from './pipes/comment-row-fields.pipe';
+// import { DecodeCommentFields } from './pipes/decode-comment.pipe';
+
 
 @NgModule({
   declarations: [
@@ -24,9 +27,11 @@ import { MessengerModule } from '../messenger-module/messenger.module';
     ImageSliderComponent,
     ProductListComponent,
     ProductListPageComponent,
-    ProductDetailComponent,
-    RatingPipe,
-    
+    ProductDetailComponent,    
+    CommentsRootComponent,
+    SingleCommentComponent,
+    // CommentRowFieldsPipe,
+    // DecodeCommentFields
   ],
 
   imports: [
@@ -38,7 +43,12 @@ import { MessengerModule } from '../messenger-module/messenger.module';
     MatSelectModule,
     FormsModule,
     AnimationModule,
-    // MessengerModule,
+    MatProgressSpinnerModule,
+    
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
     MatProgressSpinnerModule,
   ],
 

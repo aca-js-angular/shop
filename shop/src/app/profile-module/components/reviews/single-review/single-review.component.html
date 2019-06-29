@@ -1,0 +1,13 @@
+<div *ngIf="singleReview as review">
+  <img [routerLink]="['/','profile',review.author.uid]" [src]="singleReview.author.img">
+  <span>{{review.author.firstName}}</span>
+  <span>{{review.author.lastName}}</span>
+  <p>
+    {{review.description}}
+  </p>
+  <div
+  [ngClass]="ratingClasses"
+  >{{review.evaluation | rating}}</div>
+  <div>{{reviewDate | date}}</div>
+  <hr>
+</div>

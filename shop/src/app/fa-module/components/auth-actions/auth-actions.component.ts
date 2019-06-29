@@ -58,7 +58,12 @@ export class AuthActionsComponent implements OnInit {
 
   ngOnInit() {
     this.auth.authState.subscribe(_ => {
-      this.auth.auth.currentUser ? this.currentUser = this.auth.auth.currentUser.providerData[0]:this.currentUser = null
+      const currentUser = this.auth.auth.currentUser;
+      if(currentUser){
+        this.currentUser = Object.assign({}, currentUser.providerData[0], {uid: currentUser.uid})
+      }else{
+        this.currentUser = null;
+      }      
     })
 
   }

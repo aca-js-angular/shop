@@ -16,12 +16,12 @@ export class JQueryZoomService {
    * @description No Point Only Classname (Classname)
    */
   jQueryZoomImg(imgClassName: string, config: ZoomConfig): void {
-      this.jQueryZoom(imgClassName,config)
+      // this.jQueryZoom(imgClassName,config)
   }
 
 
   clearjQueryZoomScreans(): void {
-    document.querySelectorAll('.zoomContainer').forEach(zoomElem => zoomElem.remove());
+    // document.querySelectorAll('.zoomContainer').forEach(zoomElem => zoomElem.remove());
   }
 
 
@@ -41,17 +41,17 @@ export class JQueryZoomService {
 
   hidChatBox(toggleElementClassname: string) {
 
-    $('.live-chat header').on('click', function () {
-      $('.chat').slideToggle(300, 'swing');
-      $('.chat-message-counter').fadeToggle(300, 'swing');
-    });
+    // $('.live-chat header').on('click', function () {
+    //   $('.chat').slideToggle(300, 'swing');
+    //   $('.chat-message-counter').fadeToggle(300, 'swing');
+    // });
 
-    $('.chat-close').on('click', function (e) {
+    // $('.chat-close').on('click', function (e) {
 
-      e.preventDefault();
-      $('#live-chat').fadeOut(300);
+    //   e.preventDefault();
+    //   $('#live-chat').fadeOut(300);
 
-    });
+    // });
 
   };
 

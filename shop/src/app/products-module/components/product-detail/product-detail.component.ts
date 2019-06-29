@@ -1,6 +1,6 @@
 
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../../interfaces/product.interface';
 import { ProductService } from '../../services/product.service';
 import { JQueryZoomService } from '../../services/j-query.service';
@@ -8,7 +8,8 @@ import { AdditionalService, UDataType } from 'src/app/fa-module/services/additio
 import { StylesService } from 'src/app/animation-module/styles.service';
 import { ZoomConfig } from 'src/app/interfaces/zoom-config.interface';
 import { ZOOM_MAX, ZOOM_MID, ZOOM_MIN } from 'src/app/constants/zoom-static-config.constant';
-import { Subscription, fromEvent } from 'rxjs';
+import { Subscription, fromEvent, Subject } from 'rxjs';
+import { User } from 'src/app/interfaces/user.interface';
 
 export const chatEmitVendor = new EventEmitter();
 export const openChatBox = new EventEmitter();
@@ -28,11 +29,13 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private jQuery: JQueryZoomService,
     private additionalAuth: AdditionalService,
     private ss: StylesService,
+    private router: Router,
   ) {}
 
   /* --- Variables --- */
 
   computedConfig: ZoomConfig = {};
+  $currentProduct = new Subject();
 
   thisProduct: Product;
   moreFromThisBrand: Product[] = [];
@@ -102,7 +105,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     const basketIcon = Array.from(document.getElementsByClassName('_basket')) as HTMLImageElement[];
     const target = basketIcon.find(icon => {
       const container = icon.closest('.auth-action-box');
-      console.log(container);
       return getComputedStyle(container).display !== 'none';
     })
 
@@ -161,6 +163,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.isInBasket = true;
   }
 
+  goToVendorProfile(){
+    const vendor = this.thisProduct.vendor as User;
+    this.router.navigate(['/','profile',vendor.uid]);
+  }
+
   /* --- Chat Fields --- */
   get $currentUser(){ 
     return this.additionalAuth.$autoState;
@@ -195,13 +202,18 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
       this.ps.isInBasket(this.currentId).then(res => this.isInBasket = res)
 
-      this.ps.getProductById(this.currentId).then(response => {
+      this.ps.getProductById(this.currentId).subscribe(response => {
 
         this.thisProduct = response;
 
         this.currentSrc = this.thisProduct.images[0];
 
         chatEmitVendor.emit(this.thisProduct.vendor);
+
+        this.$currentProduct.next({
+          currentProductRouteId: next.id, 
+          currentProductComments: this.thisProduct.comments,
+        });
 
         this.resetZoom();
 

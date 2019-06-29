@@ -125,11 +125,14 @@
           <hr />
           <h6 class="text-bold">Vendor Profile</h6>
           <div class="vendor-section">
-            <div class="vendor-img">
+            <div class="vendor-img" title="View Profile" (click)="goToVendorProfile()">
               <img [src]="thisProduct.vendor.img" onerror="this.src = 'assets/empty_user.png'">
             </div>
             <div class="vendor-data">
-              <span><b>{{thisProduct.vendor.fullName}}</b></span>
+              <span>
+                <b>{{thisProduct.vendor.firstName}}</b>
+                <b>{{thisProduct.vendor.lastName}}</b>
+              </span>
               <span>{{thisProduct.vendor.country}}, <i>{{thisProduct.vendor.city}}</i></span>
               <span>{{thisProduct.vendor.rating | rating}}</span>
               <span><a href="mailto: {{thisProduct.vendor.email}}">{{thisProduct.vendor.email}}</a></span>
@@ -142,11 +145,14 @@
 
 
   <!---------- More From This Brand ---------->
-  <app-product-slider 
-  [href]="['/','products','brands',thisProduct.brand]" 
-  [title]="'More from ' + thisProduct.brand"
-  [productCollection]="moreFromThisBrand"
-  ></app-product-slider>
+  <div *ngIf="moreFromThisBrand?.length">
+    <app-product-slider 
+    [href]="['/','products','brands',thisProduct.brand]" 
+    [title]="'More from ' + thisProduct.brand"
+    [productCollection]="moreFromThisBrand"
+    ></app-product-slider>
+  </div>
+  
 
 
   <!---------- Similar Products ---------->
@@ -165,3 +171,7 @@
     <mat-spinner id="spinner" [diameter]="25"></mat-spinner>
   </div>
 </ng-template>
+
+<app-comments-root 
+  [$productFields]="$currentProduct">
+</app-comments-root>

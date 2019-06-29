@@ -1,10 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
 
-// const EMPTY_DEFAULT_IMG = 'https://user.gadjian.com/static/images/personnel_boy.png';
 const EMPTY_DEFAULT_IMG = 'assets/profile/uploadImg/1.png';
-
-
 export const emitNewImage = new EventEmitter()
 
 declare var $: any;
@@ -18,28 +14,28 @@ export class jQueryImagesResize {
 
 
     public resizeJQuery(): void {
-            
-            // Start upload preview image
-            $(".gambar").attr("src", EMPTY_DEFAULT_IMG);
-            var $uploadCrop,
+        $(".gambar").attr("src", EMPTY_DEFAULT_IMG);
+        var $uploadCrop,
             tempFilename,
             rawImg,
             imageId;
         function readFile(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('.upload-demo').addClass('ready');
-                    $('#cropImagePop').modal('show');
-                    rawImg = e.target['result'];
+            try {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('.upload-demo').addClass('ready');
+                        $('#cropImagePop').modal('show');
+                        rawImg = e.target['result'];
+                    }
+                    reader.readAsDataURL(input.files[0]);
                 }
-                reader.readAsDataURL(input.files[0]);
-            }
-            else {
-                swal("Sorry - you're browser doesn't support the FileReader API");
-            }
+                else {
+                    swal("Sorry - you're browser doesn't support the FileReader API");
+                }
+            } catch (error) { }
         }
-
+        try {
         $uploadCrop = $('#upload-demo').croppie({
             viewport: {
                 width: 190,
@@ -49,11 +45,9 @@ export class jQueryImagesResize {
             enableExif: true
         });
         $('#cropImagePop').on('shown.bs.modal', function () {
-            // alert('Shown pop');
             $uploadCrop.croppie('bind', {
                 url: rawImg
             }).then(function () {
-                console.log('jQuery bind complete');
             });
         });
 
@@ -67,11 +61,11 @@ export class jQueryImagesResize {
                 format: 'jpeg',
                 size: { width: 190, height: 200 }
             }).then(function (resp) {
-                // $('#item-img-output').attr('src', resp);
                 emitNewImage.emit(resp)
                 $('#cropImagePop').modal('hide');
             });
         });
-        // End upload preview image
+    } catch (error) { }
     }
+
 }  

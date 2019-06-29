@@ -172,10 +172,9 @@ export class DatabaseFireService {
       let subscr = this.getExtractedProperty<any[]>(collectionName, id, [targetArrayName]).subscribe(array => {
         array.push(payload)
         this.updateData(collectionName, id, { [targetArrayName]: array }).then(() => resolve(array))
-        subscr.unsubscribe()
+        subscr.unsubscribe();
       })
     })
-
 
   }
 

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { DatabaseFireService } from '../database-fire.service';
-import { FaService } from '../fa-module/services/fa.service';
-import { Vendor } from '../interfaces/vendor.interface';
+import { DatabaseFireService } from '../../database-fire.service';
+import { FaService } from '../../fa-module/services/fa.service';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/storage';
-import { User } from '../interfaces/user.interface';
-import { Product } from '../interfaces/product.interface';
+import { User } from '../../interfaces/user.interface';
+import { Product } from '../../interfaces/product.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +29,7 @@ export class PostProductService {
     })
   }
 
+
   addMultipleImages(images: File[], name: string): Promise<string[]> {
     return new Promise(resolve => {
       const storageRef: AngularFireStorageReference = this.storage.ref(`product-images/${name}`);
@@ -45,8 +45,8 @@ export class PostProductService {
     })
   }
 
+
   addProduct(name: string, brand: string, category: string, gender: 'men' | 'women', price: number, img: File[], mainColors: string[], additionalColors: string[], material: string[], originCountry: string, weight: number){
-    this.addVendor();
     this.addMultipleImages(img,name).then(ref => {
       this.db.postData('products',this.createProduct(name, brand, category, gender, price, ref, mainColors, additionalColors, material, originCountry, weight))
     })
@@ -90,42 +90,4 @@ export class PostProductService {
     }
   }
 
-
-  createVendor(): Promise<Vendor> {
-    return new Promise(resolve => {
-      this.db.getDocumentById<User>('users',this.fa.currentUser.uid).subscribe(user => {
-        resolve({
-          fullName: user.firstName + ' ' + user.lastName,
-          country: user.country,
-          city: user.city,
-          email: user.email,
-          img: this.fa.currentUser.photoURL,
-          rating: 3,
-        })
-      })
-    })
-  }
-
-  isVendor(): Promise<boolean> {
-    return new Promise(resolve => {
-      this.db.getIdArray('vendors').subscribe(ids => {
-        resolve(ids.includes(this.fa.currentUser.uid))
-      })
-    })
-  }
-
-  addVendor(){
-    this.isVendor().then(res => {
-      if(res)return;
-      else{
-        this.createVendor().then(vendor => {
-          this.db.postDataWithId<Vendor>('vendors',this.fa.currentUser.uid,vendor)
-        }) 
-      }
-    })
-  }
-
-  showCurrentUser(){
-    console.log(this.fa.currentUser)
-  }
 }

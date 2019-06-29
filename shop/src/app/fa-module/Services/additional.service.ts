@@ -12,7 +12,9 @@ export type UDataType = {
 })
 
 export class AdditionalService {
+  
   routRedirectUrl: string;
+
   $autoState = new BehaviorSubject<UDataType>(null);
 
   constructor(private firebaseAuth: AngularFireAuth) {

@@ -10,7 +10,7 @@ export class ConsoleDirective {
   hostComponent: Component;
 
   constructor(private viewRef: ViewContainerRef) {
-    this.hostComponent = this.viewRef['_view'].component
+    this.hostComponent = this.viewRef['_view'].component;
   }
 
   @HostListener('click')consoleVariable(){

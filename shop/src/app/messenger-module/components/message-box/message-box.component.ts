@@ -54,7 +54,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
         //----Get Messages-----
         this.messengerService.getMeassages().pipe(takeUntil(this.destroyStream$))
         .subscribe(messages => {
-            console.log("TCL: ngOnInit -> messages", messages)
+            // console.log("TCL: ngOnInit -> messages", messages)
             // window.scrollTo(500, 0);
             this.allMessages[0] ? this.messengerOptService.sendMessageSound(NOTIFICATION_SOUND): null;
             this.allMessages = messages;

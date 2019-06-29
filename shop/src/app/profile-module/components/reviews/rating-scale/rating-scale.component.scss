@@ -1,0 +1,40 @@
+
+
+.rating-scale{
+    transition: all 0.3s;
+    .star{
+        cursor: pointer;
+        font-size: 25px;
+    }
+}
+
+.high-rate{
+    color: #15b815;
+    opacity: 0.5;
+}
+.mid-rate{
+    color: #c9c954;
+    opacity: 0.5;
+}
+.low-rate{
+    color: #be2b2b;
+    opacity: 0.5;
+}
+.no-rate{
+    color: gray;
+    opacity: 0.3;
+}
+.static-high{
+    opacity: 1 !important;
+    color: #15b815;
+
+}
+.static-mid{
+    opacity: 1 !important;
+    color: #c9c954;
+
+}
+.static-low{
+    opacity: 1 !important;
+    color: #be2b2b;
+}

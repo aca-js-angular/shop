@@ -16,6 +16,8 @@ import { HeaderCheckoutComponent } from './root-components/header/header-checkou
 import { ProjectMainModules, FireBaseModules, MaterialDesignModules } from './useds-modules';
 import { CategoryPanelComponent } from './root-components/category-panel/category-panel.component';
 import { FooterBasketComponent } from './root-components/footer/footer-basket/footer-basket.component';
+import { HeaderDbComponent } from './root-components/header/header-db/header-db.component';
+import { FooterDbComponent } from './root-components/footer/footer-db/footer-db.component';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import { FooterBasketComponent } from './root-components/footer/footer-basket/fo
     SingleResultComponent,
     NotFoundComponent,
     CategoryPanelComponent,
+    HeaderDbComponent,
+    FooterDbComponent,
   ],
 
   imports: [
@@ -44,6 +48,7 @@ import { FooterBasketComponent } from './root-components/footer/footer-basket/fo
     ...MaterialDesignModules,
 
     AppRoutingModule,
+    
   ],
 
   bootstrap: [AppComponent],

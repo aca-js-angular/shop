@@ -1,15 +1,85 @@
-<button (click)="updateDoc(name.value)">Update</button>
-<input #name type="text">
-<br><br>
-<button (click)="getId(byname.value)">Get ID by name</button>
-<input #byname type="text">
-<br><br>
-<button (click)="checkDb()">Check DB</button>
-<br><br> 
-<button (click)="f()" style="margin-left: 200px; width: 200px">Console</button>
-
-
-<button (click)="clearDb()" style="margin-left: 200px; background: rgb(211, 94, 94); border: none;" >CLEAR DB (DANGER)</button>
-<br>
-<br>
-<button (click)="push()" style="margin-left: 200px; width: 200px; background: rgb(211, 94, 94); border: none;">PUSH (DANGER)</button>
+<button (click)="spec()">AAAA</button>
+<div class="main-container">
+    <div class="print-collection">
+        <button (click)="printCollection(collectionToPrint.value, print_withIds.checked)">Print</button>
+        <select #collectionToPrint>
+            <option *ngFor="let collection of allCollections">{{collection}}</option>
+        </select>
+        <div class="id-checkbox">
+            <input type="checkbox" #print_withIds id="print_withIds">
+            <label for="print_withIds">ids</label>
+        </div>
+    </div>
+    <hr />
+    <div class="id-by-name">
+        <button (click)="printId(name.value)">Print Id By Name</button>
+        <input type="text" #name>
+        <span>{{targetId}}</span>
+        <button class="delete-product" *ngIf="targetId" (click)="deleteProduct()">delete</button>
+    </div>
+    <hr />
+    <div class="clear-collection">
+        <button (click)="clearCollection(collectionToClear.value)">Clear (DANGER!)</button>
+        <select #collectionToClear>
+            <option *ngFor="let collection of allCollections">{{collection}}</option>
+        </select>
+    </div>
+    <hr />
+    <div class="replenish-collection">
+        <button (click)="replenishCollection(collectionToReplenish.value,replenish_withIds.checked)">Replenish (DANGER!)</button>
+        <select #collectionToReplenish>
+            <option *ngFor="let collection of allCollections">{{collection}}</option>
+        </select>
+        <div class="id-checkbox">
+            <input type="checkbox" #replenish_withIds id="replenish_withIds">
+            <label for="replenish_withIds">custom ids</label>
+        </div>
+    </div>
+    <hr />
+    <div class="store-collection">
+        <button (click)="storeInBuffer(collectionToStore.value,store_withIds.checked)">Store In Buffer</button>
+        <select #collectionToStore>
+            <option *ngFor="let collection of allCollections">{{collection}}</option>
+        </select>
+        <div class="id-checkbox">
+            <input type="checkbox" #store_withIds id="stor_withIds">
+            <label for="store_withIds">ids</label>
+        </div>
+    </div>
+    <hr />
+    <div class="add-update-delete-field">
+        <div class="actions">
+            <button (click)="addField(collectionToAddFields.value,fieldNameToAdd.value)">Add/Update Field on Each Document</button>
+            <select #collectionToAddFields>
+                <option *ngFor="let collection of allCollections">{{collection}}</option>
+            </select>
+            <input type="text" #fieldNameToAdd placeholder="Enter field name">
+        </div>
+        <div class="init-value">
+            <span>Initial value => </span>
+            <span class="json-value">{{initialValueData}}</span>
+        </div>
+    </div>
+    <hr />
+    <div class="add-update-delete-field">
+        <div class="actions">
+            <button class="danger" (click)="deleteField(collectionToDeleteFields.value,fieldNameToDelete.value)">Delete Field on Each Document</button>
+            <select #collectionToDeleteFields>
+                <option *ngFor="let collection of allCollections">{{collection}}</option>
+            </select>
+            <input type="text" #fieldNameToDelete placeholder="Enter field name">
+        </div>
+    </div>
+    <hr />
+    <div class="data-in-buffer">
+        <div>
+            <strong>Data in buffer</strong>
+            <button (click)="printBuffer()">Print in console</button>
+        </div>
+        <div class="json-data" [class.expanded]="bufferExpanded">
+            <span class="expander" [innerHTML]="bufferExpanded ? '&#x25b2;' : '&#x25bc;'" (click)="bufferExpanded = !bufferExpanded"></span>
+            <span>{{bufferData}}</span>
+        </div>
+    </div>
+    <hr />
+</div>

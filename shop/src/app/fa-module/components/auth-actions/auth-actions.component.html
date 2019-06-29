@@ -2,7 +2,7 @@
 
   <div class="auth-action" *ngIf="currentUser">
     <span class="user-name">{{currentUser.displayName}}</span> 
-    <img class="profile-picture" matTooltip="Go to profile" [routerLink]="['/','profile']" [src]="currentUser.photoURL">
+    <img class="profile-picture" matTooltip="Go to profile" [routerLink]="['/','profile',currentUser.uid]" [src]="currentUser.photoURL">
   </div>
   
   <div class="auth-action" *ngIf="!currentUser" matTooltip="Registrate now">
