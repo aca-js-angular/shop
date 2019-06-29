@@ -8,29 +8,39 @@
       (click)="deleteSelectedComment()">x
       </span>
 
+      <!-- Edit message -->
+      <span class="edit-comment" 
+      *ngIf="currentUser && singleComment.sender.includes(currentUser.uid)" 
+      (click)="editSelectedComment()">Edit
+      </span>
+
+
       <!-- Message Content -->
       <span class="sender-name">{{senderName}} </span>
-      <span class="timestamp" title="Posted on">
-        on {{singleComment.date.seconds * 1000 | date }}
+      <span class="timestamp" title="Post Time">
+        {{singleComment.date.seconds * 1000 | date :'MMM d, y, h:mm:ss' }}
       </span>
+
+      <!-- Is Edited -->
+      <span>{{singleComment?.isEdited && 'edited' }}</span>
+
+      
       <br>
-      <img class="photo" [src]="image"
-      [routerLink]="['/','profile',senderUid]"
-      >
+      <img class="photo" [src]="image" [routerLink]="[ '/','profile', senderUid ]">
       <span class="content">{{singleComment.content}}</span>
 
       <!-- Like Icon -->
       <img class="like-icon" title="Like Comment" 
       [_persistance]="likeSelectedComment" 
       [src]="currentUser && singleComment.likes.includes(currentUser.uid) ? 
-        'assets/comments/liked 1.png': 'assets/comments/unliked 1.png'">
+        'assets/comments/liked.png': 'assets/comments/unliked.png'">
 
       <span class="likes-count">likes {{singleComment.likes.length}}</span>
     </li>
   </ul>
 </ng-template>
 
-
+<!-- {{decodedFields + "tfhftxh"}} -->
 <ng-container *ngTemplateOutlet="decodedCommentTemplate; context: decodedFields ? 
   {firstName: decodedFields.firstName, img: decodedFields.img } :
   {firstName: 'Deleted User Accaunt', img: 'assets/comments/deactivateduser2.png' }">:

@@ -10,6 +10,7 @@ import { ZoomConfig } from 'src/app/interfaces/zoom-config.interface';
 import { ZOOM_MAX, ZOOM_MID, ZOOM_MIN } from 'src/app/constants/zoom-static-config.constant';
 import { Subscription, fromEvent, Subject } from 'rxjs';
 import { User } from 'src/app/interfaces/user.interface';
+import { ProductFieldsSubjectNextType } from 'src/app/interfaces/product-comment.interface';
 
 export const chatEmitVendor = new EventEmitter();
 export const openChatBox = new EventEmitter();
@@ -23,6 +24,25 @@ const ZOOM_IMG_CLASSNAME: string = 'main-img';
 
 export class ProductDetailComponent implements OnInit, OnDestroy {
 
+  /* --- Variables --- */
+
+  computedConfig: ZoomConfig = {};
+  
+  thisProduct: Product;
+  moreFromThisBrand: Product[] = [];
+  similarProducts: Product[] = [];
+  
+  currentSrc: string;
+  currentId: string;
+  currentUser: UDataType;
+  isInBasket: boolean;
+  showMore: boolean = true;
+ 
+  quantity: number = 1;
+  resizeListener$: Subscription;
+  currentProduct$ = new Subject<ProductFieldsSubjectNextType>();
+
+  
   constructor(
     private active: ActivatedRoute,
     private ps: ProductService,
@@ -32,23 +52,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private router: Router,
   ) {}
 
-  /* --- Variables --- */
-
-  computedConfig: ZoomConfig = {};
-  $currentProduct = new Subject();
-
-  thisProduct: Product;
-  moreFromThisBrand: Product[] = [];
-  similarProducts: Product[] = [];
-
-  currentSrc: string;
-  currentId: string;
-  currentUser: UDataType;
-  isInBasket: boolean;
-  showMore: boolean = true;
- 
-  quantity: number = 1;
-  resizeListener$: Subscription;
 
 
   /* --- Methods --- */
@@ -210,7 +213,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
         chatEmitVendor.emit(this.thisProduct.vendor);
 
-        this.$currentProduct.next({
+        this.currentProduct$.next({
           currentProductRouteId: next.id, 
           currentProductComments: this.thisProduct.comments,
         });

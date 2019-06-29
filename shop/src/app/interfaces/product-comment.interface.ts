@@ -1,6 +1,3 @@
-export interface ProductCommentsMap {
-    allComments: ProductSingleComment[];
-}
 
 export interface ProductSingleComment {
     content: string;
@@ -8,4 +5,10 @@ export interface ProductSingleComment {
     sender: string;
     likes: string[];
     date: Date,
+    isEdited?: boolean;
+}
+
+export type ProductFieldsSubjectNextType = {
+     currentProductRouteId: string,
+     currentProductComments: ProductSingleComment[];
 }

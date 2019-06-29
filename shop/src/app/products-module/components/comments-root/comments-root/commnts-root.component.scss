@@ -10,16 +10,36 @@
 
 .comments-box {
     // overflow: auto;
-    max-height: 700px;
+    max-height: 300px;
     width: 70%;
     margin: auto;
     border-radius: 16px;
     // border: 1px solid gainsboro; 
     box-shadow: -6px -7px 39px -23px grey;
     .filter {
+        float: left;
         margin: 15px 56px 0;
         width: 23%;
     }
+
+
+    .filter-arrows {
+        cursor: pointer;
+        float: left;
+        .activated-sort-direction{
+            margin-top: 80%;
+            display: inline-block;
+            color: rgb(0, 115, 255) !important;
+        }
+        .up:active{
+            top: -3px;
+        }
+        .down:active{
+            top: 3px;
+        }
+    
+    }
+
     &::-webkit-scrollbar {
         width: 0.8em;
     }
@@ -42,3 +62,5 @@
         float: right; 
     }
 }
+
+
