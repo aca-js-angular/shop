@@ -52,9 +52,10 @@
         </app-single-comment>
 
     </ng-container>
+    <app-emoji [hidden]="showEmojiPanel" (setEmoji)="setEmoji($event)"></app-emoji>
+
 </section>
 
- 
 <!-- Add comment -->
 <div class="write-comment-fields">
     <mat-form-field appearance="outline">
@@ -69,6 +70,6 @@
     </mat-form-field>
     
 
-    <app-emoji [hidden]="showEmojiPanel" (setEmoji)="setEmoji($event)"></app-emoji>
+
 
 </div>
