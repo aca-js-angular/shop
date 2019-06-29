@@ -10,7 +10,7 @@ import { maxLenghtLimitValidator } from '../validators/comment.validator';
 
 const BTN_POST = 'Post Comment';
 const BTN_EDIT = 'Edit';
-const COMMENT_MAX_LENGTH = 346;
+const COMMENT_MAX_LENGTH = 300;
 
 
 @Component({
@@ -21,7 +21,7 @@ const COMMENT_MAX_LENGTH = 346;
 })
 export class CommentsRootComponent implements OnInit, OnDestroy {
 
-  $destroyStream = new Subject<void>();
+  destroyStream$ = new Subject<void>();
   decodedZip: Map<string, User>;
   commentTexteria: FormControl;
   currentUser: UDataType;
@@ -35,7 +35,8 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
   isEditing: boolean;
   showEmojiPanel: boolean;
   sortingArrowType: boolean;
-
+  commentMaxLength: number;
+  
   constructor(
     private commentServise: CommentService,
     private additionalAuth: AdditionalService,
@@ -146,23 +147,23 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
     this.selectFilerValue = new FormControl('date');
     this.showEmojiPanel = true;
     this.sortingArrowType = false;
+    this.commentMaxLength = COMMENT_MAX_LENGTH;
 
-
-    this.productFields$.pipe(takeUntil(this.$destroyStream)).subscribe(next => {
+    this.productFields$.pipe(takeUntil(this.destroyStream$ )).subscribe(next => {
       this.productFields = next;
       this.dinamicCommentsArray = this.productFields.currentProductComments.slice();
 
       this.selectFilerValue.value !== 'date' && !this.sortingArrowType && this.sort();
 
       this.commentServise.decodeCommentSenders(this.productFields.currentProductComments)
-        .pipe(takeUntil(this.$destroyStream)).subscribe(decodedZip => this.decodedZip = decodedZip);
+        .pipe(takeUntil(this.destroyStream$ )).subscribe(decodedZip => this.decodedZip = decodedZip);
     })
 
-    this.$currentUser.pipe(takeUntil(this.$destroyStream)).subscribe(udata => this.currentUser = udata);
+    this.$currentUser.pipe(takeUntil(this.destroyStream$ )).subscribe(udata => this.currentUser = udata);
 
   }
 
   ngOnDestroy() {
-    this.$destroyStream.next()
+    this.destroyStream$.next()
   }
 }
