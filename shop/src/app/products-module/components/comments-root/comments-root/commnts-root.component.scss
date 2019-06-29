@@ -7,6 +7,16 @@
     overflow: auto;
     border: 1px solid gainsboro;
 }
+.toggle-emoji {
+    cursor: pointer;
+    transition: 0.2s;
+    width: 30px;
+    float: right;
+    margin: 3px 3% 0;
+    &:hover{
+        width: 32px;
+    }
+}
 
 .comments-box {
     // overflow: auto;

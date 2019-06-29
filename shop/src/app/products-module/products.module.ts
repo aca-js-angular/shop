@@ -15,6 +15,8 @@ import { MatFormFieldModule, MatSelectModule, MatProgressSpinnerModule, MatButto
 import { AnimationModule } from '../animation-module/animation.module';
 import { CommentsRootComponent } from './components/comments-root/comments-root/commnts-root.component';
 import { SingleCommentComponent } from './components/comments-root/single-comment/single-comment.component';
+import { EmojiComponent } from './components/comments-root/emoji/emoji.component';
+
 // import { CommentRowFieldsPipe } from './pipes/comment-row-fields.pipe';
 // import { DecodeCommentFields } from './pipes/decode-comment.pipe';
 
@@ -30,6 +32,7 @@ import { SingleCommentComponent } from './components/comments-root/single-commen
     ProductDetailComponent,    
     CommentsRootComponent,
     SingleCommentComponent,
+    EmojiComponent,
     // CommentRowFieldsPipe,
     // DecodeCommentFields
   ],

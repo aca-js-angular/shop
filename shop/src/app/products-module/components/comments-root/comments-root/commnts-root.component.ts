@@ -33,7 +33,7 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
   submitButtonText: string;
   submitButtonCallack: Function;
   isEditing: boolean;
-
+  showEmojiPanel: boolean;
   sortingArrowType: boolean;
 
   constructor(
@@ -54,7 +54,9 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
     // console.log(singleComment)
   }
 
-
+  setEmoji(emoji: string){
+  this.commentTexteria.patchValue(`${this.commentTexteria.value} ${emoji}`);
+  }
 
   /* ------Edit Comment Metods----- */
   cancelCommentEditing(){
@@ -144,7 +146,7 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
     this.submitButtonCallack = this.postComment
     this.commentTexteria = new FormControl('', maxLenghtLimitValidator(COMMENT_MAX_LENGTH));
     this.selectFilerValue = new FormControl('date');
-
+    this.showEmojiPanel = true;
     this.sortingArrowType = false;
 
 

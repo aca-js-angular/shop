@@ -63,7 +63,11 @@
         </textarea>
         <button [_persistance]="submitButtonCallack" mat-raised-button color="primary">{{submitButtonText}}</button>
         <button *ngIf="isEditing" (click)="cancelCommentEditing()" mat-raised-button >Cancel</button>
+        <img (click)="showEmojiPanel = !showEmojiPanel" class="toggle-emoji" src="assets/comments/emoji/toggle-emoji-box.png">
         <span>{{this.commentTexteria.value.length}} / 346</span>
     </mat-form-field>
     
+
+    <app-emoji [hidden]="showEmojiPanel" (setEmoji)="setEmoji($event)"></app-emoji>
+
 </div>
