@@ -1,3 +1,7 @@
-<div class="emojis">
-  <span *ngFor="let emoji of emojis; index as index" class="single-emoji" (click)="selectEmoji(index)">{{emoji}}</span>
+<div class="emojis" [class.animate]="!animate" >
+  <span 
+  *ngFor="let emoji of emojis; index as index" 
+   class="single-emoji" 
+   (click)="selectEmoji(index)">{{emoji}}
+</span>
 </div>
