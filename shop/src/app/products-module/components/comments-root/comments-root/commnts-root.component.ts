@@ -90,8 +90,6 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
 
   // ----------------------
 
-
-
   deleteComment(commentId: string){
     this.commentServise.deleteComment(
       this.productFields.currentProductComments,
