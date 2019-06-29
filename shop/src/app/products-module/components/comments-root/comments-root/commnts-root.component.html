@@ -54,7 +54,7 @@
     </ng-container>
 </section>
 
-
+ 
 <!-- Add comment -->
 <div class="write-comment-fields">
     <mat-form-field appearance="outline">
@@ -64,7 +64,8 @@
         <button [_persistance]="submitButtonCallack" mat-raised-button color="primary">{{submitButtonText}}</button>
         <button *ngIf="isEditing" (click)="cancelCommentEditing()" mat-raised-button >Cancel</button>
         <img (click)="showEmojiPanel = !showEmojiPanel" class="toggle-emoji" src="assets/comments/emoji/toggle-emoji-box.png">
-        <span>{{this.commentTexteria.value.length}} / 346</span>
+        <!-- <mat-hint>{{this.commentTexteria.value.length}} / {{commentMaxLength}}</mat-hint> -->
+        <span>{{this.commentTexteria.value.length}} / {{commentMaxLength}}</span>
     </mat-form-field>
     
 
