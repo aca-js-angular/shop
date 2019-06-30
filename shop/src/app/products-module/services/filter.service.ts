@@ -68,7 +68,8 @@ export class FilterService {
   }
 
   globalFilter(sourceArray: Product[]): Product[]{
-
+    if(!sourceArray) return;
+    
     let filteredArray = sourceArray.map(item => item);
 
     //-------------Price--------------------------

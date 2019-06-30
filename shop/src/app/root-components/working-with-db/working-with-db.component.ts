@@ -15,6 +15,7 @@ import {
   BREAK_LINE,
   POINTING_ARROW,
 } from './constants'
+import { User } from 'src/app/interfaces/user.interface';
 
 const uids = [
   "7CvTe6l75yOBhIfFJfwaykSO1fv1",
@@ -60,6 +61,28 @@ export class WorkingWithDbComponent implements OnInit {
     private db: DatabaseFireService, 
     private dbf: AngularFirestore
   ) {}
+
+
+  getRating(userId){
+   const a = this.db.getDocumentById('users',userId).subscribe((user: User) => {
+     const rating = Math.round((user.reviews.reduce((sum,current) => sum + current.evaluation,0) / user.reviews.length));
+     console.log("TCL: WorkingWithDbComponent -> getRating -> raing", isNaN(rating))
+    if(isNaN(rating)){
+      user.rating = 0;
+    } else {
+      user.rating = rating;
+    }
+    this.userrrr = user
+    a.unsubscribe()
+    console.log( this.userrrr)
+    });
+  }
+  userrrr: User;
+  setRating(userId){
+  this.db.updateData('users',userId, this.userrrr).then(r => console.log('updated'))
+  }
+
+
 
   get bufferData(): string {
     return JSON.stringify(this.buffer);

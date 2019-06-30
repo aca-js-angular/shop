@@ -8,13 +8,14 @@ import { takeUntil, switchMap, debounceTime } from 'rxjs/operators';
 import { Subject, fromEvent, Subscription } from 'rxjs';
 import { MessengerOptionalService } from '../../services/messenger-optional-service.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { MessengerAutoOpenChatBoxByNf } from '../../services/messsenger-auto-open-chat.service';
 
 const NOTIFICATION_SOUND: string = 'assets/messengerAudio/message2.mp3';
 
 @Component({
   selector: 'app-message-box',
   templateUrl: './message-box.component.html',
-  styleUrls: ['./message-box.component.scss']
+  styleUrls: ['./message-box.component.scss'],
 })
 export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('messageInputRef') messageInputRef: ElementRef;
@@ -23,7 +24,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   messageInput: FormControl;
   currentUserId: string;
   allMessages: object[] = [];// or Subscribable<object[] | null>;
-  decodeDataCurrentChatMebrs: object;
+  decodeDataCurrentChatMembers: object;
   isTypingChatMember: boolean;
   destroyStream$ = new Subject<void>()
   inputTypingState: Subscription;
@@ -32,9 +33,10 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private messengerService: MessengerService,
     private messengerOptService: MessengerOptionalService,
-    private autoAdditional: AdditionalService,
     private faFirebase: AngularFireAuth,
     private dialogRef: MatDialogRef<MessageBoxComponent>,
+    private messengerAutoOpenChatService: MessengerAutoOpenChatBoxByNf,
+
     @Inject(MAT_DIALOG_DATA) data: CurrentChatMemberDialogData,
     ) {
     this.curentChatMember = data
@@ -62,7 +64,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
         //----Decode Mesage Data-------
         this.messengerService.decodMessSenderUidInName(this.curentChatMember.userId, cUserId.uid)
-          .then(decodedFields => this.decodeDataCurrentChatMebrs = decodedFields);
+          .then(decodedFields => this.decodeDataCurrentChatMembers = decodedFields);
 
         //----isOnline-------
         this.messengerOptService.isOnline().pipe(takeUntil(this.destroyStream$))
@@ -80,7 +82,6 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   
 
   ngAfterViewInit() {
-    
     this.inputTypingState = fromEvent(this.messageInputRef.nativeElement, 'input').pipe(
        debounceTime(300),
  
@@ -112,13 +113,15 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   
   closeMessageBox() {
     this.messengerService.closeMessageBox();
+
+    this.messengerAutoOpenChatService._hasOlreadyOpenedOtherChat = true;  //jamanakavor vor aktiv lini menak 1 hat chat 
   }
 
 
   ngOnDestroy() {
 
     this.destroyStream$.next();
-    this.inputTypingState.unsubscribe()
+    this.inputTypingState && this.inputTypingState.unsubscribe()
 
     //----Message-Box Subscriptions------------
     this.messengerService.destroyStream$.next();

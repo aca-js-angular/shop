@@ -1,75 +1,41 @@
+$font: 'Lato', sans-serif;
 
-//-----------------first message anumation
+$primary: #79C7C5;
+$white: #F9FBFF;
+$dark: #777777;
 
-@-webkit-keyframes typing {from { width: 0 }to { width:7.2em }}
-@-moz-keyframes typing {from { width: 0 }to { width:7em }}
-
-@-webkit-keyframes blink-caret {from, to { border-color: transparent } 50% { border-color: black }}
-@-moz-keyframes blink-caret { from, to { border-color: transparent }50% { border-color: black }}
-
-.firstMessage .message-text { 
-    // border-right: 0.05em solid black;
-    white-space:nowrap;
-    overflow:hidden;
-    font-style: italic;
-    font-family: inherit;
-    color: darkblue;
-    margin-top: 3px;
-    -webkit-animation: typing 2.5s steps(30, end),blink-caret 1s step-end infinite;
-    -moz-animation: typing 2.5s steps(30, end),blink-caret 1s step-end infinite;
-}
-//----------------------------------------------
-img {
-    border: 0;
-    display: block;
-    height: auto;
-    max-width: 100%;
+.incoming {
+  padding: 20px;
+  display: inline;
+    .bubble {
+      background: lighten($dark, 0%);
+      max-width: 85%;
     }
-.chat-message {
-    margin: 16px 0;
-    .chat-message img {
-        border-radius: 50%;
-        float: left;
-        }
-}
-
-
-.chat-message-content .clearfix{
-    margin-left: 56px;
-    .chat-time {
-        float: right;
-        font-size: 10px;
+  }
+  
+  .outgoing {
+    padding: 20px;
+    display: inline;
+    
+    .bubble {
+      background: $primary;
+      max-width: 85%;
     }
-    .name {
-        font-size: 10px;
-        line-height: 1.5em;
-        margin: 0;
-    }
+  }
 
-}
-
-
-.clearfix { *zoom: 1; } /* For IE 6/7 */
-.clearfix:before, .clearfix:after {
-content: "";
-display: table;
-}
-.clearfix:after { clear: both; }
+  .bubble {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 5px;
+    color: $white;
+    font-size: 0.7em;
+    padding: 10px 10px 10px 12px;
+    border-radius: 20px;
+  }
 
 
 
 
-.none { display: none}
-.remove-message {
-    float: right;
-    font-size: 13px;
-    margin: -15px -1px -4px;
-    padding: -3px -13px 11px;
-    cursor: pointer;
-    transition: 0.3s;
-    &:hover { color: brown; font-size: 13px }
-}
 
 
 
-p { margin: 0; }
