@@ -7,7 +7,7 @@ import { UDataType } from 'src/app/fa-module/services/additional.service';
   selector: 'app-single-comment',
   templateUrl: './single-comment.component.html',
   styleUrls: ['./single-comment.component.scss'],
-  inputs: ['singleComment','decodedFields','currentUser','currentProductId']
+  inputs: ['singleComment','decodedFields','currentUser','currentProductId', 'senderUid']
 })
 export class SingleCommentComponent {
 
@@ -20,7 +20,7 @@ export class SingleCommentComponent {
   currentUser: UDataType;
   currentProductId: string;
   liked: boolean;
-
+  senderUid: string;
 
   deleteSelectedComment(){
     this.deleteComment.emit(this.singleComment.commentId);

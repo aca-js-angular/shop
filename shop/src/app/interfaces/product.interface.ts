@@ -1,5 +1,6 @@
 import { ColorFilter } from './color-filter.interface';
 import { User } from '../interfaces/user.interface';
+import { ProductSingleComment } from './product-comment.interface';
 
 export interface Product {
 
@@ -11,7 +12,7 @@ export interface Product {
     rating: number;
     images: string[];
     postDate: number;
-    comments?: object[];
+    comments?: ProductSingleComment[];
     details: {
         colors: ColorFilter;
         material: string[];

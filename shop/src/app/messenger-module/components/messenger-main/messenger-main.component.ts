@@ -12,8 +12,8 @@ import { User } from 'src/app/interfaces/user.interface';
 
 @Component({
   selector: 'app-messenger',
-  templateUrl: './messenger.component.html',
-  styleUrls: ['./messenger.component.scss'],
+  templateUrl: './messenger-main.component.html',
+  styleUrls: ['./messenger-main.component.scss'],
 })
 
 export class MessengerComponent implements OnInit, OnDestroy {
@@ -51,13 +51,11 @@ export class MessengerComponent implements OnInit, OnDestroy {
       emitedVendorEmailUnicBox = this.emitedVendor.email; // for unic search
     })
 
+    // ----Auto Opening by Notify----
     this.messengerAutoOpenChatService.subscribeNewMessageNotify().pipe(takeUntil(this.$destroyStream))
-
       .subscribe(notyfiMessageUserData => {
-        this.firstInit && this.openMesssengerBoxByEmit(notyfiMessageUserData[0])    // console.log(' -> notyfiMessageUserData', notyfiMessageUserData)
-        this.firstInit = true;
-        // console.log("TCL:notyfiMessageUserData", notyfiMessageUserData)
-        // console.log(" ngOnInit -> this.notifysAndMessages", this.notifysAndMessages)
+        this.openMesssengerBoxByEmit(notyfiMessageUserData[0]);
+        console.log("TCL: MessengerComponent -> ngOnInit ->", notyfiMessageUserData) 
       })
   }
 
@@ -99,16 +97,13 @@ export class MessengerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.$destroyStream.next();
-    this.messengerAutoOpenChatService.$diasbleMessagesNotyfictions.next();
+    this.messengerAutoOpenChatService.diasbleMessagesNotyfictions$.next();
   }
 }
 
-
-        // if (this.notifysAndMessages.length) {
-
-        //   this.notifysAndMessages.forEach(item => {
-        //      item.userId !== notyfiMessageUserData[0].userId 
-        //      && this.notifysAndMessages.push(notyfiMessageUserData[0]);
-        //   })
-
-        // } else if(this.firstInit) this.notifysAndMessages.push(notyfiMessageUserData[0]);
+// if (this.notifysAndMessages.length) {
+//   this.notifysAndMessages.forEach(item => {
+//      item.userId !== notyfiMessageUserData[0].userId 
+//      && this.notifysAndMessages.push(notyfiMessageUserData[0]);
+//   })
+// } else if(this.firstInit) this.notifysAndMessages.push(notyfiMessageUserData[0]);

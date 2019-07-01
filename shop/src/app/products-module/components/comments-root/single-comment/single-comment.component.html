@@ -26,7 +26,7 @@
 
       
       <br>
-      <img class="photo" [src]="image">
+      <img class="photo" [src]="image" [routerLink]="[ '/','profile', senderUid ]">
       <span class="content">{{singleComment.content}}</span>
 
       <!-- Like Icon -->

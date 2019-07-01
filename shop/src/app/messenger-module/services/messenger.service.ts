@@ -88,6 +88,10 @@ export class MessengerService implements OnDestroy {
     })
   }
 
+  clearAllMessages(charUrl: string){
+    this.db.object(`chats/${charUrl}/messages/`).remove();
+  }
+
 
   messageSetReadedState(messageData: MessageDataRTimeDb[], chatUrl: string): MessageDataRTimeDb[] {
     return messageData.map(messageItem => {

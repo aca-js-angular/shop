@@ -22,9 +22,11 @@ export class MessengerDialogService {
     config.disableClose = false;
     config.hasBackdrop = false;
     config.closeOnNavigation = false;
-    config.width = '299px';
-    config.height = '405px';
+    config.width = '300px';
+    config.height = '410px';
     config.position = { bottom : '0px', right: '30px' }
+    config.panelClass = ['meggage-box'];
+
 
 
     //-------Chat Member--------------

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ProductSingleComment } from 'src/app/interfaces/product-comment.interface';
 import { DatabaseFireService } from 'src/app/database-fire.service';
 import { Observable, zip } from 'rxjs';
-import { User } from 'src/app/interfaces/user.interface';
 import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { singleCommentConstructor } from './comment.constructor';
+import { ProductSingleComment } from 'src/app/interfaces/product-comment.interface';
+import { User } from 'src/app/interfaces/user.interface';
 import { UDataType } from 'src/app/fa-module/services/additional.service';
 
 @Injectable({
