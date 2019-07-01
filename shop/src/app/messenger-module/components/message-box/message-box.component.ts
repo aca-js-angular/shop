@@ -9,6 +9,7 @@ import { Subject, fromEvent, Subscription } from 'rxjs';
 import { MessengerOptionalService } from '../../services/messenger-optional-service.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MessengerAutoOpenChatBoxByNf } from '../../services/messsenger-auto-open-chat.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const NOTIFICATION_SOUND: string = 'assets/messengerAudio/message2.mp3';
 
@@ -29,8 +30,11 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   destroyStream$ = new Subject<void>()
   inputTypingState: Subscription;
   isOnlineChatMember: boolean;
-
+  currentFullUrl: string;
+  disableNotify: boolean;
+  
   constructor(
+    private router: Router,
     private messengerService: MessengerService,
     private messengerOptService: MessengerOptionalService,
     private faFirebase: AngularFireAuth,
@@ -43,7 +47,25 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
+  unsubscribeChatNotyfy(): void{
+
+  }
+
+  clearCurrentChat(): void{
+    const subscrib$ = this.messengerService.currentChatUrl.subscribe(chatUrl => {
+      this.messengerService.clearAllMessages(chatUrl)
+    })
+    subscrib$.unsubscribe();
+  }
+
+  sendPatchCurrentProductUrl(){
+    this.messageInput.patchValue(`send product url -> ${this.currentFullUrl} `);
+  }
+
+
   ngOnInit() {
+    this.currentFullUrl = document.location.href;
+
     emiteCloseMessageBox.pipe(takeUntil(this.destroyStream$)).subscribe(_ => this.dialogRef.close());
     
     this.messageInput = new FormControl('', Validators.required);

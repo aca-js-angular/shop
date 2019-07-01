@@ -6,7 +6,8 @@ $primary: #79C7C5;
 $secondary: #A1E2D9;
 $white: #F9FBFF;
 $dark: #777777;
-
+$online: limegreen;
+$offline: gray;
 
 
 .container {
@@ -17,7 +18,7 @@ $dark: #777777;
 }
 
 .messages {
-  position: absolute;
+  // position: absolute;
   background: $white;
   opacity: 0.5;
   width: 30%;
@@ -30,7 +31,7 @@ $dark: #777777;
 
 /*chat messages */
 .people {
-  position: absolute;
+  // position: absolute;
   list-style-type: none;
   width: 30.2%;
   left: -10px;
@@ -46,7 +47,7 @@ $dark: #777777;
   .time {
     font-size: 0.3em;
     color: $dark;
-    position: absolute;
+    // position: absolute;
     right: 10px;
     margin-top: 2px;
   }
@@ -73,13 +74,13 @@ $dark: #777777;
 }
 
 .profile {
-  position: absolute;
+  // position: absolute;
   left: 16%;
   top: 7%;
 }
 
 .name2{
-  position: absolute;
+  // position: absolute;
   top: 50px;
   left: 2px;
   text-transform: uppercase;
@@ -115,7 +116,7 @@ $dark: #777777;
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  position: absolute;
+  // position: absolute;
   top: 11px;
   left: 15px;
   p {
@@ -125,7 +126,7 @@ $dark: #777777;
 }
 
 .name {
-  position: absolute;
+  // position: absolute;
   top: 22px;
   text-transform: uppercase;
   color: $dark;
@@ -136,7 +137,7 @@ $dark: #777777;
 }
 
 .menu {
-  position: absolute;
+  // position: absolute;
   right: 10px;
   top: 20px;
   width: 10px;
@@ -149,7 +150,7 @@ $dark: #777777;
 }
 
 .icons {
-  position: absolute;
+  // position: absolute;
   color: $secondary;
   padding: 10px;
   top: 5px;
@@ -177,7 +178,7 @@ $dark: #777777;
 
 
 .typing {
-  position: absolute;
+  // position: absolute;
   top: 67%;
   left: 20px;
   .bubble {
@@ -228,26 +229,26 @@ $dark: #777777;
 
 
 button {
-  position: absolute;
-  border: 0;
-  font-size: 1em;
-  color: $secondary;
-  top:  19px;
-  opacity: 0.8;
-  right: 17px;
-  cursor: pointer;
+  // position: absolute;
+  // border: 0;
+  // font-size: 1em;
+  // color: $secondary;
+  // top:  19px;
+  // opacity: 0.8;
+  // right: 17px;
+  // cursor: pointer;
   outline: 0;
-  &:hover {
-    transform: scale(1.1);
-    transition: all .3s ease-in-out;
-    color: $primary;
-  }
+  // &:hover {
+  //   transform: scale(1.1);
+  //   transition: all .3s ease-in-out;
+  //   color: $primary;
+  // }
 }
 
 
 
 footer {
-  position: absolute;
+  // position: absolute;
   bottom: 0;
   right: 0;
   text-align: center;
@@ -280,7 +281,7 @@ footer {
 
 
 .is-read-message {
-  position: absolute;
+  // position: absolute;
   bottom: 60px;
   margin: 3px 194px;
 }
@@ -295,7 +296,7 @@ footer {
   width: 281px;
   height: 53px;
   bottom: -12px;
-  position: absolute;
+  // position: absolute;
   background: $white;
   border-radius: 0 0 10px 10px;
 
@@ -389,4 +390,17 @@ footer {
   bottom: -105px;
   left: 20px;
   position: absolute;
+}
+
+.offline {
+  background: $offline;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  position: absolute;
+  margin: 34px 44px;
+  z-index: 1;
+}
+.online {
+  background: $online;
 }

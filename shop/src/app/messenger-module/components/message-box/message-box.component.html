@@ -3,21 +3,55 @@ Enjoy! :) Don't forget to click the heart if you like it! -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
 
 <ng-container *ngIf="curentChatMember && decodeDataCurrentChatMembers">
+
+  <div class="offline" [class.online]="isOnlineChatMember"></div>
   <!-- [class.online]="isOnlineChatMember" -->
+  <!-- Menu -->
+
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    
+    <button mat-menu-item [routerLink]="['/', 'profile', curentChatMember.userId]">
+      <mat-icon>account_box</mat-icon>
+      <span>Go to profile</span>
+    </button>
+    <button mat-menu-item (click)="clearCurrentChat()">
+      <mat-icon>delete</mat-icon>
+      <span>Clear chat</span>
+    </button>
+    <button mat-menu-item (click)="unsubscribeChatNotyfy(); disableNotify =!disableNotify">
+      <mat-icon [hidden]="!disableNotify">notifications_onn</mat-icon>
+      <mat-icon [hidden]="disableNotify">notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu>
+
 
   <div class="chatbox">
     <div class="top-bar">
-      <img class="avatar" [src]="decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl"
-        onerror="this.src='assets/empty_user.png'" width="32" height="32" />
+
+      <img class="avatar" 
+      [src]="
+      decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl ?
+      decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl: 'assets/empty_user.png'"
+      width="32" height="32" 
+      />
+
       <div class="name">{{curentChatMember.fullName}}</div>
       <span class="close-chat" (click)="closeMessageBox()">x</span>
+
       <div class="icons">
         <i class="fas fa-phone"></i>
         <i class="fas fa-video"></i>
       </div>
-      <div class="menu">
+
+      <!-- <div class="menu" mat-button [matMenuTriggerFor]="menu">
         <div class="dots"></div>
-      </div>
+        <li mat-menu-item>Item 1</li>
+        <li mat-menu-item>Item 2</li>
+      </div> -->
     </div>
 
 
@@ -43,24 +77,24 @@ Enjoy! :) Don't forget to click the heart if you like it! -->
           <div class="bounce3"></div>
         </div>
 
+      <mat-icon *ngIf="currentFullUrl.includes('product')" title="Send current productLink" (click)="sendPatchCurrentProductUrl()">launch</mat-icon>
+
       </div>
     </div>
   </div>
 
 </ng-container>
 
-<!-- Input -->
+
+<!-- Input @VievChild-->
 <div class="bottom-bar">
   <div class="chat">
     <input type="text" (keydown.enter)="sendMessage()" placeholder="Type a message..." #messageInputRef maxlength="50"
       [formControl]="messageInput" autofocus />
     <img class="send-message-btn" title="Send Message" (click)="sendMessage()"
       src="assets/chat/send-message-button64.png" />
-
   </div>
 </div>
-
-
 
 
 
