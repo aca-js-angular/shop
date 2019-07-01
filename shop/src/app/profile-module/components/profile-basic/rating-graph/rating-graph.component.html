@@ -1,0 +1,34 @@
+<div class="content-section">
+    <div class="section-heading">
+        <div class="title">Rating Over Time</div>
+        <div class="view-more">
+            <a [routerLink]="['../','reviews']">view more</a>
+        </div>
+    </div>
+    
+    <hr />
+    
+    <div class="section-body">
+      <div class="graph-container">
+        <canvas id="graph-id">{{graphContent}}</canvas>
+      </div>
+      <div class="additional">
+          <div>was reviewed by</div>
+          <div class="avatars">
+              <img
+              class="reviewer-img" 
+              *ngFor="let reviewer of reviewers.slice(0,5)"
+              [src]="reviewer.img"
+              [routerLink]="['/','profile',reviewer.id]"
+              [matTooltip]="reviewer.firstName + ' ' + reviewer.lastName"
+              >
+          </div>
+          <div *ngIf="reviewers.length > 5" [matTooltip]="tooltipContent" matTooltipClass="preline">
+            <a [routerLink]="['../','reviews']">
+              and {{reviewers.length - 5}} more
+            </a>
+          </div>
+      </div>
+    </div>
+    
+</div>

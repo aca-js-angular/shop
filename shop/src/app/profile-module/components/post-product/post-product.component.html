@@ -1,17 +1,14 @@
-<h1>Post product</h1>
+<!-- <h1>Post product</h1>
 <form [formGroup]="postForm">
 
-  <!-- name -->
   <div>
     <input type="text" formControlName="name" placeholder="name">
   </div>
 
-  <!-- brand -->
   <div>
     <input type="text" formControlName="brand" placeholder="brand">
   </div>
 
-  <!-- category -->
   <div>category</div>
   <select formControlName="category">
     <option selected value="4RMgpOFfkrNEyI9oB94p">Combo-Box</option>
@@ -21,14 +18,12 @@
     <option value="ejAAqdNIPrStLaCe6uFF">Sunglasses</option>
   </select>
 
-  <!-- gender -->
   <div>gender</div>
   <select formControlName="gender">
     <option selected>men</option>
     <option>women</option>
   </select>
 
-  <!-- main-colors -->
   <div>main-color</div>
   <div formArrayName="mainColor">
     <div *ngFor="let main of mainColor.controls, index as i">
@@ -40,7 +35,6 @@
     <button (click)="addControl(mainColor)">Add Main color</button>
   </div>
 
-  <!-- additional-colors -->
   <div>additional-color</div>
   <div formArrayName="additionalColor">
     <div *ngFor="let additional of additionalColor.controls; index as i">
@@ -52,7 +46,6 @@
     <button (click)="addControl(additionalColor)">Add Additional color</button>
   </div>
 
-  <!-- materials -->
   <div>material</div>
   <div formArrayName="material">
     <div *ngFor="let mat of material.controls, index as i">
@@ -69,23 +62,20 @@
     <button (click)="addControl(material)">Add material</button>
   </div>
 
-  <!-- origin-country -->
   <input type="text" placeholder="originCountry" formControlName="originCountry">
 
-  <!-- weight -->
   <input type="number" placeholder="weight" formControlName="weight">
 
-  <!-- price -->
   <input type="number" formControlName="price" placeholder="price">
 
-</form>
+</form> -->
+
+<h1>POST_PRODUCT</h1>
 
 
 
 
 
-
-<!-- images -->
 
 
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
@@ -93,7 +83,6 @@
 <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
 
 
-<!-- Uploaded Images -->
 <div class="image-container" *ngFor="let imgSrc of selectedImages, index as i">
   <img [src]="imgSrc">
   <button (click)="deleteSelectedImgItem(i)">X</button>
@@ -139,4 +128,4 @@
 
 
 
-<button (click)="postProduct()">Post</button>
+<button (click)="postProduct()">Post</button> -->

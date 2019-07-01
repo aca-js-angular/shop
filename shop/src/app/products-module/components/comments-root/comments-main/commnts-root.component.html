@@ -7,14 +7,32 @@
     </ng-template>
 
     <!-- Select Filter -->
+
     <mat-form-field class="filter" [hidden]="!(dinamicCommentsArray?.length > 1)">
         <mat-label>Select filter</mat-label>
-        <mat-select [formControl]="selectFilerValue" (ngModelChange)="sortByLikes()">
+        <mat-select [formControl]="selectFilerValue" (ngModelChange)="sort()">
             <mat-option *ngFor="let option of selectOptions" [value]="option.value">
                 {{option.title}}
             </mat-option>
         </mat-select>
     </mat-form-field>
+
+    <div class="filter-arrows">
+        <span
+            class="up"
+            title="Descending order" 
+            [class.activated-sort-direction]="sortingArrowType"
+            (click)="sortingArrowType = true; sort()"
+            >&#x25b2;
+        </span>
+        <span 
+            class="down"
+            title="Descending order" 
+            [class.activated-sort-direction]="!sortingArrowType"
+            (click)="sortingArrowType = false; sort()"
+            >&#x25bc;</span>
+        </div>
+
 
     <!-- Comments -->
     <ng-container *ngFor="let singleComment of dinamicCommentsArray; trackBy:trackByComment">
@@ -24,9 +42,9 @@
             *ngIf="decodedZip?.get(singleComment.sender) as decodedFields"
             (likeComment)="toggleLikeComment($event)" 
             (deleteComment)="deleteComment($event)"
+            (editComment)="showEditingCommentFields($event)"
             [singleComment]="singleComment" 
             [decodedFields]="decodedFields"
-            [senderUid]="singleComment.sender"
             [currentUser]="currentUser" 
             [currentProductId]="productFields.currentProductRouteId">
         </app-single-comment>
@@ -41,7 +59,9 @@
         <mat-label>Write Comment</mat-label>
         <textarea matInput placeholder="Write Good Comment" [formControl]="commentTexteria">
         </textarea>
-        <button [_persistance]="addComment" mat-raised-button color="primary">Add Comment
-        </button>
+        <button [_persistance]="submitButtonCallack" mat-raised-button color="primary">{{submitButtonText}}</button>
+        <button *ngIf="isEditing" (click)="cancelCommentEditing()" mat-raised-button >Cancel</button>
+        <span>{{this.commentTexteria.value.length}} / 346</span>
     </mat-form-field>
+    
 </div>

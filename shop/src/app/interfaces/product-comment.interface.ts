@@ -7,5 +7,6 @@ export interface ProductSingleComment {
     commentId: string;
     sender: string;
     likes: string[];
-    date: Date,
+    date: Date;
+    isEdited: boolean;
 }

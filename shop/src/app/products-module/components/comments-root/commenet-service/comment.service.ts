@@ -20,14 +20,55 @@ export class CommentService {
     ) { }
 
 
+
     /**
      * 
      * @param commentsArray 
      * @param commentId 
      * @param currentProdId 
+     * @param dinamicArryaSpeedChange form speed view changes (optional)
      */
-    public deleteComment(commentsArray: ProductSingleComment[],commentId: string, currentProdId: string): void{
+    public editSelectedComment(originCommentsArray: ProductSingleComment[],commentId: string, currentProdId: string, changedValue: string): void{
+      const selectedCommentInd = originCommentsArray.findIndex(item => item.commentId === commentId);
+      
+      if(selectedCommentInd === -1) return;
+        originCommentsArray[selectedCommentInd].content = changedValue;
+        originCommentsArray[selectedCommentInd].isEdited = true;
+
+      // send request
+      this.db.updateData('products',currentProdId, {comments: originCommentsArray});
+
+    }
+
+    /**
+     * 
+     * @param content        // texteria value
+     * @param currentUserUid // signIned user uid
+     * @param commentsArray  // all comments
+     * @param currentProdId  // activateRoute id
+     * @param dinamicArryaSpeedChange form speed view changes (optional)
+     */
+    public postComment(content: string, currentUserUid: string, commentsArray: ProductSingleComment[], currentProdId: string, dinamicArryaSpeedChange?: ProductSingleComment[]){
+      const newSingleComment = singleCommentConstructor(content, currentUserUid, this.afireStore.createId()) as ProductSingleComment;
+      
+      commentsArray.push(newSingleComment); // if origin aray have new comment 
+      this.db.pushData('products',currentProdId,'comments', newSingleComment);
+
+      dinamicArryaSpeedChange && dinamicArryaSpeedChange.push(newSingleComment);
+    }
+
+    
+    /**
+     * 
+     * @param commentsArray 
+     * @param commentId 
+     * @param currentProdId 
+     * @param dinamicArryaSpeedChange form speed view changes (optional)
+     */
+    public deleteComment(commentsArray: ProductSingleComment[],commentId: string, currentProdId: string,dinamicArryaSpeedChange?: ProductSingleComment[]): void{
       this.db.updateData('products',currentProdId, {comments: commentsArray.filter(comment => comment.commentId !== commentId)});
+      
+      dinamicArryaSpeedChange && dinamicArryaSpeedChange.filter(comment => comment.commentId == commentId);
     }
 
    /**
@@ -37,7 +78,7 @@ export class CommentService {
     * @param currentProdId 
     * @param currentUser 
     */
-    public toggleLikeComment(commentsArray: ProductSingleComment[],commentId: string, currentProdId: string ,currentUser: UDataType): void{
+    public toggleLikeComment(commentsArray: ProductSingleComment[],commentId: string, currentProdId: string ,currentUser: UDataType,dinamicArryaSpeedChange?: ProductSingleComment[]): void{
       const selectedCommentInd = commentsArray.findIndex(item => item.commentId === commentId);
       let toggle: boolean = commentsArray[selectedCommentInd].likes.includes(currentUser.uid);
 
@@ -54,35 +95,23 @@ export class CommentService {
     
     /**
      * 
-     * @param commentsArray sort max - min
+     * @param commentsArray sort -| max - min | new - old|
      */
-    public sortBycLikesCount(commentsArray: ProductSingleComment[], sortCondition: string, initialArray: ProductSingleComment[]):ProductSingleComment[]{
+    public sortBycLikesCount(commentsArray: ProductSingleComment[], sortCondition: string, sortingArrowType:boolean, initialArray: ProductSingleComment[]):ProductSingleComment[]{
       switch (sortCondition) {
-        case 'max-min': return commentsArray.slice().sort((a,b) => b.likes.length - a.likes.length);
-        case 'min-max': return commentsArray.slice().sort((a,b) => a.likes.length - b.likes.length);
-        case 'new': return commentsArray.slice().sort((a,b) => b.date['seconds'] - a.date['seconds']);
-        case 'old': return commentsArray.slice().sort((a,b) => a.date['seconds'] - b.date['seconds']);
-        case 'disable': return initialArray.slice();
+        case 'likes': 
+        return sortingArrowType ? commentsArray.slice().sort((a,b) => b.likes.length - a.likes.length):
+        commentsArray.slice().sort((a,b) => a.likes.length - b.likes.length)
+
+        case 'date': 
+        return sortingArrowType ? commentsArray.slice().sort((a,b) => b.date['seconds'] - a.date['seconds']):
+        commentsArray.slice().sort((a,b) => a.date['seconds'] - b.date['seconds']);
         
         default: console.warn(`sortBycLikesCount invalid argument 
           call ( commentsArray: ProductSingleComment[], sortCondition: 'min-max' - 'max-min' - 'disable' - 'old' - 'new')`)
           break;
       }
     }
-
-    /**
-     * 
-     * @param content        // texteria value
-     * @param currentUserUid // signIned user uid
-     * @param commentsArray  // all comments
-     * @param currentProdId  // activateRoute id
-     */
-
-  public addComment(content: string, currentUserUid: string, commentsArray: ProductSingleComment[], currentProdId: string, callback?: Function){
-    const newSingleComment = singleCommentConstructor(content, currentUserUid, this.afireStore.createId()) as ProductSingleComment;
-    commentsArray.push(newSingleComment);
-    this.db.pushData('products',currentProdId,'comments', newSingleComment).then(_ => callback());
-  }
 
 
   /**
@@ -109,7 +138,7 @@ export class CommentService {
 
       const zipData = zip(...decodeSubscribables).pipe(
         map((decodedUData:User[]) => decodedUData.forEach((uData, ind) => {
-          decodedFields.set(setFromArray[ind],uData)
+          decodedFields.set(setFromArray[ind], uData)
         }))
 
       ).subscribe(_void => {

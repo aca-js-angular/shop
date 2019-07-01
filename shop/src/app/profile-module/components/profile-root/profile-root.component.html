@@ -1,3 +1,28 @@
-<app-profile-page 
-[currentUid]="currentUid$ | async"
-></app-profile-page>
+
+
+<div class="profile-page" *ngIf="(profileOwner | async) as user">
+      
+    <div class="side-nav">
+
+      <img class="user-img" [src]="user.img">
+      <nav class="tabs">
+        <div routerLinkActive="active-tab" class="tab" routerLink="basic">Basic Info</div>
+        <div routerLinkActive="active-tab" class="tab" routerLink="posts">Posts</div>
+        <div routerLinkActive="active-tab" class="tab" routerLink="reviews">Reviews</div>
+        <div 
+        class="tab"
+        routerLink="posting_product"
+        routerLinkActive="active-tab" 
+        *ngIf="(isAuthProfile | async)" 
+        >Make Post</div>
+      </nav>
+  
+    </div>
+  
+    <div class="content">
+  
+      <router-outlet (activate)="onActivate($event)"></router-outlet>
+  
+    </div>
+  
+  </div>

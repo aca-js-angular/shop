@@ -1,8 +1,8 @@
-import { User } from './user.interface';
+import { User, FirebaseTimestamp } from './user.interface';
 
 export interface Review {
     evaluation: number,
     description: string,
-    date: {seconds: number, nanoseconds: number},
+    date: FirebaseTimestamp
     author: string | User,
 }

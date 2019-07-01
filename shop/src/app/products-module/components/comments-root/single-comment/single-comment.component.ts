@@ -7,16 +7,16 @@ import { UDataType } from 'src/app/fa-module/services/additional.service';
   selector: 'app-single-comment',
   templateUrl: './single-comment.component.html',
   styleUrls: ['./single-comment.component.scss'],
-  inputs: ['singleComment','decodedFields','currentUser','senderUid','currentProductId']
+  inputs: ['singleComment','decodedFields','currentUser','currentProductId']
 })
 export class SingleCommentComponent {
 
   @Output() likeComment = new EventEmitter<string>();
   @Output() deleteComment = new EventEmitter<string>();
+  @Output() editComment = new EventEmitter<{commentId:string,content: string}>();
 
   singleComment: ProductSingleComment;
   decodedFields: User;
-  senderUid: string;
   currentUser: UDataType;
   currentProductId: string;
   liked: boolean;
@@ -28,6 +28,13 @@ export class SingleCommentComponent {
 
   likeSelectedComment(){
     this.likeComment.emit(this.singleComment.commentId);
+  }
+
+  editSelectedComment(){
+    this.editComment.emit({
+      commentId:this.singleComment.commentId,
+      content: this.singleComment.content
+    });
   }
 
 

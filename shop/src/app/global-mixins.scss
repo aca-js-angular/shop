@@ -59,3 +59,64 @@
     margin-bottom: unset;
 }
 
+/* --- Shadows --- */
+
+@mixin light-shadow ($color: gray){
+    box-shadow: 2px 2px 3px $color;
+}
+
+@mixin strong-shadow ($color: gray){
+    box-shadow: 3px 3px 10px 10px $color;
+}
+
+
+
+/* ---------- Cascade ---------- */
+
+@mixin cascade($depth,$direction: horizontal,$color: #363636) {
+
+    position: relative;
+    transition: all 0.3s;
+
+
+    $translate-scale: undefined;
+
+    @if ($direction == horizontal){
+        $translate-scale: #{-($depth / 2)},#{-($depth / 2)};
+        &:not(:first-child){
+            box-shadow: #{-$depth / 5} 0px 5px 1px $color;
+        }
+        &:first-child{
+            box-shadow: 0px 0px 5px 1px $color;
+        }
+        
+        
+    }
+    @else if($direction == vertical){
+        $translate-scale: #{$depth / 2},#{-($depth / 2)};
+
+        &:not(:first-child){
+            box-shadow: 0px #{-$depth / 2} 5px 1px $color;
+        }
+        &:first-child{
+            box-shadow: 0px #{-$depth / 5} 5px 1px $color;
+        }
+    }
+
+    @for $i from 1 through 50{
+        &:nth-child(#{$i}){
+            @if ($direction == horizontal) {
+                left: (#{($i - 1) * -$depth})
+            }
+            @else if($direction == vertical){
+                top: (#{($i - 1) * -$depth})
+            }
+        }
+    }
+
+    &:hover{
+        transform: translate($translate-scale);
+        box-shadow: 0px 0px 7px 4px $color;
+    }
+
+}

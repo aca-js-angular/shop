@@ -1,6 +1,11 @@
 import { Order } from './order.interface';
 import { Review } from './review.interface';
 
+export interface FirebaseTimestamp {
+    seconds: number;
+    nanosecond: number;
+}
+
 export interface User {
     firstName: string;
     lastName: string;
@@ -10,7 +15,7 @@ export interface User {
     credit: Order[];
     rating: number;
     img: string;
-    registeredDate: Date;
+    registeredDate: Date | FirebaseTimestamp;
     reviews: Review[];
     uid?: string;
     password?: string;
