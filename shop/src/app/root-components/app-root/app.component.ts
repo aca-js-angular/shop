@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, Scroll } from '@angular/router';
+import { Router, Scroll, ActivatedRoute } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
-import { filter } from 'rxjs/operators';
+import { filter, pairwise } from 'rxjs/operators';
 import { HeaderTransforming } from './header-transforming.animation';
 import { AdditionalService } from 'src/app/fa-module/services/additional.service';
+import { FaService } from 'src/app/fa-module/services/fa.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,9 @@ export class AppComponent implements OnInit {
   constructor(
     private additionalAuth: AdditionalService,
     private router: Router,
+    private active: ActivatedRoute,
     private scroller: ViewportScroller,
+    private fa: FaService,
   ) { }
 
   get $currentUser() {
@@ -62,6 +65,7 @@ export class AppComponent implements OnInit {
           this.scroller.scrollToPosition([0, 0]);
         }
       })
+    
   }
 
 

@@ -8,6 +8,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { BAD_FORMAT, WRONG_EMAIL, WRONG_PASSWORD } from 'src/app/constants/sign-in-errors.constant';
 import { __randomNumber } from '../../root-components/working-with-db/helper-functions.ts/root';
 import { Review } from 'src/app/interfaces/review.interface';
+import { Observable } from 'rxjs';
 
 /* --- Sign-in errors --- */
 
@@ -120,6 +121,10 @@ export class FaService {
 
   get currentUser(): null | any {
     return this.firebaseAuth.auth.currentUser
+  }
+
+  get authState(): Observable<any>{
+    return this.firebaseAuth.authState;
   }
 
 

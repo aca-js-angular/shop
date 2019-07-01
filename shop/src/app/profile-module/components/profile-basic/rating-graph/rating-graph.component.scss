@@ -1,0 +1,29 @@
+@import '../../../../global-vars.scss';
+@import '../../../../global-mixins.scss';
+
+.additional{
+    display: flex;
+    align-items: center;
+    height: 30px;
+    .avatars{
+        margin-left: 10px;
+        margin-right: -10px;
+        .reviewer-img{
+            cursor: pointer;
+            outline: none;
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            @include light-shadow;
+            @include cascade(5px);
+            &:hover{
+                height: 60px;
+                width: 60px;
+            }
+        }
+    }
+}
+
+::ng-deep .mat-tooltip  {
+    white-space: pre-line !important;
+}

@@ -1,0 +1,42 @@
+
+@import '../../../global-vars.scss';
+@import '../../../global-mixins.scss';
+
+.profile-page{
+    display: flex;
+    flex-direction: row;
+    @include side-padding(10%);
+    .side-nav{
+        flex-basis: 25%;
+        display: flex;
+        flex-shrink: 0;
+        flex-direction: column;
+        min-height: 100vh;
+        background: $theme-dark;
+        .user-img{
+            width: 100%;
+        }
+        .tabs{
+            display: flex;
+            flex-direction: column;
+            .tab{
+                cursor: pointer;
+                color: white;
+                transition: all 0.3s;
+                &:hover{
+                    background: $theme-light;
+                    text-indent: 10px;
+                }
+            }
+            .active-tab{
+                background: $theme-light;
+                text-indent: 10px;
+            }
+        }
+        .content{
+            flex-basis: 75%;
+            width: 100%;
+            flex-grow: 1;
+        }
+    }
+}

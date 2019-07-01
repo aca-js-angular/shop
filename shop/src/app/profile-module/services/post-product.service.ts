@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { DatabaseFireService } from '../../database-fire.service';
 import { FaService } from '../../fa-module/services/fa.service';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/storage';
-import { User } from '../../interfaces/user.interface';
 import { Product } from '../../interfaces/product.interface';
 
 @Injectable({
