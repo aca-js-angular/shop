@@ -33,11 +33,16 @@
     </div>
 
 
+
     <!-- Country -->
     <div class="sign-up-form">
       <mat-form-field appearance="outline" [class.indent]="countryError">
         <mat-label>Country</mat-label>
-        <input _format="capital" _onlyAlphabet formControlName="country" matInput>
+        <mat-select formControlName="country">
+          <ng-container *ngIf="countries">
+            <mat-option *ngFor="let country of countries; index as i" [value]="i">{{country[0]}}</mat-option>
+          </ng-container>
+        </mat-select>
         <mat-error>{{countryError}}</mat-error>
       </mat-form-field>
     </div>
@@ -46,10 +51,17 @@
     <div class="sign-up-form">
       <mat-form-field appearance="outline" [class.indent]="cityError">
         <mat-label>City</mat-label>
-        <input _format="capital" _onlyAlphabet formControlName="city" matInput>
+        <mat-select formControlName="city">
+          <ng-container *ngIf="cities">
+            <mat-option *ngFor="let city of cities; index as i" [value]="i">{{city}}</mat-option>
+          </ng-container>
+        </mat-select>
         <mat-error>{{cityError}}</mat-error>
       </mat-form-field>
     </div>
+
+
+
 
     <!-- Email -->
     <div class="sign-up-form">

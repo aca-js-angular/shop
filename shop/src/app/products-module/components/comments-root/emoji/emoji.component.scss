@@ -1,13 +1,14 @@
-$tralslateEnd: translateX(-66%);
-$tralslateStart: translateX(0%);
+$tralslateEnd: translateX(0%);
+$tralslateStart: translateX(64%);
 
 
 .emojis { 
     transition: 1s;
-    width: 23%;
+    width: 50%;
     float: right;
     background: #ececec;
     border-radius: 17px;
+    margin-bottom: 1%;
     transform: $tralslateEnd;
 }
 

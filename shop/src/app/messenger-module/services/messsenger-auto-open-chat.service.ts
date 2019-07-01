@@ -158,7 +158,7 @@ export class MessengerAutoOpenChatBoxByNf {
     if (previusMessagesLength) { // return changed > chats messages index (only added > child)
       let changedChildIndex = originIncomingallChatsMessagesArray.findIndex((singleChatMessageArray, ind) => singleChatMessageArray.length > previusMessagesLength[ind]);
       previusMessagesLength = this.getCurrentMessagesLengths(originIncomingallChatsMessagesArray);
-      return [previusMessagesLength, changedChildIndex];
+      return [previusMessagesLength, changedChildIndex]; //  deleting changedChildIndex returned -1
 
     } else { // first initialisation changed not returned changed index;
       console.log('else')

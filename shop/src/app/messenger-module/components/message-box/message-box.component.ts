@@ -3,13 +3,14 @@ import { MessengerService, emiteCloseMessageBox } from '../../services/messenger
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 import { CurrentChatMemberDialogData } from '../../messenger-interface';
 import { FormControl, Validators } from '@angular/forms';
-import { AdditionalService } from 'src/app/fa-module/services/additional.service';
 import { takeUntil, switchMap, debounceTime } from 'rxjs/operators';
 import { Subject, fromEvent, Subscription } from 'rxjs';
 import { MessengerOptionalService } from '../../services/messenger-optional-service.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MessengerAutoOpenChatBoxByNf } from '../../services/messsenger-auto-open-chat.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { OpenDialogService } from 'src/app/fa-module/services/open-dialog.service';
+import { clearAllMessages, deleteMessage, sendCurrentProdLink } from 'src/app/constants/popup-messages.constant';
 
 const NOTIFICATION_SOUND: string = 'assets/messengerAudio/message2.mp3';
 
@@ -30,11 +31,13 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   destroyStream$ = new Subject<void>()
   inputTypingState: Subscription;
   isOnlineChatMember: boolean;
-  currentFullUrl: string;
+  currentUrl: string;
   disableNotify: boolean;
-  
+
+
   constructor(
     private router: Router,
+    private dialog: OpenDialogService,
     private messengerService: MessengerService,
     private messengerOptService: MessengerOptionalService,
     private faFirebase: AngularFireAuth,
@@ -43,38 +46,19 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @Inject(MAT_DIALOG_DATA) data: CurrentChatMemberDialogData,
     ) {
-    this.curentChatMember = data
+    this.curentChatMember = data;
   }
 
-
-  unsubscribeChatNotyfy(): void{
-
-  }
-
-  clearCurrentChat(): void{
-    const subscrib$ = this.messengerService.currentChatUrl.subscribe(chatUrl => {
-      this.messengerService.clearAllMessages(chatUrl)
-    })
-    subscrib$.unsubscribe();
-  }
-
-  sendPatchCurrentProductUrl(){
-    this.messageInput.patchValue(`send product url -> ${this.currentFullUrl} `);
-  }
 
 
   ngOnInit() {
-    this.currentFullUrl = document.location.href;
-
+    this.currentUrl = this.router.url;
     emiteCloseMessageBox.pipe(takeUntil(this.destroyStream$)).subscribe(_ => this.dialogRef.close());
-    
     this.messageInput = new FormControl('', Validators.required);
-
       this.faFirebase.auth.onAuthStateChanged((cUserId) => {
 
       if (cUserId) {   // ---security---
         this.currentUserId = cUserId.uid;
-
         //----Get Messages-----
         this.messengerService.getMeassages().pipe(takeUntil(this.destroyStream$))
         .subscribe(messages => {
@@ -83,15 +67,12 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
             this.allMessages[0] ? this.messengerOptService.sendMessageSound(NOTIFICATION_SOUND): null;
             this.allMessages = messages;
           });
-
         //----Decode Mesage Data-------
         this.messengerService.decodMessSenderUidInName(this.curentChatMember.userId, cUserId.uid)
           .then(decodedFields => this.decodeDataCurrentChatMembers = decodedFields);
-
         //----isOnline-------
         this.messengerOptService.isOnline().pipe(takeUntil(this.destroyStream$))
         .subscribe(isOnlineChatMemberStatus => this.isOnlineChatMember = isOnlineChatMemberStatus)
-
         //----typing---------
         this.messengerOptService.isTypingChatMember().pipe(takeUntil(this.destroyStream$))
           .subscribe(uid => { this.isTypingChatMember = uid === this.curentChatMember.userId ? true : false})
@@ -99,9 +80,6 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
       } else { this.messengerService.closeMessageBox(); } // <<<<<<<<<<<<<<<<<??????????
     });
   }
-
-
-  
 
   ngAfterViewInit() {
     this.inputTypingState = fromEvent(this.messageInputRef.nativeElement, 'input').pipe(
@@ -114,15 +92,64 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
      ).subscribe()
    }
  
-  //----------------Metods--------------
 
+
+
+
+
+  /* --------Metods------- */
   trackByMessages(unicIndex, data){
     return data ? data.key : undefined;
    }
 
 
+  confirm(collback: Function, alertMessage: Function, ...arg: any) {
+    this.dialog.openConfirmMessage({
+      message: alertMessage(),
+      accept: () => collback.call(this, ...arg),
+    })
+  }
+
+  /* --------Chat Menu------- */
+  unsubscribeChatNotyfy(): void{
+  }
+
+  clearCurrentChat(): void{
+    this.confirm(callback,clearAllMessages);
+
+    function callback() {
+      const subscr$ = this.messengerService.currentChatUrl.subscribe(chatUrl => {
+      console.log("TCL: callback -> chatUrl", chatUrl)
+        this.messengerService.clearAllMessages(chatUrl);
+      })
+      subscr$.unsubscribe()
+    }
+  }  
+  //-----------------------
+  
+  sendPatchCurrentProductUrl(){
+    this.confirm(callback, sendCurrentProdLink);
+
+    function callback() {
+      this.messageInput.patchValue(`${this.currentUrl}~!`);
+      this.sendMessage();
+    }
+  }
+
+
   removeMessage(key: string) {
-    this.messengerService.removeMessage(key).catch()
+    this.confirm(callback,deleteMessage);
+
+    function callback() {
+      this.messengerService.removeMessage(key).catch();
+    }
+  }
+
+
+  includRefText(){
+    const hasHref = this.messageInput.value.includes('https://') || this.messageInput.value.includes('http://');
+    (!this.messageInput.value.includes('#') && hasHref) 
+    && this.messageInput.patchValue(`${this.messageInput.value}#`);
   }
 
   sendMessage() {
@@ -135,7 +162,6 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   
   closeMessageBox() {
     this.messengerService.closeMessageBox();
-
     this.messengerAutoOpenChatService._hasOlreadyOpenedOtherChat = true;  //jamanakavor vor aktiv lini menak 1 hat chat 
   }
 
