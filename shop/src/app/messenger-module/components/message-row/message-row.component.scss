@@ -13,7 +13,7 @@ $dark: #777777;
     }
   }
   
-  .outgoing {
+.outgoing {
     padding: 20px;
     display: inline;
     
@@ -23,7 +23,10 @@ $dark: #777777;
     }
   }
 
-  .bubble {
+.remove-message {
+  cursor: pointer;
+}
+.bubble {
     position: relative;
     display: inline-block;
     margin-bottom: 5px;

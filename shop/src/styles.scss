@@ -228,3 +228,21 @@ html.cdk-global-scrollblock {
     position: initial;
     overflow-y: initial;
 }
+
+
+
+// Scroll
+
+::-webkit-scrollbar {
+    width: 0.9em;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(170, 170, 170);
+    outline: 1px solid rgb(79, 90, 100);
+}
+
+//#446E8E;

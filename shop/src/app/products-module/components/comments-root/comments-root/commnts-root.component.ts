@@ -7,6 +7,8 @@ import { CommentService } from '../commenet-service/comment.service';
 import { AdditionalService, UDataType } from 'src/app/fa-module/services/additional.service';
 import { takeUntil } from 'rxjs/operators';
 import { maxLenghtLimitValidator } from '../validators/comment.validator';
+import { OpenDialogService } from 'src/app/fa-module/services/open-dialog.service';
+import { deleteComment, editComment } from 'src/app/constants/popup-messages.constant';
 
 const BTN_POST = 'Post Comment';
 const BTN_EDIT = 'Edit';
@@ -36,11 +38,11 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
   showEmojiPanel: boolean;
   sortingArrowType: boolean;
   commentMaxLength: number;
-  
+
   constructor(
     private commentServise: CommentService,
     private additionalAuth: AdditionalService,
-
+    private dialog: OpenDialogService,
   ) { }
 
   /*---Getters---*/
@@ -48,42 +50,56 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
     return this.additionalAuth.$autoState;
   }
 
-
+  
   /*---Metods---*/
-  trackByComment(index: number, singleComment: ProductSingleComment){
+  trackByComment(index: number, singleComment: ProductSingleComment) {
     return singleComment.commentId;
     // console.log(singleComment)
   }
-
-  setEmoji(emoji: string){
-  this.commentTexteria.patchValue(`${this.commentTexteria.value} ${emoji}`);
+  
+  confirm(collback: Function, alertMessage: Function, ...arg: any) {
+    this.dialog.openConfirmMessage({
+      message: alertMessage(),
+      accept: () => collback.call(this, ...arg),
+    })
+  }
+  
+  setEmoji(emoji: string) {
+    this.commentTexteria.patchValue(`${this.commentTexteria.value} ${emoji}`);
   }
 
   /* ------Edit Comment Metods----- */
-  cancelCommentEditing(){
+  cancelCommentEditing() {
     this.submitButtonCallack = this.postComment;
     this.isEditing = false;
     this.commentTexteria.setValue('');
     this.submitButtonText = BTN_POST;
   }
-    
 
-  showEditingCommentFields({commentId, content}){
-    
-    this.submitButtonCallack = this.editSelectedComment.bind(this,commentId);
+
+  showEditingCommentFields({ commentId, content }) {
+
+    this.submitButtonCallack = () =>
+      this.confirm(this.editSelectedComment.bind(this, commentId), editComment);
+
     this.isEditing = true;
     this.commentTexteria.setValue(content);
     this.submitButtonText = BTN_EDIT;
   }
 
-  editSelectedComment(commentId: string){
-    
-    if(this.commentTexteria.value.length < COMMENT_MAX_LENGTH){ // set max comment length ????
-    this.commentServise.editSelectedComment(
-      this.productFields.currentProductComments,
-      commentId,
-      this.productFields.currentProductRouteId,
-      this.commentTexteria.value,
+  editSelectedComment(commentId: string) {
+    if (!this.commentTexteria.value.length) {
+      this.cancelCommentEditing();
+      this.deleteComment(commentId);
+      return
+    }
+
+    if (this.commentTexteria.value.length < COMMENT_MAX_LENGTH) { // set max comment length ????
+      this.commentServise.editSelectedComment(
+        this.productFields.currentProductComments,
+        commentId,
+        this.productFields.currentProductRouteId,
+        this.commentTexteria.value,
       )
       this.cancelCommentEditing();
     }
@@ -91,12 +107,19 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
 
   // ----------------------
 
-  deleteComment(commentId: string){
-    this.commentServise.deleteComment(
-      this.productFields.currentProductComments,
-      commentId,
-      this.productFields.currentProductRouteId,
-    )
+
+
+  deleteComment(commentId: string) {
+    
+    this.confirm(callack,deleteComment)
+
+    function callack() {
+      this.commentServise.deleteComment(
+        this.productFields.currentProductComments,
+        commentId,
+        this.productFields.currentProductRouteId,
+      )
+    }
   }
 
 
@@ -112,15 +135,15 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
 
   postComment() {
 
-    if(this.commentTexteria.value.length < COMMENT_MAX_LENGTH){ // set max comment length ????
+    if (this.commentTexteria.value.length && this.commentTexteria.value.length < COMMENT_MAX_LENGTH) { // set max comment length ????
       this.commentServise.postComment(
         this.commentTexteria.value,
         this.currentUser.uid,
         this.productFields.currentProductComments,
         this.productFields.currentProductRouteId,
-        );
-    this.commentTexteria.setValue('');
-      }
+      );
+      this.commentTexteria.setValue('');
+    }
   }
 
   sort() {
@@ -140,7 +163,7 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
       { value: 'likes', title: 'By likes' },
       { value: 'date', title: 'By date' },
     ];
-    
+
     this.submitButtonText = BTN_POST;
     this.submitButtonCallack = this.postComment
     this.commentTexteria = new FormControl('', maxLenghtLimitValidator(COMMENT_MAX_LENGTH));
@@ -149,17 +172,17 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
     this.sortingArrowType = false;
     this.commentMaxLength = COMMENT_MAX_LENGTH;
 
-    this.productFields$.pipe(takeUntil(this.destroyStream$ )).subscribe(next => {
+    this.productFields$.pipe(takeUntil(this.destroyStream$)).subscribe(next => {
       this.productFields = next;
       this.dinamicCommentsArray = this.productFields.currentProductComments.slice();
 
       this.selectFilerValue.value !== 'date' && !this.sortingArrowType && this.sort();
 
       this.commentServise.decodeCommentSenders(this.productFields.currentProductComments)
-        .pipe(takeUntil(this.destroyStream$ )).subscribe(decodedZip => this.decodedZip = decodedZip);
+        .pipe(takeUntil(this.destroyStream$)).subscribe(decodedZip => this.decodedZip = decodedZip);
     })
 
-    this.$currentUser.pipe(takeUntil(this.destroyStream$ )).subscribe(udata => this.currentUser = udata);
+    this.$currentUser.pipe(takeUntil(this.destroyStream$)).subscribe(udata => this.currentUser = udata);
 
   }
 

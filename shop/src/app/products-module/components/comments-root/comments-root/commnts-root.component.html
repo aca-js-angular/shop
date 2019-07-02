@@ -53,12 +53,7 @@
 
     </ng-container>
 </section>
-<app-emoji 
-    (setEmoji)="setEmoji($event)"
-    [hidden]="showEmojiPanel" 
-    [animate]="showEmojiPanel" 
-    >
-</app-emoji>
+
 
 <!-- Add comment -->
 <div class="write-comment-fields">
@@ -73,7 +68,11 @@
         <span>{{this.commentTexteria.value.length}} / {{commentMaxLength}}</span>
     </mat-form-field>
     
-
-
+    <app-emoji 
+    (setEmoji)="setEmoji($event)"
+    [hidden]="showEmojiPanel" 
+    [animate]="showEmojiPanel" 
+    >
+</app-emoji>
 
 </div>

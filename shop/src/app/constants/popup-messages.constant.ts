@@ -18,3 +18,23 @@ export const resetPassSucces = function(email: string): string[] {
 export const resetPassFail = function(email: string): string[] {
     return [`${email} wasn't registered on Mode-Concept.`,`Please type email of your account.`]
 }
+
+//---Comments---
+export const deleteComment = function(): string[] {
+    return [`Delete Comment ?`]
+}
+
+export const editComment = function(): string[] {
+    return [`Edit Comment ?`]
+}
+
+//---Chat----
+export const deleteMessage = function(): string[] {
+    return [`Delete Message ?`]
+}
+export const clearAllMessages = function(): string[] {
+    return [`Clear All Messages ?`]
+}
+export const sendCurrentProdLink = function(): string[] {
+    return [`Send Current Product Link ?`]
+}

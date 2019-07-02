@@ -5,21 +5,23 @@ import { Subject, of, Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FaService } from '../../services/fa.service';
 import { switchMap, map, tap, delay } from 'rxjs/operators';
-import { _password , _passConfirm} from '../../../validators/root/custom-validators'
+import { _password, _passConfirm } from '../../../validators/root/custom-validators'
 import { FormControlService } from 'src/app/form-control.service';
 import { MatDialogRef } from '@angular/material';
 import { AngularFireUploadTask, AngularFireStorageReference, AngularFireStorage } from '@angular/fire/storage';
+import { AdditionalService } from '../../services/additional.service';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss','../dialog-main.scss']
+  styleUrls: ['./sign-up.component.scss', '../dialog-main.scss']
 })
 
 
 export class SignUpComponent implements OnInit {
 
   constructor(
+    private additionalFa: AdditionalService,
     public dialogRef: MatDialogRef<SignUpComponent>,
     public formBuilder: FormBuilder,
     public router: Router,
@@ -27,9 +29,9 @@ export class SignUpComponent implements OnInit {
     private fireAuth: AngularFireAuth,
     private control: FormControlService,
     private storage: AngularFireStorage,
-  ) {}
+  ) { }
 
-  
+
   /* --- Variables --- */
 
   currentImg: File;
@@ -54,13 +56,13 @@ export class SignUpComponent implements OnInit {
       Validators.minLength(2)
     ]],
 
-    country: ['',Validators.required],
-    city: ['',Validators.required],
+    country: ['', Validators.required],
+    city: ['', Validators.required],
 
     email: ['', [
       Validators.required,
       Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"),
-    ],this.isBusyEmail.bind(this)],
+    ], this.isBusyEmail.bind(this)],
 
     password: ['', [
       Validators.required,
@@ -99,7 +101,7 @@ export class SignUpComponent implements OnInit {
   }
 
   get controlArray(): FormControl[] {
-    return [this.firstName,this.lastName,this.email,this.pass,this.passConfirm]
+    return [this.firstName, this.lastName, this.email, this.pass, this.passConfirm]
   }
 
   get isShownError(): boolean {
@@ -121,19 +123,19 @@ export class SignUpComponent implements OnInit {
     return this.city.touched && this.control.getErrorMessage(this.city)
   }
   get emailError(): string | null {
-    return this.email.touched && this.control.getErrorMessage(this.email,'invalid-email')
+    return this.email.touched && this.control.getErrorMessage(this.email, 'invalid-email')
   }
   get emailAsyncError(): boolean {
     return this.email.hasError('_async')
   }
   get passError(): string | null {
-      return this.pass.touched && this.control.getErrorMessage(this.pass)
+    return this.pass.touched && this.control.getErrorMessage(this.pass)
   }
   get passConfirmError(): string | null {
     return this.passConfirm.touched && this.control.getErrorMessage(this.passConfirm)
   }
 
-  get safetyState(): {safety: string, color : string} {
+  get safetyState(): { safety: string, color: string } {
     return this.control.getPasswordSafety(this.pass)
   }
 
@@ -143,12 +145,12 @@ export class SignUpComponent implements OnInit {
     return false;
   }
 
-  toSignIn(){
-    this.dialogRef.close({to: 'sign-in'})
+  toSignIn() {
+    this.dialogRef.close({ to: 'sign-in' })
   }
 
-  showBusyEmailError(isBusy: boolean){
-    if(isBusy){
+  showBusyEmailError(isBusy: boolean) {
+    if (isBusy) {
       this.email.markAsTouched();
       let sbcr = this.email.valueChanges.subscribe(_ => {
         this.email.markAsUntouched();
@@ -160,19 +162,19 @@ export class SignUpComponent implements OnInit {
   isBusyEmail(control: FormControl): Observable<ValidationErrors | null> {
 
     return of(control.value).pipe(
-      
-      delay(800),
+
+      delay(500),
       switchMap(email => this.fireAuth.auth.fetchSignInMethodsForEmail(email)),
-      map(isBusy => isBusy.length ? {_async: { message: 'This email was already registered' }} : null),
+      map(isBusy => isBusy.length ? { _async: { message: 'This email was already registered' } } : null),
       tap(isBusy => this.showBusyEmailError(!!isBusy))
-      
+
     )
 
   }
 
-  onSubmit(){
-    if(this.registerForm.invalid){
-      for(let control in this.registerForm.controls){
+  onSubmit() {
+    if (this.registerForm.invalid) {
+      for (let control in this.registerForm.controls) {
         this.registerForm.controls[control].markAsTouched();
       }
       return
@@ -182,24 +184,29 @@ export class SignUpComponent implements OnInit {
 
 
   register() {
+    this.registerForm.patchValue({
+      country: this.countries[this.registerForm.get('country').value][0],
+      city: this.cities[this.registerForm.get('city').value]
+    })
+
     this.submitted = true;
     this.upload().then(imgUrl => {
-      this.fa.signUp(this.registerForm.value,imgUrl)
-      .then(_ => {
-        this.submitted = false;
-        this.toSignIn();
-      })
+      this.fa.signUp(this.registerForm.value, imgUrl)
+        .then(_ => {
+          this.submitted = false;
+          this.toSignIn();
+        })
     })
   }
 
 
-  apply(event, preview: HTMLImageElement){
+  apply(event, preview: HTMLImageElement) {
 
     this.currentImg = event.target.files[0];
-    if(!this.currentImg)return;
+    if (!this.currentImg) return;
     let imgReader = new FileReader();
     imgReader.readAsDataURL(this.currentImg)
-    imgReader.onload = function(event){
+    imgReader.onload = function (event) {
       preview.src = event.target['result']
     }
 
@@ -212,16 +219,33 @@ export class SignUpComponent implements OnInit {
       uploadTask.then(snapshot => {
         snapshot.ref.getDownloadURL().then(url => {
           resolve(url);
-        }) 
+        })
       })
     })
   }
 
 
   /* --- LC hooks --- */
+  countries: [string, string[]][];
+  cities: string[];
 
   ngOnInit() {
-    this.passConfirm.setValidators([_passConfirm(this.pass),Validators.required])
+
+    this.registerForm.get('country').valueChanges.subscribe(next => {
+    if(!this.countries[next]) return;
+      this.cities = this.countries[next][1];
+      this.registerForm.get('city').setValue(0)
+    })
+
+
+    this.additionalFa.getCountrys().subscribe(data => {
+        this.countries = Object.entries(data)
+        this.registerForm.get('country').setValue(7) // Armenia by default
+      })
+
+
+
+    this.passConfirm.setValidators([_passConfirm(this.pass), Validators.required])
   }
 
   ngOnDestroy() {

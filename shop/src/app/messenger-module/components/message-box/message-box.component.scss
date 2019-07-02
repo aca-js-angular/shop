@@ -116,9 +116,15 @@ $offline: gray;
   width: 35px;
   height: 35px;
   border-radius: 50%;
+  transition: 0.2s;
   // position: absolute;
+  cursor: pointer;
   top: 11px;
   left: 15px;
+  &:hover{
+    width: 37px;
+    height: 37px;
+  }
   p {
     color: $white;
     margin: 7px 12px;
@@ -403,4 +409,7 @@ footer {
 }
 .online {
   background: $online;
+}
+.sendCurrentPrLink{
+  cursor: pointer
 }

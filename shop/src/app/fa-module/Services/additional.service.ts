@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 export type UDataType = {
   uid: string
@@ -17,7 +18,7 @@ export class AdditionalService {
 
   $autoState = new BehaviorSubject<UDataType>(null);
 
-  constructor(private firebaseAuth: AngularFireAuth) {
+  constructor(private firebaseAuth: AngularFireAuth, private http: HttpClient) {
     this.firebaseAuth.auth.onAuthStateChanged((user) => {
       user ? this.$autoState.next({ uid: user.uid, displayName: user.displayName })
         : this.$autoState.next(null);
@@ -33,6 +34,9 @@ export class AdditionalService {
     })
   }
 
-
+  getCountrys<T>(url = 'https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/6ee538beca8914133259b401ba47a550313e8984/countries.min.json'): Observable<T>{
+    return this.http.get<T>(url)
+  }
+      
 
 }

@@ -92,7 +92,7 @@ export class SignInComponent implements OnInit, OnDestroy, AfterViewInit {
       .then(_ => {
         this.loggingIn = true;
         this.setNotification('Logging in...')
-        setTimeout(() => this.dialogRef.close(),3500)  /* --- realistic imitation purposes only --- */
+        setTimeout(() => this.dialogRef.close(),1500)  /* --- realistic imitation purposes only --- */
       })
       .catch(message => this.setNotification(message))
     }
