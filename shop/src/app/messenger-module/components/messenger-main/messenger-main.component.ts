@@ -8,6 +8,7 @@ import { MessengerAutoOpenChatBoxByNf } from '../../services/messsenger-auto-ope
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/interfaces/user.interface';
+import { emitDisableNotifys } from '../message-box/message-box.component';
 
 
 @Component({
@@ -17,9 +18,8 @@ import { User } from 'src/app/interfaces/user.interface';
 })
 
 export class MessengerComponent implements OnInit, OnDestroy {
-  
-  $destroyStream = new Subject<void>();
 
+  destroyStream$ = new Subject<void>();
   notifysAndMessages: CurrentChatMemberDialogData[] = [];
   findedVendor: CurrentChatMemberDialogData;
   emitedVendor: User;
@@ -37,28 +37,38 @@ export class MessengerComponent implements OnInit, OnDestroy {
     let emitedVendorEmailUnicBox: string; // for unic box openning;
 
     //----Emiters-----
-    removeOpenedChatАccess.pipe(takeUntil(this.$destroyStream)).subscribe(_void => emitedVendorEmailUnicBox = '');
+    removeOpenedChatАccess.pipe(takeUntil(this.destroyStream$)).subscribe(_void => emitedVendorEmailUnicBox = '');
 
 
-    chatEmitVendor.pipe(takeUntil(this.$destroyStream)).subscribe(emitedVendor => this.emitedVendor = emitedVendor as User);
+    chatEmitVendor.pipe(takeUntil(this.destroyStream$)).subscribe(emitedVendor => this.emitedVendor = emitedVendor as User);
 
-    openChatBox.pipe(takeUntil(this.$destroyStream)).subscribe(_void => {
-      this.emitedVendor 
-        && this.emitedVendor.email 
+    openChatBox.pipe(takeUntil(this.destroyStream$)).subscribe(_void => {
+      this.emitedVendor
+        && this.emitedVendor.email
         && this.emitedVendor.email !== emitedVendorEmailUnicBox
         && this.searchUserandEmite(this.emitedVendor.email);
 
       emitedVendorEmailUnicBox = this.emitedVendor.email; // for unic search
     })
 
-    // ----Auto Opening by Notify----
-    this.messengerAutoOpenChatService.subscribeNewMessageNotify().pipe(takeUntil(this.$destroyStream))
-      .subscribe(notyfiMessageUserData => {
-        this.openMesssengerBoxByEmit(notyfiMessageUserData[0]);
-        console.log("TCL: MessengerComponent -> ngOnInit ->", notyfiMessageUserData) 
-      })
-  }
 
+    // ----Auto Opening by Notify----
+    this.messengerAutoOpenChatService.subscribeNewMessageNotify().pipe(takeUntil(this.destroyStream$))
+      .subscribe(notyfiMessageUserData => {
+
+        this.openMesssengerBoxByEmit(notyfiMessageUserData[0]);
+      })
+
+
+      //-----(Emiter) Subscribe enabling or disabling notifys-------
+    emitDisableNotifys.subscribe(notifyDiasbleData => {
+      if (this.messengerAutoOpenChatService.disabledNotifyChatUrlsMap.has(notifyDiasbleData.chatUrl)) {
+        this.messengerAutoOpenChatService.disabledNotifyChatUrlsMap.delete(notifyDiasbleData.chatUrl)
+      } else {
+        this.messengerAutoOpenChatService.disabledNotifyChatUrlsMap.set(notifyDiasbleData.chatUrl, notifyDiasbleData.userInfo)
+      }
+    })
+  }
 
   emiteNotifyVendorWithTemplate(vendor) {
     // this.openMesssengerBoxByEmit(vendor)
@@ -78,7 +88,6 @@ export class MessengerComponent implements OnInit, OnDestroy {
     if (emitedVendorData) {
       const $subscribable = this.messengerService.openMesssengerBoxOrConfirm(emitedVendorData)
         .subscribe(enumCondition => {
-          console.log(enumCondition)
 
           switch (enumCondition) {
             case 'openMessBox':
@@ -96,7 +105,7 @@ export class MessengerComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy() {
-    this.$destroyStream.next();
+    this.destroyStream$.next();
     this.messengerAutoOpenChatService.diasbleMessagesNotyfictions$.next();
   }
 }

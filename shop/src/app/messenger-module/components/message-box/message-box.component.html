@@ -4,74 +4,82 @@ Enjoy! :) Don't forget to click the heart if you like it! -->
 
 <ng-container *ngIf="curentChatMember && decodeDataCurrentChatMembers">
 
-  
-  
-  
-  
+
   <div class="chatbox">
 
 
 
-      <!--------------- Menu ***--------------- -->
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon>more_vert</mat-icon>
+    <!--------------- Menu ***--------------- -->
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <!--  Link To Profile -->
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/', 'profile', curentChatMember.userId]">
+        <mat-icon>account_box</mat-icon>
+        <span>Go to profile</span>
       </button>
-      <!--  Link To Profile -->
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/', 'profile', curentChatMember.userId]">
-          <mat-icon>account_box</mat-icon>
-          <span>Go to profile</span>
-        </button>
-        <!--  Clear chat -->
-        <button mat-menu-item (click)="clearCurrentChat()">
-          <mat-icon>delete</mat-icon>
-          <span>Clear chat</span>
-        </button>
-        <!--  Notify -->
-        <button mat-menu-item (click)="unsubscribeChatNotyfy(); disableNotify =!disableNotify">
-          <div [hidden]="disableNotify">
-            <mat-icon>notifications_off</mat-icon>
-            <span>Disable alerts</span>
-          </div>
-      
-          <div [hidden]="!disableNotify">
-            <mat-icon>notifications_onn</mat-icon>
-            <span>Enable alerts</span>
-          </div>
-      
-        </button>
-      </mat-menu>
+      <!--  Clear chat -->
+      <button mat-menu-item (click)="clearCurrentChat()">
+        <mat-icon>delete</mat-icon>
+        <span>Clear chat</span>
+      </button>
 
-          <!-- ------------- -->
+      <!-- disable Voise -->
+      <div [hidden]="!disableVoise">
+        <button mat-menu-item (click)="disableVoise = !disableVoise">
+          <mat-icon>notifications_off</mat-icon>
+          <span>Disable Voise</span>
+        </button>
+      </div>
+
+      <div [hidden]="disableVoise">
+        <button mat-menu-item (click)="disableVoise = !disableVoise">
+          <mat-icon>notifications_onn</mat-icon>
+          <span>Enaable Voise</span>
+        </button>
+      </div>
+
+
+      <!--  Notify -->
+      <button mat-menu-item (click)="toggleNotifys(); disableNotify = !disableNotify">
+        <div [hidden]="disableNotify">
+          <mat-icon>notifications_off</mat-icon>
+          <span>Disable alerts</span>
+        </div>
+
+        <div [hidden]="!disableNotify">
+          <mat-icon>notifications_onn</mat-icon>
+          <span>Enable alerts</span>
+        </div>
+
+      </button>
+    </mat-menu>
+
+    <!-- ------------- -->
     <div class="top-bar">
       <div class="offline" [class.online]="isOnlineChatMember"></div>
-      <img class="avatar" 
-      [src]="
+      <img class="avatar" [src]="
       decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl ?
-      decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl: 'assets/empty_user.png'"
-      width="32" height="32" 
-      [routerLink]="['/', 'profile', curentChatMember.userId]"
-      />
+      decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl: 'assets/empty_user.png'" width="32" height="32"
+        [routerLink]="['/', 'profile', curentChatMember.userId]" />
 
       <div class="name">{{curentChatMember.fullName}}</div>
       <span class="close-chat" (click)="closeMessageBox()">x</span>
 
     </div>
 
-
+{{disableVoise}}
 
     <div class="middle">
       <div class="voldemort">
         <!-- Message Item -->
         <app-message-row *ngFor="let messageRowObj of allMessages; 
                 first as first; 
-                trackBy: trackByMessages" 
-                (deleteMessage)="removeMessage($event)" 
-                [firstMessage]="first"
-                [messageRowObj]="messageRowObj.message" 
-                [messageRowKey]="messageRowObj.key" 
-                [currentUserMessage]="messageRowObj.message.sender === currentUserId"
-                [decodeDataChatMember]="decodeDataCurrentChatMembers[messageRowObj.message.sender]">
+                trackBy: trackByMessages" (deleteMessage)="removeMessage($event)" [firstMessage]="first"
+          [messageRowObj]="messageRowObj.message" [messageRowKey]="messageRowObj.key"
+          [currentUserMessage]="messageRowObj.message.sender === currentUserId"
+          [decodeDataChatMember]="decodeDataCurrentChatMembers[messageRowObj.message.sender]">
         </app-message-row>
 
         <!-- Readet -->
@@ -86,11 +94,9 @@ Enjoy! :) Don't forget to click the heart if you like it! -->
         </div>
 
         <!-- Send Curren Product Link -->
-      <mat-icon *ngIf="currentUrl.includes('product')" 
-         class="sendCurrentPrLink"
-         title="Send current productLink" 
-         (click)="sendPatchCurrentProductUrl()">launch
-      </mat-icon>
+        <mat-icon *ngIf="currentUrl.includes('product')" class="sendCurrentPrLink" title="Send current productLink"
+          (click)="sendPatchCurrentProductUrl()">launch
+        </mat-icon>
 
       </div>
     </div>
@@ -103,8 +109,8 @@ Enjoy! :) Don't forget to click the heart if you like it! -->
 <!-- Input @VievChild-->
 <div class="bottom-bar">
   <div class="chat">
-    <input (input)="includRefText()" type="text" (keydown.enter)="sendMessage()" placeholder="Type a message..." #messageInputRef maxlength="50"
-      [formControl]="messageInput" autofocus />
+    <input (input)="includRefText()" type="text" (keydown.enter)="sendMessage()" placeholder="Type a message..."
+      #messageInputRef maxlength="50" [formControl]="messageInput" autofocus />
     <img class="send-message-btn" title="Send Message" (click)="sendMessage()"
       src="assets/chat/send-message-button64.png" />
   </div>

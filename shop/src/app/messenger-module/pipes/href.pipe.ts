@@ -25,7 +25,6 @@ export class HrefPipe implements PipeTransform {
       hrefEnd),message.slice(hrefEnd, message.length-2)
     ]
 
-    console.log(textStart,href,textEnd)
     switch (arg) {
       case 'start-href': return textStart;
       case 'href': return href;

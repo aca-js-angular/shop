@@ -2,12 +2,10 @@ import { Injectable, OnDestroy, EventEmitter } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { CurrentUserCloud, CurrentChatMemberDialogData, MessageDataRTimeDb, RealTimeDbUserData } from '../messenger-interface';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map, switchMap, takeUntil, debounceTime, distinctUntilChanged, toArray } from 'rxjs/operators';
+import { map, switchMap, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Observable, zip, of, Subject, BehaviorSubject } from 'rxjs';
 import { AdditionalService } from 'src/app/fa-module/services/additional.service';
 import { User } from 'src/app/interfaces/user.interface';
-import { MatDialogRef } from '@angular/material';
-import { MessageBoxComponent } from '../components/message-box/message-box.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 export const emiteCloseMessageBox = new EventEmitter();
 
@@ -29,7 +27,6 @@ export class MessengerService implements OnDestroy {
   constructor(
     private db: AngularFireDatabase,
     private afs: AngularFirestore,
-    private autoAdditional: AdditionalService,
     private firebaseAuth: AngularFireAuth,
     // private dialog: MatDialog,
     // private confirmMessage: ConfirmDialogService,
@@ -102,7 +99,6 @@ export class MessengerService implements OnDestroy {
     })
   }
 
-
   /**
    * 
    * @param messageKey (-45-e0f1JwQUkw4sW34F1)
@@ -115,15 +111,12 @@ export class MessengerService implements OnDestroy {
     })
   }
 
-
   /**
    * 
    * @param url `${currentUserUid.uid}&${otherUser}`
    */
   openNewChat(url: string): Promise<string> {
     return new Promise(resolve => {
-
-
       if (this.currentUser) {
         this.db.list(`chats/${url}/messages`).push({
           message: {
@@ -244,10 +237,10 @@ export class MessengerService implements OnDestroy {
                   );
                   resolve(findedUser);
                 }
-                this.destroyStream$.next()
+                this.destroyStream$.next();
               })
           } else {
-            this.destroyStream$.next()
+            this.destroyStream$.next();
             resolve(null);
           }
         });

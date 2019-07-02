@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ViewChild, AfterViewInit, ElementRef, EventEmitter } from '@angular/core';
 import { MessengerService, emiteCloseMessageBox } from '../../services/messenger.service';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 import { CurrentChatMemberDialogData } from '../../messenger-interface';
@@ -7,13 +7,13 @@ import { takeUntil, switchMap, debounceTime } from 'rxjs/operators';
 import { Subject, fromEvent, Subscription } from 'rxjs';
 import { MessengerOptionalService } from '../../services/messenger-optional-service.service';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { MessengerAutoOpenChatBoxByNf } from '../../services/messsenger-auto-open-chat.service';
+import { MessengerAutoOpenChatBoxByNf, NotifyData } from '../../services/messsenger-auto-open-chat.service';
 import { Router } from '@angular/router';
 import { OpenDialogService } from 'src/app/fa-module/services/open-dialog.service';
 import { clearAllMessages, deleteMessage, sendCurrentProdLink } from 'src/app/constants/popup-messages.constant';
 
 const NOTIFICATION_SOUND: string = 'assets/messengerAudio/message2.mp3';
-
+export const emitDisableNotifys = new EventEmitter<NotifyData>();
 @Component({
   selector: 'app-message-box',
   templateUrl: './message-box.component.html',
@@ -33,17 +33,16 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   isOnlineChatMember: boolean;
   currentUrl: string;
   disableNotify: boolean;
-
+  disableVoise: boolean
 
   constructor(
     private router: Router,
     private dialog: OpenDialogService,
     private messengerService: MessengerService,
     private messengerOptService: MessengerOptionalService,
+    private messengerAutoOpenChatService: MessengerAutoOpenChatBoxByNf,
     private faFirebase: AngularFireAuth,
     private dialogRef: MatDialogRef<MessageBoxComponent>,
-    private messengerAutoOpenChatService: MessengerAutoOpenChatBoxByNf,
-
     @Inject(MAT_DIALOG_DATA) data: CurrentChatMemberDialogData,
     ) {
     this.curentChatMember = data;
@@ -109,9 +108,15 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
       accept: () => collback.call(this, ...arg),
     })
   }
+  
 
   /* --------Chat Menu------- */
-  unsubscribeChatNotyfy(): void{
+  toggleNotifys(): void{
+    const subscrib$ = this.messengerService.currentChatUrl.subscribe(currentChatUrl => {
+      if(!currentChatUrl) return;
+      emitDisableNotifys.emit({chatUrl: currentChatUrl , userInfo: this.curentChatMember});
+    })
+    subscrib$.unsubscribe();
   }
 
   clearCurrentChat(): void{
@@ -119,7 +124,6 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
     function callback() {
       const subscr$ = this.messengerService.currentChatUrl.subscribe(chatUrl => {
-      console.log("TCL: callback -> chatUrl", chatUrl)
         this.messengerService.clearAllMessages(chatUrl);
       })
       subscr$.unsubscribe()
@@ -154,7 +158,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
   sendMessage() {
     if(!this.messageInput.value) return;
-    this.messengerOptService.sendMessageSound(NOTIFICATION_SOUND);
+    this.disableVoise && this.messengerOptService.sendMessageSound(NOTIFICATION_SOUND);
     this.messengerService.sendMessage(this.currentUserId, this.messageInput.value);
     this.messageInput.patchValue('');
   }
@@ -162,7 +166,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   
   closeMessageBox() {
     this.messengerService.closeMessageBox();
-    this.messengerAutoOpenChatService._hasOlreadyOpenedOtherChat = true;  //jamanakavor vor aktiv lini menak 1 hat chat 
+    // this.messengerAutoOpenChatService._hasOlreadyOpenedOtherChat = true;  //jamanakavor vor aktiv lini menak 1 hat chat 
   }
 
 
