@@ -36,7 +36,7 @@ export class OpenDialogService {
       width: '500px',
       autoFocus: true,
       disableClose: true,
-      panelClass: 'custom-dialog-class'
+      panelClass: 'custom-dialog-class',
     });
 
     dialogRef.afterClosed().subscribe(to => {

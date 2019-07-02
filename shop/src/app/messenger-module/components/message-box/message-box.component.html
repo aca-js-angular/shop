@@ -1,75 +1,62 @@
-<!--It's just a concept, a chat UI design for direct messaging!
-Enjoy! :) Don't forget to click the heart if you like it! -->
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
 
 <ng-container *ngIf="curentChatMember && decodeDataCurrentChatMembers">
 
 
-  <div class="chatbox">
+  <div class="chat-box">
 
 
 
     <!--------------- Menu ***--------------- -->
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <!--  Link To Profile -->
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item [routerLink]="['/', 'profile', curentChatMember.userId]">
-        <mat-icon>account_box</mat-icon>
-        <span>Go to profile</span>
-      </button>
-      <!--  Clear chat -->
-      <button mat-menu-item (click)="clearCurrentChat()">
-        <mat-icon>delete</mat-icon>
-        <span>Clear chat</span>
-      </button>
+    <div class="top-panel">
+      <div class="left-side">
+        <img class="avatar" 
+        [src]="decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl ?
+        decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl : 
+        'assets/empty_user.png'" 
+        [routerLink]="['/', 'profile', curentChatMember.userId]" 
+        />
 
-      <!-- disable Voise -->
-      <div [hidden]="!disableVoise">
-        <button mat-menu-item (click)="disableVoise = !disableVoise">
-          <mat-icon>notifications_off</mat-icon>
-          <span>Disable Voise</span>
-        </button>
+        <div class="offline" [class.online]="isOnlineChatMember"></div>
       </div>
+      <div class="right-side">
 
-      <div [hidden]="disableVoise">
-        <button mat-menu-item (click)="disableVoise = !disableVoise">
-          <mat-icon>notifications_onn</mat-icon>
-          <span>Enaable Voise</span>
+        <button class="more-settings" mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
         </button>
+        <!--  Link To Profile -->
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item [routerLink]="['/', 'profile', curentChatMember.userId]">
+            <mat-icon>account_box</mat-icon>
+            <span>Go to profile</span>
+          </button>
+          <!--  Clear chat -->
+          <button mat-menu-item (click)="clearCurrentChat()">
+            <mat-icon>delete</mat-icon>
+            <span>Clear chat</span>
+          </button>
+      
+          <!-- disable Voise -->
+          <div [hidden]="!disableVoise">
+            <button mat-menu-item (click)="disableVoise = !disableVoise">
+              <mat-icon>notifications_off</mat-icon>
+              <span>Disable Voice</span>
+            </button>
+          </div>
+
+          <div [hidden]="disableVoise">
+            <button mat-menu-item (click)="disableVoise = !disableVoise">
+              <mat-icon>notifications_onn</mat-icon>
+              <span>Enaable Voise</span>
+            </button>
+          </div>
+        </mat-menu>
+        <span class="close-chat" (click)="closeMessageBox()">X</span>
       </div>
-
-
-       <!-- Notify
-      <button mat-menu-item (click)="toggleNotifys(); disableNotify = !disableNotify">
-        <div [hidden]="disableNotify">
-          <mat-icon>notifications_off</mat-icon>
-          <span>Disable alerts</span>
-        </div>
-
-        <div [hidden]="!disableNotify">
-          <mat-icon>notifications_onn</mat-icon>
-          <span>Enable alerts</span>
-        </div>
-
-      </button> -->
-    </mat-menu>
-
-    <!-- ------------- -->
-    <div class="top-bar">
-      <div class="offline" [class.online]="isOnlineChatMember"></div>
-      <img class="avatar" [src]="
-      decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl ?
-      decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl: 'assets/empty_user.png'" width="32" height="32"
-        [routerLink]="['/', 'profile', curentChatMember.userId]" />
-
-      <div class="name">{{curentChatMember.fullName}}</div>
-      <span class="close-chat" (click)="closeMessageBox()">x</span>
-
     </div>
 
-{{disableVoise}}
+    <div class="name">{{curentChatMember.fullName}}</div>
 
     <div class="middle">
       <div class="voldemort">

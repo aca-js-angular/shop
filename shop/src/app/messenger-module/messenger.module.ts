@@ -4,8 +4,6 @@ import { MessageBoxComponent } from './components/message-box/message-box.compon
 import { MatDialogModule,MatIconModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule, MatMenuModule } from '@angular/material';
 import { MessengerComponent } from './components/messenger-main/messenger-main.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { DragDropModule } from '@angular/cdk/drag-drop'
-import { AnimationModule } from '../animation-module/animation.module';
 import { MessageRowComponent } from './components/message-row/message-row.component';
 import { RouterModule } from '@angular/router';
 import { HrefPipe } from './pipes/href.pipe';

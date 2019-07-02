@@ -7,30 +7,34 @@
     </ng-template>
 
     <!-- Select Filter -->
-    <section [hidden]="!(dinamicCommentsArray?.length > 1)">
-        <mat-form-field class="filter">
-            <mat-label>Select filter</mat-label>
-            <mat-select [formControl]="selectFilerValue" (ngModelChange)="sort()">
-                <mat-option *ngFor="let option of selectOptions" [value]="option.value">
-                    {{option.title}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+    <section class="sort-section" [hidden]="!(dinamicCommentsArray?.length > 1)">
+        <div class="sort-selector">
+            <mat-form-field class="filter">
+                <mat-label>Sort</mat-label>
+                <mat-select [formControl]="selectFilerValue" (ngModelChange)="sort()">
+                    <mat-option *ngFor="let option of selectOptions" [value]="option.value">
+                        {{option.title}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
         
         <div class="filter-arrows">
-            <span
-            class="up"
+
+            <div
+            class="up arrow"
             title="Descending order" 
             [class.activated-sort-direction]="sortingArrowType"
             (click)="sortingArrowType = true; sort()"
-            >&#x25b2;
-        </span>
-        <span 
-            class="down"
+            >&#x25b2;</div>
+
+            <div 
+            class="down arrow"
             title="Descending order" 
             [class.activated-sort-direction]="!sortingArrowType"
             (click)="sortingArrowType = false; sort()"
-            >&#x25bc;</span>
+            >&#x25bc;</div>
+
         </div>
     </section>
         
@@ -63,16 +67,17 @@
         </textarea>
         <button [_persistance]="submitButtonCallack" mat-raised-button color="primary">{{submitButtonText}}</button>
         <button *ngIf="isEditing" (click)="cancelCommentEditing()" mat-raised-button >Cancel</button>
-        <img (click)="showEmojiPanel = !showEmojiPanel" class="toggle-emoji" src="assets/comments/emoji/toggle-emoji-box.png">
-        <!-- <mat-hint>{{this.commentTexteria.value.length}} / {{commentMaxLength}}</mat-hint> -->
-        <span>{{this.commentTexteria.value.length}} / {{commentMaxLength}}</span>
+        <div>
+            <img (click)="showEmojiPanel = !showEmojiPanel" class="toggle-emoji" src="assets/comments/emoji/toggle-emoji-box.png">
+
+        </div>
+        <mat-hint>{{this.commentTexteria.value.length}} / {{commentMaxLength}}</mat-hint>
+
     </mat-form-field>
     
-    <app-emoji 
-    (setEmoji)="setEmoji($event)"
-    [hidden]="showEmojiPanel" 
-    [animate]="showEmojiPanel" 
-    >
-</app-emoji>
+    <div class="emoji-box">
+        <app-emoji (setEmoji)="setEmoji($event)"></app-emoji>
+    </div>
+    
 
 </div>

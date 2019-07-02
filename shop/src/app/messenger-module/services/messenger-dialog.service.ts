@@ -18,24 +18,33 @@ export class MessengerDialogService {
 
   openMessengerBox(nativeUserData: CurrentChatMemberDialogData): void{
 
-    const config: MatDialogConfig = {}; 
-    config.disableClose = false;
-    config.hasBackdrop = false;
-    config.closeOnNavigation = false;
-    config.width = '300px';
-    config.height = '410px';
-    config.position = { bottom : '0px', right: '30px' }
-    config.panelClass = ['meggage-box'];
+    const dialogRef = this.dialog.open(MessageBoxComponent, {
+
+      disableClose: false,
+      hasBackdrop: false,
+      closeOnNavigation: false,
+      width: '300px',
+      height: '400px',
+      position: { bottom : '0px', right: '30px' },
+      panelClass: 'message-box-dialog',
+
+      data: {
+        fullName: nativeUserData.fullName,
+        userId: nativeUserData.userId,
+      }
+      
+
+    });
 
 
 
     //-------Chat Member--------------
-   config.data = { 
-      fullName: nativeUserData.fullName,
-      userId: nativeUserData.userId, // Chat Member User Uid
-    }
+  //  config.data = { 
+  //     fullName: nativeUserData.fullName,
+  //     userId: nativeUserData.userId, // Chat Member User Uid
+  //   }
 
-    const dialogRef = this.dialog.open(MessageBoxComponent,config)
+    // const dialogRef = this.dialog.open(MessageBoxComponent,config)
   
     dialogRef.afterClosed().subscribe(option => {
       removeOpenedChatАccess.emit()

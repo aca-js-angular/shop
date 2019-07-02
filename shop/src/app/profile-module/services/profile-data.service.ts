@@ -162,8 +162,8 @@ export class ProfileDataService {
   }
 
   copyProfileLink(): void{
-    const url: string = 'http://localhost:4200' + this.router.url;
-    navigator.clipboard.writeText(url);
+    // const url: string = 'http://localhost:4200' + this.router.url;
+    // navigator.clipboard.writeText(url);
   }
 
   postReview(receiver: string, author: string, date: Date, description: string, evaluation: number): Promise<Review>{
@@ -186,13 +186,7 @@ export class ProfileDataService {
     return new Promise((resolve,reject) => {
       this.db.getExtractedProperty<Review[]>('users',uid,['reviews']).pipe(
         map(reviews => {
-          // console.log('reviews from getExtractedProperty:', reviews.slice());
-          // console.log('reviews filtered: ', reviews.filter(review => (review.date.seconds + review.date.nanoseconds) !== (date.seconds + date.nanoseconds)));
           return reviews.filter(innerReview => {
-            // console.log(review.date.seconds + review.date.nanoseconds + '!==' + date.seconds + date.nanoseconds)
-            // console.log((review.date.seconds + review.date.nanoseconds) !== (date.seconds + date.nanoseconds));
-            // console.log('.')
-            // console.log('.')
             return (innerReview.date.seconds + innerReview.date.nanoseconds) !== (review.date.seconds + review.date.nanoseconds)
           })
         })
