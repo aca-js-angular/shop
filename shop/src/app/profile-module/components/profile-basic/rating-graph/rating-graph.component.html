@@ -1,30 +1,53 @@
 <div class="content-section">
     <div class="section-heading">
-        <div class="title">Rating Over Time</div>
+        
+        <div class="title">Rating Over Time</div>    
         <div class="view-more">
             <a [routerLink]="['../','reviews']">view more</a>
         </div>
     </div>
     
-    <hr />
+    <hr class="seperator" />
     
     <div class="section-body">
+
+      <div class="menu">
+        <mat-menu #menu="matMenu">
+          <button (click)="graphType = 'line'; refreshGraph()" class="mat-btn" mat-menu-item>
+            <mat-icon>show_chart</mat-icon>
+            <span>Linear</span>
+          </button>
+          <button (click)="graphType = 'bar'; refreshGraph()" class="mat-btn" mat-menu-item>
+            <mat-icon>layers</mat-icon>
+            <span>Bars</span>
+          </button>
+        </mat-menu>
+          
+        <button class="vert" mat-icon-button [matMenuTriggerFor]="menu" >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+            
+        
+
       <div class="graph-container">
+          
+        
         <canvas id="graph-id">{{graphContent}}</canvas>
       </div>
       <div class="additional">
-          <div>was reviewed by</div>
+          <div class="plain-txt">was reviewed by</div>
           <div class="avatars">
               <img
               class="reviewer-img" 
               *ngFor="let reviewer of reviewers.slice(0,5)"
-              [src]="reviewer.img"
-              [routerLink]="['/','profile',reviewer.id]"
-              [matTooltip]="reviewer.firstName + ' ' + reviewer.lastName"
+              [src]="reviewer?.img"
+              [routerLink]="['/','profile',reviewer?.id]"
+              [matTooltip]="reviewer?.firstName + ' ' + reviewer?.lastName"
               >
           </div>
           <div *ngIf="reviewers.length > 5" [matTooltip]="tooltipContent" matTooltipClass="preline">
-            <a [routerLink]="['../','reviews']">
+            <a class="plain-txt" [routerLink]="['../','reviews']">
               and {{reviewers.length - 5}} more
             </a>
           </div>

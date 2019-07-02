@@ -5,13 +5,27 @@
 .view-box{
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    @include side-padding(10px);
+    padding-top: 10px;
     .captions{
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        margin-bottom: 10px;
-        margin-top: 3px;
+        flex-wrap: wrap;
+        @include side-margin(3px,vertical);
+        .product-name{
+            div:first-child{
+                font-variant: small-caps;
+                color: $theme-dark;
+                margin-right: 5px;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            div:last-child{
+                color: $theme-dark;
+                font-size: 12px;
+            }
+        }
         .post-date{
             span:first-child{
                 color: rgb(153, 153, 153);
@@ -28,23 +42,12 @@
     .view-box-body{
         display: flex;
         flex-direction: column;
-        .product-name{
-            span:first-child{
-                font-variant: small-caps;
-                color: $theme-dark;
-                margin-right: 5px;
-                font-size: 16px;
-                font-weight: bold;
-            }
-            span:last-child{
-                color: $theme-dark;
-                font-size: 12px;
-            }
-        }
         .image-slider{
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
+            width: 100%;
             overflow-x: auto;
+            @include flat-scroll;
             img{
                 flex-shrink: 0;
                 height: 150px;
@@ -52,4 +55,43 @@
             }
         }
     }
+}
+
+.additional{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 15px;
+    background: #e7e7e7;
+    box-shadow: inset 0px 0px 2px 1px gray;
+    .plain-txt{
+        font-size: 14px;
+        color: $theme-dark;
+    }
+    a.plain-txt{
+        font-size: 14px;
+        color: $theme-light;
+    }
+    
+    .avatars{
+        margin-left: 10px;
+        margin-right: -10px;
+        .product-img{
+            cursor: pointer;
+            outline: none;
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            @include light-shadow;
+            @include cascade(5px);
+            &:hover{
+                height: 60px;
+                width: 60px;
+            }
+        }
+    }
+}
+
+::ng-deep .mat-tooltip  {
+    white-space: pre-line !important;
 }

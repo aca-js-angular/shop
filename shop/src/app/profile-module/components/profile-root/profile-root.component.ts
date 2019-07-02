@@ -45,6 +45,7 @@ export class ProfileRootComponent {
 
   onActivate(componentRef: any){
     componentRef.setUid(this.currentUid);
+    componentRef.setIsAuth(this.isAuthProfile);
   }
 
 }

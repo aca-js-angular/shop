@@ -1,13 +1,35 @@
-<!-- <h4>Reviews</h4>
 
-<div *ngFor="let review of decodedReviews">
-  <app-single-review [singleReview]="review"></app-single-review>
-</div>
+
 <div class="write-review">
-    <textarea [(ngModel)]="reviewBody" cols="30" rows="10"></textarea>
-    
-    <app-rating-scale></app-rating-scale>
-    <button type="submit">Submit</button>
-</div> -->
+    <mat-form-field>
+      <mat-label>
+          Describe and rate {{(profileOwner | async)?.firstName}} in few words...
+      </mat-label>
+      <textarea 
+      rows="10"
+      matInput 
+      class="review-field"
+      maxlength="500"
+      [(ngModel)]="reviewText"
+      ></textarea>
+      <mat-hint align="end">{{reviewText.length}}/500</mat-hint>
+    </mat-form-field>
+    <div class="actions">
+      <button 
+      matTooltip="Post Review"
+      [disabled]="!reviewText || !rate"
+      mat-raised-button 
+      class="submit"
+      type="submit"
+      [_persistance]="postReview"
+      >Submit</button>
+      <app-rating-scale (setRate)="rate = $event"></app-rating-scale>
+    </div>
+</div>
+<hr />
 
-<h1>REVIEWS</h1>
+<div @list >
+  <div @items *ngFor="let review of (reviews | async)?.reverse()" >
+      <app-single-review (remove)="removeReview($event)" [review]="review"></app-single-review>
+  </div>
+</div>

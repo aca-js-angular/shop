@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 const FILLED = '&#9733;'
 const EMPTY = '&#9734;'
@@ -9,6 +9,8 @@ const EMPTY = '&#9734;'
   styleUrls: ['./rating-scale.component.scss']
 })
 export class RatingScaleComponent implements OnInit {
+
+  @Output() setRate = new EventEmitter<number>();
 
   hoveredRate: number = null;
   staticRate: number = null;
@@ -40,7 +42,8 @@ export class RatingScaleComponent implements OnInit {
   }
 
   setStaticRate(amount: number){
-
+    this.staticRate = amount;
+    this.setRate.emit(amount);
   }
 
 

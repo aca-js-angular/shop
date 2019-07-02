@@ -94,7 +94,7 @@ export class FaService {
             city: input.city,
             email: input.email,
             credit: [] as Order[],
-            rating: 3,
+            rating: 0,
             img: imgUrl,
             registeredDate: new Date(),
             reviews: [] as Review[],

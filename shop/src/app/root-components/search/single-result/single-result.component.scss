@@ -1,38 +1,38 @@
+@import '../../../global-vars.scss';
+@import '../../../global-mixins.scss';
 
 .product-item {
     display: flex;
     border-bottom: solid white 1px;
     background: rgb(243, 243, 243);
     cursor: pointer;
-    height: 65px;
     transition: all 0.3s;
+    height: 70px;
     outline: none;
-    &:hover span{
-        margin-left: 12px;
-        color: white;
-    }
-    &:hover{
-        height: 75px;
-        background:rgb(201, 201, 201);
-    }
-    &:hover .gridLeft{
-        flex: 25%;
-    }
+
     &:active{
         opacity: 0.7;
         transition: opacity 0.15s;
     }
 }
 
+.product-item:hover{
+    background: $theme-light;
+    height: 80px;
+    span{
+        margin-left: 12px;
+        color: white;
+    }
+}
+
 .gridLeft{
-    flex: 20%;
     height: 100%;
     transition: all 0.3s;
 }
 
 
 .gridRight{
-    flex: 80%;
+    flex-grow: 1;
     span{
         display: block;
         margin-left: 5px;
@@ -51,13 +51,10 @@
     }
 }
 
-@media (max-width: 1000px){
+@media (max-width: 1000px) and (min-width: 700px){
+
     .product-item:hover{
-        height: 65px;
+        height: 70px;
     }
-}
-@media (min-width: 700px){
-    .product-item:hover{
-        height: 65px;
-    }
+    
 }

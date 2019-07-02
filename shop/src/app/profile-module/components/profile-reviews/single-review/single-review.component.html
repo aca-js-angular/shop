@@ -1,13 +1,25 @@
-<div *ngIf="singleReview as review">
-  <img [routerLink]="['/','profile',review.author.uid]" [src]="singleReview.author.img">
-  <span>{{review.author.firstName}}</span>
-  <span>{{review.author.lastName}}</span>
-  <p>
-    {{review.description}}
-  </p>
-  <div
-  [ngClass]="ratingClasses"
-  >{{review.evaluation | rating}}</div>
-  <div>{{reviewDate | date}}</div>
-  <hr>
+
+<div class="review-container">
+  <div class="top-panel">
+    <div class="author-name">
+      {{review.author.firstName}} {{review.author.lastName}};
+    </div>
+    <div matTooltip="Remove review" class="remove" *ngIf="(isMyReview | async)" (click)="remove.emit(review)">
+      X
+    </div>
+  </div>
+  <div class="text-box">
+    <img matTooltip="Go to {{review.author.firstName}}'s profile" [routerLink]="['/','profile',review.author.id]" [src]="review.author.img">
+    <p>
+      {{review.description}}
+    </p>
+  </div>
+  <div class="info-box">
+      <div [ngClass]="ratingClasses">
+        {{review.evaluation | rating}}
+      </div>
+      <div class="date">{{reviewDate | date}}</div>
+  </div>
 </div>
+<hr>
+

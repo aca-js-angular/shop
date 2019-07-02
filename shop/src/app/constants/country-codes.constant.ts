@@ -1,255 +1,963 @@
-
-
-export const countryCodes = {
-
-}
-
-// Afghanistan AF	AFG	004
-// Albania	AL	ALB	008
-// Algeria	DZ	DZA	012
-// American Samoa	AS	ASM	016
-// Andorra	AD	AND	020
-// Angola	AO	AGO	024
-// Anguilla	AI	AIA	660
-// Antarctica	AQ	ATA	010
-// Antigua and Barbuda	AG	ATG	028
-// Argentina	AR	ARG	032
-// Armenia	AM	ARM	051
-// Aruba	AW	ABW	533
-// Australia	AU	AUS	036
-// Austria	AT	AUT	040
-// Azerbaijan	AZ	AZE	031
-// Bahamas (the)	BS	BHS	044
-// Bahrain	BH	BHR	048
-// Bangladesh	BD	BGD	050
-// Barbados	BB	BRB	052
-// Belarus	BY	BLR	112
-// Belgium	BE	BEL	056
-// Belize	BZ	BLZ	084
-// Benin	BJ	BEN	204
-// Bermuda	BM	BMU	060
-// Bhutan	BT	BTN	064
-// Bolivia (Plurinational State of)	BO	BOL	068
-// Bonaire, Sint Eustatius and Saba	BQ	BES	535
-// Bosnia and Herzegovina	BA	BIH	070
-// Botswana	BW	BWA	072
-// Bouvet Island	BV	BVT	074
-// Brazil	BR	BRA	076
-// British Indian Ocean Territory (the)	IO	IOT	086
-// Brunei Darussalam	BN	BRN	096
-// Bulgaria	BG	BGR	100
-// Burkina Faso	BF	BFA	854
-// Burundi	BI	BDI	108
-// Cabo Verde	CV	CPV	132
-// Cambodia	KH	KHM	116
-// Cameroon	CM	CMR	120
-// Canada	CA	CAN	124
-// Cayman Islands (the)	KY	CYM	136
-// Central African Republic (the)	CF	CAF	140
-// Chad	TD	TCD	148
-// Chile	CL	CHL	152
-// China	CN	CHN	156
-// Christmas Island	CX	CXR	162
-// Cocos (Keeling) Islands (the)	CC	CCK	166
-// Colombia	CO	COL	170
-// Comoros (the)	KM	COM	174
-// Congo (the Democratic Republic of the)	CD	COD	180
-// Congo (the)	CG	COG	178
-// Cook Islands (the)	CK	COK	184
-// Costa Rica	CR	CRI	188
-// Croatia	HR	HRV	191
-// Cuba	CU	CUB	192
-// Curaçao	CW	CUW	531
-// Cyprus	CY	CYP	196
-// Czechia	CZ	CZE	203
-// Côte d'Ivoire	CI	CIV	384
-// Denmark	DK	DNK	208
-// Djibouti	DJ	DJI	262
-// Dominica	DM	DMA	212
-// Dominican Republic (the)	DO	DOM	214
-// Ecuador	EC	ECU	218
-// Egypt	EG	EGY	818
-// El Salvador	SV	SLV	222
-// Equatorial Guinea	GQ	GNQ	226
-// Eritrea	ER	ERI	232
-// Estonia	EE	EST	233
-// Eswatini	SZ	SWZ	748
-// Ethiopia	ET	ETH	231
-// Falkland Islands (the) [Malvinas]	FK	FLK	238
-// Faroe Islands (the)	FO	FRO	234
-// Fiji	FJ	FJI	242
-// Finland	FI	FIN	246
-// France	FR	FRA	250
-// French Guiana	GF	GUF	254
-// French Polynesia	PF	PYF	258
-// French Southern Territories (the)	TF	ATF	260
-// Gabon	GA	GAB	266
-// Gambia (the)	GM	GMB	270
-// Georgia	GE	GEO	268
-// Germany	DE	DEU	276
-// Ghana	GH	GHA	288
-// Gibraltar	GI	GIB	292
-// Greece	GR	GRC	300
-// Greenland	GL	GRL	304
-// Grenada	GD	GRD	308
-// Guadeloupe	GP	GLP	312
-// Guam	GU	GUM	316
-// Guatemala	GT	GTM	320
-// Guernsey	GG	GGY	831
-// Guinea	GN	GIN	324
-// Guinea-Bissau	GW	GNB	624
-// Guyana	GY	GUY	328
-// Haiti	HT	HTI	332
-// Heard Island and McDonald Islands	HM	HMD	334
-// Holy See (the)	VA	VAT	336
-// Honduras	HN	HND	340
-// Hong Kong	HK	HKG	344
-// Hungary	HU	HUN	348
-// Iceland	IS	ISL	352
-// India	IN	IND	356
-// Indonesia	ID	IDN	360
-// Iran (Islamic Republic of)	IR	IRN	364
-// Iraq	IQ	IRQ	368
-// Ireland	IE	IRL	372
-// Isle of Man	IM	IMN	833
-// Israel	IL	ISR	376
-// Italy	IT	ITA	380
-// Jamaica	JM	JAM	388
-// Japan	JP	JPN	392
-// Jersey	JE	JEY	832
-// Jordan	JO	JOR	400
-// Kazakhstan	KZ	KAZ	398
-// Kenya	KE	KEN	404
-// Kiribati	KI	KIR	296
-// Korea (the Democratic People's Republic of)	KP	PRK	408
-// Korea (the Republic of)	KR	KOR	410
-// Kuwait	KW	KWT	414
-// Kyrgyzstan	KG	KGZ	417
-// Lao People's Democratic Republic (the)	LA	LAO	418
-// Latvia	LV	LVA	428
-// Lebanon	LB	LBN	422
-// Lesotho	LS	LSO	426
-// Liberia	LR	LBR	430
-// Libya	LY	LBY	434
-// Liechtenstein	LI	LIE	438
-// Lithuania	LT	LTU	440
-// Luxembourg	LU	LUX	442
-// Macao	MO	MAC	446
-// Macedonia (the former Yugoslav Republic of)	MK	MKD	807
-// Madagascar	MG	MDG	450
-// Malawi	MW	MWI	454
-// Malaysia	MY	MYS	458
-// Maldives	MV	MDV	462
-// Mali	ML	MLI	466
-// Malta	MT	MLT	470
-// Marshall Islands (the)	MH	MHL	584
-// Martinique	MQ	MTQ	474
-// Mauritania	MR	MRT	478
-// Mauritius	MU	MUS	480
-// Mayotte	YT	MYT	175
-// Mexico	MX	MEX	484
-// Micronesia (Federated States of)	FM	FSM	583
-// Moldova (the Republic of)	MD	MDA	498
-// Monaco	MC	MCO	492
-// Mongolia	MN	MNG	496
-// Montenegro	ME	MNE	499
-// Montserrat	MS	MSR	500
-// Morocco	MA	MAR	504
-// Mozambique	MZ	MOZ	508
-// Myanmar	MM	MMR	104
-// Namibia	NA	NAM	516
-// Nauru	NR	NRU	520
-// Nepal	NP	NPL	524
-// Netherlands (the)	NL	NLD	528
-// New Caledonia	NC	NCL	540
-// New Zealand	NZ	NZL	554
-// Nicaragua	NI	NIC	558
-// Niger (the)	NE	NER	562
-// Nigeria	NG	NGA	566
-// Niue	NU	NIU	570
-// Norfolk Island	NF	NFK	574
-// Northern Mariana Islands (the)	MP	MNP	580
-// Norway	NO	NOR	578
-// Oman	OM	OMN	512
-// Pakistan	PK	PAK	586
-// Palau	PW	PLW	585
-// Palestine, State of	PS	PSE	275
-// Panama	PA	PAN	591
-// Papua New Guinea	PG	PNG	598
-// Paraguay	PY	PRY	600
-// Peru	PE	PER	604
-// Philippines (the)	PH	PHL	608
-// Pitcairn	PN	PCN	612
-// Poland	PL	POL	616
-// Portugal	PT	PRT	620
-// Puerto Rico	PR	PRI	630
-// Qatar	QA	QAT	634
-// Romania	RO	ROU	642
-// Russian Federation (the)	RU	RUS	643
-// Rwanda	RW	RWA	646
-// Réunion	RE	REU	638
-// Saint Barthélemy	BL	BLM	652
-// Saint Helena, Ascension and Tristan da Cunha	SH	SHN	654
-// Saint Kitts and Nevis	KN	KNA	659
-// Saint Lucia	LC	LCA	662
-// Saint Martin (French part)	MF	MAF	663
-// Saint Pierre and Miquelon	PM	SPM	666
-// Saint Vincent and the Grenadines	VC	VCT	670
-// Samoa	WS	WSM	882
-// San Marino	SM	SMR	674
-// Sao Tome and Principe	ST	STP	678
-// Saudi Arabia	SA	SAU	682
-// Senegal	SN	SEN	686
-// Serbia	RS	SRB	688
-// Seychelles	SC	SYC	690
-// Sierra Leone	SL	SLE	694
-// Singapore	SG	SGP	702
-// Sint Maarten (Dutch part)	SX	SXM	534
-// Slovakia	SK	SVK	703
-// Slovenia	SI	SVN	705
-// Solomon Islands	SB	SLB	090
-// Somalia	SO	SOM	706
-// South Africa	ZA	ZAF	710
-// South Georgia and the South Sandwich Islands	GS	SGS	239
-// South Sudan	SS	SSD	728
-// Spain	ES	ESP	724
-// Sri Lanka	LK	LKA	144
-// Sudan (the)	SD	SDN	729
-// Suriname	SR	SUR	740
-// Svalbard and Jan Mayen	SJ	SJM	744
-// Sweden	SE	SWE	752
-// Switzerland	CH	CHE	756
-// Syrian Arab Republic	SY	SYR	760
-// Taiwan (Province of China)	TW	TWN	158
-// Tajikistan	TJ	TJK	762
-// Tanzania, United Republic of	TZ	TZA	834
-// Thailand	TH	THA	764
-// Timor-Leste	TL	TLS	626
-// Togo	TG	TGO	768
-// Tokelau	TK	TKL	772
-// Tonga	TO	TON	776
-// Trinidad and Tobago	TT	TTO	780
-// Tunisia	TN	TUN	788
-// Turkey	TR	TUR	792
-// Turkmenistan	TM	TKM	795
-// Turks and Caicos Islands (the)	TC	TCA	796
-// Tuvalu	TV	TUV	798
-// Uganda	UG	UGA	800
-// Ukraine	UA	UKR	804
-// United Arab Emirates (the)	AE	ARE	784
-// United Kingdom of Great Britain and Northern Ireland (the)	GB	GBR	826
-// United States Minor Outlying Islands (the)	UM	UMI	581
-// United States of America (the)	US	USA	840
-// Uruguay	UY	URY	858
-// Uzbekistan	UZ	UZB	860
-// Vanuatu	VU	VUT	548
-// Venezuela (Bolivarian Republic of)	VE	VEN	862
-// Viet Nam	VN	VNM	704
-// Virgin Islands (British)	VG	VGB	092
-// Virgin Islands (U.S.)	VI	VIR	850
-// Wallis and Futuna	WF	WLF	876
-// Western Sahara	EH	ESH	732
-// Yemen	YE	YEM	887
-// Zambia	ZM	ZMB	894
-// Zimbabwe	ZW	ZWE	716
-// Åland Islands	AX	ALA	248
+  
+export const COUNTRY_CODES_MAP = [
+    {
+        country: "Afghanistan",
+        abbreviation: "AF"
+    },
+    {
+        country: "Albania",
+        abbreviation: "AL"
+    },
+    {
+        country: "Algeria",
+        abbreviation: "DZ"
+    },
+    {
+        country: "American Samoa",
+        abbreviation: "AS"
+    },
+    {
+        country: "Andorra",
+        abbreviation: "AD"
+    },
+    {
+        country: "Angola",
+        abbreviation: "AO"
+    },
+    {
+        country: "Anguilla",
+        abbreviation: "AI"
+    },
+    {
+        country: "Antarctica",
+        abbreviation: "AQ"
+    },
+    {
+        country: "Antigua and Barbuda",
+        abbreviation: "AG"
+    },
+    {
+        country: "Argentina",
+        abbreviation: "AR"
+    },
+    {
+        country: "Armenia",
+        abbreviation: "AM"
+    },
+    {
+        country: "Aruba",
+        abbreviation: "AW"
+    },
+    {
+        country: "Australia",
+        abbreviation: "AU"
+    },
+    {
+        country: "Austria",
+        abbreviation: "AT"
+    },
+    {
+        country: "Azerbaijan",
+        abbreviation: "AZ"
+    },
+    {
+        country: "Bahamas",
+        abbreviation: "BS"
+    },
+    {
+        country: "Bahrain",
+        abbreviation: "BH"
+    },
+    {
+        country: "Bangladesh",
+        abbreviation: "BD"
+    },
+    {
+        country: "Barbados",
+        abbreviation: "BB"
+    },
+    {
+        country: "Belarus",
+        abbreviation: "BY"
+    },
+    {
+        country: "Belgium",
+        abbreviation: "BE"
+    },
+    {
+        country: "Belize",
+        abbreviation: "BZ"
+    },
+    {
+        country: "Benin",
+        abbreviation: "BJ"
+    },
+    {
+        country: "Bermuda",
+        abbreviation: "BM"
+    },
+    {
+        country: "Bhutan",
+        abbreviation: "BT"
+    },
+    {
+        country: "Bolivia",
+        abbreviation: "BO"
+    },
+    {
+        country: "Bosnia and Herzegovina",
+        abbreviation: "BA"
+    },
+    {
+        country: "Botswana",
+        abbreviation: "BW"
+    },
+    {
+        country: "Bouvet Island",
+        abbreviation: "BV"
+    },
+    {
+        country: "Brazil",
+        abbreviation: "BR"
+    },
+    {
+        country: "British Indian Ocean Territory",
+        abbreviation: "IO"
+    },
+    {
+        country: "Brunei",
+        abbreviation: "BN"
+    },
+    {
+        country: "Bulgaria",
+        abbreviation: "BG"
+    },
+    {
+        country: "Burkina Faso",
+        abbreviation: "BF"
+    },
+    {
+        country: "Burundi",
+        abbreviation: "BI"
+    },
+    {
+        country: "Cambodia",
+        abbreviation: "KH"
+    },
+    {
+        country: "Cameroon",
+        abbreviation: "CM"
+    },
+    {
+        country: "Canada",
+        abbreviation: "CA"
+    },
+    {
+        country: "Cape Verde",
+        abbreviation: "CV"
+    },
+    {
+        country: "Cayman Islands",
+        abbreviation: "KY"
+    },
+    {
+        country: "Central African Republic",
+        abbreviation: "CF"
+    },
+    {
+        country: "Chad",
+        abbreviation: "TD"
+    },
+    {
+        country: "Chile",
+        abbreviation: "CL"
+    },
+    {
+        country: "China",
+        abbreviation: "CN"
+    },
+    {
+        country: "Christmas Island",
+        abbreviation: "CX"
+    },
+    {
+        country: "Cocos (Keeling) Islands",
+        abbreviation: "CC"
+    },
+    {
+        country: "Colombia",
+        abbreviation: "CO"
+    },
+    {
+        country: "Comoros",
+        abbreviation: "KM"
+    },
+    {
+        country: "Congo",
+        abbreviation: "CG"
+    },
+    {
+        country: "Cook Islands",
+        abbreviation: "CK"
+    },
+    {
+        country: "Costa Rica",
+        abbreviation: "CR"
+    },
+    {
+        country: "Croatia",
+        abbreviation: "HR"
+    },
+    {
+        country: "Cuba",
+        abbreviation: "CU"
+    },
+    {
+        country: "Cyprus",
+        abbreviation: "CY"
+    },
+    {
+        country: "Czech Republic",
+        abbreviation: "CZ"
+    },
+    {
+        country: "Denmark",
+        abbreviation: "DK"
+    },
+    {
+        country: "Djibouti",
+        abbreviation: "DJ"
+    },
+    {
+        country: "Dominica",
+        abbreviation: "DM"
+    },
+    {
+        country: "Dominican Republic",
+        abbreviation: "DO"
+    },
+    {
+        country: "East Timor",
+        abbreviation: "TP"
+    },
+    {
+        country: "Ecuador",
+        abbreviation: "EC"
+    },
+    {
+        country: "Egypt",
+        abbreviation: "EG"
+    },
+    {
+        country: "El Salvador",
+        abbreviation: "SV"
+    },
+    {
+        country: "Equatorial Guinea",
+        abbreviation: "GQ"
+    },
+    {
+        country: "Eritrea",
+        abbreviation: "ER"
+    },
+    {
+        country: "Estonia",
+        abbreviation: "EE"
+    },
+    {
+        country: "Ethiopia",
+        abbreviation: "ET"
+    },
+    {
+        country: "Falkland Islands",
+        abbreviation: "FK"
+    },
+    {
+        country: "Faroe Islands",
+        abbreviation: "FO"
+    },
+    {
+        country: "Fiji Islands",
+        abbreviation: "FJ"
+    },
+    {
+        country: "Finland",
+        abbreviation: "FI"
+    },
+    {
+        country: "France",
+        abbreviation: "FR"
+    },
+    {
+        country: "French Guiana",
+        abbreviation: "GF"
+    },
+    {
+        country: "French Polynesia",
+        abbreviation: "PF"
+    },
+    {
+        country: "French Southern territories",
+        abbreviation: "TF"
+    },
+    {
+        country: "Gabon",
+        abbreviation: "GA"
+    },
+    {
+        country: "Gambia",
+        abbreviation: "GM"
+    },
+    {
+        country: "Georgia",
+        abbreviation: "GE"
+    },
+    {
+        country: "Germany",
+        abbreviation: "DE"
+    },
+    {
+        country: "Ghana",
+        abbreviation: "GH"
+    },
+    {
+        country: "Gibraltar",
+        abbreviation: "GI"
+    },
+    {
+        country: "Greece",
+        abbreviation: "GR"
+    },
+    {
+        country: "Greenland",
+        abbreviation: "GL"
+    },
+    {
+        country: "Grenada",
+        abbreviation: "GD"
+    },
+    {
+        country: "Guadeloupe",
+        abbreviation: "GP"
+    },
+    {
+        country: "Guam",
+        abbreviation: "GU"
+    },
+    {
+        country: "Guatemala",
+        abbreviation: "GT"
+    },
+    {
+        country: "Guinea",
+        abbreviation: "GN"
+    },
+    {
+        country: "Guinea-Bissau",
+        abbreviation: "GW"
+    },
+    {
+        country: "Guyana",
+        abbreviation: "GY"
+    },
+    {
+        country: "Haiti",
+        abbreviation: "HT"
+    },
+    {
+        country: "Heard Island and McDonald Islands",
+        abbreviation: "HM"
+    },
+    {
+        country: "Holy See (Vatican City State)",
+        abbreviation: "VA"
+    },
+    {
+        country: "Honduras",
+        abbreviation: "HN"
+    },
+    {
+        country: "Hong Kong",
+        abbreviation: "HK"
+    },
+    {
+        country: "Hungary",
+        abbreviation: "HU"
+    },
+    {
+        country: "Iceland",
+        abbreviation: "IS"
+    },
+    {
+        country: "India",
+        abbreviation: "IN"
+    },
+    {
+        country: "Indonesia",
+        abbreviation: "ID"
+    },
+    {
+        country: "Iran",
+        abbreviation: "IR"
+    },
+    {
+        country: "Iraq",
+        abbreviation: "IQ"
+    },
+    {
+        country: "Ireland",
+        abbreviation: "IE"
+    },
+    {
+        country: "Israel",
+        abbreviation: "IL"
+    },
+    {
+        country: "Italy",
+        abbreviation: "IT"
+    },
+    {
+        country: "Ivory Coast",
+        abbreviation: "CI"
+    },
+    {
+        country: "Jamaica",
+        abbreviation: "JM"
+    },
+    {
+        country: "Japan",
+        abbreviation: "JP"
+    },
+    {
+        country: "Jordan",
+        abbreviation: "JO"
+    },
+    {
+        country: "Kazakhstan",
+        abbreviation: "KZ"
+    },
+    {
+        country: "Kenya",
+        abbreviation: "KE"
+    },
+    {
+        country: "Kiribati",
+        abbreviation: "KI"
+    },
+    {
+        country: "Kuwait",
+        abbreviation: "KW"
+    },
+    {
+        country: "Kyrgyzstan",
+        abbreviation: "KG"
+    },
+    {
+        country: "Laos",
+        abbreviation: "LA"
+    },
+    {
+        country: "Latvia",
+        abbreviation: "LV"
+    },
+    {
+        country: "Lebanon",
+        abbreviation: "LB"
+    },
+    {
+        country: "Lesotho",
+        abbreviation: "LS"
+    },
+    {
+        country: "Liberia",
+        abbreviation: "LR"
+    },
+    {
+        country: "Libyan Arab Jamahiriya",
+        abbreviation: "LY"
+    },
+    {
+        country: "Liechtenstein",
+        abbreviation: "LI"
+    },
+    {
+        country: "Lithuania",
+        abbreviation: "LT"
+    },
+    {
+        country: "Luxembourg",
+        abbreviation: "LU"
+    },
+    {
+        country: "Macao",
+        abbreviation: "MO"
+    },
+    {
+        country: "North Macedonia",
+        abbreviation: "MK"
+    },
+    {
+        country: "Madagascar",
+        abbreviation: "MG"
+    },
+    {
+        country: "Malawi",
+        abbreviation: "MW"
+    },
+    {
+        country: "Malaysia",
+        abbreviation: "MY"
+    },
+    {
+        country: "Maldives",
+        abbreviation: "MV"
+    },
+    {
+        country: "Mali",
+        abbreviation: "ML"
+    },
+    {
+        country: "Malta",
+        abbreviation: "MT"
+    },
+    {
+        country: "Marshall Islands",
+        abbreviation: "MH"
+    },
+    {
+        country: "Martinique",
+        abbreviation: "MQ"
+    },
+    {
+        country: "Mauritania",
+        abbreviation: "MR"
+    },
+    {
+        country: "Mauritius",
+        abbreviation: "MU"
+    },
+    {
+        country: "Mayotte",
+        abbreviation: "YT"
+    },
+    {
+        country: "Mexico",
+        abbreviation: "MX"
+    },
+    {
+        country: "Micronesia, Federated States of",
+        abbreviation: "FM"
+    },
+    {
+        country: "Moldova",
+        abbreviation: "MD"
+    },
+    {
+        country: "Monaco",
+        abbreviation: "MC"
+    },
+    {
+        country: "Mongolia",
+        abbreviation: "MN"
+    },
+    {
+        country: "Montserrat",
+        abbreviation: "MS"
+    },
+    {
+        country: "Morocco",
+        abbreviation: "MA"
+    },
+    {
+        country: "Mozambique",
+        abbreviation: "MZ"
+    },
+    {
+        country: "Myanmar",
+        abbreviation: "MM"
+    },
+    {
+        country: "Namibia",
+        abbreviation: "NA"
+    },
+    {
+        country: "Nauru",
+        abbreviation: "NR"
+    },
+    {
+        country: "Nepal",
+        abbreviation: "NP"
+    },
+    {
+        country: "Netherlands",
+        abbreviation: "NL"
+    },
+    {
+        country: "Netherlands Antilles",
+        abbreviation: "AN"
+    },
+    {
+        country: "New Caledonia",
+        abbreviation: "NC"
+    },
+    {
+        country: "New Zealand",
+        abbreviation: "NZ"
+    },
+    {
+        country: "Nicaragua",
+        abbreviation: "NI"
+    },
+    {
+        country: "Niger",
+        abbreviation: "NE"
+    },
+    {
+        country: "Nigeria",
+        abbreviation: "NG"
+    },
+    {
+        country: "Niue",
+        abbreviation: "NU"
+    },
+    {
+        country: "Norfolk Island",
+        abbreviation: "NF"
+    },
+    {
+        country: "North Korea",
+        abbreviation: "KP"
+    },
+    {
+        country: "Northern Ireland",
+        abbreviation: "GB"
+    },
+    {
+        country: "Northern Mariana Islands",
+        abbreviation: "MP"
+    },
+    {
+        country: "Norway",
+        abbreviation: "NO"
+    },
+    {
+        country: "Oman",
+        abbreviation: "OM"
+    },
+    {
+        country: "Pakistan",
+        abbreviation: "PK"
+    },
+    {
+        country: "Palau",
+        abbreviation: "PW"
+    },
+    {
+        country: "Palestine",
+        abbreviation: "PS"
+    },
+    {
+        country: "Panama",
+        abbreviation: "PA"
+    },
+    {
+        country: "Papua New Guinea",
+        abbreviation: "PG"
+    },
+    {
+        country: "Paraguay",
+        abbreviation: "PY"
+    },
+    {
+        country: "Peru",
+        abbreviation: "PE"
+    },
+    {
+        country: "Philippines",
+        abbreviation: "PH"
+    },
+    {
+        country: "Pitcairn",
+        abbreviation: "PN"
+    },
+    {
+        country: "Poland",
+        abbreviation: "PL"
+    },
+    {
+        country: "Portugal",
+        abbreviation: "PT"
+    },
+    {
+        country: "Puerto Rico",
+        abbreviation: "PR"
+    },
+    {
+        country: "Qatar",
+        abbreviation: "QA"
+    },
+    {
+        country: "Reunion",
+        abbreviation: "RE"
+    },
+    {
+        country: "Romania",
+        abbreviation: "RO"
+    },
+    {
+        country: "Russian Federation",
+        abbreviation: "RU"
+    },
+    {
+        country: "Rwanda",
+        abbreviation: "RW"
+    },
+    {
+        country: "Saint Helena",
+        abbreviation: "SH"
+    },
+    {
+        country: "Saint Kitts and Nevis",
+        abbreviation: "KN"
+    },
+    {
+        country: "Saint Lucia",
+        abbreviation: "LC"
+    },
+    {
+        country: "Saint Pierre and Miquelon",
+        abbreviation: "PM"
+    },
+    {
+        country: "Saint Vincent and the Grenadines",
+        abbreviation: "VC"
+    },
+    {
+        country: "Samoa",
+        abbreviation: "WS"
+    },
+    {
+        country: "San Marino",
+        abbreviation: "SM"
+    },
+    {
+        country: "Sao Tome and Principe",
+        abbreviation: "ST"
+    },
+    {
+        country: "Saudi Arabia",
+        abbreviation: "SA"
+    },
+    {
+        country: "Senegal",
+        abbreviation: "SN"
+    },
+    {
+        country: "Seychelles",
+        abbreviation: "SC"
+    },
+    {
+        country: "Sierra Leone",
+        abbreviation: "SL"
+    },
+    {
+        country: "Singapore",
+        abbreviation: "SG"
+    },
+    {
+        country: "Slovakia",
+        abbreviation: "SK"
+    },
+    {
+        country: "Slovenia",
+        abbreviation: "SI"
+    },
+    {
+        country: "Solomon Islands",
+        abbreviation: "SB"
+    },
+    {
+        country: "Somalia",
+        abbreviation: "SO"
+    },
+    {
+        country: "South Africa",
+        abbreviation: "ZA"
+    },
+    {
+        country: "South Georgia and the South Sandwich Islands",
+        abbreviation: "GS"
+    },
+    {
+        country: "South Korea",
+        abbreviation: "KR"
+    },
+    {
+        country: "South Sudan",
+        abbreviation: "SS"
+    },
+    {
+        country: "Spain",
+        abbreviation: "ES"
+    },
+    {
+        country: "Sri Lanka",
+        abbreviation: "LK"
+    },
+    {
+        country: "Sudan",
+        abbreviation: "SD"
+    },
+    {
+        country: "Suriname",
+        abbreviation: "SR"
+    },
+    {
+        country: "Svalbard and Jan Mayen",
+        abbreviation: "SJ"
+    },
+    {
+        country: "Swaziland",
+        abbreviation: "SZ"
+    },
+    {
+        country: "Sweden",
+        abbreviation: "SE"
+    },
+    {
+        country: "Switzerland",
+        abbreviation: "CH"
+    },
+    {
+        country: "Syria",
+        abbreviation: "SY"
+    },
+    {
+        country: "Tajikistan",
+        abbreviation: "TJ"
+    },
+    {
+        country: "Tanzania",
+        abbreviation: "TZ"
+    },
+    {
+        country: "Thailand",
+        abbreviation: "TH"
+    },
+    {
+        country: "The Democratic Republic of Congo",
+        abbreviation: "CD"
+    },
+    {
+        country: "Togo",
+        abbreviation: "TG"
+    },
+    {
+        country: "Tokelau",
+        abbreviation: "TK"
+    },
+    {
+        country: "Tonga",
+        abbreviation: "TO"
+    },
+    {
+        country: "Trinidad and Tobago",
+        abbreviation: "TT"
+    },
+    {
+        country: "Tunisia",
+        abbreviation: "TN"
+    },
+    {
+        country: "Turkey",
+        abbreviation: "TR"
+    },
+    {
+        country: "Turkmenistan",
+        abbreviation: "TM"
+    },
+    {
+        country: "Turks and Caicos Islands",
+        abbreviation: "TC"
+    },
+    {
+        country: "Tuvalu",
+        abbreviation: "TV"
+    },
+    {
+        country: "Uganda",
+        abbreviation: "UG"
+    },
+    {
+        country: "Ukraine",
+        abbreviation: "UA"
+    },
+    {
+        country: "United Arab Emirates",
+        abbreviation: "AE"
+    },
+    {
+        country: "United Kingdom",
+        abbreviation: "GB"
+    },
+    {
+        country: "United States",
+        abbreviation: "US"
+    },
+    {
+        country: "United States Minor Outlying Islands",
+        abbreviation: "UM"
+    },
+    {
+        country: "Uruguay",
+        abbreviation: "UY"
+    },
+    {
+        country: "Uzbekistan",
+        abbreviation: "UZ"
+    },
+    {
+        country: "Vanuatu",
+        abbreviation: "VU"
+    },
+    {
+        country: "Venezuela",
+        abbreviation: "VE"
+    },
+    {
+        country: "Vietnam",
+        abbreviation: "VN"
+    },
+    {
+        country: "Virgin Islands, British",
+        abbreviation: "VG"
+    },
+    {
+        country: "Virgin Islands, U.S.",
+        abbreviation: "VI"
+    },
+    {
+        country: "Wallis and Futuna",
+        abbreviation: "WF"
+    },
+    {
+        country: "Western Sahara",
+        abbreviation: "EH"
+    },
+    {
+        country: "Yemen",
+        abbreviation: "YE"
+    },
+    {
+        country: "Yugoslavia",
+        abbreviation: "YU"
+    },
+    {
+        country: "Zambia",
+        abbreviation: "ZM"
+    },
+    {
+        country: "Zimbabwe",
+        abbreviation: "ZW"
+    }
+]

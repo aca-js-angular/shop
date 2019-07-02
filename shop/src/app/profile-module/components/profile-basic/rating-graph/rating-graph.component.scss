@@ -1,10 +1,48 @@
 @import '../../../../global-vars.scss';
 @import '../../../../global-mixins.scss';
 
+.mat-btn{
+    outline: none;
+}
+.menu{
+    display: flex;
+    flex-basis: 100%;
+    justify-content: flex-end;
+    margin-bottom: -15px;
+    button{
+        outline: none;
+    }
+    .vert{
+        display: block;
+        outline: none;
+    }
+}
+.graph-container{
+    
+    @include side-padding(10px);
+    padding-top: 15px;
+    padding-bottom: 5px;
+    height: 250px;
+    position: relative;
+
+
+}
 .additional{
     display: flex;
     align-items: center;
-    height: 30px;
+    height: 50px;
+    padding: 15px;
+    background: #e7e7e7;
+    box-shadow: inset 0px 0px 2px 1px gray;
+    .plain-txt{
+        font-size: 14px;
+        color: $theme-dark;
+    }
+    a.plain-txt{
+        font-size: 14px;
+        color: $theme-light;
+    }
+    
     .avatars{
         margin-left: 10px;
         margin-right: -10px;

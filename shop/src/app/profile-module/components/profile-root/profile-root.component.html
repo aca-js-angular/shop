@@ -3,8 +3,12 @@
 <div class="profile-page" *ngIf="(profileOwner | async) as user">
       
     <div class="side-nav">
-
-      <img class="user-img" [src]="user.img">
+      <div class="main-avatar">
+        <img class="user-img" [src]="user.img">
+        <div class="direct-message-icon">
+            <img [_persistance]="openChat"  matTooltip="Direct Message" src="assets/chat/notyfy-img.png">
+        </div>
+      </div>
       <nav class="tabs">
         <div routerLinkActive="active-tab" class="tab" routerLink="basic">Basic Info</div>
         <div routerLinkActive="active-tab" class="tab" routerLink="posts">Posts</div>
@@ -12,16 +16,46 @@
         <div 
         class="tab"
         routerLink="posting_product"
-        routerLinkActive="active-tab" 
-        *ngIf="(isAuthProfile | async)" 
+        routerLinkActive="active-tab"
+        *ngIf="(isAuthProfile | async)"
         >Make Post</div>
       </nav>
   
     </div>
   
-    <div class="content">
+    <div class="content-box">
   
       <router-outlet (activate)="onActivate($event)"></router-outlet>
+
+      <div class="profile-footer">
+        <hr />
+
+        <p>
+          If you have any questions or offers to 
+          <a [routerLink]="['/','profile',currentUid]">
+            {{user.firstName}} {{user.lastName}}
+          </a>
+          you can write him/her by email or use direct message to contact.
+          <br />
+          You are able to 
+          <a [routerLink]="['/','profile',currentUid,'reviews']">
+              write reviews
+          </a>
+          on users profile to determine their 
+          <a [routerLink]="['/','profile',currentUid]">
+            average rating.
+          </a>
+          <br />
+          Please be reasonable , any of your estimatings are essential
+          for profile owner and his/her future activity in Modeconcept.
+          <br />
+          To see all posts made by {{user.firstName}} click
+          <a [routerLink]="['/','profile',currentUid,'posts']">here.</a>
+        </p>
+  
+        <hr />
+      </div>
+      
   
     </div>
   

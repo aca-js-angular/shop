@@ -1,4 +1,32 @@
-<!-- <h4>Posted products</h4>
-<app-product-list [productCollection]="postedProducts" [listRatio]="3"></app-product-list> -->
+<ng-container *ngIf="(postedProducts | async) as posts; else loading">
+    <div class="total-line">
+        Total posts: {{posts.length}}
+    </div>
+    <div class="brands-line">
+        <div class="brands-intro">
+            <div>from {{getBrands(posts).size}} manufacturers.</div>
+            <button 
+            class="reset" 
+            [disabled]="selectedBrand === -1"
+            (click)="selectedBrand = -1; resetFilter(posts)"
+            >reset</button>
+        </div>
+        <div class="brands">
+            <div 
+            class="single-brand" 
+            *ngFor="let brand of getBrands(posts), index as i" 
+            (click)="filterBrand(posts,brand); selectedBrand = i"
+            [class.active-brand]="selectedBrand === i"
+            >{{brand}}
+            </div>
+        </div>
+    </div>
+    <app-product-list [productCollection]="(fakePosts | async)" [listRatio]="4"></app-product-list>    
+</ng-container>
 
-<h1>POSTED_PRODUCTS</h1>
+<ng-template #loading>
+    <div class="loading">
+        <mat-spinner class="spinner" [diameter]="25"></mat-spinner>
+    </div>
+</ng-template>
+

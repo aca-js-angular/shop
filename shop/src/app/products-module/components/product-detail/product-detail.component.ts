@@ -180,6 +180,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     openChatBox.emit()
   }
 
+  prevent(event: Event){
+    event.stopPropagation();
+  }
+
   /* --- LC hooks --- */
 
   zoomed = false;

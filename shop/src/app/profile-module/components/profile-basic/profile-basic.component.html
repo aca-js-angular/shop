@@ -1,11 +1,14 @@
 
-<div class="page-container" *ngIf="(profileData | async) as data; else loading">
+<ng-container *ngIf="(profileData | async) as data; else loading">
 
     <div class="user-info">
         <div class="main-info">
             <div class="intro"> 
                 <span class="full-name">{{data.user.firstName}} {{data.user.lastName}}</span>
                 <span class="rating">{{data.user.rating | rating}}</span>
+                <a class="anchor" matTooltip="Copy profile link">
+                    <img src="assets/to-clipboard.png" (click)="toClipboard()">
+                </a> 
             </div>
             <div class="registered-since">
                 member of mode-concept since 
@@ -17,13 +20,10 @@
             <div class="adress">
                 <span>{{data.user.city}}, </span>
                 <span>{{data.user.country}}</span>
-                <img src="https://www.countryflags.io/be/flat/24.png">
+                <img *ngIf="getCountryCode(data.user.country)" src="https://www.countryflags.io/{{getCountryCode(data.user.country)}}/flat/24.png">
             </div>
-            <div class="mail">
+            <div class="mail" matTooltip="Write E-mail">
                 <a href="mailto: {{data.user.email}}">{{data.user.email}}</a>
-            </div>
-            <div class="direct-message">
-                <img [_persistance]="openChat"  title="Direct Message" src="assets/chat/notyfy-img.png">
             </div>
         </div>
     </div>
@@ -31,9 +31,9 @@
     <div *ngIf="data.reviews.length; else noReviews" class="content-block">
         <app-rating-graph
         [reviews]="data.reviews"
-        [reviewers]="data.reviewers"
         ></app-rating-graph>
     </div>
+
         
     <ng-template #noReviews>
         <div>No Reviews</div>
@@ -47,11 +47,12 @@
         <div>No posts so far</div>
     </ng-template>
 
-</div>
+
+</ng-container>
 
 
 <ng-template #loading>
-    <div id="loading">
-        <mat-spinner id="spinner" [diameter]="25"></mat-spinner>
+    <div class="loading">
+        <mat-spinner class="spinner" [diameter]="25"></mat-spinner>
     </div>
 </ng-template>

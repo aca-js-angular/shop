@@ -1,7 +1,7 @@
 <span class="rating-scale" (mouseleave)="hoveredRate = null" [ngClass]="hoverClasses">
-  <span class="star" (mouseover)="hoveredRate = 1" (click)="staticRate = 1" [innerHTML]="isFilled(1)"></span>
-  <span class="star" (mouseover)="hoveredRate = 2" (click)="staticRate = 2" [innerHTML]="isFilled(2)"></span>
-  <span class="star" (mouseover)="hoveredRate = 3" (click)="staticRate = 3" [innerHTML]="isFilled(3)"></span>
-  <span class="star" (mouseover)="hoveredRate = 4" (click)="staticRate = 4" [innerHTML]="isFilled(4)"></span>
-  <span class="star" (mouseover)="hoveredRate = 5" (click)="staticRate = 5" [innerHTML]="isFilled(5)"></span>
+  <span class="star" (mouseover)="hoveredRate = 1" (click)="setStaticRate(1)" [innerHTML]="isFilled(1)"></span>
+  <span class="star" (mouseover)="hoveredRate = 2" (click)="setStaticRate(2)" [innerHTML]="isFilled(2)"></span>
+  <span class="star" (mouseover)="hoveredRate = 3" (click)="setStaticRate(3)" [innerHTML]="isFilled(3)"></span>
+  <span class="star" (mouseover)="hoveredRate = 4" (click)="setStaticRate(4)" [innerHTML]="isFilled(4)"></span>
+  <span class="star" (mouseover)="hoveredRate = 5" (click)="setStaticRate(5)" [innerHTML]="isFilled(5)"></span>
 </span>

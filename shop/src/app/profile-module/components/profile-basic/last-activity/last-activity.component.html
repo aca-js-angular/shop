@@ -5,27 +5,51 @@
       <a [routerLink]="['/','product',lastProduct.id]">view more</a>
     </div>
   </div>
-  <hr />
+  <hr class="seperator" />
   <div class="section-body">
     <div class="view-box">
       <div class="captions">
+        <div class="product-name">
+          <div>{{lastProduct.name}}</div>
+          <div>
+            from
+            <a [routerLink]="['/','products','brands',lastProduct.brand]">{{lastProduct.brand}}</a>
+          </div>
+        </div>
         <div class="post-date">
           <span>Posted on </span>
           <span>{{toDate(lastProduct.postDate) | date}}</span>
         </div>
+        
       </div>
       <div class="view-box-body">
-        <div class="product-name">
-          <span>{{lastProduct.name}}</span>
-          <span>
-            from
-            <a [routerLink]="['/','products','brands',lastProduct.brand]">{{lastProduct.brand}}</a>
-          </span>
-        </div>
+        <hr />
         <div class="image-slider">
           <img *ngFor="let src of lastProduct.images" [src]="src">
         </div>
       </div>
+    </div>
+    <div class="additional">
+        <div class="plain-txt">Also posted</div>
+        <div class="avatars">
+            <img
+            class="product-img" 
+            *ngFor="let product of products.slice(0,5)"
+            [src]="product.images[0]"
+            [routerLink]="['/','product',product.id]"
+            [matTooltip]="product.name"
+            >
+        </div>
+        <div *ngIf="products.length > 5" [matTooltip]="tooltipContent" matTooltipClass="preline">
+          <a class="plain-txt" [routerLink]="['../','posts']">
+            and {{products.length - 5}} more
+          </a>
+        </div>
+        <div *ngIf="products.length <= 5">
+          <a class="plain-txt" [routerLink]="['../','posts']">
+            view all products
+          </a>
+        </div>
     </div>
   </div>
 </div>

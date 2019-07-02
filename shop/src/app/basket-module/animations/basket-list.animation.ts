@@ -16,15 +16,15 @@ export const BasketListAnimation = [
     
   trigger('list', [
     transition(':enter', [
-      query('@items', stagger(80, animateChild()))
+      query('@items', stagger(80, animateChild()), {optional: true})
     ]),
   ]),
 
   trigger('items', [
-    transition(':enter', [
-      style({ transform: 'scale(0.5)', opacity: 0 }),
+    transition(':enter', [    
+      style({ transform: 'scale(0.5)', opacity: 0 , height: 0, margin: 0}),
       animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)', 
-        style({ transform: 'scale(1)', opacity: 1 }))
+        style({ transform: 'scale(1)', opacity: 1 , height: '*', margin: '*'}))
     ]),
     transition(':leave', [
       group([

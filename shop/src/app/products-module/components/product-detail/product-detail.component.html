@@ -119,13 +119,13 @@
         <hr />
 
         <!---------- Vendor Details ---------->
-        <img [_persistance]="openChat"  title="Direct Message" class="toggle-panel-btn" src="assets/chat/notyfy-img.png">
 
         <div class="vendor-details" [class.more]="showMore">
           <hr />
           <h6 class="text-bold">Vendor Profile</h6>
           <div class="vendor-section">
             <div class="vendor-img" title="View Profile" (click)="goToVendorProfile()">
+              <img (click)="prevent($event)" [_persistance]="openChat"  title="Direct Message" class="direct-message-icon" src="assets/chat/notyfy-img.png">
               <img [src]="thisProduct.vendor.img" onerror="this.src = 'assets/empty_user.png'">
             </div>
             <div class="vendor-data">

@@ -1,0 +1,35 @@
+@import '../../../global-vars.scss';
+
+.write-review{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    .review-field{
+        width: 100%;
+    }
+    .actions{
+        display: flex;
+        justify-content: space-between;
+        :first-child{
+            flex-grow: 1;
+            margin-right: 30px;
+        }
+        .submit{
+            outline: none;
+            &:enabled{
+                background: $theme-dark;
+                color: white;
+            }
+
+        }
+    }
+}
+
+::ng-deep {
+    .mat-form-field-appearance-legacy:not(.sortSelector) .mat-form-field-flex{
+      background-color: rgba(114, 133, 148, 0.1);
+      padding: 10px;
+      font-size: 13px;
+      color: $theme-light;
+    }
+  }

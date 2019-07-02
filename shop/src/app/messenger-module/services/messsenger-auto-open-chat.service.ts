@@ -41,11 +41,9 @@ export class MessengerAutoOpenChatBoxByNf {
           this.getNotifyChatUrls(currentUser).pipe(takeUntil(this.diasbleSubscribeNewChatOppeningWithCUserNotyfictions$))
             // 1 makardak ete chatum mard avelana qo u ira urlnerov 2 makardak asxatuma
             .subscribe((includesInChatsCurrentUser) => {
-              console.log('asxatec')
 
               // subscribe chats/ urls...  ONCE  and subscribe another if added new chat with currentUser uid
               if (!firstInit && isAddedNewChat === includesInChatsCurrentUser.length) return;
-              console.log('asxatec bay ifi mej ')
 
               firstInit && this.diasbleMessagesNotyfictions$.next(); // delete previus subscriptions
               firstInit = false;
@@ -94,7 +92,6 @@ export class MessengerAutoOpenChatBoxByNf {
 
         notyfedChatUrl = Array.from(this.subscriblablesChatsUrlsSet)[changedNumber];
 
-        console.log('notificationsZipData-> ', notyfedChatUrl)
         if (notyfedChatUrl && !this.messengerService.activeChatBoxs.has(notyfedChatUrl)) {
           // this.messengerService.activeChatBoxs.add(notyfedChatUrl); // add Auto opened Chat Url; olready adding by open
           console.log('opened unic chat box')
@@ -161,7 +158,6 @@ export class MessengerAutoOpenChatBoxByNf {
       return [previusMessagesLength, changedChildIndex];
 
     } else { // first initialisation changed not returned changed index;
-      console.log('else')
       previusMessagesLength = [];
       previusMessagesLength = this.getCurrentMessagesLengths(originIncomingallChatsMessagesArray);
       return [previusMessagesLength, -1];

@@ -3,7 +3,7 @@ import { Review } from './review.interface';
 
 export interface FirebaseTimestamp {
     seconds: number;
-    nanosecond: number;
+    nanoseconds: number;
 }
 
 export interface User {
@@ -17,6 +17,7 @@ export interface User {
     img: string;
     registeredDate: Date | FirebaseTimestamp;
     reviews: Review[];
+    id?: string;
     uid?: string;
     password?: string;
 }

@@ -5,8 +5,9 @@ import { Product } from '../../interfaces/product.interface';
 import { Observable } from 'rxjs';
 import { User, FirebaseTimestamp } from '../../interfaces/user.interface';
 import { Review } from '../../interfaces/review.interface';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, pairwise } from 'rxjs/operators';
 import Chart from 'chart.js';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class ProfileDataService {
   constructor(
     private db: DatabaseFireService,
     private fa: FaService,
+    private router: Router,
   ) {}
 
   isAuthProfile(uid: string): Observable<boolean> {
@@ -30,15 +32,23 @@ export class ProfileDataService {
     return this.db.getCollectionWithIds<Product>('products')
     .pipe(
       map(products => products.filter(product => product.vendor === uid))
-    )
-    // return this.db.dynamicQueryFilter<Product>('products',{vendor: uid})
-    
+    )    
   }
 
-  getUserReviews(uid: string): Observable<Review[]>{
-    return this.db.getDocumentById<User>('users',uid).pipe(
-      map(user => user.reviews)
-    )
+  getUserReviews(uid: string): Observable<Review[]> {
+    return this.db.getCollectionWithIds<User>('users')
+      .pipe(
+        map(users => {
+          const targetUser: User = users.find(user => user.id === uid);
+          const reviews = targetUser.reviews.sort((review_1,review_2) => {
+            return review_1.date.seconds - review_2.date.seconds;
+          });
+          const reviewerIds: string[] = reviews.map(review => review.author as string);
+          const reviewers: User[] = reviewerIds.map(id => users.find(user => user.id === id))
+        
+          return reviews.map((review,index) => Object.assign(review, {author: reviewers[index]}))
+        })
+      )
   }
 
   getLastActivity(products: Product[]): Product {
@@ -51,17 +61,6 @@ export class ProfileDataService {
     
   }
 
-  getReviewers(uid: string): Observable<User[]>{
-      return this.db.getCollectionWithIds<User>('users')
-      .pipe(
-        map(users => {
-          const targetUser: User = users.find(user => user.id === uid);
-          const reviewerIds: string[] = targetUser.reviews.map(review => review.author as string);
-          const reviewers: User[] = users.filter(user => reviewerIds.includes(user.id));
-          return reviewers;
-        })
-      )
-  }
 
   getUserRatingOverTime(reviews: Review[]): {dates: number[], ratings: number[]}{
 
@@ -95,14 +94,14 @@ export class ProfileDataService {
   }
 
 
-  generateRatingGraph(_data: {dates: number[], ratings: number[]}, targetId: string): Chart {
+  generateRatingGraph(_data: {dates: number[], ratings: number[]}, targetId: string, type: string): Chart {
     const chart = new Chart(targetId,{
-      type: 'line',
+      type: type,
       data: {
         labels: _data.dates,
         datasets: [{
           data: _data.ratings,
-          borderColor: '#3cba9f',
+          borderColor: '#2196f3',
           fill: true,
         }]
       },
@@ -127,14 +126,13 @@ export class ProfileDataService {
               return prev === next ? prev : next ? prev + ' - ' + next : prev + ' - now';
 
             },
-            label: function(){},
-            afterLabel: function(tooltipItem,data){
+            label: function(tooltipItem,data){
               const dataset = data['datasets'][0]['data'][tooltipItem['index']];
               const fixed = Number(dataset).toFixed(2).toString();
               const tmp = document.createElement('span');
               tmp.innerHTML = '&#9733;'
               return  tmp.innerHTML + fixed
-            }
+            },
           }
         },
 
@@ -144,10 +142,16 @@ export class ProfileDataService {
         },
         scales: {
           xAxes: [{
-            display: true
+            display: true,
           }],
           yAxes: [{
-            display: true
+            display: true,
+              ticks: {
+                  beginAtZero: true,
+                  steps: 5,
+                  stepValue: 1,
+                  max: 5,
+              }
           }]
         },
         maintainAspectRatio: false,
@@ -155,6 +159,49 @@ export class ProfileDataService {
     })
 
     return chart;
+  }
+
+  copyProfileLink(): void{
+    const url: string = 'http://localhost:4200' + this.router.url;
+    navigator.clipboard.writeText(url);
+  }
+
+  postReview(receiver: string, author: string, date: Date, description: string, evaluation: number): Promise<Review>{
+    return new Promise((resolve,reject) => {
+      let review = {author,date: date,description,evaluation} as unknown;
+      const convertedReview = review as Review;
+      this.db.pushData<Review>('users',receiver,'reviews',convertedReview)
+      .then(reviews => {
+        const ratingSum: number = reviews.reduce((sum,current) => sum += current.evaluation,0);
+        const averageRating = Math.round(ratingSum / reviews.length);
+        return this.db.updateData('users',receiver,{rating: averageRating})
+      })
+      .then(_ => resolve(convertedReview))
+      .catch(_ => reject());
+    })
+    
+  }
+
+  removeReview(uid: string, review: Review): Promise<Review> {
+    return new Promise((resolve,reject) => {
+      this.db.getExtractedProperty<Review[]>('users',uid,['reviews']).pipe(
+        map(reviews => {
+          // console.log('reviews from getExtractedProperty:', reviews.slice());
+          // console.log('reviews filtered: ', reviews.filter(review => (review.date.seconds + review.date.nanoseconds) !== (date.seconds + date.nanoseconds)));
+          return reviews.filter(innerReview => {
+            // console.log(review.date.seconds + review.date.nanoseconds + '!==' + date.seconds + date.nanoseconds)
+            // console.log((review.date.seconds + review.date.nanoseconds) !== (date.seconds + date.nanoseconds));
+            // console.log('.')
+            // console.log('.')
+            return (innerReview.date.seconds + innerReview.date.nanoseconds) !== (review.date.seconds + review.date.nanoseconds)
+          })
+        })
+      ).subscribe(removed => {
+        this.db.updateData('users',uid,{reviews: removed})
+        .then(_ => resolve(review))
+        .catch(_ => reject())
+      })
+    })  
   }
 
 

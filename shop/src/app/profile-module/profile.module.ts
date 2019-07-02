@@ -17,7 +17,7 @@ import { PostProductComponent } from './components/post-product/post-product.com
 import { RatingScaleComponent } from './components/profile-reviews/rating-scale/rating-scale.component';
 import { LastActivityComponent } from './components/profile-basic/last-activity/last-activity.component';
 import { RatingGraphComponent } from './components/profile-basic/rating-graph/rating-graph.component';
-import { MatProgressSpinnerModule, MatTooltipModule } from '@angular/material';
+import { MatProgressSpinnerModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatDialogModule, MatSelectModule, MatCardModule, MatMenuModule, MatIconModule } from '@angular/material';
 
 
 @NgModule({
@@ -44,6 +44,14 @@ import { MatProgressSpinnerModule, MatTooltipModule } from '@angular/material';
     ProfileRoutingModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
   ],
 })
 
