@@ -5,7 +5,15 @@
 hr{
     margin-top: 5px;
 }
-
+.direct-message{
+    position: absolute;
+    top: auto;
+    left: auto;
+    img{
+        height: 40px;
+        width: 40px;
+    }
+}
 .user-info{
     display: flex;
     flex-direction: row;

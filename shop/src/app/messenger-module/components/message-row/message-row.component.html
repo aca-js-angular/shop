@@ -6,10 +6,14 @@
   </ng-container>
 
   <!-- Delete -->
-  <span *ngIf="currentUserMessage && !firstMessage" 
+  <mat-icon *ngIf="currentUserMessage && !firstMessage" 
     (click)="deleteMessage.emit(messageRowKey)"
-    [ngClass]="{'remove-message': true, 'none': firstMessage}">x
-  </span>
+    [ngClass]="{'remove-message': true, 'none': firstMessage}">delete_forever
+    <!-- close  <<<<-  kam es <<<<<<<-->
+  </mat-icon>
+  <!-- Other Icons -->
+  <!-- <mat-icon>delete</mat-icon> -->
+  <!-- <mat-icon>delete_outline</mat-icon> -->
 
 </div>
 <br>

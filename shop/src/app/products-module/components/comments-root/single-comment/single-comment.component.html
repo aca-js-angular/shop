@@ -1,12 +1,12 @@
 <ng-template #decodedCommentTemplate let-senderName="firstName" let-image="img">
   <ul class="posts">
-    <li>
+    <li [class.comment-editing]="commentEditing">
 
       <!-- Delet message -->
-      <span class="delete-comment" 
+      <mat-icon class="delete-comment" 
       *ngIf="currentUser && singleComment.sender.includes(currentUser.uid)" 
-      (click)="deleteSelectedComment()">x
-      </span>
+      (click)="deleteSelectedComment()">delete_forever</mat-icon>
+      <!-- delete_sweep, delete_forever, delete, delete_outline -->
 
       <!-- Edit message -->
       <span class="edit-comment" 

@@ -5,6 +5,13 @@ $active: rgb(0, 115, 255);
     display: flex;
     justify-content: space-around;
     align-items: center;
+
+    .toggle-notifys {
+        margin: 0 15px;
+        cursor: pointer;
+        .mat-icon {font-size: 1.7em;}
+    }
+
     .auth-action{
 
         margin: 0 3px;
@@ -21,7 +28,6 @@ $active: rgb(0, 115, 255);
             padding: 5px 10px;
             outline: none;
             transition: all 0.3s;
-
         }
 
         .register{

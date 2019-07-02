@@ -38,21 +38,21 @@
           </button>
       
           <!-- disable Voise -->
-          <div [hidden]="!disableVoise">
-            <button mat-menu-item (click)="disableVoise = !disableVoise">
+          <div [hidden]="!disableVoice">
+            <button mat-menu-item (click)="disableVoice = !disableVoice">
               <mat-icon>notifications_off</mat-icon>
               <span>Disable Voice</span>
             </button>
           </div>
 
-          <div [hidden]="disableVoise">
-            <button mat-menu-item (click)="disableVoise = !disableVoise">
+          <div [hidden]="disableVoice">
+            <button mat-menu-item (click)="disableVoice = !disableVoice">
               <mat-icon>notifications_onn</mat-icon>
               <span>Enaable Voise</span>
             </button>
           </div>
         </mat-menu>
-        <span class="close-chat" (click)="closeMessageBox()">X</span>
+        <mat-icon class="close-chat" (click)="closeMessageBox()">close</mat-icon>
       </div>
     </div>
 
@@ -81,7 +81,7 @@
         </div>
 
         <!-- Send Curren Product Link -->
-        <mat-icon *ngIf="currentUrl.includes('product')" class="sendCurrentPrLink" title="Send current productLink"
+        <mat-icon *ngIf="showProductSendLink" class="sendCurrentPrLink" title="Send current productLink"
           (click)="sendPatchCurrentProductUrl()">launch
         </mat-icon>
 

@@ -8,7 +8,7 @@ import { MessengerAutoOpenChatBoxByNf } from '../../services/messsenger-auto-ope
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/interfaces/user.interface';
-import { emitDisableNotifys } from '../message-box/message-box.component';
+import { emitOpenChatWithProfile } from 'src/app/profile-module/components/profile-basic/profile-basic.component';
 
 
 @Component({
@@ -36,20 +36,27 @@ export class MessengerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     let emitedVendorEmailUnicBox: string; // for unic box openning;
 
-    //----Emiters-----
+    //----------Emiters---------------
     removeOpenedChatАccess.pipe(takeUntil(this.destroyStream$)).subscribe(_void => emitedVendorEmailUnicBox = '');
 
-
+    // ----Subscribe Product Detail Emiting-----
     chatEmitVendor.pipe(takeUntil(this.destroyStream$)).subscribe(emitedVendor => this.emitedVendor = emitedVendor as User);
 
     openChatBox.pipe(takeUntil(this.destroyStream$)).subscribe(_void => {
-      this.emitedVendor
-        && this.emitedVendor.email
-        && this.emitedVendor.email !== emitedVendorEmailUnicBox
-        && this.searchUserandEmite(this.emitedVendor.email);
-
-      emitedVendorEmailUnicBox = this.emitedVendor.email; // for unic search
+      if(this.emitedVendor && this.emitedVendor.email && this.emitedVendor.email !== emitedVendorEmailUnicBox){
+        this.searchUserandEmite(this.emitedVendor.email)
+        emitedVendorEmailUnicBox = this.emitedVendor.email; // for unic search
+      }
     })
+
+    //-------Subscribe From Profile Emiting-----
+    emitOpenChatWithProfile.pipe(takeUntil(this.destroyStream$)).subscribe(vendorEmail => {
+      if(emitedVendorEmailUnicBox === vendorEmail) return;
+      
+        this.searchUserandEmite(vendorEmail);
+        emitedVendorEmailUnicBox = vendorEmail as string; // for unic search
+    })
+
 
 
     // ----Auto Opening by Notify----
@@ -58,20 +65,6 @@ export class MessengerComponent implements OnInit, OnDestroy {
 
         this.openMesssengerBoxByEmit(notyfiMessageUserData[0]);
       })
-
-
-      //-----(Emiter) Subscribe enabling or disabling notifys-------
-    emitDisableNotifys.subscribe(notifyDiasbleData => {
-      if (this.messengerAutoOpenChatService.disabledNotifyChatUrlsMap.has(notifyDiasbleData.chatUrl)) {
-        this.messengerAutoOpenChatService.disabledNotifyChatUrlsMap.delete(notifyDiasbleData.chatUrl)
-      } else {
-        this.messengerAutoOpenChatService.disabledNotifyChatUrlsMap.set(notifyDiasbleData.chatUrl, notifyDiasbleData.userInfo)
-      }
-    })
-  }
-
-  emiteNotifyVendorWithTemplate(vendor) {
-    // this.openMesssengerBoxByEmit(vendor)
   }
 
   //----------Metods-------------

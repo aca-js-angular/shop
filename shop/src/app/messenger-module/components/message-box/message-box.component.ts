@@ -7,13 +7,13 @@ import { takeUntil, switchMap, debounceTime } from 'rxjs/operators';
 import { Subject, fromEvent, Subscription } from 'rxjs';
 import { MessengerOptionalService } from '../../services/messenger-optional-service.service';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { MessengerAutoOpenChatBoxByNf, NotifyData } from '../../services/messsenger-auto-open-chat.service';
 import { Router } from '@angular/router';
 import { OpenDialogService } from 'src/app/fa-module/services/open-dialog.service';
 import { clearAllMessages, deleteMessage, sendCurrentProdLink } from 'src/app/constants/popup-messages.constant';
 
 const NOTIFICATION_SOUND: string = 'assets/messengerAudio/message2.mp3';
-export const emitDisableNotifys = new EventEmitter<NotifyData>();
+
+
 @Component({
   selector: 'app-message-box',
   templateUrl: './message-box.component.html',
@@ -32,15 +32,14 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   inputTypingState: Subscription;
   isOnlineChatMember: boolean;
   currentUrl: string;
-  disableNotify: boolean;
-  disableVoise: boolean
+  disableVoice: boolean;
+  showProductSendLink: boolean;
 
   constructor(
     private router: Router,
     private dialog: OpenDialogService,
     private messengerService: MessengerService,
     private messengerOptService: MessengerOptionalService,
-    private messengerAutoOpenChatService: MessengerAutoOpenChatBoxByNf,
     private faFirebase: AngularFireAuth,
     private dialogRef: MatDialogRef<MessageBoxComponent>,
     @Inject(MAT_DIALOG_DATA) data: CurrentChatMemberDialogData,
@@ -51,7 +50,10 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnInit() {
-    this.currentUrl = this.router.url;
+    
+  this.showProductSendLink = this.router.url.includes('category') && !this.router.url.includes('product')
+
+
     emiteCloseMessageBox.pipe(takeUntil(this.destroyStream$)).subscribe(_ => this.dialogRef.close());
     this.messageInput = new FormControl('', Validators.required);
       this.faFirebase.auth.onAuthStateChanged((cUserId) => {
@@ -63,7 +65,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
         .subscribe(messages => {
             // console.log("TCL: ngOnInit -> messages", messages)
             // window.scrollTo(500, 0);
-            this.allMessages[0] ? this.messengerOptService.sendMessageSound(NOTIFICATION_SOUND): null;
+            this.allMessages[0] && !this.disableVoice ? this.messengerOptService.sendMessageSound(NOTIFICATION_SOUND): null;
             this.allMessages = messages;
           });
         //----Decode Mesage Data-------
@@ -111,13 +113,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   
 
   /* --------Chat Menu------- */
-  toggleNotifys(): void{
-    const subscrib$ = this.messengerService.currentChatUrl.subscribe(currentChatUrl => {
-      if(!currentChatUrl) return;
-      emitDisableNotifys.emit({chatUrl: currentChatUrl , userInfo: this.curentChatMember});
-    })
-    subscrib$.unsubscribe();
-  }
+
 
   clearCurrentChat(): void{
     this.confirm(callback,clearAllMessages);
@@ -158,7 +154,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
   sendMessage() {
     if(!this.messageInput.value) return;
-    this.disableVoise && this.messengerOptService.sendMessageSound(NOTIFICATION_SOUND);
+    !this.disableVoice && this.messengerOptService.sendMessageSound(NOTIFICATION_SOUND);
     this.messengerService.sendMessage(this.currentUserId, this.messageInput.value);
     this.messageInput.patchValue('');
   }

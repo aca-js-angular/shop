@@ -7,7 +7,7 @@ import { UDataType } from 'src/app/fa-module/services/additional.service';
   selector: 'app-single-comment',
   templateUrl: './single-comment.component.html',
   styleUrls: ['./single-comment.component.scss'],
-  inputs: ['singleComment','decodedFields','currentUser','currentProductId', 'senderUid']
+  inputs: ['singleComment','decodedFields','currentUser','currentProductId', 'senderUid','commentEditing']
 })
 export class SingleCommentComponent {
 

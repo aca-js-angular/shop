@@ -9,6 +9,7 @@
 .posts li {
     background-color: #fff;
     border: 1.5px solid #d8d8d8;
+    transition: 0.2s;
     border-radius: 10px;
     padding-right: 20px;
     padding-bottom: 0px;
@@ -21,11 +22,11 @@
     .delete-comment {
         cursor: pointer;
         float: right;
-        margin: -3px -11px 0px 8px;
-        font-size: 107%;
+        margin: 5px -11px 0px 8px;
+        font-size: 150%;
         transition: 0.2s;
         &:hover{
-            font-size: 108%;
+            font-size: 156%;
             transform: rotate(5deg);
             color: rgb(190, 22, 22);
         }
@@ -90,3 +91,8 @@
         font-weight: bold;
     }
 }
+.comment-editing {
+    background:whitesmoke !important;
+    margin-left: 2% !important;
+    // margin: 1% 2% !important;
+} 

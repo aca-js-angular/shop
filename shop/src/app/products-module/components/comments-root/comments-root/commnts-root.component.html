@@ -40,14 +40,15 @@
         
         
         <!-- Comments -->
-    <ng-container *ngFor="let singleComment of dinamicCommentsArray; trackBy:trackByComment">
+    <ng-container *ngFor="let singleComment of dinamicCommentsArray; index as ind; trackBy:trackByComment">
         <!-- If db has user -->
         <!-- ete es fals chi etum ende hamel chi vergrum ng if chi toxum -->
-        <app-single-comment  
+        <app-single-comment
             *ngIf="decodedZip?.get(singleComment.sender) as decodedFields"
+            [commentEditing]="selectedCommentEditingInd === ind"
             (likeComment)="toggleLikeComment($event)" 
             (deleteComment)="deleteComment($event)"
-            (editComment)="showEditingCommentFields($event)"
+            (editComment)="showEditingCommentFields($event,ind)"
             [singleComment]="singleComment" 
             [decodedFields]="decodedFields"
             [currentUser]="currentUser" 

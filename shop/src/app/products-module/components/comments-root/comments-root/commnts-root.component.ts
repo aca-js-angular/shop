@@ -38,6 +38,7 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
   showEmojiPanel: boolean;
   sortingArrowType: boolean;
   commentMaxLength: number;
+  selectedCommentEditingInd: number;
 
   constructor(
     private commentServise: CommentService,
@@ -70,6 +71,7 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
 
   /* ------Edit Comment Metods----- */
   cancelCommentEditing() {
+    this.selectedCommentEditingInd = -1;
     this.submitButtonCallack = this.postComment;
     this.isEditing = false;
     this.commentTexteria.setValue('');
@@ -77,7 +79,8 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
   }
 
 
-  showEditingCommentFields({ commentId, content }) {
+  showEditingCommentFields({ commentId, content },index: number) {
+    this.selectedCommentEditingInd = index;
 
     this.submitButtonCallack = () =>
       this.confirm(this.editSelectedComment.bind(this, commentId), editComment);
@@ -91,6 +94,7 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
     if (!this.commentTexteria.value.length) {
       this.cancelCommentEditing();
       this.deleteComment(commentId);
+      this.selectedCommentEditingInd = -1;
       return
     }
 

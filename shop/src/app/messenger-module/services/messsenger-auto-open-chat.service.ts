@@ -6,11 +6,6 @@ import { MessengerService } from './messenger.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { CurrentChatMemberDialogData, MessageDataRTimeDb, CurrentUserCloud, SubscribableChatUrls, MessageData } from '../messenger-interface';
 
-export type NotifyData = {
-  chatUrl: string,
-  userInfo: CurrentChatMemberDialogData,
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -21,7 +16,7 @@ export class MessengerAutoOpenChatBoxByNf {
 
   private subscriblablesChatsUrlsSet = new Set<string>();
   diasbleMessagesNotyfictions$ = new Subject<void>();
-
+  disableNotify: boolean = true;
   _hasOlreadyOpenedOtherChat: boolean = true /// jamanakavor heto 1 hat chat bac lini khanenq
 
   constructor(
@@ -93,9 +88,8 @@ export class MessengerAutoOpenChatBoxByNf {
 
           .subscribe(changedIndex => {
             notyfedChatUrl = Array.from(this.subscriblablesChatsUrlsSet)[changedIndex];
-            console.log(this.disabledNotifyChatUrlsMap.has(notyfedChatUrl),' blocked notify')
-            if (notyfedChatUrl && !this.messengerService.activeChatBoxs.has(notyfedChatUrl) && !this.disabledNotifyChatUrlsMap.has(notyfedChatUrl)) {
-              console.log('notyfed')
+            if (notyfedChatUrl && !this.messengerService.activeChatBoxs.has(notyfedChatUrl) && this.disableNotify) {
+              // console.log('notyfed')
               const chatMemberNotifiUid = notyfedChatUrl.split(`${currentUserUid}`).join('').split('&').join(''); // Get Nodefed User Uid
               // this.messengerService.activeChatBoxs.add(notyfedChatUrl); // add Auto opened Chat Url; olready adding by open
 

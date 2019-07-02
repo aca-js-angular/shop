@@ -1,5 +1,12 @@
 <div class="auth-action-field">
 
+
+  <div class="toggle-notifys" title="Disable Messages Notifications"*ngIf="currentUser$ | async as currentUser" >
+      <mat-icon *ngIf="messengerAutoOpenChatService.disableNotify" (click)="toggleNotifys()">speaker_notes</mat-icon>
+      <mat-icon *ngIf="!messengerAutoOpenChatService.disableNotify" (click)="toggleNotifys()">speaker_notes_off</mat-icon>
+  </div>
+
+
   <div class="auth-action" *ngIf="currentUser">
     <span class="user-name">{{currentUser.displayName}}</span> 
     <img class="profile-picture" matTooltip="Go to profile" [routerLink]="['/','profile',currentUser.uid]" [src]="currentUser.photoURL">
