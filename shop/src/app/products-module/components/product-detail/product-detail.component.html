@@ -164,6 +164,7 @@
     <app-product-list [productCollection]="similarProducts"></app-product-list>
   </div>
 
+
 </ng-container>
 
 <ng-template #loading>
@@ -171,6 +172,8 @@
     <mat-spinner id="spinner" [diameter]="25"></mat-spinner>
   </div>
 </ng-template>
+
+<hr>
 
 <app-comments-root 
   [productFields$]="currentProduct$">

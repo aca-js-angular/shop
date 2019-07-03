@@ -1,47 +1,87 @@
-<ng-template #decodedCommentTemplate let-senderName="firstName" let-image="img">
-  <ul class="posts">
-    <li>
+<ng-template #decodedCommentTemplate let-senderName="fullName" let-image="img">
+  
+  <div class="comment-view">
 
-      <!-- Delet message -->
-      <span class="delete-comment" 
-      *ngIf="currentUser && singleComment.sender.includes(currentUser.uid)" 
-      (click)="deleteSelectedComment()">x
-      </span>
+    <div class="top-panel">
 
-      <!-- Edit message -->
-      <span class="edit-comment" 
-      *ngIf="currentUser && singleComment.sender.includes(currentUser.uid)" 
-      (click)="editSelectedComment()">Edit
-      </span>
+      <div class="left-side">
 
+        <div class="sender-name">{{senderName}} </div>
+        <div class="is-edited">{{singleComment?.isEdited && '(Edited)'}}</div>
 
-      <!-- Message Content -->
-      <span class="sender-name">{{senderName}} </span>
-      <span class="timestamp" title="Post Time">
-        {{singleComment.date.seconds * 1000 | date :'MMM d, y, h:mm:ss' }}
-      </span>
+      </div>
 
-      <!-- Is Edited -->
-      <span>{{singleComment?.isEdited && 'edited' }}</span>
+      <div class="right-side">
 
+        <div
+        matTooltip="Edit"
+        class="edit-comment" 
+        *ngIf="currentUser && singleComment.sender.includes(currentUser.uid)" 
+        (click)="editSelectedComment()"
+        >  
+          <mat-icon>edit</mat-icon>
+        </div>
+
+        <div 
+        matTooltip="Delete"
+        class="delete-comment" 
+        *ngIf="currentUser && singleComment.sender.includes(currentUser.uid)" 
+        (click)="deleteSelectedComment()"
+        >
+          <mat-icon>clear</mat-icon>
+        </div> 
+
+      </div>
+
+    </div>
       
-      <br>
-      <img class="photo" [src]="image" [routerLink]="[ '/','profile', senderUid ]">
-      <span class="content">{{singleComment.content}}</span>
+    <div class="content">
+      <div class="left-side">
+          <img matTooltip="Go to profile" class="photo" [src]="image" [routerLink]="[ '/','profile', senderUid ]">
+          <span class="comment-text">{{singleComment.content}}</span>
 
-      <!-- Like Icon -->
-      <img class="like-icon" title="Like Comment" 
-      [_persistance]="likeSelectedComment" 
-      [src]="currentUser && singleComment.likes.includes(currentUser.uid) ? 
-        'assets/comments/liked.png': 'assets/comments/unliked.png'">
+      </div>
 
-      <span class="likes-count">likes {{singleComment.likes.length}}</span>
-    </li>
-  </ul>
+
+      <div class="right-side">
+        {{singleComment.date.seconds * 1000 | date : 'hh,mm' }}
+      </div>
+
+    </div>
+      
+    
+    <div class="bottom-panel">
+
+      <div class="date" title="Post Time">
+        {{singleComment.date.seconds * 1000 | date :'MMM dd, y' }}
+      </div>
+
+      <div class="like-box">
+        <div class="likes-count">
+          {{singleComment.likes.length}}
+        </div>
+  
+        <div class="like-icon">
+          <img 
+          title="Like Comment" 
+          [_persistance]="likeSelectedComment" 
+          [src]=
+          "currentUser && singleComment.likes.includes(currentUser.uid) ? 
+          'assets/comments/liked.png' : 
+          'assets/comments/unliked.png'"
+          >
+        </div>
+      </div>
+      
+
+    </div>
+
+  </div>
+
 </ng-template>
 
-<!-- {{decodedFields + "tfhftxh"}} -->
+
 <ng-container *ngTemplateOutlet="decodedCommentTemplate; context: decodedFields ? 
-  {firstName: decodedFields.firstName, img: decodedFields.img } :
-  {firstName: 'Deleted User Accaunt', img: 'assets/comments/deactivateduser2.png' }">:
+  {fullName: decodedFields.firstName + ' ' + decodedFields.lastName, img: decodedFields.img } :
+  {fullName: 'Account was deleted', img: 'assets/comments/deactivateduser2.png' }">:
 </ng-container>

@@ -97,6 +97,7 @@ export class CommentService {
      * 
      * @param commentsArray sort -| max - min | new - old|
      */
+
     public sortBycLikesCount(commentsArray: ProductSingleComment[], sortCondition: string, sortingArrowType:boolean, initialArray: ProductSingleComment[]):ProductSingleComment[]{
       switch (sortCondition) {
         case 'likes': 

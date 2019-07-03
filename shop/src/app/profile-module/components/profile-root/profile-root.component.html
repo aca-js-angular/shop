@@ -27,7 +27,7 @@
   
       <router-outlet (activate)="onActivate($event)"></router-outlet>
 
-      <div class="profile-footer">
+      <div *ngIf="!(isAuthProfile | async)" class="profile-footer">
         <hr />
 
         <p>

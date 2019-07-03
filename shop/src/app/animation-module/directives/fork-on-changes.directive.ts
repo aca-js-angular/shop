@@ -8,9 +8,10 @@ export class ForkOnChangesDirective implements AfterViewChecked, AfterViewInit {
 
   native: HTMLElement;
   previousView: string;
-  initStyles: [string,string][]
+  initStyles: [string,string][];
 
   @Input() blink: boolean;
+  @Input('anim-fork-on-changes') forkAmount: number = 20;
 
   constructor(private ref: ElementRef, private ss: StylesService) {
     this.native = this.ref.nativeElement;
@@ -21,7 +22,7 @@ export class ForkOnChangesDirective implements AfterViewChecked, AfterViewInit {
       if(this.blink){
         this.ss.blink(this.native,this.initStyles,0.5)
       }
-      this.ss.fork(this.native,20,0.5)
+      this.ss.fork(this.native,this.forkAmount,0.5)
       this.previousView = this.native.textContent;
     }
   }

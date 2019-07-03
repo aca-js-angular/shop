@@ -130,18 +130,40 @@
 }
 
 
-@mixin flat-scroll {
+@mixin flat-scroll($amount: 0,$flow: vertical) {
+    
+
     &::-webkit-scrollbar {
         width: 1em;
+        @if($flow == vertical){
+            @include side-radius(right,$amount);
+        }
+        @else if($flow == horizontal){
+            @include side-radius(bottom,$amount);
+        }
     }
      
     &::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        @if($flow == vertical){
+                @include side-radius(right,$amount);
+        }
+        @else if($flow == horizontal){
+            @include side-radius(bottom,$amount);
+        }
+
     }
      
     &::-webkit-scrollbar-thumb {
-      background-color: rgb(194, 194, 194);
-      outline: 1px solid slategrey;
+        background-color: rgb(194, 194, 194);
+        outline: 1px solid slategrey;
+
+        @if($flow == vertical){
+                @include side-radius(right,$amount);
+        }
+        @else if($flow == horizontal){
+            @include side-radius(bottom,$amount);
+        }
     }
 }

@@ -9,17 +9,18 @@ import { takeUntil } from 'rxjs/operators';
 import { maxLenghtLimitValidator } from '../validators/comment.validator';
 import { OpenDialogService } from 'src/app/fa-module/services/open-dialog.service';
 import { deleteComment, editComment } from 'src/app/constants/popup-messages.constant';
+import { ReviewListAnimation } from 'src/app/profile-module/animations/review-animation';
 
 const BTN_POST = 'Post Comment';
 const BTN_EDIT = 'Edit';
-const COMMENT_MAX_LENGTH = 300;
 
 
 @Component({
   selector: 'app-comments-root',
   templateUrl: './commnts-root.component.html',
   styleUrls: ['./commnts-root.component.scss'],
-  inputs: ['productFields$']
+  inputs: ['productFields$'],
+  animations: [ReviewListAnimation],
 })
 export class CommentsRootComponent implements OnInit, OnDestroy {
 
@@ -37,7 +38,6 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
   isEditing: boolean;
   showEmojiPanel: boolean;
   sortingArrowType: boolean;
-  commentMaxLength: number;
 
   constructor(
     private commentServise: CommentService,
@@ -94,7 +94,7 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
       return
     }
 
-    if (this.commentTexteria.value.length < COMMENT_MAX_LENGTH) { // set max comment length ????
+    if (this.commentTexteria.value.length < 500) { // set max comment length ????
       this.commentServise.editSelectedComment(
         this.productFields.currentProductComments,
         commentId,
@@ -135,7 +135,7 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
 
   postComment() {
 
-    if (this.commentTexteria.value.length && this.commentTexteria.value.length < COMMENT_MAX_LENGTH) { // set max comment length ????
+    if (this.commentTexteria.value.length) { // set max comment length ????
       this.commentServise.postComment(
         this.commentTexteria.value,
         this.currentUser.uid,
@@ -160,17 +160,16 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
   /*---LC Hooks---*/
   ngOnInit() {
     this.selectOptions = [
-      { value: 'likes', title: 'By likes' },
-      { value: 'date', title: 'By date' },
+      { value: 'likes', title: 'By Popularity' },
+      { value: 'date', title: 'By Date' },
     ];
 
     this.submitButtonText = BTN_POST;
     this.submitButtonCallack = this.postComment
-    this.commentTexteria = new FormControl('', maxLenghtLimitValidator(COMMENT_MAX_LENGTH));
+    this.commentTexteria = new FormControl('');
     this.selectFilerValue = new FormControl('date');
     this.showEmojiPanel = true;
-    this.sortingArrowType = false;
-    this.commentMaxLength = COMMENT_MAX_LENGTH;
+    this.sortingArrowType = true;
 
     this.productFields$.pipe(takeUntil(this.destroyStream$)).subscribe(next => {
       this.productFields = next;
@@ -180,6 +179,9 @@ export class CommentsRootComponent implements OnInit, OnDestroy {
 
       this.commentServise.decodeCommentSenders(this.productFields.currentProductComments)
         .pipe(takeUntil(this.destroyStream$)).subscribe(decodedZip => this.decodedZip = decodedZip);
+
+      this.sort();
+
     })
 
     this.$currentUser.pipe(takeUntil(this.destroyStream$)).subscribe(udata => this.currentUser = udata);

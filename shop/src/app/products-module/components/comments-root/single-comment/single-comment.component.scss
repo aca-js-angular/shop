@@ -1,92 +1,137 @@
-.posts {
-  clear: both;
-  list-style: none;
-  padding-left: 0;
-  width: 90%;
-  text-align: left;
-  margin: 0 auto;
-}
-.posts li {
-    background-color: #fff;
-    border: 1.5px solid #d8d8d8;
-    border-radius: 10px;
-    padding-right: 20px;
-    padding-bottom: 0px;
-    margin-bottom: 10px;
-    word-wrap: break-word;
-    min-height: 42px;
-    box-shadow: 10px 11px 13px #d8d8d8;
-    float: left;
-    width: 100%;
-    .delete-comment {
-        cursor: pointer;
-        float: right;
-        margin: -3px -11px 0px 8px;
-        font-size: 107%;
-        transition: 0.2s;
-        &:hover{
-            font-size: 108%;
-            transform: rotate(5deg);
-            color: rgb(190, 22, 22);
+@import '../../../../global-vars.scss';
+@import '../../../../global-mixins.scss';
+
+.comment-view {
+    margin: 15px 20px;
+    box-shadow: 3px 3px 5px #d8d8d8;
+    @include side-radius(bottom,15px);
+    @include side-radius(top,2px,false);
+    @include light-shadow;
+
+    display: flex;
+    flex-direction: column;
+
+    .top-panel{
+        padding: 5px 10px;
+        background: $theme-dark;
+        color: white;
+        @include side-radius(top,2px);
+
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        .left-side{
+            display: flex;
+            align-items: center;
+            .sender-name{
+                font-weight: bold;
+                font-size: 14px;
+            }
+            .is-edited{
+                color: #d6d6d6;
+                opacity: 0.7;
+                font-size: 12px;
+                margin-left: 5px;
+            }
         }
-    }
-    .edit-comment {
-        cursor: pointer;
-        float: right;
-        margin: 1px 9px 0px 8px;
-        transition: 0.2s;
-        &:hover{
-            font-size: 103%;
-            transform: rotate(5deg);
-            color: rgb(190, 22, 22);
+        .right-side{
+            display: flex;
+            align-items: center;
+            *{
+                cursor: pointer; 
+                transition: all 0.2s;
+                margin-left: 5px;
+                &:hover{
+                    text-shadow: 2px 2px 2px black;
+                    transform: scale(1.2);
+                }
+            }
+
+            .delete-comment:hover {
+                color: #be1616;
+            }
+            .edit-comment:hover {
+                transform: rotate(10deg);
+                color: rgb(185, 196, 255);
+            }
         }
-    
-    }
-    .sender-name{
-        margin: 1.2%;
-        font-size: 106%;
-        font-family: monospace;
-        font-weight: bold; 
-    }
-    .photo {
-        border-radius: 7px;
-        width: 7%;
-        min-width: 50px;
-        float: left;
-        margin-right: 30px;
-        margin: 0.6% 0.6% 3px;
-    }
-    .content {
-        padding-top: 5px;
-        padding-left: 10%;
-        padding-right: 6%;
-        display: list-item;
-    }
-    .timestamp{
-        float: right;
-        margin: 0.6%;
-        font-family: monospace;
     }
 
-    .like-icon {
+    .content{
+        display: flex;
+        align-items: flex-start;
 
-        float: right;
-        // hover@ asxatelu hamar marginic chiasxatum
-        //margin: -17px 5px;
-        margin: 0 auto;
-        transition: 0.28s;
-        width: 29px;
-        cursor: pointer;
-        &:hover{
-            width: 34px;
-            transform: rotate(356deg)
+        .left-side{
+            .photo {
+                cursor: pointer;
+                width: 100px;
+                height: 100px;
+                float: left;
+                margin-right: 10px;
+                transition: all 0.3s;
+                &:hover{
+                    border-radius: 10px;
+                    transform: scale(1.1);
+                    @include mid-shadow;
+                }
+            }
+            .comment-text {
+                padding-top: 3px;
+                font-size: 12px;
+                text-overflow: ellipsis;
+            }
+        }
+
+        
+        .right-side{
+            margin-left: auto;
+            padding: 5px;
+            padding-right: 10px;
+            font-size: 12px;
+            color: gray;
         }
     }
-    .likes-count{
-        color: darkslategrey;
-        float: right;
-        padding: 1.8% 0px 0;
-        font-family: monospace;
-        font-weight: bold;
+
+    .bottom-panel{
+        padding: 5px 10px;
+        box-shadow: inset 0px 0px 2px 1px #e7e7e7;
+        @include side-radius(bottom,15px);
+        
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        .date{
+            color: rgb(182, 182, 182);
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .like-box{
+            display: flex;
+            align-items: center;
+            padding-top: 2px;
+            *{margin-left: 5px}
+
+            .likes-count{
+                color: $theme-dark;
+            }
+            .like-icon{
+                img{
+                    cursor: pointer;
+                    height: 30px;
+                    width: 30px;
+                    transition: all 0.2s;
+                    border-radius: 50%;
+                    &:hover{
+                        @include mid-shadow;
+                        transform: scale(1.2);
+                    }
+                }
+            }
+        }
+        
     }
 }

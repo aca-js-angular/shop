@@ -1,28 +1,22 @@
-$tralslateEnd: translateX(0%);
-$tralslateStart: translateX(64%);
+@import '../../../../global-vars.scss';
+
+.emojis-outer-container{
+    background: $header-theme;
+    border-radius: 3px;
 
 
-.emojis { 
-    transition: 1s;
-    width: 50%;
-    float: right;
-    background: #ececec;
-    border-radius: 17px;
-    margin-bottom: 1%;
-    transform: $tralslateEnd;
+    .emojis-inner-container { 
+        margin-right: 50px;
+        border-right: #d9d9e4 solid;
+        padding: 5px;
+        display: flex;
+        width: 300px;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        .single-emoji {
+            cursor: pointer;
+        }
+    }
 }
 
-.single-emoji {
-    cursor: pointer;
-    margin: 0.8%;
-    font-size: 1.1rem;
-}
-.animate {
-    animation-name: emoji-panel-toggle;
-    animation-duration: 1s;
-}
 
-@keyframes emoji-panel-toggle {
-    from { transform: $tralslateStart;}
-    to { transform: $tralslateEnd;}
-  }

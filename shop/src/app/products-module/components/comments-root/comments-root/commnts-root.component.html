@@ -1,3 +1,62 @@
+<div class="comments-container">
+
+<!-- Add comment -->
+<div class="write-comment-fields">
+    <div class="form">
+            <mat-form-field appearance="outline">
+                    <mat-label>Write Comment</mat-label>
+                    <textarea
+                    #comment_txt
+                    maxlength="500"
+                    matInput 
+                    [formControl]="commentTexteria"
+                    ></textarea>
+            
+                    
+            
+                    <mat-hint>{{this.commentTexteria.value.length}} / 500</mat-hint>
+            
+                </mat-form-field>
+                <div class="open-emoji-box">
+                    <div class="inner-box">
+                            
+        
+                            <img 
+                            class="emoji-icon"
+                            (click)="showEmojiPanel = !showEmojiPanel"       
+                            src="assets/comments/emoji/toggle-emoji-box.png"
+                            >
+                            <div class="emoji-box">
+                                <app-emoji (setEmoji)="setEmoji($event)"></app-emoji>
+                            </div>
+                    </div>
+                    
+                    
+                    
+                </div>
+    </div>
+    
+
+    <div class="actions">
+        <button 
+        [disabled]="!comment_txt.value"
+        [_persistance]="submitButtonCallack" 
+        mat-raised-button 
+        color="primary"
+        >{{submitButtonText}}
+        </button>
+
+        <button 
+        class="cancel-btn"
+        *ngIf="isEditing" 
+        (click)="cancelCommentEditing()" 
+        mat-raised-button 
+        >Cancel</button>
+
+    </div>
+
+</div>
+
 <section class="comments-box" 
     [class.overflow]="dinamicCommentsArray?.length > 1" 
     [hidden]="!dinamicCommentsArray?.length">
@@ -24,60 +83,55 @@
             <div
             class="up arrow"
             title="Descending order" 
-            [class.activated-sort-direction]="sortingArrowType"
-            (click)="sortingArrowType = true; sort()"
+            [class.activated-sort-direction]="!sortingArrowType"
+            (click)="sortingArrowType = false; sort()"
             >&#x25b2;</div>
 
             <div 
             class="down arrow"
             title="Descending order" 
-            [class.activated-sort-direction]="!sortingArrowType"
-            (click)="sortingArrowType = false; sort()"
+            [class.activated-sort-direction]="sortingArrowType"
+            (click)="sortingArrowType = true; sort()"
             >&#x25bc;</div>
 
         </div>
     </section>
         
         
-        <!-- Comments -->
-    <ng-container *ngFor="let singleComment of dinamicCommentsArray; trackBy:trackByComment">
-        <!-- If db has user -->
-        <!-- ete es fals chi etum ende hamel chi vergrum ng if chi toxum -->
-        <app-single-comment  
-            *ngIf="decodedZip?.get(singleComment.sender) as decodedFields"
-            (likeComment)="toggleLikeComment($event)" 
-            (deleteComment)="deleteComment($event)"
-            (editComment)="showEditingCommentFields($event)"
-            [singleComment]="singleComment" 
-            [decodedFields]="decodedFields"
-            [currentUser]="currentUser" 
-            [senderUid]="singleComment.sender" 
-            [currentProductId]="productFields.currentProductRouteId">
-        </app-single-comment>
+    <div @list *ngFor="let singleComment of dinamicCommentsArray; trackBy:trackByComment">
 
-    </ng-container>
+        <div @items>
+                <app-single-comment  
+                *ngIf="decodedZip?.get(singleComment.sender) as decodedFields"
+                (likeComment)="toggleLikeComment($event)" 
+                (deleteComment)="deleteComment($event)"
+                (editComment)="showEditingCommentFields($event)"
+                [singleComment]="singleComment" 
+                [decodedFields]="decodedFields"
+                [currentUser]="currentUser" 
+                [senderUid]="singleComment.sender" 
+                [currentProductId]="productFields.currentProductRouteId">
+            </app-single-comment>
+        </div>
+        
+
+    </div>
 </section>
 
+<div class="footer-txt">
 
-<!-- Add comment -->
-<div class="write-comment-fields">
-    <mat-form-field appearance="outline">
-        <mat-label>Write Comment</mat-label>
-        <textarea matInput placeholder="Write Good Comment" [formControl]="commentTexteria">
-        </textarea>
-        <button [_persistance]="submitButtonCallack" mat-raised-button color="primary">{{submitButtonText}}</button>
-        <button *ngIf="isEditing" (click)="cancelCommentEditing()" mat-raised-button >Cancel</button>
-        <div>
-            <img (click)="showEmojiPanel = !showEmojiPanel" class="toggle-emoji" src="assets/comments/emoji/toggle-emoji-box.png">
+<hr />
+<p>
+    If you have any oppinion to share with you can leave a comment.
+    <br>
+    please be reasonable, anything you say can infer to product's overall rating.
+    <br>
+    you can explore more about post by writing the vendor by email or use direct message to contact.
+    <br />
+    To see all posts made by this vendor you are free to visit his/her profile.
+</p>
+<hr />
+</div>
 
-        </div>
-        <mat-hint>{{this.commentTexteria.value.length}} / {{commentMaxLength}}</mat-hint>
-
-    </mat-form-field>
-    
-    <div class="emoji-box">
-        <app-emoji (setEmoji)="setEmoji($event)"></app-emoji>
-    </div>
-    
 
 </div>

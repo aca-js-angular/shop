@@ -11,7 +11,7 @@ import { ProductListPageComponent } from './components/product-list-page/product
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { SharedModule } from '../shared-module/shared.module';
-import { MatFormFieldModule, MatSelectModule, MatProgressSpinnerModule, MatButtonModule, MatInputModule } from '@angular/material';
+import { MatFormFieldModule, MatSelectModule, MatProgressSpinnerModule, MatButtonModule, MatInputModule, MatIconModule, MatTooltipModule } from '@angular/material';
 import { AnimationModule } from '../animation-module/animation.module';
 import { CommentsRootComponent } from './components/comments-root/comments-root/commnts-root.component';
 import { SingleCommentComponent } from './components/comments-root/single-comment/single-comment.component';
@@ -53,6 +53,8 @@ import { EmojiComponent } from './components/comments-root/emoji/emoji.component
     MatInputModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    MatIconModule,
+    MatTooltipModule,
   ],
 
   exports: [ProductSliderComponent, ProductListComponent]

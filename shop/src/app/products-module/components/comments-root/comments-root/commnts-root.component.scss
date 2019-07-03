@@ -1,21 +1,33 @@
 @import '../../../../global-vars.scss';
 @import '../../../../global-mixins.scss';
 
+.comments-container{
+    @include side-margin(12%);
+}
+
+
+
 .comments-box {
 
-    max-height: 500px;
-    @include side-margin(12%);
+    max-height: 700px;
 
-    border-radius: 5px;
     @include mid-shadow;
+    @include side-radius(right, 5px);
 
-    margin-bottom: 50px;
+    margin-bottom: 100px;
+    position: relative;
 
     .sort-section{
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        padding: 15px 30px;
+        padding: 10px 30px;
+        padding-bottom: 0;
+        position: sticky;
+        box-shadow: 0px 0px 5px 3px white;
+        top: 0;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.822);
 
         .sort-selector .filter{
             font-size: 13px;
@@ -45,7 +57,7 @@
         }
     }
 
-    @include flat-scroll;
+    @include flat-scroll(5px);
 }
 
 
@@ -56,28 +68,111 @@
 
 .overflow{
     overflow: auto;
-    border: 1px solid gainsboro;
 }
 .toggle-emoji {
     cursor: pointer;
     transition: 0.2s;
-    width: 30px;
-    float: right;
-    margin: 3px 3% 0;
+    width: 20px;
+    border-radius: 50%;
+
     &:hover{
-        width: 32px;
+        transform: scale(1.2);
+        @include mid-shadow;
     }
+    
 }
 
 
 
-.write-comment-fields { 
-    width: 70%;
-    margin: 0 auto 6%;
-    mat-form-field { width: 100%;}
+.write-comment-fields {
+    @include side-padding(30px);
+    margin-top: 30px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
 
-    button {
-        float: right; 
-        margin: 0 0.5%;
+    .form{
+        position: relative;
+        mat-form-field { 
+            width: 100%;
+            textarea{
+                height: 120px;
+                min-height: 120px;
+            }
+        }
+
+        .open-emoji-box{
+
+            position: absolute;
+            bottom: 35px;
+            right: 25px;
+
+            .inner-box{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                position: relative;
+
+                .emoji-icon{
+                    z-index: 2;
+                    cursor: pointer;
+                }
+
+                &:hover .emoji-box {
+                    
+                    transform: scale(1);
+                }
+                .emoji-box{
+                    transition: 0.3s;
+                    position: absolute;
+                    bottom: -5px;
+                    right: -10px;
+                    z-index: 1;
+                    transform: scale(0);
+                }
+            }
+
+            
+        }
+    }
+
+    
+
+    .actions{
+        display: flex;
+        justify-content: flex-end;
+        .cancel-btn{
+            margin-left: 5px;
+        }
+    }
+    
+}
+
+.footer-txt{
+    margin-bottom: 50px;
+    font-size: 12px;
+    color: $theme-dark;
+    text-align: center;
+}
+
+
+@media (max-width: 1000px){
+    .comments-container{
+        @include side-margin(8%);
+
+    }
+}
+@media (max-width: 700px){
+    .comments-container{
+        @include reset-margins;
+    }
+    .comments-box{
+        border-radius: 0;
+        box-shadow: none;
+        max-height: unset !important;
+    }
+    .overflow{
+        overflow: visible;
+
     }
 }
