@@ -5,6 +5,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { CSS_COLOR_NAMES } from 'src/app/constants/css-colors.constant';
 import { jQueryImagesResize, emitNewImage } from '../../services/j-query-resizing';
 import { Subject } from 'rxjs';
+import { ProductSingleComment } from 'src/app/interfaces/product-comment.interface';
 
 @Component({
   selector: 'app-post-product',
@@ -177,7 +178,7 @@ export class PostProductComponent implements OnInit {
       this.getFormArrayValues(this.additionalColor),
       this.getFormArrayValues(this.material),
       this.originCountry.value,
-      +this.weight.value
+      +this.weight.value,
     );
 
     

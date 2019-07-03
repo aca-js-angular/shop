@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../interfaces/user.interface';
 import { ProfileDataService } from '../../services/profile-data.service';
 import { Observable } from 'rxjs';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { FaService } from 'src/app/fa-module/services/fa.service';
 import { pairwise } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-profile-root',

@@ -2,6 +2,7 @@
 @import '../../../../global-mixins.scss';
 
 .comment-view {
+    transition: all 0.3s;
     margin: 15px 20px;
     box-shadow: 3px 3px 5px #d8d8d8;
     @include side-radius(bottom,15px);
@@ -135,3 +136,7 @@
         
     }
 }
+.comment-editing {
+    transform: scaleX(0.95);
+    opacity: 0.8;
+} 

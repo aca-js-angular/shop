@@ -47,7 +47,7 @@ import { EmojiComponent } from './components/comments-root/emoji/emoji.component
     FormsModule,
     AnimationModule,
     MatProgressSpinnerModule,
-    
+    MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,

@@ -1,39 +1,56 @@
+@import '../../../global-vars.scss';
+@import '../../../global-mixins.scss';
+
 $font: 'Lato', sans-serif;
 
 $primary: #79C7C5;
 $white: #F9FBFF;
 $dark: #777777;
 
-.incoming {
-  padding: 20px;
-  display: inline;
-    .bubble {
-      background: lighten($dark, 0%);
-      max-width: 85%;
+.static-row{
+  display: flex;
+  width: 100%;
+
+  .incoming {
+
+    display: inline-block;
+    margin-right: auto;
+    max-width: 80%;
+
+      .bubble {
+        @include light-shadow;
+        border-radius: 15px;
+        border-top-left-radius: 0;
+        background: lighten($dark, 0%);
+      }
     }
-  }
-  
-.outgoing {
-    padding: 20px;
-    display: inline;
     
-    .bubble {
-      background: $primary;
-      max-width: 85%;
+  .outgoing {
+
+    display: inline-block;
+    margin-left: auto;
+    max-width: 80%;
+
+
+
+      .bubble {
+        border-radius: 15px;
+        border-top-right-radius: 0;
+        background: $primary;
+      }
     }
-  }
+
+}
+
+
 
 .remove-message {
   cursor: pointer;
 }
 .bubble {
-    position: relative;
-    display: inline-block;
     margin-bottom: 5px;
-    color: $white;
-    font-size: 0.7em;
-    padding: 10px 10px 10px 12px;
-    border-radius: 20px;
+    font-size: 13px;
+    padding: 7px 10px 7px 12px;
   }
 
 

@@ -1,19 +1,24 @@
-<div [ngClass]="{'outgoing': currentUserMessage, 'incoming': !currentUserMessage}">
+<div class="static-row">
+    <div [ngClass]="{'outgoing': currentUserMessage, 'incoming': !currentUserMessage}">
 
-  <ng-container *ngTemplateOutlet="
-  messageRowObj.message.includes('#') ? href:
-  messageRowObj.message.includes('~!') ? routerLink : text">
-  </ng-container>
-
-  <!-- Delete -->
-  <span *ngIf="currentUserMessage && !firstMessage" 
-    (click)="deleteMessage.emit(messageRowKey)"
-    [ngClass]="{'remove-message': true, 'none': firstMessage}">x
-  </span>
-
+        <ng-container *ngTemplateOutlet="
+        messageRowObj.message.includes('#') ? href:
+        messageRowObj.message.includes('~!') ? routerLink : text">
+        </ng-container>
+  
+  
+    <!-- Delete -->
+    <mat-icon *ngIf="currentUserMessage && !firstMessage" 
+      (click)="deleteMessage.emit(messageRowKey)"
+      [ngClass]="{'remove-message': true, 'none': firstMessage}">delete_forever
+      <!-- close  <<<<-  kam es <<<<<<<-->
+    </mat-icon>
+    <!-- Other Icons -->
+    <!-- <mat-icon>delete</mat-icon> -->
+    <!-- <mat-icon>delete_outline</mat-icon> -->
+  
+  </div>
 </div>
-<br>
-
 
 <!-- Text -->
 <ng-template #text>

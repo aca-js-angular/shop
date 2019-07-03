@@ -1,6 +1,6 @@
 <ng-template #decodedCommentTemplate let-senderName="fullName" let-image="img">
   
-  <div class="comment-view">
+  <div class="comment-view" [class.comment-editing]="commentEditing">
 
     <div class="top-panel">
 
@@ -8,7 +8,7 @@
 
         <div class="sender-name">{{senderName}} </div>
         <div class="is-edited">{{singleComment?.isEdited && '(Edited)'}}</div>
-
+{{commentEditing + 'h'}}
       </div>
 
       <div class="right-side">

@@ -3,6 +3,7 @@ import { DatabaseFireService } from '../../database-fire.service';
 import { FaService } from '../../fa-module/services/fa.service';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/storage';
 import { Product } from '../../interfaces/product.interface';
+import { ProductSingleComment } from 'src/app/interfaces/product-comment.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,7 @@ export class PostProductService {
     material: string[],
     originCountry: string,
     weight: number,
+
   ): Product {
 
     return {
@@ -85,7 +87,8 @@ export class PostProductService {
       },
 
       rating: 3,
-      vendor: this.fa.currentUser.uid
+      vendor: this.fa.currentUser.uid,
+      comments: [] as ProductSingleComment[],
     }
   }
 

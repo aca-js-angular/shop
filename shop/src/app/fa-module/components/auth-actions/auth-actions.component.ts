@@ -5,6 +5,8 @@ import { BasketService } from 'src/app/basket-module/services/basket.service';
 import { FaService } from 'src/app/fa-module/services/fa.service';
 import { Router } from '@angular/router';
 import { logOut } from '../../../constants/popup-messages.constant'
+import { AdditionalService } from '../../services/additional.service';
+import { MessengerAutoOpenChatBoxByNf } from 'src/app/messenger-module/services/messsenger-auto-open-chat.service';
 
 @Component({
   selector: 'app-auth-actions',
@@ -13,9 +15,12 @@ import { logOut } from '../../../constants/popup-messages.constant'
 })
 export class AuthActionsComponent implements OnInit {
 
+
   currentUser: any;
 
   constructor(
+    private faAdditional: AdditionalService,
+    private messengerAutoOpenChatService: MessengerAutoOpenChatBoxByNf,
     private dialog: OpenDialogService,
     private auth: AngularFireAuth,
     private bs: BasketService,
@@ -25,6 +30,13 @@ export class AuthActionsComponent implements OnInit {
 
   get basketSize(): number{
     return this.bs.getTotalQuantity()
+  }
+
+  get currentUser$() { return this.faAdditional.$autoState }
+
+
+  toggleNotifys(): void{
+    this.messengerAutoOpenChatService.disableNotify = !this.messengerAutoOpenChatService.disableNotify;
   }
 
   signIn(){

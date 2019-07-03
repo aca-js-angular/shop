@@ -98,14 +98,15 @@
     </section>
         
         
-    <div @list *ngFor="let singleComment of dinamicCommentsArray; trackBy:trackByComment">
+    <div @list *ngFor="let singleComment of dinamicCommentsArray, index as ind, trackBy:trackByComment">
 
         <div @items>
                 <app-single-comment  
                 *ngIf="decodedZip?.get(singleComment.sender) as decodedFields"
+                [commentEditing]="selectedCommentEditingInd === ind"
                 (likeComment)="toggleLikeComment($event)" 
                 (deleteComment)="deleteComment($event)"
-                (editComment)="showEditingCommentFields($event)"
+                (editComment)="showEditingCommentFields($event,ind)"
                 [singleComment]="singleComment" 
                 [decodedFields]="decodedFields"
                 [currentUser]="currentUser" 

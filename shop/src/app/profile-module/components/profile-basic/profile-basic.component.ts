@@ -1,12 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { User, FirebaseTimestamp } from 'src/app/interfaces/user.interface';
 import { Product } from 'src/app/interfaces/product.interface';
-import { Review } from 'src/app/interfaces/review.interface';
 import { ProfileDataService } from '../../services/profile-data.service';
-import { ActivatedRoute } from '@angular/router';
-import { Observable, Subject, BehaviorSubject,zip } from 'rxjs';
+import { Observable, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { COUNTRY_CODES_MAP } from '../../../constants/country-codes.constant';
+import { AdditionalService } from 'src/app/fa-module/services/additional.service';
+import { MessengerAutoOpenChatBoxByNf } from 'src/app/messenger-module/services/messsenger-auto-open-chat.service';
+
+export const emitOpenChatWithProfile = new EventEmitter<string>()
 
 @Component({
   selector: 'app-profile-basic',
@@ -14,11 +16,24 @@ import { COUNTRY_CODES_MAP } from '../../../constants/country-codes.constant';
   styleUrls: ['./profile-basic.component.scss','../profile-root/profile-root.component.scss']
 })
 export class ProfileBasicComponent implements OnInit {
-
-  constructor(private pd: ProfileDataService, private active: ActivatedRoute) { }
-
+  
   uid: string;
   isAuth: Observable<boolean>;
+
+  constructor(
+    private pd: ProfileDataService,
+    private faAdditional: AdditionalService,
+    ) { }
+
+
+
+  get currentUser$() { return this.faAdditional.$autoState }
+
+
+  openChat({user}){
+    console.log("TCL: ProfileBasicComponent -> openChat -> user", user.email)
+    user.email && emitOpenChatWithProfile.emit(user.email);
+  }
 
   getCountryCode(name: string): string {
     const target = COUNTRY_CODES_MAP.find(item => item.country.toLowerCase() === name.toLowerCase());
