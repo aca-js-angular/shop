@@ -5,7 +5,9 @@ import { ProfileDataService } from '../../services/profile-data.service';
 import { Observable } from 'rxjs';
 import { FaService } from 'src/app/fa-module/services/fa.service';
 import { pairwise } from 'rxjs/operators';
+import { MessengerAutoOpenChatBoxByNf } from 'src/app/messenger-module/services/messsenger-auto-open-chat.service';
 
+export const emitOpenChatWithProfile = new EventEmitter<string>()
 
 @Component({
   selector: 'app-profile-root',
@@ -23,7 +25,21 @@ export class ProfileRootComponent {
     private pd: ProfileDataService,
     private fa: FaService,
     private router: Router,
+    private messengerAutoOpenChatService: MessengerAutoOpenChatBoxByNf,
+    
   ) {}
+
+  
+  toggleNotifys(): void{
+    this.messengerAutoOpenChatService.disableNotify = !this.messengerAutoOpenChatService.disableNotify;
+  }
+
+
+
+  openChat(user){
+    debugger;
+    user.email && emitOpenChatWithProfile.emit(user.email);
+  }
 
   ngOnInit(){
 
@@ -42,6 +58,7 @@ export class ProfileRootComponent {
     })
 
   }
+
 
   onActivate(componentRef: any){
     componentRef.setUid(this.currentUid);

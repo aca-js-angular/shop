@@ -1,22 +1,22 @@
 <div class="static-row">
-    <div [ngClass]="{'outgoing': currentUserMessage, 'incoming': !currentUserMessage}">
 
-        <ng-container *ngTemplateOutlet="
-        messageRowObj.message.includes('#') ? href:
-        messageRowObj.message.includes('~!') ? routerLink : text">
-        </ng-container>
-  
-  
+  <div [ngClass]="{'outgoing': currentUserMessage, 'incoming': !currentUserMessage}">
+    
+    <ng-container *ngTemplateOutlet="
+    messageRowObj.message.includes('#') ? href:
+    messageRowObj.message.includes('~!') ? routerLink : text">
+    </ng-container>
+
     <!-- Delete -->
-    <mat-icon *ngIf="currentUserMessage && !firstMessage" 
-      (click)="deleteMessage.emit(messageRowKey)"
-      [ngClass]="{'remove-message': true, 'none': firstMessage}">delete_forever
-      <!-- close  <<<<-  kam es <<<<<<<-->
+    <mat-icon
+    matTooltip="Delete"
+    class="delete-icon"
+    *ngIf="currentUserMessage && !firstMessage" 
+    (click)="deleteMessage.emit(messageRowKey)"
+    >
+      add_circle
     </mat-icon>
-    <!-- Other Icons -->
-    <!-- <mat-icon>delete</mat-icon> -->
-    <!-- <mat-icon>delete_outline</mat-icon> -->
-  
+    
   </div>
 </div>
 
@@ -44,4 +44,8 @@
     {{messageRowObj.message | isHref:'href-end'}}
   </div>
 </ng-template>
-<!-- class="bubble lower" -->
+
+
+<!-- Other Icons -->
+<!-- <mat-icon>delete</mat-icon> -->
+<!-- <mat-icon>delete_outline</mat-icon> -->

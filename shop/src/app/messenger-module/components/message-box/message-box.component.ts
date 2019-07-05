@@ -20,7 +20,7 @@ const NOTIFICATION_SOUND: string = 'assets/messengerAudio/message2.mp3';
   styleUrls: ['./message-box.component.scss'],
 })
 export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('messageInputRef') messageInputRef: ElementRef;
+
 
   curentChatMember: CurrentChatMemberDialogData;
   messageInput: FormControl;
@@ -54,8 +54,12 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   this.showProductSendLink = this.router.url.includes('category') && !this.router.url.includes('product')
 
 
-    emiteCloseMessageBox.pipe(takeUntil(this.destroyStream$)).subscribe(_ => this.dialogRef.close());
-    this.messageInput = new FormControl('', Validators.required);
+    emiteCloseMessageBox.pipe(takeUntil(this.destroyStream$)).subscribe(_ => {
+      console.log('dialogref close')
+      this.dialogRef.close()
+    });
+
+    this.messageInput = new FormControl('');
       this.faFirebase.auth.onAuthStateChanged((cUserId) => {
 
       if (cUserId) {   // ---security---
@@ -82,12 +86,15 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  @ViewChild('messageInputRef') messageInputRef: ElementRef;
+
   ngAfterViewInit() {
+
     this.inputTypingState = fromEvent(this.messageInputRef.nativeElement, 'input').pipe(
-       debounceTime(300),
+       debounceTime(100),
  
        switchMap(_ => this.messengerOptService.changerTypingState(this.currentUserId)),
-       debounceTime(1000),
+       debounceTime(400),
  
        switchMap(_ => this.messengerOptService.changerTypingState('false'))
      ).subscribe()

@@ -8,7 +8,6 @@
 
         <div class="sender-name">{{senderName}} </div>
         <div class="is-edited">{{singleComment?.isEdited && '(Edited)'}}</div>
-{{commentEditing + 'h'}}
       </div>
 
       <div class="right-side">
@@ -25,9 +24,10 @@
         <div 
         matTooltip="Delete"
         class="delete-comment" 
-        *ngIf="currentUser && singleComment.sender.includes(currentUser.uid)" 
         (click)="deleteSelectedComment()"
         >
+        <!-- *ngIf="currentUser && singleComment.sender.includes(currentUser.uid)"  -->
+
           <mat-icon>clear</mat-icon>
         </div> 
 

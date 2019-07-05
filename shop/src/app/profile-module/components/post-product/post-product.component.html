@@ -1,124 +1,229 @@
-<h1>Post product</h1>
 <form [formGroup]="postForm">
 
-  <div>
-    <input type="text" formControlName="name" placeholder="name">
-  </div>
-
-  <div>
-    <input type="text" formControlName="brand" placeholder="brand">
-  </div>
-
-  <div>category</div>
-  <select formControlName="category">
-    <option selected value="4RMgpOFfkrNEyI9oB94p">Combo-Box</option>
-    <option value="NCDp84gg0Jq68BlaW9I4">Watches</option>
-    <option value="YVy1OeWJ4zFi2cZ9037Y">Bracelets</option>
-    <option value="blZjBy1paLV2d4MGMNBL">Necklaces</option>
-    <option value="ejAAqdNIPrStLaCe6uFF">Sunglasses</option>
-  </select>
-
-  <div>gender</div>
-  <select formControlName="gender">
-    <option selected>men</option>
-    <option>women</option>
-  </select>
-
-  <div>main-color</div>
-  <div formArrayName="mainColor">
-    <div *ngFor="let main of mainColor.controls, index as i">
-      <select [formControlName]="i">
-        <option [style.backgroundColor]="color" *ngFor="let color of colors" [value]="color">{{color | dash}}</option>
-      </select>
-      <button (click)="removeControl(mainColor,i)">X</button>
-    </div>
-    <button (click)="addControl(mainColor)">Add Main color</button>
-  </div>
-
-  <div>additional-color</div>
-  <div formArrayName="additionalColor">
-    <div *ngFor="let additional of additionalColor.controls; index as i">
-      <select [formControlName]="i">
-        <option [style.backgroundColor]="color" *ngFor="let color of colors" [value]="color">{{color | dash}}</option>
-      </select>
-      <button (click)="removeControl(additionalColor,i)">X</button>
-    </div>
-    <button (click)="addControl(additionalColor)">Add Additional color</button>
-  </div>
-
-  <div>material</div>
-  <div formArrayName="material">
-    <div *ngFor="let mat of material.controls, index as i">
-      <select [formControlName]="i">
-        <option>iron</option>
-        <option>leather</option>
-        <option>plastic</option>
-        <option>gold</option>
-        <option>silver</option>
-        <option>bronze</option>
-      </select>
-      <button (click)="removeControl(material,i)">X</button>
-    </div>
-    <button (click)="addControl(material)">Add material</button>
-  </div>
-
-  <input type="text" placeholder="originCountry" formControlName="originCountry">
-
-  <input type="number" placeholder="weight" formControlName="weight">
-
-  <input type="number" formControlName="price" placeholder="price">
-
-</form>
-
-
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://foliotek.github.io/Croppie/croppie.css'>
-<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
-
-
-<div class="image-container" *ngFor="let imgSrc of selectedImages, index as i">
-  <img [src]="imgSrc">
-  <button (click)="deleteSelectedImgItem(i)">X</button>
-</div>
-
-
-<!-- Upload Box -->
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <label class="cabinet center-block">
-        <figure>
-          <img src="" class="gambar img-responsive img-thumbnail" id="item-img-output" />
-          <figcaption><i class="fa fa-camera"></i></figcaption>
-        </figure>
-        <input type="file" (change)="addImgFile($event)" class="item-img file center-block" name="file_photo" />
-      </label>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" #cropImagePop id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-            aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Resize Fhoto</h4>
-      </div>
-      <div class="modal-body">
-        <div id="upload-demo" class="center-block"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" #cropImagePopBtn >Close</button>
-        <button type="button" id="cropImageBtn" class="btn btn-primary">Crop</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-<button (click)="postProduct()">Post</button> -->
+    <mat-vertical-stepper [linear]="isLinear" #stepper>
+  
+      <!-- Name -->
+      <mat-step>
+        <ng-template matStepLabel>Name</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Name" formControlName="name" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+  
+  
+      <!-- Brand -->
+      <mat-step>
+        <ng-template matStepLabel>Brand</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Brand" formControlName="brand" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+  
+  
+      <!-- Category -->
+      <mat-step>
+        <ng-template matStepLabel>Category</ng-template>
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-option selected value="4RMgpOFfkrNEyI9oB94p">Combo-Box</mat-option>
+            <mat-option value="NCDp84gg0Jq68BlaW9I4">Watches</mat-option>
+            <mat-option value="YVy1OeWJ4zFi2cZ9037Y">Bracelets</mat-option>
+            <mat-option value="blZjBy1paLV2d4MGMNBL">Necklaces</mat-option>
+            <mat-option value="ejAAqdNIPrStLaCe6uFF">Sunglasses</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+  
+  
+  
+      <!-- Gender -->
+      <mat-step>
+        <ng-template matStepLabel>Gender</ng-template>
+        <mat-form-field>
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option value="men">Men</mat-option>
+            <mat-option value="women">Women</mat-option>
+            <mat-option value="unisex">Unisex</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+  
+  
+  
+  
+      <!-- Main Color -->
+      <mat-step>
+        <ng-template matStepLabel>Main Color</ng-template>
+        <div formArrayName="mainColor">
+          <mat-form-field *ngFor="let main of mainColor.controls, index as i; first as first">
+            <mat-label>Main color {{first ? '' : i + 1}}</mat-label>
+            <mat-select [formControlName]="i">
+              <mat-option [style.backgroundColor]="color" *ngFor="let color of colors" [value]="color">{{color | dash}}
+              </mat-option>
+            </mat-select>
+            <mat-icon *ngIf="!first" matSuffix (click)="removeControl(mainColor,i,$event)">clear</mat-icon>
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button (click)="addControl(mainColor)" type="button">Add Main color</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+  
+  
+  
+      <!-- Additional Color -->
+      <mat-step>
+        <ng-template matStepLabel>Additional Color</ng-template>
+        <div formArrayName="additionalColor">
+          <mat-form-field *ngFor="let additional of additionalColor.controls; index as i; first as first">
+            <mat-label>Additional color {{first ? '' : i + 1}}</mat-label>
+            <mat-select [formControlName]="i">
+              <mat-option [style.backgroundColor]="color" *ngFor="let color of colors" [value]="color">{{color | dash}}
+              </mat-option>
+            </mat-select>
+            <mat-icon *ngIf="!first" matSuffix (click)="removeControl(additionalColor,i,$event)">clear</mat-icon>
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button (click)="addControl(additionalColor)" type="button">Add additional color</button> 
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+  
+  
+      <!-- Material -->
+      <mat-step>
+        <ng-template matStepLabel>Material</ng-template>
+  
+        <div formArrayName="material">
+          <mat-form-field *ngFor="let mat of material.controls, index as i; first as first">
+            <mat-label>Material {{first ? '': i}}</mat-label>
+            <mat-select [formControlName]="i">
+              <mat-option value="iron">Iron</mat-option>
+              <mat-option value="leather">Leather</mat-option>
+              <mat-option value="plastic">Plastic</mat-option>
+              <mat-option value="gold">Gold</mat-option>
+              <mat-option value="silver">Silver</mat-option>
+              <mat-option value="bronze">Bronze</mat-option>
+            </mat-select>
+            <mat-icon *ngIf="!first" matSuffix (click)="removeControl(material,i,$event)">clear</mat-icon>
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button (click)="addControl(material)" type="button">Add material</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+  
+  
+  
+      <!-- Country -->
+      <mat-step>
+        <ng-template matStepLabel>Country</ng-template>
+        <mat-form-field>
+          <input matInput type="text" placeholder="originCountry" formControlName="originCountry">
+        </mat-form-field>
+  
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+  
+  
+      <!-- Weight -->
+      <mat-step>
+        <ng-template matStepLabel>Weight</ng-template>
+        <mat-form-field>
+          <input matInput type="number" placeholder="weight" formControlName="weight">
+          <span matSuffix>g.</span>
+        </mat-form-field>
+  
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+  
+  
+      <!-- Price -->
+      <mat-step>
+        <ng-template matStepLabel>Price</ng-template>
+        <mat-form-field>
+          <input matInput type="number" formControlName="price" placeholder="price">
+          <span matPrefix>$&nbsp;</span>
+          <span matSuffix>.00</span>
+        </mat-form-field>
+  
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+  
+  
+      <mat-step>
+        <ng-template matStepLabel>Upload Image</ng-template>
+        <!-- images -->
+        <div>upload image</div>
+        <div>
+          <div class="image-container" *ngFor="let imgSrc of selectedImages, index as i">
+            <img [src]="imgSrc">
+            <mat-icon (click)="selectedImages.splice(i,1)">clear</mat-icon>
+          </div>
+  
+          <label class="upload-label">+
+            <input type="file" (change)="addSrc($event,selectedImages);addFile($event)">
+          </label>
+        </div>
+  
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+  
+  
+  
+  
+  
+      <!-- Submit -->
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You are now done.
+        <div>
+          <button type="button" mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button (click)="postProduct()"
+            color="warn">Post</button>
+        </div>
+      </mat-step>
+  
+  
+    </mat-vertical-stepper>
+  
+  </form>

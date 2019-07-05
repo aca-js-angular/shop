@@ -1,6 +1,6 @@
 
 
-<div class="write-review">
+<div *ngIf="!(isAuth | async)" class="write-review">
     <mat-form-field>
       <mat-label>
           Describe and rate {{(profileOwner | async)?.firstName}} in few words...

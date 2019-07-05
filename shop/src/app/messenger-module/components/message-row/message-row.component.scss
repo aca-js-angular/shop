@@ -5,9 +5,10 @@ $font: 'Lato', sans-serif;
 
 $primary: #79C7C5;
 $white: #F9FBFF;
-$dark: #777777;
+$dark: #a7a7a7;
 
 .static-row{
+
   display: flex;
   width: 100%;
 
@@ -18,24 +19,46 @@ $dark: #777777;
     max-width: 80%;
 
       .bubble {
-        @include light-shadow;
-        border-radius: 15px;
         border-top-left-radius: 0;
-        background: lighten($dark, 0%);
+        background: $dark;
+        color: white;
+
+        
       }
     }
     
   .outgoing {
+    position: relative;
 
+    &:hover .delete-icon{
+      transform: scale(1) rotate(45deg);
+    }
+    .delete-icon{
+      height: unset;
+      width: unset;
+      position: absolute;
+      transform: scale(0) rotate(45deg);
+      font-size: 15px;
+      top: -5px;
+      left: -5px;
+      color: gray;
+      transition: all 0.3s;
+      cursor: pointer;
+
+      &:hover{
+        color: red;
+        transform: scale(1.5) rotate(45deg);
+      }
+    }
+    
     display: inline-block;
     margin-left: auto;
     max-width: 80%;
 
-
-
       .bubble {
-        border-radius: 15px;
         border-top-right-radius: 0;
+
+        color: white;
         background: $primary;
       }
     }
@@ -44,18 +67,11 @@ $dark: #777777;
 
 
 
-.remove-message {
-  cursor: pointer;
-}
 .bubble {
-    margin-bottom: 5px;
-    font-size: 13px;
-    padding: 7px 10px 7px 12px;
-  }
-
-
-
-
-
-
-
+  text-overflow: ellipsis;
+  border-radius: 15px;
+  font-size: 13px;
+  overflow: hidden;
+  padding: 7px 10px 7px 12px;
+  @include side-margin(8px,vertical);
+}

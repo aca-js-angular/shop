@@ -12,9 +12,18 @@ export class HrefPipe implements PipeTransform {
 
     const a = message.indexOf('http://');
     const b = message.indexOf('https://');
-    a === -1 && b === -1 
-    ? hrefStart = -1 : b !== -1  
-    ? hrefStart = b: hrefStart = a;
+    const c = message.indexOf('www.');
+    a === -1 && b === -1 && c === -1
+    ? hrefStart = -1 
+
+
+
+    : b !== -1 
+    ? hrefStart = b  :
+
+    c !== -1 ? 
+    hrefStart = c :
+    hrefStart = a;
 
     const hrefEnd = message.indexOf('#');
       

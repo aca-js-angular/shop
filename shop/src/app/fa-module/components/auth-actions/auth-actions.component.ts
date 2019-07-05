@@ -32,13 +32,6 @@ export class AuthActionsComponent implements OnInit {
     return this.bs.getTotalQuantity()
   }
 
-  get currentUser$() { return this.faAdditional.$autoState }
-
-
-  toggleNotifys(): void{
-    this.messengerAutoOpenChatService.disableNotify = !this.messengerAutoOpenChatService.disableNotify;
-  }
-
   signIn(){
     this.dialog.openSignIn();
   }

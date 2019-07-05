@@ -1,29 +1,32 @@
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
 
-<ng-container *ngIf="curentChatMember && decodeDataCurrentChatMembers">
 
 
   <div class="chat-box">
 
-
-
     <!--------------- Menu ***--------------- -->
-    <div class="top-panel">
+    <div class="top-panel" *ngIf="curentChatMember && decodeDataCurrentChatMembers">
       <div class="left-side">
-        <img class="avatar" 
-        [src]="decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl ?
-        decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl : 
-        'assets/empty_user.png'" 
-        [routerLink]="['/', 'profile', curentChatMember.userId]" 
-        />
+        <div class="intro">
+            <img 
+            class="avatar" 
+            [src]="decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl ?
+            decodeDataCurrentChatMembers[curentChatMember.userId].photoUrl : 
+            'assets/empty_user.png'" 
+            />
+            <div class="offline" [class.online]="isOnlineChatMember"></div>
+        </div>
 
-        <div class="offline" [class.online]="isOnlineChatMember"></div>
+        <div class="name"
+        matTooltip="Go to profile"
+        [routerLink]="['/', 'profile', curentChatMember.userId]" 
+        >{{curentChatMember.fullName}}</div>
       </div>
       <div class="right-side">
 
-        <button class="more-settings" mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>more_vert</mat-icon>
+        <button class="md-btn" mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon class="more-vert">more_vert</mat-icon>
         </button>
         <!--  Link To Profile -->
         <mat-menu #menu="matMenu">
@@ -52,35 +55,61 @@
             </button>
           </div>
         </mat-menu>
-        <mat-icon class="close-chat" (click)="closeMessageBox()">close</mat-icon>
+        <button class="md-btn" mat-icon-button>
+            <mat-icon class="close-chat" (click)="closeMessageBox()">clear</mat-icon>
+
+        </button>
       </div>
     </div>
 
-    <div class="name">{{curentChatMember.fullName}}</div>
 
 
-
-    <div class="middle">
-      <!-- <div class="voldemort"> -->
-        <!-- Message Item -->
-        <app-message-row *ngFor="let messageRowObj of allMessages; 
-                first as first; 
-                trackBy: trackByMessages" (deleteMessage)="removeMessage($event)" [firstMessage]="first"
+    <div class="content" *ngIf="curentChatMember && decodeDataCurrentChatMembers">
+      <ng-container 
+      *ngFor="let messageRowObj of allMessages; 
+      index as ind;
+      first as first; 
+      last as last
+      trackBy: trackByMessages"
+      >
+        <app-message-row 
+         (deleteMessage)="removeMessage($event)" [firstMessage]="first"
           [messageRowObj]="messageRowObj.message" [messageRowKey]="messageRowObj.key"
           [currentUserMessage]="messageRowObj.message.sender === currentUserId"
           [decodeDataChatMember]="decodeDataCurrentChatMembers[messageRowObj.message.sender]">
         </app-message-row>
 
+        <div class="timestamp-new-message" *ngIf="!last && -(messageRowObj.message.timestamp - allMessages[ind+1].message.timestamp) > 600000" >
+          <div class="exact-time">
+            <div class="time-text">
+              {{messageRowObj.message.timestamp | date: 'hh:mm:'}}
+            </div>
+          </div>
+          <hr>
+        </div>
+      </ng-container>
+
         <!-- Readet -->
-        <span *ngIf="!allMessages[allMessages.length-1]?.unread && !isTypingChatMember" class="is-read-message">readet
-        </span>
+        <div
+        *ngIf="
+        allMessages?.length &&
+        !allMessages[allMessages.length-1]?.unread"
+
+        class="is-read-message"
+        >
+          <i>seen</i>
+          <mat-icon class="seen-icon">check</mat-icon>
+      </div>
 
         <!-- Typing ... -->
-        <div class="spinner" [hidden]="!isTypingChatMember">
-          <div class="bounce1"></div>
-          <div class="bounce2"></div>
-          <div class="bounce3"></div>
+        <div [hidden]="!isTypingChatMember" class="bubble">
+            <div class="spinner" >
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
+            </div>
         </div>
+        
 
         <!-- Send Curren Product Link -->
         <mat-icon *ngIf="showProductSendLink" class="sendCurrentPrLink" title="Send current productLink"
@@ -89,18 +118,31 @@
 
       <!-- </div> -->
     </div>
+
+    <!-- Input @VievChild-->
+    <div class="bottom-bar">
+
+      <div class="chat">
+            <input
+            autocomplete="off"
+            (input)="includRefText()"
+            type="text" 
+            (keydown.enter)="sendMessage()" 
+            placeholder="Type a message..."
+            #messageInputRef
+            [formControl]="messageInput" 
+            autofocus
+            />
+            <mat-icon
+            class="send-message-btn"
+            [class.inactive]="!messageInput.value.length"
+            matTooltip="Send Message" 
+            (click)="sendMessage()"
+            >send</mat-icon>
+      </div>
+    </div>
   </div>
 
-</ng-container>
 
 
 
-<!-- Input @VievChild-->
-<div class="bottom-bar">
-  <div class="chat">
-    <input (input)="includRefText()" type="text" (keydown.enter)="sendMessage()" placeholder="Type a message..."
-      #messageInputRef maxlength="50" [formControl]="messageInput" autofocus />
-    <img class="send-message-btn" title="Send Message" (click)="sendMessage()"
-      src="assets/chat/send-message-button64.png" />
-  </div>
-</div>

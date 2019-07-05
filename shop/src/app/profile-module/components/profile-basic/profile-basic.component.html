@@ -1,15 +1,8 @@
 
 <ng-container *ngIf="(profileData | async) as data; else loading">
 
-    <!-- <div *ngIf="currentUser$ | async as currentUser" >
-        <mat-icon *ngIf="messengerAutoOpenChatService.disableNotify" (click)="toggleNotifys()">speaker_notes</mat-icon>
-        <mat-icon *ngIf="!messengerAutoOpenChatService.disableNotify" (click)="toggleNotifys()">speaker_notes_off</mat-icon>
-    </div> -->
 
- 
-      <div class="direct-message">
-            <img *ngIf="uid !== (currentUser$ | async).uid as cUserUid" [_persistance]="openChat.bind(this,data)"  matTooltip="Direct Message" src="assets/chat/notyfy-img.png">
-      </div>
+    
 
 
     <div class="user-info">

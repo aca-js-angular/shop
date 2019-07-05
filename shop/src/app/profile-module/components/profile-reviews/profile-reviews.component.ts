@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user.interface';
 import { OpenDialogService } from 'src/app/fa-module/services/open-dialog.service';
 import { ReviewListAnimation } from '../../animations/review-animation';
-import { pairwise } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile-reviews',

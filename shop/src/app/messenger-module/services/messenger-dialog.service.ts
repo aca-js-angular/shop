@@ -33,22 +33,12 @@ export class MessengerDialogService {
         userId: nativeUserData.userId,
       }
       
-
     });
 
 
 
-    //-------Chat Member--------------
-  //  config.data = { 
-  //     fullName: nativeUserData.fullName,
-  //     userId: nativeUserData.userId, // Chat Member User Uid
-  //   }
-
-    // const dialogRef = this.dialog.open(MessageBoxComponent,config)
-  
-    dialogRef.afterClosed().subscribe(option => {
+    dialogRef.afterClosed().subscribe(_ => {
       removeOpenedChatАccess.emit()
-      dialogRef.close()
     })
   }
 

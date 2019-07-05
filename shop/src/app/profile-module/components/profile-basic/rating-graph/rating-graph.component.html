@@ -37,11 +37,11 @@
       </div>
       <div class="additional">
           <div class="plain-txt">was reviewed by</div>
-          <div class="avatars">
+          <div *ngIf="reviewers" class="avatars">
               <img
               class="reviewer-img" 
               *ngFor="let reviewer of reviewers.slice(0,5)"
-              [src]="reviewer?.img"
+              src="{{reviewer.img}}"
               [routerLink]="['/','profile',reviewer?.id]"
               [matTooltip]="reviewer?.firstName + ' ' + reviewer?.lastName"
               >

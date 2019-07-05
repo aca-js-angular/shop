@@ -8,7 +8,8 @@ import { MessengerAutoOpenChatBoxByNf } from '../../services/messsenger-auto-ope
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/interfaces/user.interface';
-import { emitOpenChatWithProfile } from 'src/app/profile-module/components/profile-basic/profile-basic.component';
+import { emitOpenChatWithProfile } from 'src/app/profile-module/components/profile-root/profile-root.component';
+
 
 
 @Component({
@@ -76,8 +77,8 @@ export class MessengerComponent implements OnInit, OnDestroy {
 
 
 
-  openMesssengerBoxByEmit(emitedVendorData: CurrentChatMemberDialogData) { // Finded User
-    // console.log("-> vendor-----", emitedVendorData)
+  openMesssengerBoxByEmit(emitedVendorData: CurrentChatMemberDialogData) { 
+
     if (emitedVendorData) {
       const $subscribable = this.messengerService.openMesssengerBoxOrConfirm(emitedVendorData)
         .subscribe(enumCondition => {
@@ -102,10 +103,3 @@ export class MessengerComponent implements OnInit, OnDestroy {
     this.messengerAutoOpenChatService.diasbleMessagesNotyfictions$.next();
   }
 }
-
-// if (this.notifysAndMessages.length) {
-//   this.notifysAndMessages.forEach(item => {
-//      item.userId !== notyfiMessageUserData[0].userId 
-//      && this.notifysAndMessages.push(notyfiMessageUserData[0]);
-//   })
-// } else if(this.firstInit) this.notifysAndMessages.push(notyfiMessageUserData[0]);

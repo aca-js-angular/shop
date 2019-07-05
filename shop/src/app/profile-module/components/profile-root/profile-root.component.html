@@ -5,9 +5,22 @@
     <div class="side-nav">
       <div class="main-avatar">
         <img class="user-img" [src]="user.img">
-        <!-- <div class="direct-message-icon">
-            <img [_persistance]="openChat"  matTooltip="Direct Message" src="assets/chat/notyfy-img.png">
-        </div> -->
+
+        <div *ngIf="(isAuthProfile | async)" class="notify-icon" >
+          <mat-icon *ngIf="messengerAutoOpenChatService.disableNotify" matTooltip="Disable messages notifications" (click)="toggleNotifys()">
+            speaker_notes
+          </mat-icon>
+          <mat-icon *ngIf="!messengerAutoOpenChatService.disableNotify" matTooltip="Enable messages notifications" (click)="toggleNotifys()">
+            speaker_notes_off
+          </mat-icon>
+        </div>
+        
+            
+        <img *ngIf="!(isAuthProfile | async)" class="direct-message-icon"
+        [_persistance]="openChat.bind(this,user)"
+        matTooltip="Direct Message" src="assets/chat/notyfy-img.png"
+        />
+        
       </div>
       <nav class="tabs">
         <div routerLinkActive="active-tab" class="tab" routerLink="basic">Basic Info</div>

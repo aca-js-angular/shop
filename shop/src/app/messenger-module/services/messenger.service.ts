@@ -7,6 +7,7 @@ import { Observable, zip, of, Subject, BehaviorSubject } from 'rxjs';
 import { AdditionalService } from 'src/app/fa-module/services/additional.service';
 import { User } from 'src/app/interfaces/user.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
+
 export const emiteCloseMessageBox = new EventEmitter();
 
 const FIRST_OPEN_TEXT: string = 'Opened chat...'
@@ -23,6 +24,7 @@ export class MessengerService implements OnDestroy {
   currentChatUrl = new BehaviorSubject<string | null>(null);
   activeChatBoxs = new Set();
   currentUser: { uid: string, displayName: string };
+  count: number = 1;
 
   constructor(
     private db: AngularFireDatabase,
@@ -295,9 +297,7 @@ export class MessengerService implements OnDestroy {
 
   closeMessageBox() { //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     this.currentChatUrl.pipe(takeUntil(this.destroyStream$)).subscribe(chatUrl => {
-      emiteCloseMessageBox.emit('close') // close box with component
-
-      // console.log(chatUrl, '------closed chat url')
+      emiteCloseMessageBox.emit()
 
       this.activeChatBoxs.delete(chatUrl);
     })
@@ -312,48 +312,3 @@ export class MessengerService implements OnDestroy {
     this.sendMessageStream$.next();
   }
 }
-
-
-// // Create User
-// AddUser(user: User) {
-// this.usersRef.push({
-// name: user.name,
-// email: user.email,
-// contact: user.contact
-// })
-// }
-//this.db.list('users').set('uid-xoski',{chats: {a:4}}) //.valueChanges().subscribe(console.log)
-
-
-
-// // Read User
-// GetUser(id: string) {
-// this.userRef = this.db.object('users-list/' + id);
-// return this.userRef;
-// }
-
-
-// // Read Users List
-// GetUsersList() {
-// this.usersRef = this.db.list('users-list');
-// return this.usersRef;
-// }  
-
-
-// // Update User
-// UpdateUser(user: User) {
-// this.userRef.update({
-// name: user.name,
-// email: user.email,
-// contact: user.contact
-// })
-// }  
-
-// Delete User
-// DeleteUser(id: string) { 
-// this.userRef = this.db.object('users-list/'+id);
-// this.userRef.remove();
-// }
-// }
-// https://github.com/angular/angularfire2/blob/master/docs/rtdb/objects.md
-

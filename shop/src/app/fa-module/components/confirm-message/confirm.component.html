@@ -5,7 +5,7 @@
 
   <hr>
   <mat-dialog-actions class="actions">
-    <button (click)="options.accept()" mat-dialog-close mat-flat-button color="primary">OK</button>
-    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <button (click)="options.accept()" mat-dialog-close mat-flat-button color="primary">{{options.okText || 'OK'}}</button>
+    <button mat-raised-button mat-dialog-close>{{options.cancelText || 'Cancel'}}</button>
   </mat-dialog-actions>
 </div>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MessageBoxComponent } from './components/message-box/message-box.component';
-import { MatDialogModule,MatIconModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule, MatMenuModule } from '@angular/material';
+import { MatDialogModule,MatIconModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule, MatMenuModule, MatTooltipModule } from '@angular/material';
 import { MessengerComponent } from './components/messenger-main/messenger-main.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MessageRowComponent } from './components/message-row/message-row.component';
@@ -25,6 +25,7 @@ import { HrefPipe } from './pipes/href.pipe';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatTooltipModule,
     MatCardModule,
     MatButtonModule,
     MatMenuModule,

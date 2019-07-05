@@ -26,7 +26,7 @@
 }
 
 ::ng-deep {
-    .mat-form-field-appearance-legacy:not(.sortSelector) .mat-form-field-flex{
+    .mat-form-field-appearance-legacy:not(.sortSelector):not(.post-product-field) .mat-form-field-flex{
       background-color: rgba(114, 133, 148, 0.1);
       padding: 10px;
       font-size: 13px;

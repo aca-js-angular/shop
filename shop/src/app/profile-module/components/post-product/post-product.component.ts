@@ -1,11 +1,10 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
 import { PostProductService } from '../../services/post-product.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { CSS_COLOR_NAMES } from 'src/app/constants/css-colors.constant';
-import { jQueryImagesResize, emitNewImage } from '../../services/j-query-resizing';
+import { jQueryImagesResize } from '../../services/j-query-resizing';
 import { Subject } from 'rxjs';
-import { ProductSingleComment } from 'src/app/interfaces/product-comment.interface';
 
 @Component({
   selector: 'app-post-product',
@@ -22,6 +21,9 @@ export class PostProductComponent implements OnInit {
   selectedFiles: File[] = [];
   selectedImages: string[] = [];
   colors: string[] = CSS_COLOR_NAMES
+  isLinear = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
 
 
   constructor(
@@ -29,6 +31,7 @@ export class PostProductComponent implements OnInit {
     private post: PostProductService,
     private storage: AngularFireStorage,
     private jQueryService: jQueryImagesResize,
+    private formBuilder: FormBuilder
   ) { }
 
   /* --- Variables --- */
@@ -36,8 +39,8 @@ export class PostProductComponent implements OnInit {
   postForm = this.build.group({
     name: [''],
     brand: [''],
-    category: [],
-    gender: [],
+    category: [''],
+    gender: [''],
     price: [''],
     mainColor: this.build.array([
       this.build.control(''),
@@ -93,6 +96,10 @@ export class PostProductComponent implements OnInit {
 
   /* --- Methods --- */
 
+  setUid(...uid){
+  }
+  setIsAuth(...a){}
+  
   getFormArrayValues(form: FormArray): string[] {
     return form.controls.map(control => control.value)
   }
@@ -101,72 +108,35 @@ export class PostProductComponent implements OnInit {
     control.push(this.build.control(''))
   }
 
-  removeControl(control: FormArray, index: number) {
+  removeControl(control: FormArray, index: number,event: Event) {
+    // event.stopPropagation()
     control.removeAt(index)
   }
 
-  deleteSelectedImgItem(i: number){
-    this.selectedImages.length &&
-    this.selectedImages.splice(i,1);
-   
-    this.selectedFiles.length &&
-    this.selectedFiles.splice(i,1);
 
-  }
-  
-  
-  closeEventListeners(){
-    if(this.cropImagePopBtn && this.cropImagePop){
-      this.cropImagePopBtn.nativeElement.onclick = this.abortUploading;
-      this.cropImagePop.nativeElement.onclick = this.abortUploading;
-      }
+
+  addFile(event){
+    const file = event.target.files[0];
+    if(!file)return;
+    this.selectedFiles.push(event.target.files[0]);
   }
 
-  abortUploading(){
-    console.log('clicked clos fields')
-      if(this.imgReader){
-        this.imgReader.onload = null;
-      //  this.unsubscribeCloseEventListeners();
-       console.log( this.closeEventListeners)
-    } else {
-  
-      console.log( this.closeEventListeners)
-    }
-  }
-
-
-
-  addImgFile(event) {
-    this.cropImagePopBtn.nativeElement.addEventListener('click',this.abortUploading);
-    this.cropImagePop.nativeElement.addEventListener('click',this.abortUploading);
-
+  addSrc(event, arr: string[]){
 
     const file = event.target.files[0];
-    if(!file) return;
-
-    const selectedImgRef = this.selectedImages;
-    const selectedFilesRef = this.selectedFiles;
-
-
-    const subscribeEmitImg = emitNewImage.subscribe(imgCode => {
-      this.imgReader.readAsDataURL(file);
-
-      this.imgReader.onload = function(event){
-
-        selectedImgRef.push(event.target['result']);
-        
-        selectedImgRef[selectedImgRef.length-1] = imgCode;
-        selectedFilesRef.push(file);
-        subscribeEmitImg.unsubscribe(); 
-        console.log(selectedFilesRef)
-      }
-      this.imgReader.onerror = () => subscribeEmitImg.unsubscribe();
-    })
+    if(!file)return;
+    let imgReader = new FileReader();
+    imgReader.readAsDataURL(file)
+    imgReader.onload = function(event){
+      arr.push(event.target['result'])
+    }
 
   }
 
-
   postProduct() {
+
+    
+
     this.post.addProduct(
       this.name.value,
       this.brand.value,
@@ -178,9 +148,8 @@ export class PostProductComponent implements OnInit {
       this.getFormArrayValues(this.additionalColor),
       this.getFormArrayValues(this.material),
       this.originCountry.value,
-      +this.weight.value,
+      +this.weight.value
     );
-
     
   }
 
@@ -190,6 +159,4 @@ export class PostProductComponent implements OnInit {
 
 
   }
-
-
 }

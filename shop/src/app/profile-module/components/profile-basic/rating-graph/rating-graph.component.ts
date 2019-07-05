@@ -17,8 +17,9 @@ export class RatingGraphComponent implements OnInit {
   graphContent: unknown;
 
   get tooltipContent(): string{
-    if(!this.reviews.length)return null;
-    let members = this.reviews.map(review => review.author as User)
+
+    if(!this.reviewers.length)return null;
+    let members = Array.from(new Set(this.reviews.map(review => review.author as User)))
     .map(reviewer => reviewer.firstName + ' ' + reviewer.lastName)
     .slice(5)
 
@@ -40,7 +41,7 @@ export class RatingGraphComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reviewers = this.reviews.map(review => review.author as User);
+    this.reviewers = Array.from(new Set(this.reviews.map(review => review.author as User)));
     this.graphContent = this.pd.generateRatingGraph(this.pd.getUserRatingOverTime(this.reviews),'graph-id',this.graphType)
   }
 

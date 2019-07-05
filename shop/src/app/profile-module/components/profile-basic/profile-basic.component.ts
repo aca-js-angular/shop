@@ -8,8 +8,6 @@ import { COUNTRY_CODES_MAP } from '../../../constants/country-codes.constant';
 import { AdditionalService } from 'src/app/fa-module/services/additional.service';
 import { MessengerAutoOpenChatBoxByNf } from 'src/app/messenger-module/services/messsenger-auto-open-chat.service';
 
-export const emitOpenChatWithProfile = new EventEmitter<string>()
-
 @Component({
   selector: 'app-profile-basic',
   templateUrl: './profile-basic.component.html',
@@ -22,18 +20,7 @@ export class ProfileBasicComponent implements OnInit {
 
   constructor(
     private pd: ProfileDataService,
-    private faAdditional: AdditionalService,
-    ) { }
-
-
-
-  get currentUser$() { return this.faAdditional.$autoState }
-
-
-  openChat({user}){
-    console.log("TCL: ProfileBasicComponent -> openChat -> user", user.email)
-    user.email && emitOpenChatWithProfile.emit(user.email);
-  }
+    ){}
 
   getCountryCode(name: string): string {
     const target = COUNTRY_CODES_MAP.find(item => item.country.toLowerCase() === name.toLowerCase());

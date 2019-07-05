@@ -12,16 +12,17 @@ export class JQueryZoomService {
   constructor() {}
 
   /**
-   * @param imgClassName 
+   * @param imgClassName
    * @description No Point Only Classname (Classname)
    */
+
   jQueryZoomImg(imgClassName: string, config: ZoomConfig): void {
-      // this.jQueryZoom(imgClassName,config)
+      this.jQueryZoom(imgClassName,config);
   }
 
 
   clearjQueryZoomScreans(): void {
-    // document.querySelectorAll('.zoomContainer').forEach(zoomElem => zoomElem.remove());
+    document.querySelectorAll('.zoomContainer').forEach(zoomElem => zoomElem.remove());
   }
 
 
@@ -32,7 +33,7 @@ export class JQueryZoomService {
       try{
         $(`.${imgClassName}`).ezPlus(config);
       }catch(error){
-        console.warn('ERROR_FROM_CATCH: \n' + error)
+        console.warn('ERROR_FROM_CATCH: \n' + error);
       }
     });
   }

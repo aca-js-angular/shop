@@ -35,6 +35,8 @@ export class LastActivityComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.lastProduct = this.pd.getLastActivity(this.products);
+
+    this.lastProduct = this.pd.getLastActivity(this.products)
+    this.products = this.products.filter(item => item.id !== this.lastProduct.id);
   }
 }
