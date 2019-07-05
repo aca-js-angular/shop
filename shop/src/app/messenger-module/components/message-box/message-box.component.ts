@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject, OnDestroy, ViewChild, AfterViewInit, ElementRef, EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MessengerService, emiteCloseMessageBox } from '../../services/messenger.service';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, } from '@angular/material';
 import { CurrentChatMemberDialogData } from '../../messenger-interface';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { takeUntil, switchMap, debounceTime } from 'rxjs/operators';
 import { Subject, fromEvent, Subscription } from 'rxjs';
 import { MessengerOptionalService } from '../../services/messenger-optional-service.service';
@@ -55,7 +55,6 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     emiteCloseMessageBox.pipe(takeUntil(this.destroyStream$)).subscribe(_ => {
-      console.log('dialogref close')
       this.dialogRef.close()
     });
 
@@ -153,11 +152,6 @@ export class MessageBoxComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  includRefText(){
-    const hasHref = this.messageInput.value.includes('https://') || this.messageInput.value.includes('http://');
-    (!this.messageInput.value.includes('#') && hasHref) 
-    && this.messageInput.patchValue(`${this.messageInput.value}#`);
-  }
 
   sendMessage() {
     if(!this.messageInput.value) return;

@@ -11,13 +11,15 @@ import { AdditionalService } from 'src/app/fa-module/services/additional.service
 export class MessengerOptionalService {
 
   isTypingChatMember$ = new BehaviorSubject<string>('false');
-
+  firstInit: boolean;
 
   constructor(
     private db: AngularFireDatabase,
     private autoAdditional: AdditionalService,
     private messengerService: MessengerService,
-  ) { }
+  ) {
+    this.autoAdditional.$autoState.subscribe((user) => user ? this.firstInit = true:  this.firstInit = false);
+   }
 
 
  public isOnline(): Observable<boolean> {
@@ -70,6 +72,7 @@ export class MessengerOptionalService {
 
 
   sendMessageSound(src: string, volume = 0.2) {
+    if(!this.firstInit) return
     const audio = new Audio(src);
     audio.volume = volume
     audio.play();

@@ -9,18 +9,19 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-post-product',
   templateUrl: './post-product.component.html',
-  styleUrls: ['./post-product.component.scss']
+  styleUrls: ['./post-product.component.scss'],
+  
 })
 export class PostProductComponent implements OnInit {
 
   @ViewChild('cropImagePopBtn') cropImagePopBtn: ElementRef<HTMLButtonElement>;
   @ViewChild('cropImagePop') cropImagePop: ElementRef<HTMLDivElement>;
 
-  $destroyStream = new Subject<void>()
+  $destroyStream = new Subject<void>();
   imgReader = new FileReader();
   selectedFiles: File[] = [];
   selectedImages: string[] = [];
-  colors: string[] = CSS_COLOR_NAMES
+  colors: string[] = CSS_COLOR_NAMES;
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -29,9 +30,7 @@ export class PostProductComponent implements OnInit {
   constructor(
     private build: FormBuilder,
     private post: PostProductService,
-    private storage: AngularFireStorage,
     private jQueryService: jQueryImagesResize,
-    private formBuilder: FormBuilder
   ) { }
 
   /* --- Variables --- */

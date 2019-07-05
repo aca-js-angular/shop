@@ -1,51 +1,24 @@
 <div class="static-row">
 
   <div [ngClass]="{'outgoing': currentUserMessage, 'incoming': !currentUserMessage}">
-    
-    <ng-container *ngTemplateOutlet="
-    messageRowObj.message.includes('#') ? href:
-    messageRowObj.message.includes('~!') ? routerLink : text">
-    </ng-container>
+
+    <div class="bubble">
+
+      <div *ngIf="href.hrefLink[0]">
+        
+        {{href.textStart}}
+        <a *ngFor="let hrefItem of href.hrefLink" [href]="hrefItem">{{hrefItem}}</a>
+        {{href.textEnd}}
+      </div>
+
+      {{ !href.hrefLink[0] ? messageRowObj.message: '' }}
+
+    </div>
 
     <!-- Delete -->
-    <mat-icon
-    matTooltip="Delete"
-    class="delete-icon"
-    *ngIf="currentUserMessage && !firstMessage" 
-    (click)="deleteMessage.emit(messageRowKey)"
-    >
-      add_circle
+    <mat-icon matTooltip="Delete" class="delete-icon" *ngIf="currentUserMessage && !firstMessage"
+      (click)="deleteMessage.emit(messageRowKey)"> add_circle
     </mat-icon>
-    
+
   </div>
 </div>
-
-<!-- Text -->
-<ng-template #text>
-  <div class="bubble">{{messageRowObj.message}}</div>
-</ng-template>
-
-
-<!-- Router Link -->
-<ng-template #routerLink>
-  <a class="bubble" routerLink="/{{messageRowObj.message.slice(0,messageRowObj.message.length-2)}}">
-     Description Go to Product Link
-    </a>
-</ng-template>
-
-
-<!-- Href -->
-<ng-template #href>
-  <div class="bubble">
-    {{messageRowObj.message | isHref:'start-href'}}
-    <a target="_blank" [href]="messageRowObj.message | isHref:'href'">
-      {{messageRowObj.message | isHref:'href'}}
-    </a>
-    {{messageRowObj.message | isHref:'href-end'}}
-  </div>
-</ng-template>
-
-
-<!-- Other Icons -->
-<!-- <mat-icon>delete</mat-icon> -->
-<!-- <mat-icon>delete_outline</mat-icon> -->

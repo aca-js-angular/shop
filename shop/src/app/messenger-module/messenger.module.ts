@@ -6,13 +6,13 @@ import { MessengerComponent } from './components/messenger-main/messenger-main.c
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MessageRowComponent } from './components/message-row/message-row.component';
 import { RouterModule } from '@angular/router';
-import { HrefPipe } from './pipes/href.pipe';
+
 
 @NgModule({
   declarations: [
     MessageBoxComponent, 
     MessengerComponent, 
-    MessageRowComponent, HrefPipe
+    MessageRowComponent
   ],
 
   imports: [

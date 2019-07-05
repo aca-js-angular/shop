@@ -4,6 +4,8 @@ import { MessageBoxComponent } from '../components/message-box/message-box.compo
 import { CurrentChatMemberDialogData } from '../messenger-interface';
 
 export const removeOpenedChatАccess = new EventEmitter();
+export const chatBoxsCount = new EventEmitter();
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +13,14 @@ export const removeOpenedChatАccess = new EventEmitter();
 export class MessengerDialogService {
 
   unicChatMembers = new Set();
-
+  chatCounts: number;
 
   constructor(private dialog: MatDialog) { }
 
 
   openMessengerBox(nativeUserData: CurrentChatMemberDialogData): void{
-
+    this.chatCounts++;
+    chatBoxsCount.emit(this.chatCounts);
     const dialogRef = this.dialog.open(MessageBoxComponent, {
 
       disableClose: false,
@@ -38,6 +41,8 @@ export class MessengerDialogService {
 
 
     dialogRef.afterClosed().subscribe(_ => {
+      this.chatCounts--;
+      chatBoxsCount.emit(this.chatCounts);
       removeOpenedChatАccess.emit()
     })
   }

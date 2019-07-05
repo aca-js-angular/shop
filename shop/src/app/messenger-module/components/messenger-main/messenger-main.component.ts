@@ -63,6 +63,7 @@ export class MessengerComponent implements OnInit, OnDestroy {
     // ----Auto Opening by Notify----
     this.messengerAutoOpenChatService.subscribeNewMessageNotify().pipe(takeUntil(this.destroyStream$))
       .subscribe(notyfiMessageUserData => {
+        console.log('autoopening oninit')
 
         this.openMesssengerBoxByEmit(notyfiMessageUserData[0]);
       })
