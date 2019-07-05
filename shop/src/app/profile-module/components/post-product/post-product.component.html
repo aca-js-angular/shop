@@ -1,9 +1,9 @@
 <section>
 
 
-<form [formGroup]="postForm">
+<form [formGroup]="postForm" >
 
-    <mat-vertical-stepper [linear]="isLinear" #stepper>
+    <mat-vertical-stepper (keydown.enter)="disableEnterKeydown = true">
   
       <!-- Name -->
       <mat-step>

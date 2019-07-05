@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
   selector: 'app-post-product',
   templateUrl: './post-product.component.html',
   styleUrls: ['./post-product.component.scss'],
-  
+
 })
 export class PostProductComponent implements OnInit {
 
@@ -95,10 +95,10 @@ export class PostProductComponent implements OnInit {
 
   /* --- Methods --- */
 
-  setUid(...uid){
+  setUid(...uid) {
   }
-  setIsAuth(...a){}
-  
+  setIsAuth(...a) { }
+
   getFormArrayValues(form: FormArray): string[] {
     return form.controls.map(control => control.value)
   }
@@ -107,34 +107,36 @@ export class PostProductComponent implements OnInit {
     control.push(this.build.control(''))
   }
 
-  removeControl(control: FormArray, index: number,event: Event) {
+  removeControl(control: FormArray, index: number, event: Event) {
     // event.stopPropagation()
     control.removeAt(index)
   }
 
 
 
-  addFile(event){
+  addFile(event) {
     const file = event.target.files[0];
-    if(!file)return;
+    if (!file) return;
     this.selectedFiles.push(event.target.files[0]);
   }
 
-  addSrc(event, arr: string[]){
+  addSrc(event, arr: string[]) {
 
     const file = event.target.files[0];
-    if(!file)return;
+    if (!file) return;
     let imgReader = new FileReader();
     imgReader.readAsDataURL(file)
-    imgReader.onload = function(event){
+    imgReader.onload = function (event) {
       arr.push(event.target['result'])
     }
 
   }
 
-  postProduct() {
+  disableEnterKeydown: boolean;
 
-    
+  postProduct() {
+    if (this.disableEnterKeydown) return;
+
 
     this.post.addProduct(
       this.name.value,
@@ -149,7 +151,7 @@ export class PostProductComponent implements OnInit {
       this.originCountry.value,
       +this.weight.value
     );
-    
+
   }
 
 
