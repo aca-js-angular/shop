@@ -37,7 +37,6 @@ export class ProfileRootComponent {
 
 
   openChat(user){
-    debugger;
     user.email && emitOpenChatWithProfile.emit(user.email);
   }
 

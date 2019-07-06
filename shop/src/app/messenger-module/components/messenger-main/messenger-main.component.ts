@@ -44,6 +44,8 @@ export class MessengerComponent implements OnInit, OnDestroy {
     chatEmitVendor.pipe(takeUntil(this.destroyStream$)).subscribe(emitedVendor => this.emitedVendor = emitedVendor as User);
 
     openChatBox.pipe(takeUntil(this.destroyStream$)).subscribe(_void => {
+      // console.log('emit',this.emitedVendor , emitedVendorEmailUnicBox)
+      
       if(this.emitedVendor && this.emitedVendor.email && this.emitedVendor.email !== emitedVendorEmailUnicBox){
         this.searchUserandEmite(this.emitedVendor.email)
         emitedVendorEmailUnicBox = this.emitedVendor.email; // for unic search

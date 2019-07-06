@@ -13,11 +13,9 @@ export class MessengerAutoOpenChatBoxByNf {
 
   diasbleSubscribeNewChatOppeningWithCUserNotyfictions$ = new Subject<void>();
   disabledNotifyChatUrlsMap = new Map();
-
   private subscriblablesChatsUrlsSet = new Set<string>();
   diasbleMessagesNotyfictions$ = new Subject<void>();
   disableNotify: boolean = true;
-  _hasOlreadyOpenedOtherChat: boolean = true /// jamanakavor heto 1 hat chat bac lini khanenq
 
   constructor(
     private db: AngularFireDatabase,
@@ -36,21 +34,21 @@ export class MessengerAutoOpenChatBoxByNf {
     let firstInit: boolean = true;  // subscribie chaturls changes once
     return new Observable(subscribtion => {
 
-      this.autoAdditional.autoState().then(currentUser => {
+      const autoStateSubscrib = this.autoAdditional.$autoState.subscribe(currentUser => {
+
         if (currentUser) {
           this.getNotifyChatUrls(currentUser).pipe(takeUntil(this.diasbleSubscribeNewChatOppeningWithCUserNotyfictions$))
             // 1 makardak ete chatum mard avelana qo u ira urlnerov 2 makardak asxatuma
             .subscribe((includesInChatsCurrentUser) => {
 
               // subscribe chats/ urls...  ONCE  and subscribe another if added new chat with currentUser uid
-              if (!firstInit && isAddedNewChat === includesInChatsCurrentUser.length) return;
+              if (!firstInit && isAddedNewChat === includesInChatsCurrentUser.length && !currentUser) return;
 
 
               !firstInit && this.diasbleMessagesNotyfictions$.next(); // delete previus subscriptions
               firstInit = false;
               isAddedNewChat = includesInChatsCurrentUser.length;
               includesInChatsCurrentUser.forEach(url => this.subscriblablesChatsUrlsSet.add(url.key))
-
               // ----2 makardak---- 
               //  if(this._hasOlreadyOpenedOtherChat){ // jamanakavor heto khanenq ete chabacvac chateri qanak@ sartacnenq  (xia menak ste drac vortev user@ arden araji angam subscribic stacel sax chateri urlner@ u subscriba exe ete nor chata bacuvm arden hasiv chivortev  hat arden baca ete trua  )
               //--Pushing Observables in subscribableUrls[]--
@@ -60,9 +58,10 @@ export class MessengerAutoOpenChatBoxByNf {
               //---Subscribe includes urls valueChanges['added']--- piti kancvi menak 1 angam vor kancvox medto shat subscribe clni
               this.notificationsZipData(currentUser.uid, chatUrlsSubscribables)
                 .pipe(takeUntil(this.diasbleSubscribeNewChatOppeningWithCUserNotyfictions$))
+
                 .subscribe(notifiUserData => subscribtion.next(notifiUserData));
             })
-        }
+        } else {autoStateSubscrib.unsubscribe()}
       })
     })
   }
@@ -77,6 +76,7 @@ export class MessengerAutoOpenChatBoxByNf {
    */
   private notificationsZipData(currentUserUid: string, subscribable: any[]): Observable<CurrentUserCloud[]> {
     let notyfedChatUrl: string;
+    // let firestInit: boolena = false;
 
     return new Observable(subscribtion => {
       combineLatest(...subscribable).pipe(
@@ -87,15 +87,29 @@ export class MessengerAutoOpenChatBoxByNf {
           this.getNotyfedMessageUdata(prevAndNextMessages[0], prevAndNextMessages[1])))
 
           .subscribe(changedIndex => {
+          console.log("TCL: changedIndex", changedIndex)
+ 
+
             notyfedChatUrl = Array.from(this.subscriblablesChatsUrlsSet)[changedIndex];
             if (notyfedChatUrl && !this.messengerService.activeChatBoxs.has(notyfedChatUrl) && this.disableNotify) {
-              // console.log('notyfed')
+
               const chatMemberNotifiUid = notyfedChatUrl.split(`${currentUserUid}`).join('').split('&').join(''); // Get Nodefed User Uid
               // this.messengerService.activeChatBoxs.add(notyfedChatUrl); // add Auto opened Chat Url; olready adding by open
-
               //---Search result With RT db---next in singl each coming notify udata {}
-              this.messengerService.searhUserOnRealTimeDb(chatMemberNotifiUid)
-                .pipe(takeUntil(this.diasbleMessagesNotyfictions$)).subscribe(uData => subscribtion.next(uData))
+              const getUdata = this.messengerService.searhUserOnRealTimeDb(chatMemberNotifiUid)
+                .pipe(
+                  takeUntil(this.diasbleMessagesNotyfictions$),
+                  distinctUntilChanged((prevUdata,currUdata) =>{
+
+                    if( // if log out chage state ignore autoopenning
+                      prevUdata[0].email === currUdata[0].email && 
+                      prevUdata[0].fullName === currUdata[0].fullName &&
+                      prevUdata[0].photoUrl === currUdata[0].photoUrl
+                      ) return true
+                    
+                  })
+                  ).subscribe(uData => {console.log(uData);subscribtion.next(uData)})
+           
             }
           })
     })
