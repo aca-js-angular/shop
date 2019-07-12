@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { FormControlService } from 'src/app/form-control.service';
 import { _fullName, _adress, _password } from '../../../../validators/root/custom-validators';
 import { Location } from '@angular/common';
@@ -42,7 +42,7 @@ export class CheckoutShippingComponent implements OnInit {
     this.loaction.back()
   }
 
-  getErrors(form: FormControl): string | null{
+  getErrors(form: AbstractControl): string | null{
     return this.control.getErrorMessage(form)
   }
 
@@ -56,16 +56,16 @@ export class CheckoutShippingComponent implements OnInit {
     return this.postalCode.touched && this.control.getErrorMessage(this.postalCode)
   }
 
-  get fullName(): FormControl {
-    return this.checkoutForm.get('fullName') as FormControl;
+  get fullName(): AbstractControl {
+    return this.checkoutForm.get('fullName');
   }
-  get adress(): FormControl {
-    return this.checkoutForm.get('adress') as FormControl;
+  get adress(): AbstractControl {
+    return this.checkoutForm.get('adress');
   }
-  get postalCode(): FormControl {
-    return this.checkoutForm.get('postalCode') as FormControl;
+  get postalCode(): AbstractControl {
+    return this.checkoutForm.get('postalCode');
   }
-
+  
   /* --- LC hooks --- */
 
   ngOnInit() {

@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'basket', canLoad: [FaGuard], loadChildren: './basket-module/basket.module#BasketModule'},
   {path: 'profile/:uid', loadChildren: './profile-module/profile.module#ProfileModule'},
   
-  {path: 'db', component: WorkingWithDbComponent},
+  {path: 'dbE324Er53LkRTkTsnSe7fB82Rc69s7D3KrT', component: WorkingWithDbComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: '**', redirectTo: 'not-found', pathMatch: 'full'},
 ];

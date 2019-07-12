@@ -38,7 +38,8 @@ export class SignInComponent implements OnInit, OnDestroy, AfterViewInit {
 
   /* --- Variables --- */
 
-
+  isShownError: false;
+  
   loggingIn: boolean = false;
   rememberMe: FormControl = new FormControl(false)
 

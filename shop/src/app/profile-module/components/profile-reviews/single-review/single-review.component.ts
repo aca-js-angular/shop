@@ -3,7 +3,6 @@ import { Review } from 'src/app/interfaces/review.interface';
 import { FaService } from 'src/app/fa-module/services/fa.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User } from '../../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-single-review',
@@ -25,8 +24,8 @@ export class SingleReviewComponent implements OnInit {
     this.isMyReview = this.fa.authState.pipe(map(user => {
       if(!user)return false;
       else{
-        const author = this.review.author as User
-        return user.uid === author.id;
+        const author = this.review.author;
+        return user.uid === author['id'];
       }
     }))
     this.reviewDate = new Date(this.review.date.seconds * 1000);

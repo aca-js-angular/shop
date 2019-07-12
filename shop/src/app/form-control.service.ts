@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 
 
 //  
@@ -13,19 +13,19 @@ export class FormControlService {
 
   /* --- Private Implementations --- */
 
-  private getRequiredMessage(control: FormControl): string | null {
+  private getRequiredMessage(control: AbstractControl): string | null {
     return control.hasError('required') ? 'Required field' : null
   }
 
-  private getEmailMessage(control: FormControl): string | null {
+  private getEmailMessage(control: AbstractControl): string | null {
     return control.hasError('email') ? 'Invalid e-mail' : null
   }
 
-  private getPatternMessage(control: FormControl, message: string): string | null{
+  private getPatternMessage(control: AbstractControl, message: string): string | null{
     return control.hasError('pattern') ? message : null
   }
 
-  private getMinlengthMessage(control: FormControl): string | null {
+  private getMinlengthMessage(control: AbstractControl): string | null {
     if(control.hasError('minlength')){
       const actual = control.errors.minlength.actualLength
       const minLength = control.errors.minlength.requiredLength
@@ -35,7 +35,7 @@ export class FormControlService {
     }
   }
 
-  private getMaxlengthMessage(control: FormControl): string | null {
+  private getMaxlengthMessage(control: AbstractControl): string | null {
     if(control.hasError('maxlength')){
       const actual = control.errors.maxlength.actualLength
       const maxLength = control.errors.maxlength.requiredLength
@@ -45,7 +45,7 @@ export class FormControlService {
     }
   }
 
-  private getMinMessage(control: FormControl): string | null {
+  private getMinMessage(control: AbstractControl): string | null {
     if(control.hasError('min')){
       const min = control.errors.min.min
       return `Min-value is ${min}`
@@ -54,7 +54,7 @@ export class FormControlService {
     }
   }
 
-  private getMaxMessage(control: FormControl): string | null {
+  private getMaxMessage(control: AbstractControl): string | null {
     if(control.hasError('max')){
       const max = control.errors.max.max
       return `Max-value is ${max}`
@@ -63,7 +63,7 @@ export class FormControlService {
     }
   }
 
-  private getCustomMessage(control: FormControl): string | null {
+  private getCustomMessage(control: AbstractControl): string | null {
     if(control.errors){
       const error = Object.keys(control.errors).find(key => key.startsWith('_'))
       return error ? control.errors[error].message : null
@@ -74,7 +74,7 @@ export class FormControlService {
 
   /* --- Public Methods --- */
 
-  public getErrorMessage(control: FormControl, message?: string): string | null {
+  public getErrorMessage(control: AbstractControl, message?: string): string | null {
     
     const errorMessage = 
     this.getRequiredMessage(control) ||
@@ -90,15 +90,15 @@ export class FormControlService {
     return errorMessage
   }
 
-  public getCrossFieldErrorMessage(groupControl: FormGroup, errorName: string): string | null {
+  public getCrossFieldErrorMessage(groupControl: AbstractControl, errorName: string): string | null {
     return groupControl.hasError(errorName) ? groupControl.errors[errorName].message : null;
   }
 
-  public toggleState(control: FormControl){
+  public toggleState(control: AbstractControl){
     control.touched ? control.markAsUntouched() : control.markAsTouched()
   }
 
-  public getPasswordSafety(control: FormControl): {color: string, safety: string}{
+  public getPasswordSafety(control: AbstractControl): {color: string, safety: string}{
     const value = control.value
     if(!value.length)return {color: '', safety: ''};
     else if(value.length <= 10)return {color: 'rgb(172, 111, 111)', safety: 'ordinar'}

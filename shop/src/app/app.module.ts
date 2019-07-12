@@ -18,6 +18,7 @@ import { CategoryPanelComponent } from './root-components/category-panel/categor
 import { FooterBasketComponent } from './root-components/footer/footer-basket/footer-basket.component';
 import { HeaderDbComponent } from './root-components/header/header-db/header-db.component';
 import { FooterDbComponent } from './root-components/footer/footer-db/footer-db.component';
+import { HashLocationStrategy, LocationStrategy, APP_BASE_HREF } from '@angular/common';
 
 
 @NgModule({
@@ -49,6 +50,10 @@ import { FooterDbComponent } from './root-components/footer/footer-db/footer-db.
 
     AppRoutingModule,
     
+  ],
+  providers: [
+    { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
 
   bootstrap: [AppComponent],

@@ -17,10 +17,10 @@ export class ProductsRootComponent implements OnInit, OnDestroy {
 
   constructor(
     private active: ActivatedRoute,
-    private ps: ProductService,
+    public ps: ProductService,
     private build: FormBuilder,
-    private fs: FilterService,
-    private router: Router,
+    public fs: FilterService,
+    private router: Router, 
   ) {
     this.animationDirection = window.innerWidth > 700 ? 'left' : 'top';
   }
@@ -224,4 +224,4 @@ export class ProductsRootComponent implements OnInit, OnDestroy {
       this.fs.resetAll();
     }
   }
-}
+} 

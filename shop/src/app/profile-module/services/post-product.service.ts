@@ -54,7 +54,7 @@ export class PostProductService {
 
   addProduct(name: string, brand: string, category: string, gender: 'men' | 'women', price: number, img: File[], mainColors: string[], additionalColors: string[], material: string[], originCountry: string, weight: number){
     const x = this.afs.createId();
-    console.log(name)
+    // console.log(name)
     this.addMultipleImages(img,name).then(ref => {
       this.db.postDataWithId('products',x,this.createProduct(name, brand, category, gender, price, ref, mainColors, additionalColors, material, originCountry, weight)).then(_ => this.dialog.openConfirmMessage({message: ['Your Post was succesfully published'],okText: 'Go to your post', cancelText: 'OK', accept: (() => {
         this.router.navigate(['/','product',x]).then(_ => window.scrollTo(0,0))

@@ -1,12 +1,12 @@
 import { Directive, Input, ElementRef, HostListener } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, AbstractControl } from '@angular/forms';
 
 @Directive({
   selector: '[_feedback]'
 })
 export class ValidityFeedbackDirective {
 
-  @Input('_feedback') control: FormControl;
+  @Input('_feedback') control: AbstractControl;
 
   native: HTMLInputElement;
 

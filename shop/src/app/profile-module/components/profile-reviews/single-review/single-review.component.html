@@ -2,7 +2,7 @@
 <div class="review-container">
   <div class="top-panel">
     <div class="author-name">
-      {{review.author.firstName}} {{review.author.lastName}};
+      {{review.author?.firstName}} {{review.author?.lastName}};
     </div>
     <div matTooltip="Remove review" class="remove" *ngIf="(isMyReview | async)" (click)="remove.emit(review)">
       X

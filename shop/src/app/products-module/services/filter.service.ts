@@ -11,13 +11,13 @@ export class FilterService {
 
   /* --- Variables --- */
 
-  sortType: string = 'postDate'
-  ascending: boolean = false;
-  remember: boolean = false;
-  strict: boolean = false;
-  priceRange: {min: number, max: number} = {min: null, max: Infinity};
-  colorArray: string[] = [];
-  materialArray: string[] = [];
+  public sortType: string = 'postDate'
+  public ascending: boolean = false;
+  public remember: boolean = false;
+  public strict: boolean = false;
+  public priceRange: {min: number, max: number} = {min: null, max: Infinity};
+  public colorArray: string[] = [];
+  public materialArray: string[] = [];
 
   /* --- Methods --- */
 

@@ -1,6 +1,6 @@
-import { FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormControl, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 
-export function _adress(control: FormControl): ValidationErrors | null {
+export function _adress(control: AbstractControl): ValidationErrors | null {
     const source = control.value
     const number = new RegExp(/\b\d\b/)
     const char = new RegExp(/[A-Za-z]/)

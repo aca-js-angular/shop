@@ -66,7 +66,7 @@ export class WorkingWithDbComponent implements OnInit {
   getRating(userId){
    const a = this.db.getDocumentById('users',userId).subscribe((user: User) => {
      const rating = Math.round((user.reviews.reduce((sum,current) => sum + current.evaluation,0) / user.reviews.length));
-     console.log("TCL: WorkingWithDbComponent -> getRating -> raing", isNaN(rating))
+    //  console.log("TCL: WorkingWithDbComponent -> getRating -> raing", isNaN(rating))
     if(isNaN(rating)){
       user.rating = 0;
     } else {
@@ -74,7 +74,7 @@ export class WorkingWithDbComponent implements OnInit {
     }
     this.userrrr = user
     a.unsubscribe()
-    console.log( this.userrrr)
+    // console.log( this.userrrr)
     });
   }
   userrrr: User;
@@ -108,8 +108,8 @@ export class WorkingWithDbComponent implements OnInit {
 
   printCollection(collectionName: string, withIds: boolean = false){
 
-    console.log(BREAK_LINE);
-    console.log(`${collectionName.toUpperCase()} ${withIds ? '(with ids)' : ''}`, POINTING_ARROW);
+    // console.log(BREAK_LINE);
+    // console.log(`${collectionName.toUpperCase()} ${withIds ? '(with ids)' : ''}`, POINTING_ARROW);
 
     withIds ?
     this.db.getCollectionWithIds(collectionName).subscribe(console.log) :

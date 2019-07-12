@@ -16,6 +16,7 @@ import { AnimationModule } from '../animation-module/animation.module';
 import { CommentsRootComponent } from './components/comments-root/comments-root/commnts-root.component';
 import { SingleCommentComponent } from './components/comments-root/single-comment/single-comment.component';
 import { EmojiComponent } from './components/comments-root/emoji/emoji.component';
+import { RatingPipe } from './pipes/rating.pipe';
 
 // import { CommentRowFieldsPipe } from './pipes/comment-row-fields.pipe';
 // import { DecodeCommentFields } from './pipes/decode-comment.pipe';
@@ -33,6 +34,7 @@ import { EmojiComponent } from './components/comments-root/emoji/emoji.component
     CommentsRootComponent,
     SingleCommentComponent,
     EmojiComponent,
+    RatingPipe
     // CommentRowFieldsPipe,
     // DecodeCommentFields
   ],

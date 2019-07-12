@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, of, Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -10,6 +10,7 @@ import { FormControlService } from 'src/app/form-control.service';
 import { MatDialogRef } from '@angular/material';
 import { AngularFireUploadTask, AngularFireStorageReference, AngularFireStorage } from '@angular/fire/storage';
 import { AdditionalService } from '../../services/additional.service';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -37,7 +38,7 @@ export class SignUpComponent implements OnInit {
   currentImg: File;
 
   destroyStream = new Subject<void>()
-
+  ERROR_COLOR
   submitted: boolean;
   busyEmail: boolean;
   hidePassword: boolean = true
@@ -78,29 +79,29 @@ export class SignUpComponent implements OnInit {
 
   /* --- Getters --- */
 
-  get firstName(): FormControl {
-    return this.registerForm.get('firstName') as FormControl
+  get firstName(): AbstractControl {
+    return this.registerForm.get('firstName')
   }
-  get lastName(): FormControl {
-    return this.registerForm.get('lastName') as FormControl
+  get lastName(): AbstractControl {
+    return this.registerForm.get('lastName')
   }
-  get country(): FormControl {
-    return this.registerForm.get('country') as FormControl
+  get country(): AbstractControl {
+    return this.registerForm.get('country')
   }
-  get city(): FormControl {
-    return this.registerForm.get('city') as FormControl
+  get city(): AbstractControl {
+    return this.registerForm.get('city')
   }
-  get email(): FormControl {
-    return this.registerForm.get("email") as FormControl
+  get email(): AbstractControl {
+    return this.registerForm.get("email")
   }
-  get pass(): FormControl {
-    return this.registerForm.get("password") as FormControl
+  get pass(): AbstractControl {
+    return this.registerForm.get("password")
   }
-  get passConfirm(): FormControl {
-    return this.registerForm.get("passwordConfirm") as FormControl
+  get passConfirm(): AbstractControl {
+    return this.registerForm.get("passwordConfirm")
   }
 
-  get controlArray(): FormControl[] {
+  get controlArray(): AbstractControl[] {
     return [this.firstName, this.lastName, this.email, this.pass, this.passConfirm]
   }
 
@@ -110,28 +111,28 @@ export class SignUpComponent implements OnInit {
 
 
 
-  get firstNameError(): string | null {
+  get firstNameError(): string {
     return this.firstName.touched && this.control.getErrorMessage(this.firstName)
   }
-  get lastNameError(): string | null {
+  get lastNameError(): string {
     return this.lastName.touched && this.control.getErrorMessage(this.lastName)
   }
-  get countryError(): string | null {
+  get countryError(): string  {
     return this.country.touched && this.control.getErrorMessage(this.country)
   }
-  get cityError(): string | null {
+  get cityError(): string  {
     return this.city.touched && this.control.getErrorMessage(this.city)
   }
-  get emailError(): string | null {
+  get emailError(): string  {
     return this.email.touched && this.control.getErrorMessage(this.email, 'invalid-email')
   }
   get emailAsyncError(): boolean {
     return this.email.hasError('_async')
   }
-  get passError(): string | null {
+  get passError(): string  {
     return this.pass.touched && this.control.getErrorMessage(this.pass)
   }
-  get passConfirmError(): string | null {
+  get passConfirmError(): string  {
     return this.passConfirm.touched && this.control.getErrorMessage(this.passConfirm)
   }
 
@@ -159,7 +160,7 @@ export class SignUpComponent implements OnInit {
     }
   }
 
-  isBusyEmail(control: FormControl): Observable<ValidationErrors | null> {
+  isBusyEmail(control: AbstractControl): Observable<ValidationErrors > {
 
     return of(control.value).pipe(
 
@@ -207,13 +208,18 @@ export class SignUpComponent implements OnInit {
     let imgReader = new FileReader();
     imgReader.readAsDataURL(this.currentImg)
     imgReader.onload = function (event) {
-      preview.src = event.target['result']
+      preview.src = event.target['result'];
     }
 
   }
 
   upload(): Promise<string> {
     return new Promise(resolve => {
+
+      if(!this.currentImg){
+        resolve(); // empty img
+      }
+
       const storageRef: AngularFireStorageReference = this.storage.ref('profile-images');
       const uploadTask: AngularFireUploadTask = storageRef.child(`${this.email.value}`).put(this.currentImg);
       uploadTask.then(snapshot => {

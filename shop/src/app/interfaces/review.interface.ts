@@ -4,5 +4,5 @@ export interface Review {
     evaluation: number,
     description: string,
     date: FirebaseTimestamp
-    author: string | User,
+    author: any, // hangarcc cpoxelllllllllllllllllll
 }

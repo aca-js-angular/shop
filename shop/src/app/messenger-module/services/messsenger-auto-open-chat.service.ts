@@ -87,7 +87,7 @@ export class MessengerAutoOpenChatBoxByNf {
           this.getNotyfedMessageUdata(prevAndNextMessages[0], prevAndNextMessages[1])))
 
           .subscribe(changedIndex => {
-          console.log("TCL: changedIndex", changedIndex)
+          // console.log("TCL: changedIndex", changedIndex)
  
 
             notyfedChatUrl = Array.from(this.subscriblablesChatsUrlsSet)[changedIndex];
@@ -108,7 +108,7 @@ export class MessengerAutoOpenChatBoxByNf {
                       ) return true
                     
                   })
-                  ).subscribe(uData => {console.log(uData);subscribtion.next(uData)})
+                  ).subscribe(uData => subscribtion.next(uData))
            
             }
           })

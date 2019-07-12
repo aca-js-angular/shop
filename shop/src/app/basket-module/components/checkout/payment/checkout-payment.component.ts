@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DatesService } from 'src/app/basket-module/services/dates.service';
-import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { FormControlService } from 'src/app/form-control.service';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -45,20 +45,20 @@ export class CheckoutPaymentComponent implements OnInit, OnDestroy {
   
   months: number[] = this.dates.getMonths();
 
-  get cardNumber(): FormControl {
-    return this.paymentForm.get('cardNumber') as FormControl
+  get cardNumber(): AbstractControl {
+    return this.paymentForm.get('cardNumber') 
   }
-  get nameOnCard(): FormControl{
-    return this.paymentForm.get('nameOnCard') as FormControl
+  get nameOnCard(): AbstractControl{
+    return this.paymentForm.get('nameOnCard')
   }
-  get cvv(): FormControl {
-    return this.paymentForm.get('cvv') as FormControl
+  get cvv(): AbstractControl {
+    return this.paymentForm.get('cvv')
   }
-  get expMonth(): FormControl {
-    return this.paymentForm.get('expMonth') as FormControl
+  get expMonth(): AbstractControl {
+    return this.paymentForm.get('expMonth') 
   }
-  get expYear(): FormControl {
-      return this.paymentForm.get('expYear') as FormControl
+  get expYear(): AbstractControl {
+      return this.paymentForm.get('expYear')
   }
 
 

@@ -9,6 +9,7 @@ import { BAD_FORMAT, WRONG_EMAIL, WRONG_PASSWORD } from 'src/app/constants/sign-
 import { __randomNumber } from '../../root-components/working-with-db/helper-functions.ts/root';
 import { Review } from 'src/app/interfaces/review.interface';
 import { Observable } from 'rxjs';
+import { EMPTY_USER_IMG } from 'src/app/constants/default-images';
 
 /* --- Sign-in errors --- */
 
@@ -73,7 +74,7 @@ export class FaService {
 
   /* --- Sign Up --- */
 
-  signUp(input: User, imgUrl: string): Promise<void> {
+  signUp(input: User, imgUrl: string = EMPTY_USER_IMG): Promise<void> {
     return new Promise(done => {
       this.firebaseAuth.auth.createUserWithEmailAndPassword(input.email, input.password)
       .then(result => {

@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { PostProductService } from '../../services/post-product.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { CSS_COLOR_NAMES } from 'src/app/constants/css-colors.constant';
@@ -58,26 +58,26 @@ export class PostProductComponent implements OnInit {
 
   /* --- Getters --- */
 
-  get name(): FormControl {
-    return this.postForm.get('name') as FormControl
+  get name() {
+    return this.postForm.get('name') 
   }
-  get brand(): FormControl {
-    return this.postForm.get('brand') as FormControl
+  get brand() {
+    return this.postForm.get('brand') 
   }
-  get category(): FormControl {
-    return this.postForm.get('category') as FormControl
+  get category() {
+    return this.postForm.get('category') 
   }
-  get gender(): FormControl {
-    return this.postForm.get('gender') as FormControl
+  get gender() {
+    return this.postForm.get('gender') 
   }
-  get price(): FormControl {
-    return this.postForm.get('price') as FormControl
+  get price() {
+    return this.postForm.get('price') 
   }
-  get weight(): FormControl {
-    return this.postForm.get('weight') as FormControl
+  get weight() {
+    return this.postForm.get('weight') 
   }
-  get originCountry(): FormControl {
-    return this.postForm.get('originCountry') as FormControl
+  get originCountry() {
+    return this.postForm.get('originCountry') 
   }
 
   /* --- Form-Arrays --- */
