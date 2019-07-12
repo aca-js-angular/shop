@@ -1,138 +1,94 @@
 <div class="comments-container">
 
-<!-- Add comment -->
-<div class="write-comment-fields">
-    <div class="form">
+    <!-- Add comment -->
+    <div class="write-comment-fields">
+        <div class="form">
             <mat-form-field appearance="outline">
-                    <mat-label>Write Comment</mat-label>
-                    <textarea
-                    #comment_txt
-                    maxlength="500"
-                    matInput 
-                    [formControl]="commentTexteria"
-                    ></textarea>
-            
-                    
-            
-                    <mat-hint>{{this.commentTexteria.value.length}} / 500</mat-hint>
-            
-                </mat-form-field>
-                <div class="open-emoji-box">
-                    <div class="inner-box">
-                            
-        
-                            <img 
-                            class="emoji-icon"
-                            (click)="showEmojiPanel = !showEmojiPanel"       
-                            src="assets/comments/emoji/toggle-emoji-box.png"
-                            >
-                            <div class="emoji-box">
-                                <app-emoji (setEmoji)="setEmoji($event)"></app-emoji>
-                            </div>
-                    </div>
-                    
-                    
-                    
-                </div>
-    </div>
-    
-
-    <div class="actions">
-        <button 
-        [disabled]="!comment_txt.value"
-        [_persistance]="submitButtonCallack" 
-        mat-raised-button 
-        color="primary"
-        >{{submitButtonText}}
-        </button>
-
-        <button 
-        class="cancel-btn"
-        *ngIf="isEditing" 
-        (click)="cancelCommentEditing()" 
-        mat-raised-button 
-        >Cancel</button>
-
-    </div>
-
-</div>
-
-<section class="comments-box" 
-    [class.overflow]="dinamicCommentsArray?.length > 1" 
-    [hidden]="!dinamicCommentsArray?.length">
-    <!-- Spinner -->
-    <ng-template #elseTemplate>
-        <mat-spinner class="loading"></mat-spinner>
-    </ng-template>
-
-    <!-- Select Filter -->
-    <section class="sort-section" [hidden]="!(dinamicCommentsArray?.length > 1)">
-        <div class="sort-selector">
-            <mat-form-field class="filter">
-                <mat-label>Sort</mat-label>
-                <mat-select [formControl]="selectFilerValue" (ngModelChange)="sort()">
-                    <mat-option *ngFor="let option of selectOptions" [value]="option.value">
-                        {{option.title}}
-                    </mat-option>
-                </mat-select>
+                <mat-label>Write Comment</mat-label>
+                <textarea #comment_txt maxlength="500" matInput [formControl]="commentTexteria"></textarea>
+                <mat-hint>{{this.commentTexteria.value.length}} / 500</mat-hint>
             </mat-form-field>
+            <div class="open-emoji-box">
+                <div class="inner-box">
+                    <img class="emoji-icon" (click)="showEmojiPanel = !showEmojiPanel"
+                        src="assets/comments/emoji/toggle-emoji-box.png">
+                    <div class="emoji-box">
+                        <app-emoji (setEmoji)="setEmoji($event)"></app-emoji>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="filter-arrows">
 
-            <div
-            class="up arrow"
-            title="Descending order" 
-            [class.activated-sort-direction]="!sortingArrowType"
-            (click)="sortingArrowType = false; sort()"
-            >&#x25b2;</div>
 
-            <div 
-            class="down arrow"
-            title="Descending order" 
-            [class.activated-sort-direction]="sortingArrowType"
-            (click)="sortingArrowType = true; sort()"
-            >&#x25bc;</div>
+        <div class="actions">
+            <button [disabled]="!comment_txt.value" [_persistance]="submitButtonCallack" mat-raised-button
+                color="primary">{{submitButtonText}}
+            </button>
+            <button class="cancel-btn" *ngIf="isEditing" (click)="cancelCommentEditing()"mat-raised-button>Cancel</button>
+        </div>
+    </div>
+
+    <section class="comments-box" [class.overflow]="dinamicCommentsArray?.length > 0"
+        [hidden]="!dinamicCommentsArray?.length">
+        <!-- Spinner -->
+        <ng-template #elseTemplate>
+            <mat-spinner class="loading"></mat-spinner>
+        </ng-template>
+
+        <!-- Select Filter -->
+        <section class="sort-section" [hidden]="!(dinamicCommentsArray?.length > 1)">
+            <div class="sort-selector">
+                <mat-form-field class="filter">
+                    <mat-label>Sort</mat-label>
+                    <mat-select [formControl]="selectFilerValue" (ngModelChange)="sort()">
+                        <mat-option *ngFor="let option of selectOptions" [value]="option.value">
+                            {{option.title}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="filter-arrows">
+
+                <div class="up arrow" title="Descending order" [class.activated-sort-direction]="!sortingArrowType"
+                    (click)="sortingArrowType = false; sort()">&#x25b2;</div>
+
+                <div class="down arrow" title="Descending order" [class.activated-sort-direction]="sortingArrowType"
+                    (click)="sortingArrowType = true; sort()">&#x25bc;</div>
+
+            </div>
+        </section>
+
+
+        <div @list *ngFor="let singleComment of dinamicCommentsArray, index as ind, trackBy:trackByComment">
+
+            <div @items>
+                <app-single-comment *ngIf="decodedZip?.get(singleComment.sender) as decodedFields"
+                    [commentEditing]="selectedCommentEditingInd === ind" (likeComment)="toggleLikeComment($event)"
+                    (deleteComment)="deleteComment($event)" (editComment)="showEditingCommentFields($event,ind)"
+                    [singleComment]="singleComment" [decodedFields]="decodedFields" [currentUser]="currentUser"
+                    [senderUid]="singleComment.sender" [currentProductId]="productFields.currentProductRouteId">
+                </app-single-comment>
+            </div>
+
 
         </div>
     </section>
-        
-        
-    <div @list *ngFor="let singleComment of dinamicCommentsArray, index as ind, trackBy:trackByComment">
 
-        <div @items>
-                <app-single-comment  
-                *ngIf="decodedZip?.get(singleComment.sender) as decodedFields"
-                [commentEditing]="selectedCommentEditingInd === ind"
-                (likeComment)="toggleLikeComment($event)" 
-                (deleteComment)="deleteComment($event)"
-                (editComment)="showEditingCommentFields($event,ind)"
-                [singleComment]="singleComment" 
-                [decodedFields]="decodedFields"
-                [currentUser]="currentUser" 
-                [senderUid]="singleComment.sender" 
-                [currentProductId]="productFields.currentProductRouteId">
-            </app-single-comment>
-        </div>
-        
+    <div class="footer-txt">
 
+        <hr />
+        <p>
+            If you have any oppinion to share with you can leave a comment.
+            <br>
+            please be reasonable, anything you say can infer to product's overall rating.
+            <br>
+            you can explore more about post by writing the vendor by email or use direct message to contact.
+            <br />
+            To see all posts made by this vendor you are free to visit his/her profile.
+        </p>
+        <hr />
     </div>
-</section>
-
-<div class="footer-txt">
-
-<hr />
-<p>
-    If you have any oppinion to share with you can leave a comment.
-    <br>
-    please be reasonable, anything you say can infer to product's overall rating.
-    <br>
-    you can explore more about post by writing the vendor by email or use direct message to contact.
-    <br />
-    To see all posts made by this vendor you are free to visit his/her profile.
-</p>
-<hr />
-</div>
 
 
 </div>

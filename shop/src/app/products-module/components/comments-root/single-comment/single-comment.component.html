@@ -39,45 +39,32 @@
       <div class="left-side">
           <img matTooltip="Go to profile" class="photo" [src]="image" [routerLink]="[ '/','profile', senderUid ]">
           <span class="comment-text">{{singleComment.content}}</span>
-
       </div>
-
-
       <div class="right-side">
         {{singleComment.date.seconds * 1000 | date : 'hh,mm' }}
       </div>
-
     </div>
-      
-    
-    <div class="bottom-panel">
 
+    <!-- Bottomm Panel -->
+    <div class="bottom-panel">
       <div class="date" title="Post Time">
         {{singleComment.date.seconds * 1000 | date :'MMM dd, y' }}
       </div>
-
       <div class="like-box">
         <div class="likes-count">
           {{singleComment.likes.length}}
         </div>
   
+        <!--  Like Comment -->
         <div class="like-icon">
-          <img 
+          <mat-icon [class.un-liked]="!(currentUser && singleComment.likes.includes(currentUser.uid))" 
           title="Like Comment" 
-          [_persistance]="likeSelectedComment" 
-          [src]=
-          "currentUser && singleComment.likes.includes(currentUser.uid) ? 
-          'assets/comments/liked.png' : 
-          'assets/comments/unliked.png'"
-          >
+          [_persistance]="likeSelectedComment">thumb_up_alt</mat-icon>
         </div>
+        
       </div>
-      
-
     </div>
-
   </div>
-
 </ng-template>
 
 
