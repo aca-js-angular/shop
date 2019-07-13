@@ -120,7 +120,7 @@
     </div>
 
     <!-- Input @VievChild-->
-    <div class="bottom-bar">
+    <div [ngClass]="{'bottom-bar': true, 'none': !(curentChatMember && decodeDataCurrentChatMembers)}" >
 
       <div class="chat">
             <input
@@ -134,7 +134,6 @@
             />
             <mat-icon
             class="send-message-btn"
-            [class.inactive]="!messageInput.value.length"
             matTooltip="Send Message" 
             (click)="sendMessage()"
             >send</mat-icon>

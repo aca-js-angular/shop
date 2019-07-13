@@ -138,12 +138,6 @@ $dark: #777777;
           color: rgb(125, 170, 211);
         }
       }
-
-      
-
-      
-
-    
     }
     .right-side{
 
@@ -203,28 +197,31 @@ $dark: #777777;
     position: relative;
 
     input{
-      width: 100%;
-      padding: 10px 5px;
-      padding-right: 40px;
+      width: 97%;
+      padding: 10px 40px 10px 10px;
       transition: 0.2s;
       outline: none;
       color: $theme-dark;
       font-size: 12px;
+
+      border-radius: 15px 4px 22px;
+      border: 1px solid darkgray;
+      margin: 6px 4px
     }
 
     .send-message-btn { 
       height: unset;
       width: unset;
-      transition: 0.3s;
+      transition: 0.18s;
       cursor: pointer;
       color: $theme-dark;
-      font-size: 20px;
+      font-size: 23px;
       position: absolute;
       top: 50%;
-      right: 20px;
+      right: 18px;
       transform: translateY(-50%);
       &:hover{
-        transform: translateY(-50%) scale(1.4);
+        transform: translateY(-50%) scale(1.2);
         right: 15px;
         color: $theme-light;
       }
@@ -234,7 +231,9 @@ $dark: #777777;
   
   
 }
-
+.none {
+  display: none;
+}
 button.mat-menu-item {
   outline: none;
 }
